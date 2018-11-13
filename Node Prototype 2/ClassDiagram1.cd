@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RPG.Nodes.Branch" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABBAAAEAAAAAQCAAAAAAAAAAAAAAAAAAAAAQIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dialogue\Branching\Branch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.BranchCondition" Collapsed="true">
+    <Position X="18.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAKAQAAAACAAEgAAAAAAgAAAAAAAACAAACA=</HashCode>
+      <FileName>Assets\Scripts\Dialogue\Branching\BranchCondition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.BranchNode" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IMACAABAAAAQAAAAAAAEAAACAAAAAIAgAAABAAAAgAg=</HashCode>
+      <FileName>Assets\Scripts\Dialogue\Nodes\BranchNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RPG.Nodes.ConditionNode" Collapsed="true">
+    <Position X="11.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEAAASAAAIKQQAAAADAFEgAAAgIAgIAAAAAAACAAACA=</HashCode>
+      <FileName>Assets\Scripts\Dialogue\Nodes\ConditionNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RPG.Nodes.DialogueNode" Collapsed="true">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAASAAAAABEAAAAgAAgAAIAIAAAASAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dialogue\Nodes\DialogueNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RPG.Nodes.EndNode" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dialogue\Nodes\EndNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RPG.Nodes.StartNode" Collapsed="true">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Dialogue\Nodes\StartNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RPG.Nodes.Connection" Collapsed="true">
+    <Position X="20.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAACAAgAAAAAAAAAAAAAAAAAAAAAAAAAQAAAQ=</HashCode>
+      <FileName>Assets\Scripts\Node System\Communication\Connection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.InputPort" Collapsed="true">
+    <Position X="34.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAEAAAAAAIAAAAAAAAAAAACACBABBAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Communication\InputPort.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.OutputPort" Collapsed="true">
+    <Position X="36.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAoAAAAAAAAAAIAAACAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Communication\OutputPort.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Port" Collapsed="true">
+    <Position X="35.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAIAAAAAAAAAAAAAACAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Communication\Port.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Flow" Collapsed="true">
+    <Position X="47" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAgAAAAEAAEAAQAAAAAAAAAAAAAAEAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Flow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Node" Collapsed="true">
+    <Position X="11.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAAAAAAAAAACAABBIEABAAAAAQAAgAAIAAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.NodeGraph" Collapsed="true">
+    <Position X="23" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADABAAAAAAAAEAEAAAggAAEgAFAAAAAAAAAABIAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\NodeGraph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Base.DataObject" Collapsed="true">
+    <Position X="23" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\DataObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Base.IdentifiableObject" Collapsed="true">
+    <Position X="43.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\IdentifiableObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Base.BaseValue" Collapsed="true">
+    <Position X="39.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IRAAAAAAAAAAABAAAAAAAAAAAgAAgAAgAgAAAAAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Variables\BaseValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Base.Value" Collapsed="true">
+    <Position X="38.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Variables\BaseValue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Base.Blackboard" Collapsed="true">
+    <Position X="25.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAmAAAAAAAAAABAAAAAAAgAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Variables\Blackboard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Base.Condition" Collapsed="true">
+    <Position X="32" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BCBAAABAABFCAAAAACAAQgAAhAAAAAEQAEQAABAAAIA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Variables\Condition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Base.Variable" Collapsed="true">
+    <Position X="41" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAKAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Variables\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Base.VariableRepository" Collapsed="true">
+    <Position X="45.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAIgAAAAAAAAAEAAACAAAgAEQAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Variables\VariableRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Nodes.Base.ConnectionModifier" Collapsed="true">
+    <Position X="27.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Communication\ConnectionModifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wolfram.RPG.Events.Event" Collapsed="true">
+    <Position X="29.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Event\Event.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wolfram.RPG.Events.EventBus" Collapsed="true">
+    <Position X="43.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECEAQAIAAAAABQAAEAAAAAAgAAAMAAAQAAAAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Event\EventBus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wolfram.RPG.Events.EventQueue" Collapsed="true">
+    <Position X="45.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECEAQAIAAAAABQAAEAAAAAAgAAAMAAAQAAAAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Event\EventQueue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RPG.Nodes.IPort" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Node.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RPG.Nodes.ISinglePort" Collapsed="true">
+    <Position X="3.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Node.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RPG.Nodes.IInput" Collapsed="true">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Node.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RPG.Nodes.IOutput" Collapsed="true">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Node.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RPG.Nodes.ISingleOutput" Collapsed="true">
+    <Position X="3.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Node.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RPG.Nodes.ISpecialOutput" Collapsed="true">
+    <Position X="9.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAABAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Node.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="RPG.Nodes.Base.VariableType" Collapsed="true">
+    <Position X="47" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAQAAAAAAAAAAAAAAAAAAAAAEgAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Variables\BaseValue.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RPG.Nodes.Base.ComparisonType" Collapsed="true">
+    <Position X="43.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAACAAYAAgAAAAAAAAAAAAAAAAQEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Variables\Condition.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RPG.Nodes.Base.VariableLocation" Collapsed="true">
+    <Position X="45.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAABAAAAAAAAAAAEBAAA=</HashCode>
+      <FileName>Assets\Scripts\Node System\Base\Variables\Variable.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

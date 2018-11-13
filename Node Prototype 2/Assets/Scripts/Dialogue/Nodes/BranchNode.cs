@@ -1,0 +1,88 @@
+﻿using System.Collections.Generic;
+
+namespace RPG.Nodes
+{
+    public sealed class BranchNode : Node, IInput, IMultipleOutput
+    {
+        private Branch _pickedBranch = null;
+        private List<Branch> _branches = new List<Branch>();
+
+        private InputPort _inputPort = null;
+        public InputPort InputPort
+        {
+            get { return _inputPort; }
+            set { _inputPort = value; }
+        }
+
+        #region List Wrapping Interface
+
+        #region Standard Index Stuff
+        public int BranchCount
+        {
+            get { return _branches.Count; }
+        }
+
+        public Branch GetBranch(int index)
+        {
+            return _branches[index];
+        }
+
+        public void RemoveBranch(int index)
+        {
+            _branches.RemoveAt(index);
+        }
+        #endregion
+
+        public void RemoveBranch(Branch branch)
+        {
+            _branches.Remove(branch);
+        }
+        #endregion
+
+        public Branch CreateBranch()
+        {
+            Branch branch = new Branch(this);
+
+            _branches.Add(branch);
+
+            return branch;
+        }
+
+        public List<Branch> GetAllBranches()
+        {
+            return new List<Branch>(_branches);
+        }
+
+        public List<Branch> GetAvailableBranches()
+        {
+            return _branches.FindAll(branch => branch.IsAvailable);
+        }
+
+        public void PickBranch(Branch branch)
+        {
+            _pickedBranch = branch;
+        }
+
+        public void PickBranch(int index)
+        {
+            PickBranch(GetBranch(index));
+        }
+
+        public List<OutputPort> GetOutputs()
+        {
+            List<OutputPort> outputs = new List<OutputPort>();
+            _branches.ForEach(branch => outputs.Add(branch.OutputPort));
+            return outputs;
+        }
+
+        public new Node NextNode()
+        {
+            return _pickedBranch != null ? _pickedBranch.DialogueNode : null;
+        }
+
+        public void AssignNodesToOutputPorts(Node node)
+        {
+            _branches.ForEach(branch => branch.OutputPort.Node = this);
+        }
+    }
+}
