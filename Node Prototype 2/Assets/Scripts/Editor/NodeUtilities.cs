@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace RPG.Nodes
 {
-    public partial class NodeUtilities
+    public static class NodeUtilities
     {
         public static Texture2D GenerateGridTexture(Color line, Color background, int gridSize = NodePreferences.GRID_SIZE)
         {

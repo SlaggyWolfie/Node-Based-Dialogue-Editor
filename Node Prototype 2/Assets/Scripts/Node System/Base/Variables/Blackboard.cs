@@ -1,6 +1,6 @@
 ﻿namespace RPG.Nodes.Base
 {
-    public class Blackboard : DataObject
+    public class Blackboard : ScriptableObjectWithID
     {
         private NodeGraph _currentNodeGraph = null;
 

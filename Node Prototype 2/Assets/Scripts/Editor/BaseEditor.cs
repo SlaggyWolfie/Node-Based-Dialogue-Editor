@@ -9,9 +9,9 @@ using UnityEngine;
 
 namespace RPG.Nodes
 {
-    public abstract class BaseEditor<TEditor, TTarget, TAttribute> : DataObject
+    public abstract class BaseEditor<TEditor, TTarget, TAttribute> : ScriptableObjectWithID
         where TEditor : BaseEditor<TEditor, TTarget, TAttribute>
-        where TTarget : DataObject
+        where TTarget : ScriptableObjectWithID
         where TAttribute : IEditorAttribute
     {
         private static Dictionary<TTarget, TEditor> _editors = new Dictionary<TTarget, TEditor>();

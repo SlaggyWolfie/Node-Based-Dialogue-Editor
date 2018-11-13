@@ -12,7 +12,7 @@ namespace RPG.Nodes.Base
         LesserThanOrEqual
     };
 
-    public class Condition : DataObject
+    public class Condition : ScriptableObjectWithID
     {
         private VariableType _variableType = VariableType.None;
         private ComparisonType _comparison = ComparisonType.None;

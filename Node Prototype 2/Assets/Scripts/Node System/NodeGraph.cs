@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RPG.Nodes
 {
-    public class NodeGraph : DataObject
+    public class NodeGraph : ScriptableObjectWithID
     {
         private Flow _flow = null;
         public Flow Flow
@@ -19,8 +19,7 @@ namespace RPG.Nodes
         {
             get
             {
-                return _localVariableRepository ??
-                       (_localVariableRepository = new VariableRepository());
+                return _localVariableRepository ?? (_localVariableRepository = new VariableRepository());
             }
         }
 

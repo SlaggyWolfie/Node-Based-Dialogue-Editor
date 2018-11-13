@@ -6,8 +6,15 @@ using UnityEngine;
 
 namespace RPG.Nodes
 {
-    public abstract class Node : DataObject
+    public abstract class Node : ScriptableObjectWithID
     {
+        private Vector2 _position = Vector2.zero;
+        public Vector2 Position
+        {
+            get { return _position; }
+            set { _position = value; }
+        }
+        
         private NodeGraph _graph = null;
         public NodeGraph Graph
         {
@@ -40,39 +47,8 @@ namespace RPG.Nodes
             IMultipleOutput mOutputNode = this as IMultipleOutput;
             if (mOutputNode != null) ports.AddRange((IEnumerable<Port>)mOutputNode.GetOutputs());
 
-            //IMultipleOutput mOutputNode = this as IMultipleOutput;
-            //if (mOutputNode != null)
-            //{
-            //    for (int i = 0; i < mOutputNode.OutputCount; i++)
-            //        ports.Add(mOutputNode.GetOutput(i));
-            //}
-
-            //PortAction<IInput>(n => ports.Add(n.InputPort));
-            //PortAction<ISingleOutput>(n => ports.Add(n.OutputPort));
-            //PortAction<ISpecialOutput>(n => ports.AddRange((IEnumerable<Port>)n.GetOutputs()));
-            //PortAction<IMultipleOutput>(n => 
-            //{
-            //    for (int i = 0; i < n.OutputCount; i++)
-            //        ports.Add(n.GetOutput(i));
-            //});
-
             return ports;
         }
-
-        //private static void PortAction<TPort>(Node node, Action<TPort> action)
-        //    where TPort : IPort
-        //{
-        //    if (node is TPort) { }
-        //    TPort portNode = (TPort)node;
-        //    TPort portNode2 = node as TPort;
-        //    if (portNode != null) action.Invoke(portNode);
-        //}
-
-        //private void PortAction<TPort>(Action<TPort> action)
-        //    where TPort : IPort
-        //{
-        //    PortAction(this, action);
-        //}
 
         public void ClearConnections()
         { 
@@ -84,15 +60,6 @@ namespace RPG.Nodes
 
             IMultipleOutput mOutputNode = this as IMultipleOutput;
             if (mOutputNode != null) mOutputNode.ClearConnections();
-
-            //IMultipleOutput mOutputNode = this as IMultipleOutput;
-            //if (mOutputNode != null)
-            //{
-            //    for (int i = mOutputNode.OutputCount - 1; i >= 0; i--)
-            //        Destroy(mOutputNode.GetOutput(i));
-
-            //    mOutputNode.ClearOutput();
-            //}
         }
 
         public Node NextNode()
@@ -106,7 +73,7 @@ namespace RPG.Nodes
             return null;
         }
 
-        private Node CheckNextNodePort(OutputPort output)
+        protected static Node CheckNextNodePort(OutputPort output)
         {
             if (output != null &&
                 output.Connection != null &&
@@ -148,15 +115,4 @@ namespace RPG.Nodes
         Node NextNode();
         void AssignNodesToOutputPorts(Node node);
     }
-
-    //public interface IMultipleOutput : IOutput
-    //{
-    //    void AddOutput(OutputPort output);
-    //    bool RemoveOutput(OutputPort output);
-    //    bool RemoveOutput(int index);
-    //    void InsertOutput(int atIndex, OutputPort output);
-    //    void ClearOutput();
-    //    int OutputCount { get; }
-    //    OutputPort GetOutput(int index);
-    //}
 }

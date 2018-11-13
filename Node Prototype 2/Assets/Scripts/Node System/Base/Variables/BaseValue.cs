@@ -10,7 +10,7 @@ namespace RPG.Nodes.Base
         String
     };
 
-    public abstract class BaseValue : DataObject
+    public abstract class BaseValue : ScriptableObjectWithID
     {
         private Type _variableTypeReal = null;
         private VariableType _variableTypeEnum = VariableType.None;

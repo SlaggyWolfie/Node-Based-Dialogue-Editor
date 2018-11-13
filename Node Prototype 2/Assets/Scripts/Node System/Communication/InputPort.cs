@@ -6,50 +6,37 @@ namespace RPG.Nodes
     public class InputPort : Port
     {
         private List<Connection> _connections = new List<Connection>();
-
-        #region Connection Interface
-
-        #region Standard Index Stuff
         public int ConnectionsCount
         {
             get { return _connections.Count; }
         }
-
         public Connection GetConnection(int index)
         {
+            //if (index < 0 || index >= ConnectionsCount) return null;
             return _connections[index];
         }
-
         public void RemoveConnection(int index)
         {
-            _connections.RemoveAt(index);
+            if (index < 0 || index >= ConnectionsCount) return;
+            RemoveConnection(_connections[index]);
         }
-        #endregion
+        public void RemoveConnection(Connection connection)
+        {
+            if (UnityEngine.Application.isPlaying) Destroy(connection);
+            _connections.Remove(connection);
+        }
+        public void AddConnection(Connection connection)
+        {
+            connection.End = this;
+            _connections.Add(connection);
+        }
 
         public Connection CreateConnection()
         {
             Connection inputConnection = new Connection();
             AddConnection(inputConnection);
-
             return inputConnection;
         }
-
-        public void AddConnection(Connection inputConnection)
-        {
-            inputConnection.End = this;
-            //Node.onNodeStart += ;
-
-            _connections.Add(inputConnection);
-        }
-
-        public void RemoveConnection(Connection inputConnection)
-        {
-            //Destroy(inputConnection);
-            inputConnection.End = null;
-
-            _connections.Remove(inputConnection);
-        }
-        #endregion
 
         public bool CanConnect(OutputPort output)
         {
@@ -71,6 +58,15 @@ namespace RPG.Nodes
         public override void Connect(Port port)
         {
             if (CanConnect(port)) ((OutputPort)port).Connection.End = this;
+        }
+
+        public override void ClearConnections()
+        {
+            if (UnityEngine.Application.isPlaying)
+                for (int i = 0; i >= 0; i--)
+                    Destroy(_connections[i]);
+
+            _connections.Clear();
         }
 
         //public override void Reconnect(List<Node> oldNodes, List<Node> newNodes)

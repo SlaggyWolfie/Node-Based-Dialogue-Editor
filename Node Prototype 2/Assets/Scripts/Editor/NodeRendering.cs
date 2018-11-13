@@ -105,7 +105,7 @@ namespace RPG.Nodes
         }
     }
 
-    public static class ExtendThis
+    public static class ExtensionClass
     {
         public static Vector3 ToVector3(this Vector2 vector2)
         {

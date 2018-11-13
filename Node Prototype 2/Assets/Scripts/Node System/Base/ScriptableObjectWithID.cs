@@ -1,7 +1,7 @@
 ﻿namespace RPG.Nodes.Base
 {
     [System.Serializable]
-    public class DataObject : UnityEngine.ScriptableObject
+    public class ScriptableObjectWithID : UnityEngine.ScriptableObject
     {
         protected int _id = -1;
 

@@ -2,7 +2,7 @@
 
 namespace RPG.Nodes.Base
 {
-    public abstract class ConnectionModifier : DataObject
+    public abstract class ConnectionModifier : ScriptableObjectWithID
     {
         private Connection _connection = null;
 

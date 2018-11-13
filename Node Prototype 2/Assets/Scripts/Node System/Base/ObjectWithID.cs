@@ -1,6 +1,6 @@
 ﻿namespace RPG.Nodes.Base
 {
-    public class IdentifiableObject
+    public class ObjectWithID
     {
         protected int _id = -1;
 

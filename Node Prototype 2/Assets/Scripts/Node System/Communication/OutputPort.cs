@@ -2,33 +2,40 @@
 
 namespace RPG.Nodes
 {
-    public class OutputPort : Port
+    public sealed class OutputPort : Port
     {
-        public Action onNodeExit;
-
         private Connection _connection = null;
         public Connection Connection
         {
             get
             {
-                if (_connection != null) return _connection;
+                if (_connection == null) return null;
 
-                _connection = new Connection {Start = this};
-                onNodeExit += _connection.Traverse;
+                _connection.Start = this;
+                SetupTraversal();
                 return _connection;
             }
             set
             {
-                if (onNodeExit != null) onNodeExit -= _connection.Traverse;
+                if (_connection == value) return;
+
+                _traversalSetup = false;
                 _connection = value;
                 _connection.Start = this;
-                onNodeExit += _connection.Traverse;
+                SetupTraversal();
             }
         }
 
-        public void Exit()
+        private bool _traversalSetup = false;
+        private void SetupTraversal()
         {
-            if (onNodeExit != null) onNodeExit();
+            if (_traversalSetup) return;
+            if (Node == null) return;
+
+            if (Node.onExit != null) Node.onExit -= _connection.Traverse;
+            Node.onExit += _connection.Traverse;
+
+            _traversalSetup = true;
         }
 
         public bool CanConnect(InputPort input)
@@ -51,6 +58,12 @@ namespace RPG.Nodes
         public override void Connect(Port port)
         {
             if (CanConnect(port)) ((InputPort)port).Connect(this);
+        }
+
+        public override void ClearConnections()
+        {
+            if (UnityEngine.Application.isPlaying) Destroy(_connection);
+            _connection = null;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Wolfram.RPG.Events
 {
-    public class Event : DataObject
+    public class Event : ScriptableObjectWithID
     {
         private string _name = null;
 

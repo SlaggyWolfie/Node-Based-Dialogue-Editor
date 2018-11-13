@@ -7,23 +7,20 @@ using UnityEngine;
 
 namespace RPG.Nodes
 {
-    public class NodeReflection
+    public static class NodeReflection
     {
         public static bool IsOfType(Type derivedType, Type baseType)
         {
             return derivedType.IsSubclassOf(baseType) || derivedType.IsAssignableFrom(baseType);
         }
-
         public static bool IsOfType(object obj, Type baseType)
         {
             return IsOfType(obj.GetType(), baseType);
         }
-
         public static bool IsOfType<TDerived, TBase>()
         {
             return IsOfType(typeof(TDerived), typeof(TBase));
         }
-
         public static bool IsOfType<TBase>(object obj)
         {
             return obj is TBase;
@@ -33,7 +30,6 @@ namespace RPG.Nodes
         {
             return GetDerivedTypes(typeof(T));
         }
-
         public static Type[] GetDerivedTypes(Type baseType)
         {
             List<Type> types = new List<Type>();

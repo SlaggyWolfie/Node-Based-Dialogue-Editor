@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RPG.Nodes
 {
-    public class Connection : DataObject
+    public class Connection : ScriptableObjectWithID
     {
         public List<ConnectionModifier> modifiers = new List<ConnectionModifier>();
 

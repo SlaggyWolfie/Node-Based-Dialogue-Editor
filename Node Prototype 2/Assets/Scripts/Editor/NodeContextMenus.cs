@@ -88,11 +88,11 @@ namespace RPG.Nodes
         {
             KeyValuePair<ContextMenu, System.Reflection.MethodInfo>[] items = NodeReflection.GetAttributeMethods<ContextMenu>(obj);
             
-#if UNITY_5_5_OR_NEWER
+//#if UNITY_5_5_OR_NEWER
             var list = items.ToList();
             list.Sort((x, y) => x.Key.priority.CompareTo(y.Key.priority));
             items = list.ToArray();
-#endif
+//#endif
 
             if (items.Length == 0) return;
 

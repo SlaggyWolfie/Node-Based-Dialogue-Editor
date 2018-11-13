@@ -3,7 +3,7 @@ using RPG.Nodes.Base;
 
 namespace RPG.Nodes
 {
-    public class BranchCondition : DataObject
+    public class BranchCondition : ScriptableObjectWithID
     {
         private List<Condition> _conditions = new List<Condition>();
         private bool _isAnd = true;

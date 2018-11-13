@@ -2,7 +2,7 @@
 
 namespace RPG.Nodes
 {
-    public sealed class Branch : DataObject
+    public sealed class Branch : ScriptableObjectWithID
     {
         private OutputPort _outputPort = null;
         private BranchCondition _branchCondition = null;
