@@ -11,6 +11,9 @@ namespace RPG.Nodes
     {
         public static Action<Node> onUpdateNode;
 
+        private enum RenamingState { Idle, StandBy, Renaming }
+        private RenamingState _renaming = RenamingState.Idle;
+
         private Rect _rectangle;
         public Rect Rectangle
         {
@@ -23,13 +26,30 @@ namespace RPG.Nodes
         public virtual void OnHeaderGUI()
         {
             string title = Target.name;
-            //throw new NotImplementedException();
-            GUILayout.Label(title, GUILayout.Height(30));
+            if (_renaming != RenamingState.Idle && Selection.Contains(Target)) RenamingGUI();
+            else GUILayout.Label(title, GUILayout.Height(NodePreferences.HEADER_HEIGHT));
         }
 
         public virtual void OnBodyGUI()
         {
             DrawDefaultNodeEditorBody();
+        }
+
+        protected void RenamingGUI()
+        {
+            int controlID = EditorGUIUtility.GetControlID(FocusType.Keyboard) + 1;
+            if (_renaming == RenamingState.StandBy)
+            {
+                EditorGUIUtility.keyboardControl = controlID;
+                EditorGUIUtility.editingTextField = true;
+                _renaming = RenamingState.Renaming;
+            }
+
+            Target.name = EditorGUILayout.TextField(Target.name, GUILayout.Height(NodePreferences.HEADER_HEIGHT));
+
+            if (EditorGUIUtility.editingTextField) return;
+            Rename(Target.name);
+            _renaming = RenamingState.Idle;
         }
 
         protected void DrawDefaultNodeEditorBody()
@@ -45,7 +65,25 @@ namespace RPG.Nodes
             SerializedObject.ApplyModifiedProperties();
         }
 
+        public void Rename(string newName)
+        {
+            Target.name = newName;
+            AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(Target));
+        }
+
+        public void InitiateRename()
+        {
+            _renaming = RenamingState.StandBy;
+        }
+
         public abstract Rect GetPortRect(Port port);
+
+        public static void _UpdateNode(Node node)
+        {
+            GetEditor(node).OnValidate();
+            if (onUpdateNode != null) onUpdateNode(node);
+            node.onUpdate();
+        }
     }
 
     [AttributeUsage(AttributeTargets.Class)]

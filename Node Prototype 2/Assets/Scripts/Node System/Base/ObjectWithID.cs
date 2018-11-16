@@ -1,5 +1,6 @@
 ﻿namespace RPG.Nodes.Base
 {
+    [System.Serializable]
     public class ObjectWithID
     {
         protected int _id = -1;

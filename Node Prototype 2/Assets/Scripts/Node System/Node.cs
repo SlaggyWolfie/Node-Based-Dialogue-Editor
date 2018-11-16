@@ -59,7 +59,7 @@ namespace RPG.Nodes
             if (sOutputNode != null) sOutputNode.OutputPort.ClearConnections();
 
             IMultipleOutput mOutputNode = this as IMultipleOutput;
-            if (mOutputNode != null) mOutputNode.ClearConnections();
+            if (mOutputNode != null) mOutputNode.ClearMultipleConnections();
         }
 
         public Node NextNode()
@@ -102,6 +102,18 @@ namespace RPG.Nodes
         public virtual void Update() { }
         public virtual void OnEnter() { }
         public virtual void OnExit() { }
+
+        public void OffsetPorts(Vector2 offset)
+        {
+            IInput inputNode = this as IInput;
+            if (inputNode != null) inputNode.InputPort.Position += offset;
+
+            ISingleOutput sOutputNode = this as ISingleOutput;
+            if (sOutputNode != null) sOutputNode.OutputPort.Position += offset;
+
+            IMultipleOutput mOutputNode = this as IMultipleOutput;
+            if (mOutputNode != null) mOutputNode.OffsetMultiplePorts(offset);
+        }
     }
 
     public interface IPort { }
@@ -110,9 +122,10 @@ namespace RPG.Nodes
     public interface ISingleOutput : IOutput { OutputPort OutputPort { get; set; } }
     public interface IMultipleOutput : IOutput
     {
-        void ClearConnections();
+        void ClearMultipleConnections();
         List<OutputPort> GetOutputs();
         Node NextNode();
         void AssignNodesToOutputPorts(Node node);
+        void OffsetMultiplePorts(Vector2 offset);
     }
 }

@@ -7,6 +7,7 @@ namespace RPG.Nodes
 {
     public class NodeGraph : ScriptableObjectWithID
     {
+        [SerializeField]
         private Flow _flow = null;
         public Flow Flow
         {
@@ -14,16 +15,15 @@ namespace RPG.Nodes
             set { _flow = value; }
         }
 
+        [SerializeField]
         private VariableRepository _localVariableRepository = null;
-        public VariableRepository LocalVariableRepository
-        {
-            get
-            {
-                return _localVariableRepository ?? (_localVariableRepository = new VariableRepository());
-            }
-        }
+        public VariableRepository LocalVariableRepository { get { return _localVariableRepository ?? (_localVariableRepository = new VariableRepository()); } }
 
+        [SerializeField]
         private List<Node> _nodes = new List<Node>();
+
+        [SerializeField]
+        private List<Connection> _connections = new List<Connection>();
 
         public T AddNode<T>() where T : Node
         {
@@ -32,9 +32,13 @@ namespace RPG.Nodes
         public virtual Node AddNode(Type type)
         {
             Node node = (Node)CreateInstance(type);
+            AddNode(node);
+            return node;
+        }
+        public virtual void AddNode(Node node)
+        {
             _nodes.Add(node);
             node.Graph = this;
-            return node;
         }
 
         public T CopyNode<T>(T original) where T : Node
@@ -56,21 +60,73 @@ namespace RPG.Nodes
             _nodes.Remove(node);
             if (Application.isPlaying) Destroy(node);
         }
-
-        public void Clear()
+        public void RemoveNode(int index)
+        {
+            RemoveNode(GetNode(index));
+        }
+        public void ClearNodes()
         {
             if (Application.isPlaying)
                 foreach (var node in _nodes)
                     Destroy(node);
             _nodes.Clear();
         }
-
         public int NodeCount { get { return _nodes.Count; } }
-
         public Node GetNode(int index)
         {
             if (index < 0 || index >= NodeCount) return null;
             return _nodes[index];
+        }
+        
+        public void SendToFront(Node node)
+        {
+            if (node == null) return;
+            _nodes.Remove(node);
+            _nodes.Add(node);
+        }
+
+        public virtual Connection AddConnection()
+        {
+            Connection connection = (Connection)CreateInstance(typeof(Connection));
+            AddConnection(connection);
+            return connection;
+        }
+        public virtual void AddConnection(Connection connection)
+        {
+            _connections.Add(connection);
+            connection.Graph = this;
+        }
+
+        public virtual Connection CopyConnection(Connection original)
+        {
+            Connection connection = ScriptableObject.Instantiate(original);
+            connection.ClearConnections();
+            AddConnection(connection);
+            return connection;
+        }
+
+        public void RemoveConnection(Connection connection)
+        {
+            connection.ClearConnections();
+            _connections.Remove(connection);
+            if (Application.isPlaying) Destroy(connection);
+        }
+        public void RemoveConnection(int index)
+        {
+            RemoveConnection(GetConnection(index));
+        }
+        public void ClearConnections()
+        {
+            if (Application.isPlaying)
+                foreach (Connection connection in _connections)
+                    Destroy(connection);
+            _connections.Clear();
+        }
+        public int ConnectionCount { get { return _connections.Count; } }
+        public Connection GetConnection(int index)
+        {
+            if (index < 0 || index >= NodeCount) return null;
+            return _connections[index];
         }
 
         public NodeGraph Copy()
@@ -104,7 +160,8 @@ namespace RPG.Nodes
 
         private void OnDestroy()
         {
-            Clear();
+            ClearConnections();
+            ClearNodes();
         }
     }
 }

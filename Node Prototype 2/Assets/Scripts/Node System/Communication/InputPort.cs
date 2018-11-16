@@ -6,6 +6,8 @@ namespace RPG.Nodes
     public class InputPort : Port
     {
         private List<Connection> _connections = new List<Connection>();
+        private bool _isConnected;
+
         public int ConnectionsCount
         {
             get { return _connections.Count; }
@@ -22,7 +24,7 @@ namespace RPG.Nodes
         }
         public void RemoveConnection(Connection connection)
         {
-            if (UnityEngine.Application.isPlaying) Destroy(connection);
+            if (UnityEngine.Application.isPlaying) UnityEngine.Object.Destroy(connection);
             _connections.Remove(connection);
         }
         public void AddConnection(Connection connection)
@@ -60,11 +62,47 @@ namespace RPG.Nodes
             if (CanConnect(port)) ((OutputPort)port).Connection.End = this;
         }
 
+        //public override void Disconnect(Port port)
+        //{
+        //    if (IsConnected) Disconnect(port as OutputPort);
+        //}
+
+        //public void Disconnect(OutputPort output)
+        //{
+        //    if (!IsConnectedTo(output)) return;
+        //    output.Connection.Start = null;
+        //}
+
+        public override bool IsConnected
+        {
+            get { return ConnectionsCount != 0; }
+        }
+
+        public override bool IsConnectedTo(Port port)
+        {
+            return IsConnectedTo(port as OutputPort);
+        }
+
+        public bool IsConnectedTo(OutputPort output)
+        {
+            if (output == null) return false;
+
+            bool result = false;
+            foreach (Connection connection in _connections)
+            {
+                if (connection.Start != output) continue;
+                result = true;
+                break;
+            }
+
+            return result;
+        }
+
         public override void ClearConnections()
         {
             if (UnityEngine.Application.isPlaying)
                 for (int i = 0; i >= 0; i--)
-                    Destroy(_connections[i]);
+                    UnityEngine.Object.Destroy(_connections[i]);
 
             _connections.Clear();
         }

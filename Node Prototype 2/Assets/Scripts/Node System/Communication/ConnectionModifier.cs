@@ -2,7 +2,7 @@
 
 namespace RPG.Nodes.Base
 {
-    public abstract class ConnectionModifier : ScriptableObjectWithID
+    public abstract class ConnectionModifier : ObjectWithID
     {
         private Connection _connection = null;
 
@@ -13,5 +13,7 @@ namespace RPG.Nodes.Base
         }
 
         public abstract void Execute();
+        public ConnectionModifier ShallowCopy() { return (ConnectionModifier)MemberwiseClone(); }
+        public abstract ConnectionModifier DeepCopy();
     }
 }

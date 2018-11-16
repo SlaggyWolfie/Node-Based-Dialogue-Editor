@@ -27,6 +27,7 @@ namespace RPG.Nodes
         }
 
         private bool _traversalSetup = false;
+
         private void SetupTraversal()
         {
             if (_traversalSetup) return;
@@ -60,10 +61,21 @@ namespace RPG.Nodes
             if (CanConnect(port)) ((InputPort)port).Connect(this);
         }
 
-        public override void ClearConnections()
-        {
-            if (UnityEngine.Application.isPlaying) Destroy(_connection);
-            _connection = null;
-        }
+        //public override void Disconnect(Port port)
+        //{
+        //    if (IsConnected) Disconnect(port as InputPort);
+        //}
+
+        //public void Disconnect(InputPort input)
+        //{
+        //    if (!IsConnectedTo(input)) return;
+        //    input.RemoveConnection(Connection);
+        //    Connection.End = null;
+        //}
+
+        public override bool IsConnected { get { return Connection != null; } }
+        public override bool IsConnectedTo(Port port) { return IsConnectedTo(port as InputPort); }
+        public bool IsConnectedTo(InputPort input) { return IsConnected && input != null && Connection.End == input; }
+        public override void ClearConnections() { Connection = null; }
     }
 }

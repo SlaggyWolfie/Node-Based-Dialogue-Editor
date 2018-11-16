@@ -8,6 +8,12 @@ namespace RPG.Nodes
         public static readonly Color GRID_LINE_COLOR = new Color(0.2f, 0.2f, 0.2f, 1);
         public static readonly Color CROSS_LINE_COLOR = new Color(0.9f, 0.9f, 0.9f);
         public static readonly Color CONNECTION_PORT_COLOR = Color.white;
+        public static readonly Color SELECTION_FACE_COLOR = new Color(0, 0, 0, 0.1f);
+        public static readonly Color SELECTION_BORDER_COLOR = new Color(1, 1, 1, 0.6f);
+
+        public const float HEADER_HEIGHT = 30;
+        public static readonly Vector2 STANDARD_NODE_SIZE = new Vector2(200, 200);
+        public static readonly Vector2 DUPLICATION_OFFSET = new Vector2(30, 30);
 
         public const float MIN_ZOOM = 1;
         public const float MAX_ZOOM = 5;
@@ -35,6 +41,7 @@ namespace RPG.Nodes
 
         private NodePreferences() { }
         private bool _shouldAutoSave = true;
+
         public bool ShouldAutoSave
         {
             get { return _shouldAutoSave; }

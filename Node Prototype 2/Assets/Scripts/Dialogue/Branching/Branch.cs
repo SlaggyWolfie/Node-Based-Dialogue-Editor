@@ -25,15 +25,7 @@ namespace RPG.Nodes
             get
             {
                 if (_outputPort == null) return false;
-
-                Connection connection = _outputPort.Connection;
-
-                if (connection == null) return false;
-
-                if (connection.modifiers.Count == 0) return true;
-                
                 if (_branchCondition != null) return _branchCondition.Evaluate();
-
                 return true;
             }
         }

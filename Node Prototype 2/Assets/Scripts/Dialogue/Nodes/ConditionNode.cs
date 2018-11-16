@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RPG.Nodes.Base;
+using UnityEngine;
 
 namespace RPG.Nodes
 {
@@ -181,12 +182,18 @@ namespace RPG.Nodes
             _elseOutputPort.Node = node;
         }
 
+        public void OffsetMultiplePorts(Vector2 offset)
+        {
+            IfOutputPort.Position += offset;
+            ElseOutputPort.Position += offset;
+        }
+
         #endregion
 
-        public new void ClearConnections()
+        public void ClearMultipleConnections()
         {
-            Destroy(IfOutputPort);
-            Destroy(ElseOutputPort);
+            //Destroy(IfOutputPort);
+            //Destroy(ElseOutputPort);
             IfOutputPort = null;
             ElseOutputPort = null;
             _evaluatedOutputPort = null;

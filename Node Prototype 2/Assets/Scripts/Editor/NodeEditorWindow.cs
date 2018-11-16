@@ -38,94 +38,6 @@ namespace RPG.Nodes
             foreach (var window in windows) window.Repaint();
         }
 
-        private NodeGraph _graph = null;
-        public NodeGraph Graph
-        {
-            get { return _graph; }
-            private set { _graph = value; }
-        }
-
-        private NodeGraphEditor _graphEditor = null;
-        public NodeGraphEditor GraphEditor
-        {
-            get { return _graphEditor; }
-            private set { _graphEditor = value; }
-        }
-        
-        private Vector2 _panOffset;
-        public Vector2 PanOffset
-        {
-            get { return _panOffset; }
-            private set
-            {
-                _panOffset = value;
-                Repaint();
-            }
-        }
-
-        private float _zoom = 1;
-        public float Zoom
-        {
-            get { return _zoom; }
-            private set
-            {
-                _zoom = Mathf.Clamp(value, NodePreferences.MIN_ZOOM, NodePreferences.MAX_ZOOM);
-                Repaint();
-            }
-        }
-
-        private bool _isPanning = false;
-        public bool IsPanning
-        {
-            get { return _isPanning; }
-            private set { _isPanning = value; }
-        }
-
-        private Event _cachedEvent = default(Event);
-        public Event CachedEvent { get { return _cachedEvent; } }
-
-        private Matrix4x4 _cachedMatrix = Matrix4x4.identity;
-        
-        private enum Activity { Idle, HoldingNode, DraggingNode, HoldingGrid, DraggingGrid }
-        private Activity _currentActivity = Activity.Idle;
-
-        private bool _leftClick = false;
-        private bool _rightClick = false;
-        private bool _middleClick = false;
-
-        private Port _draggedPort = null;
-        private Port _hoveredPort = null;
-        private Node _draggedNode = null;
-        private Node _hoveredNode = null;
-
-        private Port _draggedOutputTarget = null;
-
-        private bool _shouldRepaint = false;
-        private Rect _selectionRect = default(Rect);
-        private Vector2 _dragStart = Vector2.zero;
-
-        private bool IsDraggingPort { get { return _draggedPort != null; } }
-        private bool IsHoveringPort { get { return _hoveredPort != null; } }
-        private bool IsDraggingNode { get { return _draggedNode != null; } }
-        private bool IsHoveringNode { get { return _hoveredNode != null; } }
-
-        private Func<bool> _isDockedMethod;
-        private Func<bool> IsDockedMethod
-        {
-            get
-            {
-                if (_isDockedMethod != null) return _isDockedMethod;
-
-                const BindingFlags binding = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
-                MethodInfo isDockedMethod = typeof(NodeEditorWindow).GetProperty("docked", binding).GetGetMethod(true);
-                _isDockedMethod = (Func<bool>)Delegate.CreateDelegate(typeof(Func<bool>), this, isDockedMethod);
-                return _isDockedMethod;
-            }
-        }
-        private bool IsDocked { get { return IsDockedMethod(); } }
-
-        private Node[] SelectedNodes { get { return Selection.GetFiltered<Node>(SelectionMode.Unfiltered); } }
-
         private void OnFocus()
         {
             CurrentNodeEditorWindow = this;
@@ -152,13 +64,13 @@ namespace RPG.Nodes
             _graphEditor = NodeGraphEditor.GetEditor(_graph);
             _graphEditor.Rectangle = position;
 
-            HandleEvents(_cachedEvent);
+            HandleEvents();
 
             DrawGrid();
             DrawNodes();
             DrawConnections();
             DrawHeldConnection();
-            //DrawSelectionBox();
+            DrawSelectionBox();
             //DrawTooltip();
 
             _graphEditor.OnGUI();
@@ -177,9 +89,9 @@ namespace RPG.Nodes
             _cachedEvent = Event.current;
             _cachedMatrix = GUI.matrix;
 
-            _leftClick = _cachedEvent.button == 0;
-            _rightClick = _cachedEvent.button == 1;
-            _middleClick = _cachedEvent.button == 2;
+            _leftMouseButtonUsed = _cachedEvent.button == 0;
+            _rightMouseButtonUsed = _cachedEvent.button == 1;
+            _middleMouseButtonUsed = _cachedEvent.button == 2;
 
             //_currentActivity = Activity.Idle;
         }
@@ -191,9 +103,9 @@ namespace RPG.Nodes
             _cachedMatrix = Matrix4x4.identity;
 
             //Doesn't matter but eh
-            _leftClick = false;
-            _rightClick = false;
-            _middleClick = false;
+            _leftMouseButtonUsed = false;
+            _rightMouseButtonUsed = false;
+            _middleMouseButtonUsed = false;
         }
 
         public static NodeEditorWindow ForceWindow()

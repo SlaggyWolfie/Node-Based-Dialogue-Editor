@@ -15,7 +15,7 @@ namespace RPG.Nodes
 {
     public sealed partial class NodeEditorWindow
     {
-        private void HandleEvents(Event e)
+        private void HandleEvents()
         {
             wantsMouseMove = true;
 
@@ -24,7 +24,7 @@ namespace RPG.Nodes
                 case EventType.MouseMove: break;
                 case EventType.ScrollWheel: ScrollWheel(); break;
                 case EventType.MouseDrag: MouseDrag(); break;
-                case EventType.MouseDown: MouseDown();break;
+                case EventType.MouseDown: MouseDown(); break;
                 case EventType.MouseUp: MouseUp(); break;
                 case EventType.KeyDown:
                     if (EditorGUIUtility.editingTextField) break;
@@ -35,21 +35,20 @@ namespace RPG.Nodes
                     break;
                 case EventType.ValidateCommand:
                     if (_cachedEvent.commandName == "SoftDelete") RemoveSelectedNodes();
-                    else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX && e.commandName == "Delete") RemoveSelectedNodes();
+                    else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX && _cachedEvent.commandName == "Delete") RemoveSelectedNodes();
                     else if (_cachedEvent.commandName == "Duplicate") DuplicateSelectedNodes();
-                    _shouldRepaint = true;
+                    ShouldRepaint();
                     break;
                 case EventType.Ignore:
                     //If releasing the mouse outside the window
                     if (_cachedEvent.rawType == EventType.MouseUp && _currentActivity == Activity.DraggingGrid)
                     {
-                        _shouldRepaint = true;
+                        ShouldRepaint();
                         _currentActivity = Activity.Idle;
                     }
                     break;
             }
         }
-
 
         private void ScrollWheel()
         {
@@ -60,29 +59,26 @@ namespace RPG.Nodes
 
         private void MouseDrag()
         {
-            if (_leftClick)
+            if (_leftMouseButtonUsed)
             {
                 if (IsDraggingPort)
                 {
-                    if (IsHoveringPort && _hoveredPort is InputPort)
+                    if (IsHoveringInput)
                     {
-                        if (!_draggedPort.IsConnectedTo(_hoveredPort))
-                            _draggedOutputTarget = _hoveredPort;
+                        if (!DraggedPort.IsConnectedTo(HoveredPort))
+                            DraggedPortTarget = HoveredPort;
                     }
-                    else
-                    {
-                        _draggedOutputTarget = null;
-                    }
-                    _shouldRepaint = true;
+                    else _draggedOutputTarget = null;
+                    ShouldRepaint();
                 }
-                else if (_currentActivity == Activity.HoldingNode)
+                else if (_currentActivity == Activity.Holding)
                 {
-                    RecalculateDragOffsets(_cachedEvent);
-                    _currentActivity = Activity.DraggingNode;
-                    _shouldRepaint = true;
+                    RecalculateDragOffsets();
+                    _currentActivity = Activity.Dragging;
+                    ShouldRepaint();
                 }
 
-                if (_currentActivity == Activity.DraggingNode)
+                if (_currentActivity == Activity.Dragging)
                 {
                     //Holding CTRL inverts grid snap
                     //bool gridSnap = NodeEditorPreferences.GetSettings().gridSnap;
@@ -90,14 +86,13 @@ namespace RPG.Nodes
 
                     Vector2 mousePosition = _cachedEvent.mousePosition;
                     //Vector2 mousePosition = WindowToGridPosition(_cachedEvent.mousePosition);
-                    //Move selected nodes with offset
 
-                    Node[] selectedNodes = SelectedNodes;
-                    for (int i = 0; i < selectedNodes.Length; i++)
+                    //Move selected nodes with offset
+                    Node[] selectedNodes = GetSelectedNodes();
+                    foreach (var node in selectedNodes)
                     {
-                        Node node = selectedNodes[i];
                         Vector2 initial = node.Position;
-                        node.Position = mousePosition + dragOffset[i];
+                        node.Position = mousePosition + _dragOffset[node];
 
                         //if (gridSnap)
                         //{
@@ -108,49 +103,18 @@ namespace RPG.Nodes
                         //Offset portConnectionPoints instantly if a node is dragged so they aren't delayed by a frame.
                         Vector2 offset = node.Position - initial;
                         if (offset.sqrMagnitude <= 0) continue;
-
-                        foreach (NodePort output in node.Outputs)
-                        {
-                            Rect rect;
-                            if (portConnectionPoints.TryGetValue(output, out rect))
-                            {
-                                rect.position += offset;
-                                portConnectionPoints[output] = rect;
-                            }
-                        }
-
-                        foreach (NodePort input in node.Inputs)
-                        {
-                            Rect rect;
-                            if (portConnectionPoints.TryGetValue(input, out rect))
-                            {
-                                rect.position += offset;
-                                portConnectionPoints[input] = rect;
-                            }
-                        }
+                        node.OffsetPorts(offset);
                     }
 
-                    // Move selected reroutes with offset
-                    for (int i = 0; i < selectedReroutes.Count; i++)
-                    {
-                        Vector2 pos = mousePosition + dragOffset[Selection.objects.Length + i];
-                        if (gridSnap)
-                        {
-                            pos.x = (Mathf.Round(pos.x / 16) * 16);
-                            pos.y = (Mathf.Round(pos.y / 16) * 16);
-                        }
-                        selectedReroutes[i].SetPoint(pos);
-                    }
-                    _shouldRepaint = true;
+                    ShouldRepaint();
                 }
                 else if (_currentActivity == Activity.HoldingGrid)
                 {
                     _currentActivity = Activity.DraggingGrid;
-                    preBoxSelection = Selection.objects;
-                    preBoxSelectionReroute = selectedReroutes.ToArray();
+                    _cachedSelectedObjects = Selection.objects;
                     _dragStart = _cachedEvent.mousePosition;
-                    //_dragBoxStart = WindowToGridPosition(_cachedEvent.mousePosition);
-                    _shouldRepaint = true;
+                    //_dragStart = WindowToGridPosition(_cachedEvent.mousePosition);
+                    ShouldRepaint();
                 }
                 else if (_currentActivity == Activity.DraggingGrid)
                 {
@@ -160,10 +124,10 @@ namespace RPG.Nodes
                     if (boxSize.x < 0) { boxStartPosition.x += boxSize.x; boxSize.x = Mathf.Abs(boxSize.x); }
                     if (boxSize.y < 0) { boxStartPosition.y += boxSize.y; boxSize.y = Mathf.Abs(boxSize.y); }
                     _selectionRect = new Rect(boxStartPosition, boxSize);
-                    _shouldRepaint = true;
+                    ShouldRepaint();
                 }
             }
-            else if (_rightClick || _middleClick)
+            else if (_rightMouseButtonUsed || _middleMouseButtonUsed)
             {
                 Vector2 tempOffset = PanOffset;
                 tempOffset += _cachedEvent.delta * Zoom;
@@ -179,170 +143,112 @@ namespace RPG.Nodes
         private void MouseDown()
         {
             Repaint();
-            if (!_leftClick) return;
+            if (!_leftMouseButtonUsed) return;
 
-            draggedOutputReroutes.Clear();
+            //draggedOutputReroutes.Clear();
 
             if (IsHoveringPort)
             {
-                if (_hoveredPort is OutputPort)
-                {
-                    _draggedPort = _hoveredPort;
-                }
-                else
-                {
-                    //hoveredPort.VerifyConnections();
-                    if (_hoveredPort.IsConnected)
-                    {
-                        Node node = _hoveredPort.Node;
-                        NodePort output = hoveredPort.Connection;
-                        int outputConnectionIndex = output.GetConnectionIndex(hoveredPort);
-                        draggedOutputReroutes = output.GetReroutePoints(outputConnectionIndex);
-                        _hoveredPort.Disconnect(output);
-                        _draggedOutput = output;
-                        draggedOutputTarget = hoveredPort;
-                        if (NodeEditor.onUpdateNode != null) NodeEditor.onUpdateNode(node);
-                    }
-                }
+                DraggedPort = HoveredPort;
+                //if (IsHoveringOutput)
+                //{
+                //    //HoveredOutput.Connection.DisconnectInput();
+                //    DraggedPort = HoveredPort;
+                //}
+                //else if (IsHoveringInput)
+                //{
+                //    //hoveredPort.VerifyConnections();
+                //    if (HoveredInput.IsConnected)
+                //    {
+                //        Node node = HoveredPort.Node;
+                //        ContextMenu
+
+                //        //if (NodeEditor.onUpdateNode != null) NodeEditor._UpdateNode(node);
+                //    }
+                //    else DraggedPort = HoveredPort;
+                //}
             }
-            else if (IsHoveringNode && IsHoveringTitle(_hoveredNode))
+            else if (IsHoveringNode)
             {
                 if (!Selection.Contains(_hoveredNode))
-                {
                     SelectNode(_hoveredNode, _cachedEvent.control || _cachedEvent.shift);
-                    if (!_cachedEvent.control && !_cachedEvent.shift) selectedReroutes.Clear();
-                }
                 else if (_cachedEvent.control || _cachedEvent.shift) DeselectNode(_hoveredNode);
 
                 _cachedEvent.Use();
-                _currentActivity = Activity.HoldingNode;
+                _currentActivity = Activity.Holding;
             }
-            else if (IsHoveringReroute)
+            else
             {
-                //If reroute isn't selected
-                if (!selectedReroutes.Contains(hoveredReroute))
-                {
-                    // Add it
-                    if (_cachedEvent.control || _cachedEvent.shift) selectedReroutes.Add(hoveredReroute);
-                    // Select it
-                    else
-                    {
-                        selectedReroutes = new List<RerouteReference>() { hoveredReroute };
-                        Selection.activeObject = null;
-                    }
-
-                }
-                //Deselect
-                else if (_cachedEvent.control || _cachedEvent.shift) selectedReroutes.Remove(hoveredReroute);
-                _cachedEvent.Use();
-                _currentActivity = Activity.HoldingNode;
-            }
-            //If mousedown on grid background, deselect all
-            else if (!IsHoveringNode)
-            {
+                //If mousedown on grid background, deselect all
                 _currentActivity = Activity.HoldingGrid;
-                if (!_cachedEvent.control && !_cachedEvent.shift)
-                {
-                    selectedReroutes.Clear();
-                    Selection.activeObject = null;
-                }
+                if (_cachedEvent.control || _cachedEvent.shift) return;
+                //selectedReroutes.Clear();
+                Selection.objects = new Object[] { };
+                Selection.activeObject = null;
             }
         }
 
         private void MouseUp()
         {
-            if (_cachedEvent.button == 0)
+            if (_leftMouseButtonUsed)
             {
                 if (IsDraggingPort)
                 {
-                    //If connection is valid, save it
-                    if (draggedOutputTarget != null)
+                    //If the connection is valid, save it
+                    if (DraggedOutputTarget != null)
                     {
-                        Node node = draggedOutputTarget.node;
-                        if (graph.nodes.Count != 0) draggedOutput.Connect(draggedOutputTarget);
-
-                        // ConnectionIndex can be -1 if the connection is removed instantly after creation
-                        int connectionIndex = draggedOutput.GetConnectionIndex(draggedOutputTarget);
-                        if (connectionIndex != -1)
-                        {
-                            draggedOutput.GetReroutePoints(connectionIndex).AddRange(draggedOutputReroutes);
-                            if (NodeEditor.onUpdateNode != null) NodeEditor.onUpdateNode(node);
-                            EditorUtility.SetDirty(graph);
-                        }
+                        if (Graph.NodeCount != 0) DraggedOutput.Connect(DraggedOutputTarget);
+                        NodeEditor._UpdateNode(DraggedOutputTarget.Node);
+                        NodeEditor._UpdateNode(DraggedOutput.Node);
                     }
-                    //Release dragged connection
-                    draggedOutput = null;
-                    draggedOutputTarget = null;
-                    EditorUtility.SetDirty(graph);
+
+                    //Release the dragged connection
+                    DraggedOutput = null;
+                    DraggedOutputTarget = null;
+                    EditorUtility.SetDirty(Graph);
                     NodeUtilities.AutoSaveAssets();
                 }
-                else if (_currentActivity == Activity.DraggingNode)
+                else if (_currentActivity == Activity.Dragging)
                 {
-                    IEnumerable<Node> nodes = Selection.objects.Where(x => x is Node).Select(x => x as Node);
+                    IEnumerable<Node> nodes = Selection.objects.OfType<Node>();
                     foreach (Node node in nodes) EditorUtility.SetDirty(node);
                     NodeUtilities.AutoSaveAssets();
                 }
                 else if (!IsHoveringNode)
                 {
-                    // If click outside node, release field focus
-                    if (!isPanning)
-                    {
-                        EditorGUI.FocusTextInControl(null);
-                    }
+                    // If clicking outside the node, release the field focus
+                    if (!IsPanning) EditorGUI.FocusTextInControl(null);
                     NodeUtilities.AutoSaveAssets();
                 }
 
-                // If click node header, select it.
-                if (_currentActivity == Activity.HoldingNode && !(_cachedEvent.control || e.shift))
+                if (_currentActivity == Activity.Holding && !(_cachedEvent.control || _cachedEvent.shift))
                 {
-                    selectedReroutes.Clear();
-                    SelectNode(hoveredNode, false);
+                    SelectNode(_hoveredNode, false);
                 }
 
-                // If click reroute, select it.
-                if (IsHoveringReroute && !(_cachedEvent.control || e.shift))
-                {
-                    selectedReroutes = new List<RerouteReference>() { hoveredReroute };
-                    Selection.activeObject = null;
-                }
-
-                _shouldRepaint = true;
+                ShouldRepaint();
                 _currentActivity = Activity.Idle;
             }
-            else if (_leftClick || _rightClick)
+            else if (_rightMouseButtonUsed || _middleMouseButtonUsed)
             {
-                if (!IsPanning)
+                if (IsPanning) return;
+
+                if (!IsDraggingPort && IsHoveringPort)
                 {
-                    if (IsDraggingPort)
-                    {
-                        draggedOutputReroutes.Add(WindowToGridPosition(_cachedEvent.mousePosition));
-                    }
-                    else if (_currentActivity == Activity.DraggingNode && Selection.activeObject == null && selectedReroutes.Count == 1)
-                    {
-                        selectedReroutes[0].InsertPoint(selectedReroutes[0].GetPoint());
-                        selectedReroutes[0] = new RerouteReference(selectedReroutes[0].port, selectedReroutes[0].connectionIndex, selectedReroutes[0].pointIndex + 1);
-                    }
-                    else if (IsHoveringReroute)
-                    {
-                        NodeContextMenus.ShowRerouteContextMenu(hoveredReroute);
-                    }
-                    else if (IsHoveringPort)
-                    {
-                        NodeContextMenus.ShowPortContextMenu(hoveredPort);
-                    }
-                    else if (IsHoveringNode && IsHoveringTitle(hoveredNode))
-                    {
-                        if (!Selection.Contains(hoveredNode)) SelectNode(hoveredNode, false);
-                        NodeContextMenus.ShowNodeContextMenu();
-                    }
-                    else if (!IsHoveringNode)
-                    {
-                        NodeContextMenus.ShowGraphContextMenu();
-                    }
+                    NodeContextMenus.ShowPortContextMenu(HoveredPort);
                 }
-                IsPanning = false;
+                else if (IsHoveringNode)
+                {
+                    if (!Selection.Contains(_hoveredNode)) SelectNode(_hoveredNode, false);
+                    NodeContextMenus.ShowNodeContextMenu();
+                }
+                else
+                {
+                    NodeContextMenus.ShowGraphContextMenu();
+                }
             }
         }
+
         #region Drawing
         private void DrawHeldConnection()
         {
@@ -420,6 +326,34 @@ namespace RPG.Nodes
         {
             NodeRendering.DrawGrid(position, Zoom, PanOffset);
         }
+
+        public void DrawSelectionBox()
+        {
+            if (_currentActivity != Activity.DraggingGrid) return;
+
+            Vector2 cursorPosition = _cachedEvent.mousePosition;
+            //Vector2 cursorPosition = WindowToGridPosition(_cachedEvent.mousePosition);
+            Vector2 size = cursorPosition - _dragStart;
+            Rect rect = new Rect(_dragStart, size);
+            //rect.position = GridToWindowPosition(rect.position);
+            rect.size /= Zoom;
+            Handles.DrawSolidRectangleWithOutline(rect,
+                NodePreferences.SELECTION_FACE_COLOR, NodePreferences.SELECTION_BORDER_COLOR);
+        }
+
+        private bool ShouldBeCulled(Node node)
+        {
+            Vector2 nodePosition = node.Position;
+            //Vector2 nodePosition = GridToWindowPosition(node.Position);
+            if (nodePosition.x / Zoom > position.width) return true; // Right
+            if (nodePosition.y / Zoom > position.height) return true; // Bottom
+
+            throw new NotImplementedException();
+            if (nodePosition.x + NodePreferences.STANDARD_NODE_SIZE.x < 0) return true; // Left
+            if (nodePosition.y + NodePreferences.STANDARD_NODE_SIZE.y < 0) return true; // Top
+
+            return false;
+        }
         #endregion
 
         #region Grid Positioning
@@ -450,21 +384,6 @@ namespace RPG.Nodes
         {
             return position.size * 0.5f * Zoom + PanOffset + gridPosition;
         }
-
-        //private bool ShouldBeCulled(Node node)
-        //{
-
-        //    Vector2 nodePos = GridToWindowPosition(node.position);
-        //    if (nodePos.x / _zoom > position.width) return true; // Right
-        //    else if (nodePos.y / _zoom > position.height) return true; // Bottom
-        //    else if (nodeSizes.ContainsKey(node))
-        //    {
-        //        Vector2 size = nodeSizes[node];
-        //        if (nodePos.x + size.x < 0) return true; // Left
-        //        else if (nodePos.y + size.y < 0) return true; // Top
-        //    }
-        //    return false;
-        //}
         #endregion
 
         #region Node Manipulation
@@ -495,7 +414,7 @@ namespace RPG.Nodes
             if (NodeReflection.IsOfType(type, typeof(Node))) return;
 
             Node node = _graph.AddNode(type);
-            //node.position = position;
+            node.Position = position;
             node.name = ObjectNames.NicifyVariableName(type.Name);
 
             AssetDatabase.AddObjectToAsset(node, _graph);
@@ -505,14 +424,84 @@ namespace RPG.Nodes
 
         public void RemoveSelectedNodes()
         {
+            foreach (Node node in GetSelectedNodes())
+                GraphEditor.RemoveNode(node);
         }
 
         public void SendToFront(Node node)
         {
+            Graph.SendToFront(node);
         }
 
         public void DuplicateSelectedNodes()
         {
+            //TODO: add the option to Duplicate Connections if they have also been selected
+            Node[] oldSelectedNodes = GetSelectedNodes();
+            Object[] newNodes = new Object[oldSelectedNodes.Length];
+
+            Dictionary<Node, Node> substitutes = new Dictionary<Node, Node>();
+            for (int i = 0; i < oldSelectedNodes.Length; i++)
+            {
+                Node oldNode = oldSelectedNodes[i];
+                if (oldNode.Graph != Graph) continue;
+                Node newNode = GraphEditor.CopyNode(oldNode);
+                substitutes[oldNode] = newNode;
+                newNode.Position = oldNode.Position + NodePreferences.DUPLICATION_OFFSET;
+                newNode.ClearConnections();
+                newNodes[i] = newNode;
+            }
+
+            // Walk through the selected nodes again, recreate connections, using the new nodes
+            foreach (var oldNode in oldSelectedNodes)
+            {
+                if (oldNode.Graph != Graph) continue;
+            }
+
+            Selection.objects = newNodes;
+        }
+
+        private void RenameSelectedNode()
+        {
+            if (Selection.objects.Length != 1 || !(Selection.activeObject is Node)) return;
+            Node node = (Node)Selection.activeObject;
+            NodeEditor.GetEditor(node).InitiateRename();
+        }
+        #endregion
+
+        #region Other
+        private bool IsHoveringTitle(Node node)
+        {
+            Vector2 mousePosition = _cachedEvent.mousePosition;
+            //Get node position
+            Vector2 nodePosition = node.Position;
+            //Vector2 nodePosition = GridToWindowPosition(node.Position);
+            Vector2 size = NodePreferences.STANDARD_NODE_SIZE;
+            //if (nodeSizes.TryGetValue(node, out size)) width = size.x;
+            //else width = 200;
+            Rect windowRect = new Rect(nodePosition, new Vector2(size.x / Zoom, NodePreferences.HEADER_HEIGHT / Zoom));
+            return windowRect.Contains(mousePosition);
+        }
+
+        private void RecalculateDragOffsets()
+        {
+            Node[] nodes = GetSelectedNodes();
+            _dragOffset = new Dictionary<Node, Vector2>();
+            foreach (var node in nodes)
+            {
+                _dragOffset[node] = node.Position - _cachedEvent.mousePosition;
+                //_dragOffset[node] = node.position - WindowToGridPosition(_cachedEvent.mousePosition);
+            }
+        }
+
+        private void Home()
+        {
+            Zoom = 2;
+            PanOffset = Vector2.zero;
+        }
+
+        private void ShouldRepaint(bool should = true)
+        {
+            _shouldRepaint = should;
         }
         #endregion
     }
