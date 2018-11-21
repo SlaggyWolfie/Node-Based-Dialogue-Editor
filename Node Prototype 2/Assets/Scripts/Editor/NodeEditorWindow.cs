@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Xml.Linq;
-using JetBrains.Annotations;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
-using RPG.Nodes;
 
-namespace RPG.Nodes
+namespace RPG.Nodes.Editor
 {
     public sealed partial class NodeEditorWindow : EditorWindow
     {
+        private NodeEditorWindow()
+        {
+            IsPanning = false;
+        }
+
         private static NodeEditorWindow _currentNodeEditorWindow = null;
         public static NodeEditorWindow CurrentNodeEditorWindow
         {
@@ -26,7 +24,7 @@ namespace RPG.Nodes
             NodeGraph nodeGraph = EditorUtility.InstanceIDToObject(instanceID) as NodeGraph;
             if (nodeGraph == null) return false;
 
-            NodeEditorWindow window = (NodeEditorWindow)GetWindow(typeof(NodeEditorWindow), false, "Node Editor", true);
+            NodeEditorWindow window = (NodeEditorWindow)GetWindow(typeof(NodeEditorWindow), false, "RPG Node Editor", true);
             window.wantsMouseMove = true;
             window.Graph = nodeGraph;
             return true;
@@ -57,12 +55,12 @@ namespace RPG.Nodes
 
         private void OnGUI()
         {
-            PreCache();
-
             if (_graph == null) return;
+
+            PreCache();
             //throw new NotImplementedException();
-            _graphEditor = NodeGraphEditor.GetEditor(_graph);
-            _graphEditor.Rectangle = position;
+            GraphEditor = NodeGraphEditor.GetEditor(_graph);
+            GraphEditor.Rectangle = position;
 
             HandleEvents();
 
@@ -71,9 +69,10 @@ namespace RPG.Nodes
             DrawConnections();
             DrawHeldConnection();
             DrawSelectionBox();
+            CheckHoveringAndSelection();
             //DrawTooltip();
 
-            _graphEditor.OnGUI();
+            GraphEditor.OnGUI();
 
             if (_shouldRepaint)
             {
@@ -88,11 +87,20 @@ namespace RPG.Nodes
         {
             _cachedEvent = Event.current;
             _cachedMatrix = GUI.matrix;
+            
+            _mousePosition = _cachedEvent.mousePosition;
 
             _leftMouseButtonUsed = _cachedEvent.button == 0;
             _rightMouseButtonUsed = _cachedEvent.button == 1;
             _middleMouseButtonUsed = _cachedEvent.button == 2;
 
+            _isLayoutEvent = _cachedEvent.type == EventType.Layout;
+            _isRepaintEvent = _cachedEvent.type == EventType.Repaint;
+
+            //Debug.Log("Left Click: " + _leftMouseButtonUsed);
+            //Debug.Log("Right Click: " + _rightMouseButtonUsed);
+            //Debug.Log("Mouse Position: " + _mousePosition);
+            //Debug.Log("Current Event: " + _cachedEvent.type.ToString());
             //_currentActivity = Activity.Idle;
         }
 
@@ -106,6 +114,9 @@ namespace RPG.Nodes
             _leftMouseButtonUsed = false;
             _rightMouseButtonUsed = false;
             _middleMouseButtonUsed = false;
+
+            _isLayoutEvent = false;
+            _isRepaintEvent = false;
         }
 
         public static NodeEditorWindow ForceWindow()

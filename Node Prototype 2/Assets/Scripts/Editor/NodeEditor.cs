@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Nodes
+namespace RPG.Nodes.Editor
 {
     [CustomNodeEditor(typeof(Node))]
     public abstract class NodeEditor : BaseEditor<NodeEditor, Node, CustomNodeEditorAttribute>
@@ -77,6 +75,11 @@ namespace RPG.Nodes
         }
 
         public abstract Rect GetPortRect(Port port);
+
+        public static Rect FindPortRect(Port port)
+        {
+            return GetEditor(port.Node).GetPortRect(port);
+        }
 
         public static void _UpdateNode(Node node)
         {

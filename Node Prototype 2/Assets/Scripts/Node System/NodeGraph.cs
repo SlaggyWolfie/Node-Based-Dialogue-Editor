@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace RPG.Nodes
 {
-    public class NodeGraph : ScriptableObjectWithID
+    [Serializable]
+    public abstract class NodeGraph : ScriptableObjectWithID
     {
         [SerializeField]
         private Flow _flow = null;
@@ -78,7 +79,7 @@ namespace RPG.Nodes
             return _nodes[index];
         }
         
-        public void SendToFront(Node node)
+        public void SendNodeToFront(Node node)
         {
             if (node == null) return;
             _nodes.Remove(node);
@@ -127,6 +128,13 @@ namespace RPG.Nodes
         {
             if (index < 0 || index >= NodeCount) return null;
             return _connections[index];
+        }
+
+        public void SendConnectionToFront(Connection connection)
+        {
+            if (connection == null) return;
+            _connections.Remove(connection);
+            _connections.Add(connection);
         }
 
         public NodeGraph Copy()

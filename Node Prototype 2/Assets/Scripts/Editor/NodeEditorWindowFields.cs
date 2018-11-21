@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Xml.Linq;
-using JetBrains.Annotations;
 using UnityEditor;
-using UnityEditor.Callbacks;
 using UnityEngine;
-using RPG.Nodes;
+using RPG.Nodes.Base;
+using Object = UnityEngine.Object;
 
-namespace RPG.Nodes
+namespace RPG.Nodes.Editor
 {
     public sealed partial class NodeEditorWindow
     {
@@ -49,15 +46,9 @@ namespace RPG.Nodes
             }
         }
 
-        private bool _isPanning = false;
-        public bool IsPanning
-        {
-            get { return _isPanning; }
-            private set { _isPanning = value; }
-        }
+        public bool IsPanning { get; private set; }
 
         private Event _cachedEvent = null;
-
         private Matrix4x4 _cachedMatrix = Matrix4x4.identity;
 
         private enum Activity { Idle, Holding, Dragging, HoldingGrid, DraggingGrid }
@@ -168,6 +159,16 @@ namespace RPG.Nodes
         private Dictionary<Node, Vector2> _dragOffset = new Dictionary<Node, Vector2>();
         private Vector2 _dragStart = Vector2.zero;
 
+        //New and unsorted
+        private static T[] GetSelected<T>() where T : ScriptableObjectWithID
+        {
+            //return Selection.objects.OfType<T>().ToArray();
+            return Selection.GetFiltered<T>(SelectionMode.Unfiltered);
+        }
+
+        private List<Object> _cachedSelectedObjects = new List<Object>();
+        private Object[] _boxSelectedObjects = null;
+
         private Func<bool> _isDockedMethod;
         private Func<bool> IsDockedMethod
         {
@@ -182,8 +183,17 @@ namespace RPG.Nodes
             }
         }
         private bool IsDocked { get { return IsDockedMethod(); } }
+        private float TopPadding { get { return IsDocked ? 19 : 22; } }
 
-        private static Node[] GetSelectedNodes() { return Selection.GetFiltered<Node>(SelectionMode.Unfiltered); }
-        private UnityEngine.Object[] _cachedSelectedObjects = null;
+        private List<Node> _culledNodes = null;
+        private Type[] _nodeTypes = null;
+        private Type[] NodeTypes { get { return _nodeTypes ?? (_nodeTypes = NodeReflection.GetNodeTypes()); } }
+
+        private Connection _hoveredConnection = null;
+        private bool IsHoveringConnection { get { return _hoveredConnection != null; } }
+
+        private bool _isLayoutEvent = false;
+        private bool _isRepaintEvent = false;
+        private Vector2 _mousePosition = Vector2.zero;
     }
 }

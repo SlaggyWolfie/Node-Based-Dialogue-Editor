@@ -2,13 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Nodes
+namespace RPG.Nodes.Editor
 {
     public static class NodeReflection
     {
+        public static bool GetAttribute<T>(Type type, out T outAttribute) where T : Attribute
+        {
+            object[] attributes = type.GetCustomAttributes(typeof(T), false);
+            return GetAttribute(attributes, out outAttribute);
+        }
+        public static bool GetAttribute<T>(object[] attributes, out T outAttribute) where T : Attribute
+        {
+            foreach (var attribute in attributes)
+            {
+                if (attribute.GetType() != typeof(T)) continue;
+                outAttribute = attribute as T;
+                return true;
+            }
+
+            outAttribute = null;
+            return false;
+        }
+        public static bool HasAttributes<T>(object[] attributes) where T : Attribute
+        {
+            return attributes.Any(attribute => attribute.GetType() == typeof(T));
+        }
+
         public static bool IsOfType(Type derivedType, Type baseType)
         {
             return derivedType.IsSubclassOf(baseType) || derivedType.IsAssignableFrom(baseType);
@@ -38,7 +59,7 @@ namespace RPG.Nodes
             foreach (Assembly assembly in assemblies)
             {
                 types.AddRange(assembly.GetTypes().
-                    Where(t => !t.IsAbstract && baseType.IsAssignableFrom(t)).ToArray());
+                    Where(t => !t.IsAbstract && baseType.IsAssignableFrom(t)));
             }
 
             return types.ToArray();

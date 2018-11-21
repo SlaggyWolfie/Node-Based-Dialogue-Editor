@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Nodes
+namespace RPG.Nodes.Editor
 {
     [CustomNodeGraphEditor(typeof(NodeGraph))]
     public abstract class NodeGraphEditor : BaseEditor<NodeGraphEditor, NodeGraph, CustomNodeGraphEditorAttribute>
@@ -25,11 +25,24 @@ namespace RPG.Nodes
         
         public void RemoveNode(Node node)
         {
-            DestroyImmediate(node, true);
+            UnityEngine.Object.DestroyImmediate(node, true);
             Target.RemoveNode(node);
         }
 
+        public void RemoveConnection(Connection connection)
+        {
+            UnityEngine.Object.DestroyImmediate(connection, true);
+            Target.RemoveConnection(connection);
+        }
+
         public virtual void OnGUI() { }
+
+        public virtual string GetNodeMenuName(Type type)
+        {
+            CreateNodeMenuAttribute attribute;
+            return NodeReflection.GetAttribute(type, out attribute) ? attribute.menuName : 
+                UnityEditor.ObjectNames.NicifyVariableName(type.ToString().Replace('.', '/'));
+        }
     }
 
     [AttributeUsage(AttributeTargets.Class)]

@@ -2,7 +2,7 @@
 using RPG.Nodes.Base;
 using UnityEngine;
 
-namespace RPG.Nodes
+namespace RPG.Dialogue
 {
     public sealed class ConditionNode : Node, IInput, IMultipleOutput
     {

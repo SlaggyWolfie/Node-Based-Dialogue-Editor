@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace RPG.Nodes
 {
+    [Serializable]
     public abstract class Node : ScriptableObjectWithID
     {
         private Vector2 _position = Vector2.zero;
@@ -14,7 +15,7 @@ namespace RPG.Nodes
             get { return _position; }
             set { _position = value; }
         }
-        
+
         private NodeGraph _graph = null;
         public NodeGraph Graph
         {
@@ -51,7 +52,7 @@ namespace RPG.Nodes
         }
 
         public void ClearConnections()
-        { 
+        {
             IInput inputNode = this as IInput;
             if (inputNode != null) inputNode.InputPort.ClearConnections();
 
@@ -66,10 +67,10 @@ namespace RPG.Nodes
         {
             ISingleOutput sOutputNode = this as ISingleOutput;
             if (sOutputNode != null) return CheckNextNodePort(sOutputNode.OutputPort);
-            
+
             IMultipleOutput mOutputNode = this as IMultipleOutput;
             if (mOutputNode != null) return mOutputNode.NextNode();
-            
+
             return null;
         }
 
@@ -114,6 +115,13 @@ namespace RPG.Nodes
             IMultipleOutput mOutputNode = this as IMultipleOutput;
             if (mOutputNode != null) mOutputNode.OffsetMultiplePorts(offset);
         }
+    }
+
+    [AttributeUsage(AttributeTargets.Class)]
+    public class CreateNodeMenuAttribute : Attribute
+    {
+        public string menuName;
+        public CreateNodeMenuAttribute(string menuName) { this.menuName = menuName; }
     }
 
     public interface IPort { }

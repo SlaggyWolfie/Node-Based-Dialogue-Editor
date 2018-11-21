@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using RPG.Nodes.Base;
 using UnityEditor;
-using UnityEngine;
 
-namespace RPG.Nodes
+namespace RPG.Nodes.Editor
 {
-    public abstract class BaseEditor<TEditor, TTarget, TAttribute> : ScriptableObjectWithID
+    public abstract class BaseEditor<TEditor, TTarget, TAttribute>
         where TEditor : BaseEditor<TEditor, TTarget, TAttribute>
         where TTarget : ScriptableObjectWithID
         where TAttribute : IEditorAttribute
     {
         private static Dictionary<TTarget, TEditor> _editors = new Dictionary<TTarget, TEditor>();
         private static Dictionary<Type, Type> _editorTypes = null;
+        //private static Dictionary<Type, Type> _editorTypes = new Dictionary<Type, Type>();
 
         public static TEditor GetEditor(TTarget target)
         {
@@ -28,7 +26,7 @@ namespace RPG.Nodes
                 //if (editor._serializedObject == null) editor._serializedObject = new SerializedObject(target);
                 return editor;
             }
-            
+
             Type editorType = GetEditorType(target.GetType());
             editor = (TEditor)Activator.CreateInstance(editorType);
             editor._target = target;
@@ -41,7 +39,8 @@ namespace RPG.Nodes
         protected static Type GetEditorType(Type targetType)
         {
             if (targetType == null) return null;
-            if (_editorTypes == null) _editorTypes = GetCustomEditors();
+            if (_editorTypes == null || _editorTypes.Count == 0) _editorTypes = GetCustomEditors();
+            //UnityEngine.Debug.Log("ET: " + (_editorTypes.Count));
 
             Type result;
             if (_editorTypes.TryGetValue(targetType, out result)) return result;
@@ -55,6 +54,7 @@ namespace RPG.Nodes
             var dictionary = new Dictionary<Type, Type>();
 
             Type[] editorTypes = NodeReflection.GetDerivedTypes<TEditor>();
+            //Type[] editorTypes = NodeReflection.GetDerivedTypes(typeof(TEditor));
             foreach (Type type in editorTypes)
             {
                 if (type.IsAbstract) continue;

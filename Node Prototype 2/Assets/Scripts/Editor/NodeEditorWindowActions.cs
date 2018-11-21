@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using JetBrains.Annotations;
+using RPG.Nodes.Base;
 using UnityEditor;
-using UnityEditor.Callbacks;
 using UnityEngine;
-using RPG.Nodes;
-using UnityEngine.Experimental.UIElements;
 using Object = UnityEngine.Object;
+using MySObject = RPG.Nodes.Base.ScriptableObjectWithID;
 
-namespace RPG.Nodes
+namespace RPG.Nodes.Editor
 {
     public sealed partial class NodeEditorWindow
     {
@@ -26,37 +23,20 @@ namespace RPG.Nodes
                 case EventType.MouseDrag: MouseDrag(); break;
                 case EventType.MouseDown: MouseDown(); break;
                 case EventType.MouseUp: MouseUp(); break;
-                case EventType.KeyDown:
-                    if (EditorGUIUtility.editingTextField) break;
-                    else if (_cachedEvent.keyCode == KeyCode.F) Home();
-                    if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX &&
-                        _cachedEvent.keyCode == KeyCode.Return) RenameSelectedNode();
-                    if (_cachedEvent.keyCode == KeyCode.F2) RenameSelectedNode();
-                    break;
-                case EventType.ValidateCommand:
-                    if (_cachedEvent.commandName == "SoftDelete") RemoveSelectedNodes();
-                    else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX && _cachedEvent.commandName == "Delete") RemoveSelectedNodes();
-                    else if (_cachedEvent.commandName == "Duplicate") DuplicateSelectedNodes();
-                    ShouldRepaint();
-                    break;
-                case EventType.Ignore:
-                    //If releasing the mouse outside the window
-                    if (_cachedEvent.rawType == EventType.MouseUp && _currentActivity == Activity.DraggingGrid)
-                    {
-                        ShouldRepaint();
-                        _currentActivity = Activity.Idle;
-                    }
-                    break;
+                case EventType.KeyDown: KeyDown(); break;
+                case EventType.ValidateCommand: ValidateCommand(); break;
+                case EventType.Ignore: Ignore(); break;
+                case EventType.ContextClick: break;
             }
         }
 
+        #region User Input & Event Handling
         private void ScrollWheel()
         {
             float zoomAmount = 0.1f * Zoom;
             if (_cachedEvent.delta.y <= 0) zoomAmount *= -1;
             Zoom += zoomAmount;
         }
-
         private void MouseDrag()
         {
             if (_leftMouseButtonUsed)
@@ -83,24 +63,26 @@ namespace RPG.Nodes
                     //Holding CTRL inverts grid snap
                     //bool gridSnap = NodeEditorPreferences.GetSettings().gridSnap;
                     //if (_cachedEvent.control) gridSnap = !gridSnap;
+                    bool gridSnap = true;
 
-                    Vector2 mousePosition = _cachedEvent.mousePosition;
-                    //Vector2 mousePosition = WindowToGridPosition(_cachedEvent.mousePosition);
+                    //Vector2 mousePosition = _mousePosition;
+                    Vector2 mousePosition = WindowToGridPosition(_mousePosition);
 
                     //Move selected nodes with offset
-                    Node[] selectedNodes = GetSelectedNodes();
+                    Node[] selectedNodes = GetSelected<Node>();
                     foreach (var node in selectedNodes)
                     {
                         Vector2 initial = node.Position;
                         node.Position = mousePosition + _dragOffset[node];
 
-                        //if (gridSnap)
-                        //{
-                        //    node.position.x = (Mathf.Round((node.position.x + 8) / 16) * 16) - 8;
-                        //    node.position.y = (Mathf.Round((node.position.y + 8) / 16) * 16) - 8;
-                        //}
+                        if (gridSnap)
+                        {
+                            Vector2 newPosition;
+                            newPosition.x = Mathf.Round((node.Position.x + 8) / 16) * 16 - 8;
+                            newPosition.y = Mathf.Round((node.Position.y + 8) / 16) * 16 - 8;
+                            node.Position = newPosition;
+                        }
 
-                        //Offset portConnectionPoints instantly if a node is dragged so they aren't delayed by a frame.
                         Vector2 offset = node.Position - initial;
                         if (offset.sqrMagnitude <= 0) continue;
                         node.OffsetPorts(offset);
@@ -111,16 +93,18 @@ namespace RPG.Nodes
                 else if (_currentActivity == Activity.HoldingGrid)
                 {
                     _currentActivity = Activity.DraggingGrid;
-                    _cachedSelectedObjects = Selection.objects;
-                    _dragStart = _cachedEvent.mousePosition;
-                    //_dragStart = WindowToGridPosition(_cachedEvent.mousePosition);
+                    _cachedSelectedObjects = new List<Object>(Selection.objects);
+                    //_dragStart = _mousePosition;
+                    _dragStart = WindowToGridPosition(_mousePosition);
                     ShouldRepaint();
                 }
                 else if (_currentActivity == Activity.DraggingGrid)
                 {
-                    Vector2 boxStartPosition = _dragStart;
-                    //Vector2 boxStartPosition = GridToWindowPosition(_dragBoxStart);
-                    Vector2 boxSize = _cachedEvent.mousePosition - boxStartPosition;
+                    //Vector2 boxStartPosition = _dragStart;
+                    Vector2 boxStartPosition = GridToWindowPosition(_dragStart);
+                    Vector2 mousePosition = _mousePosition;
+                    //Vector2 mousePosition = WindowToGridPosition(_mousePosition);
+                    Vector2 boxSize = mousePosition - boxStartPosition;
                     if (boxSize.x < 0) { boxStartPosition.x += boxSize.x; boxSize.x = Mathf.Abs(boxSize.x); }
                     if (boxSize.y < 0) { boxStartPosition.y += boxSize.y; boxSize.y = Mathf.Abs(boxSize.y); }
                     _selectionRect = new Rect(boxStartPosition, boxSize);
@@ -139,7 +123,6 @@ namespace RPG.Nodes
                 IsPanning = true;
             }
         }
-
         private void MouseDown()
         {
             Repaint();
@@ -168,26 +151,33 @@ namespace RPG.Nodes
                 //    else DraggedPort = HoveredPort;
                 //}
             }
+            else if (IsHoveringConnection)
+            {
+                if (!Selection.Contains(_hoveredConnection))
+                    Select(_hoveredConnection, _cachedEvent.control || _cachedEvent.shift);
+                else if (_cachedEvent.control || _cachedEvent.shift) Deselect(_hoveredConnection);
+
+                _cachedEvent.Use();
+                _currentActivity = Activity.Holding;
+            }
             else if (IsHoveringNode)
             {
                 if (!Selection.Contains(_hoveredNode))
-                    SelectNode(_hoveredNode, _cachedEvent.control || _cachedEvent.shift);
-                else if (_cachedEvent.control || _cachedEvent.shift) DeselectNode(_hoveredNode);
+                    Select(_hoveredNode, _cachedEvent.control || _cachedEvent.shift);
+                else if (_cachedEvent.control || _cachedEvent.shift) Deselect(_hoveredNode);
 
                 _cachedEvent.Use();
                 _currentActivity = Activity.Holding;
             }
             else
             {
-                //If mousedown on grid background, deselect all
+                //If the mouse was held down on the grid background, deselect everything
                 _currentActivity = Activity.HoldingGrid;
                 if (_cachedEvent.control || _cachedEvent.shift) return;
-                //selectedReroutes.Clear();
                 Selection.objects = new Object[] { };
                 Selection.activeObject = null;
             }
         }
-
         private void MouseUp()
         {
             if (_leftMouseButtonUsed)
@@ -210,7 +200,7 @@ namespace RPG.Nodes
                 }
                 else if (_currentActivity == Activity.Dragging)
                 {
-                    IEnumerable<Node> nodes = Selection.objects.OfType<Node>();
+                    Node[] nodes = GetSelected<Node>();
                     foreach (Node node in nodes) EditorUtility.SetDirty(node);
                     NodeUtilities.AutoSaveAssets();
                 }
@@ -223,7 +213,7 @@ namespace RPG.Nodes
 
                 if (_currentActivity == Activity.Holding && !(_cachedEvent.control || _cachedEvent.shift))
                 {
-                    SelectNode(_hoveredNode, false);
+                    Select(_hoveredNode, false);
                 }
 
                 ShouldRepaint();
@@ -231,23 +221,60 @@ namespace RPG.Nodes
             }
             else if (_rightMouseButtonUsed || _middleMouseButtonUsed)
             {
-                if (IsPanning) return;
-
+                if (IsPanning)
+                {
+                    IsPanning = false;
+                    return;
+                }
+                
                 if (!IsDraggingPort && IsHoveringPort)
                 {
-                    NodeContextMenus.ShowPortContextMenu(HoveredPort);
+                    ShowPortContextMenu(HoveredPort);
+                }
+                else if (IsHoveringConnection)
+                {
+                    if (!Selection.Contains(_hoveredConnection)) Select(_hoveredConnection, false);
+                    ShowConnectionContextMenu();
                 }
                 else if (IsHoveringNode)
                 {
-                    if (!Selection.Contains(_hoveredNode)) SelectNode(_hoveredNode, false);
-                    NodeContextMenus.ShowNodeContextMenu();
+                    if (!Selection.Contains(_hoveredNode)) Select(_hoveredNode, false);
+                    ShowNodeContextMenu();
                 }
                 else
                 {
-                    NodeContextMenus.ShowGraphContextMenu();
+                    ShowGraphContextMenu();
                 }
             }
         }
+        private void Ignore()
+        {
+            //If releasing the mouse outside the window
+            if (_cachedEvent.rawType != EventType.MouseUp || _currentActivity != Activity.DraggingGrid) return;
+            ShouldRepaint();
+            _currentActivity = Activity.Idle;
+        }
+        private void ValidateCommand()
+        {
+            if (_cachedEvent.commandName == "SoftDelete")
+                RemoveSelectedNodes();
+            else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX && _cachedEvent.commandName == "Delete")
+                RemoveSelectedNodes();
+            else if (_cachedEvent.commandName == "Duplicate")
+                DuplicateSelectedNodes();
+            ShouldRepaint();
+        }
+        private void KeyDown()
+        {
+            if (EditorGUIUtility.editingTextField) return;
+            if (_cachedEvent.keyCode == KeyCode.F)
+                Home();
+            else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX && _cachedEvent.keyCode == KeyCode.Return)
+                RenameSelectedNode();
+            else if (_cachedEvent.keyCode == KeyCode.F2)
+                RenameSelectedNode();
+        }
+        #endregion
 
         #region Drawing
         private void DrawHeldConnection()
@@ -262,7 +289,8 @@ namespace RPG.Nodes
             color.a *= 0.6f;
 
             Vector2 portPosition = nodeEditor.GetPortRect(_draggedPort).position;
-            Vector2 mousePosition = _cachedEvent.mousePosition;
+            Vector2 mousePosition = WindowToGridPosition(_mousePosition);
+            //Vector2 mousePosition = _mousePosition;
 
             if (_draggedPort is InputPort)
             {
@@ -275,7 +303,7 @@ namespace RPG.Nodes
                 end = mousePosition;
             }
 
-            NodeRendering.DrawConnection(start, end, color);
+            NodeRendering.DrawConnection(start, end, color, NodePreferences.CONNECTION_WIDTH);
             //NodeUtilities.DrawPort(new Rect());
             //DrawModifiers((start + end) / 2);
         }
@@ -297,7 +325,7 @@ namespace RPG.Nodes
                     OutputPort output = connection.Start;
                     Vector2 start = NodeEditor.GetEditor(output.Node).GetPortRect(output).center;
 
-                    NodeRendering.DrawConnection(start, end, NodePreferences.CONNECTION_PORT_COLOR);
+                    NodeRendering.DrawConnection(start, end, NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_WIDTH);
                     DrawModifiers((start + end) / 2, connection);
                 }
             }
@@ -307,19 +335,96 @@ namespace RPG.Nodes
 
         private void DrawNodes()
         {
+            if (_isLayoutEvent) _culledNodes = new List<Node>();
+
+            Color oldColor = GUI.color;
+            NodeUtilities.BeginZoom(position, Zoom, TopPadding);
+
             for (int i = 0; i < _graph.NodeCount; i++)
             {
                 Node node = _graph.GetNode(i);
-                DrawNode(node);
+                if (node == null) continue;
+                if (i >= _graph.NodeCount) return;
+
+                if (_isLayoutEvent)
+                {
+                    if (!Selection.Contains(node) && ShouldBeCulled(node))
+                    {
+                        _culledNodes.Add(node);
+                        continue;
+                    }
+                }
+                else if (_culledNodes.Contains(node)) continue;
+
+                NodeEditor nodeEditor = NodeEditor.GetEditor(node);
+
+                GUILayout.BeginArea(new Rect(node.Position, new Vector2(NodePreferences.STANDARD_NODE_SIZE.x, 4000)));
+
+                bool selected = Selection.objects.Contains(node);
+
+                if (selected)
+                {
+                    //TODO
+                    //different drawing when selected
+                    GUILayout.BeginVertical();
+                    GUILayout.BeginVertical();
+                }
+                else
+                {
+                    GUILayout.BeginVertical();
+                }
+
+                GUI.color = oldColor;
+                EditorGUI.BeginChangeCheck();
+
+                nodeEditor.OnHeaderGUI();
+                nodeEditor.OnBodyGUI();
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    NodeEditor._UpdateNode(node);
+                    EditorUtility.SetDirty(node);
+                    nodeEditor.SerializedObject.ApplyModifiedProperties();
+                }
+
+                GUILayout.EndVertical();
+                if (selected) GUILayout.EndVertical();
+
+                GUILayout.EndArea();
+
+                //Draw Ports
+                var inputNode = node as IInput;
+                if (inputNode != null)
+                {
+                    InputPort input = inputNode.InputPort;
+                    Rect inputRect = nodeEditor.GetPortRect(input);
+                    //inputRect = GridToWindowRectNotClipped(inputRect);
+                    NodeRendering.DrawPort(inputRect, null, null, NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_PORT_COLOR);
+                }
+
+                ISingleOutput sOutputNode = node as ISingleOutput;
+                if (sOutputNode != null)
+                {
+                    OutputPort output = sOutputNode.OutputPort;
+                    Rect outputRect = nodeEditor.GetPortRect(output);
+                    //outputRect = GridToWindowRectNotClipped(outputRect);
+                    NodeRendering.DrawPort(outputRect, null, null, NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_PORT_COLOR);
+                }
+
+                IMultipleOutput mOutputNode = node as IMultipleOutput;
+                if (mOutputNode != null)
+                {
+                    List<OutputPort> outputs = mOutputNode.GetOutputs();
+                    foreach (OutputPort output in outputs)
+                    {
+                        Rect outputRect = nodeEditor.GetPortRect(output);
+                        //outputRect = GridToWindowRectNotClipped(outputRect);
+                        NodeRendering.DrawPort(outputRect, null, null, NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_PORT_COLOR);
+                    }
+                }
             }
-        }
 
-        private static void DrawNode(Node node)
-        {
-            NodeEditor nodeEditor = NodeEditor.GetEditor(node);
-
-            nodeEditor.OnHeaderGUI();
-            nodeEditor.OnBodyGUI();
+            NodeUtilities.EndZoom(position, Zoom, TopPadding);
         }
 
         private void DrawGrid()
@@ -331,11 +436,11 @@ namespace RPG.Nodes
         {
             if (_currentActivity != Activity.DraggingGrid) return;
 
-            Vector2 cursorPosition = _cachedEvent.mousePosition;
-            //Vector2 cursorPosition = WindowToGridPosition(_cachedEvent.mousePosition);
-            Vector2 size = cursorPosition - _dragStart;
+            //Vector2 mousePosition = _mousePosition;
+            Vector2 mousePosition = WindowToGridPosition(_mousePosition);
+            Vector2 size = mousePosition - _dragStart;
             Rect rect = new Rect(_dragStart, size);
-            //rect.position = GridToWindowPosition(rect.position);
+            rect.position = GridToWindowPosition(rect.position);
             rect.size /= Zoom;
             Handles.DrawSolidRectangleWithOutline(rect,
                 NodePreferences.SELECTION_FACE_COLOR, NodePreferences.SELECTION_BORDER_COLOR);
@@ -386,30 +491,48 @@ namespace RPG.Nodes
         }
         #endregion
 
-        #region Node Manipulation
-        public static void SelectNode(Node node, bool add)
+        #region Object Manipulation 
+        private static void Select(MySObject obj, bool add)
         {
             if (add)
             {
-                List<Object> selection = new List<Object>(Selection.objects) { node };
+                List<Object> selection = new List<Object>(Selection.objects) { obj };
                 Selection.objects = selection.ToArray();
             }
-            else Selection.objects = new Object[] { node };
+            else Selection.objects = new Object[] { obj };
         }
 
-        public static void DeselectNode(Node node)
+        private static void Deselect(MySObject obj)
         {
             List<Object> selection = new List<Object>(Selection.objects);
-            selection.Remove(node);
+            selection.Remove(obj);
             Selection.objects = selection.ToArray();
         }
 
-        public void CreateNode<T>(Vector2 position) where T : Node
+        #region Nodes
+        //private static void SelectNode(Node node, bool add)
+        //{
+        //    if (add)
+        //    {
+        //        List<Object> selection = new List<Object>(Selection.objects) { node };
+        //        Selection.objects = selection.ToArray();
+        //    }
+        //    else Selection.objects = new Object[] { node };
+        //}
+
+        //private static void DeselectNode(Node node)
+        //{
+        //    List<Object> selection = new List<Object>(Selection.objects);
+        //    selection.Remove(node);
+        //    Selection.objects = selection.ToArray();
+        //}
+
+        private void CreateNode<T>(Vector2 position) where T : Node
         {
             CreateNode(typeof(T), position);
         }
 
-        public void CreateNode(Type type, Vector2 position)
+        private void CreateNode(Type type, Vector2 position)
         {
             if (NodeReflection.IsOfType(type, typeof(Node))) return;
 
@@ -422,21 +545,21 @@ namespace RPG.Nodes
             Repaint();
         }
 
-        public void RemoveSelectedNodes()
+        private void RemoveSelectedNodes()
         {
-            foreach (Node node in GetSelectedNodes())
+            foreach (Node node in GetSelected<Node>())
                 GraphEditor.RemoveNode(node);
         }
 
-        public void SendToFront(Node node)
+        private void SendNodeToFront(Node node)
         {
-            Graph.SendToFront(node);
+            Graph.SendNodeToFront(node);
         }
 
         public void DuplicateSelectedNodes()
         {
             //TODO: add the option to Duplicate Connections if they have also been selected
-            Node[] oldSelectedNodes = GetSelectedNodes();
+            Node[] oldSelectedNodes = GetSelected<Node>();
             Object[] newNodes = new Object[oldSelectedNodes.Length];
 
             Dictionary<Node, Node> substitutes = new Dictionary<Node, Node>();
@@ -467,14 +590,63 @@ namespace RPG.Nodes
             NodeEditor.GetEditor(node).InitiateRename();
         }
         #endregion
+        #region Connections
+        private void CreateConnection()
+        {
+            Connection connection = _graph.AddConnection();
+            AssetDatabase.AddObjectToAsset(connection, _graph);
+            NodeUtilities.AutoSaveAssets();
+            Repaint();
+        }
+
+        private void RemoveSelectedConnections()
+        {
+            foreach (Connection connection in GetSelected<Connection>())
+                GraphEditor.RemoveConnection(connection);
+        }
+
+        private void SendConnectionToFront(Connection connection)
+        {
+            Graph.SendConnectionToFront(connection);
+        }
+
+        public void DuplicateSelectedConnections()
+        {
+            //TODO: add the option to Duplicate Connections if they have also been selected
+            Node[] oldSelectedNodes = GetSelected<Node>();
+            Object[] newNodes = new Object[oldSelectedNodes.Length];
+
+            Dictionary<Node, Node> substitutes = new Dictionary<Node, Node>();
+            for (int i = 0; i < oldSelectedNodes.Length; i++)
+            {
+                Node oldNode = oldSelectedNodes[i];
+                if (oldNode.Graph != Graph) continue;
+                Node newNode = GraphEditor.CopyNode(oldNode);
+                substitutes[oldNode] = newNode;
+                newNode.Position = oldNode.Position + NodePreferences.DUPLICATION_OFFSET;
+                newNode.ClearConnections();
+                newNodes[i] = newNode;
+            }
+
+            // Walk through the selected nodes again, recreate connections, using the new nodes
+            foreach (var oldNode in oldSelectedNodes)
+            {
+                if (oldNode.Graph != Graph) continue;
+            }
+
+            Selection.objects = newNodes;
+        }
+        #endregion
+        #endregion
 
         #region Other
         private bool IsHoveringTitle(Node node)
         {
-            Vector2 mousePosition = _cachedEvent.mousePosition;
-            //Get node position
-            Vector2 nodePosition = node.Position;
-            //Vector2 nodePosition = GridToWindowPosition(node.Position);
+            //TODO
+            //Vector2 mousePosition = _mousePosition;
+            //Vector2 nodePosition = node.Position;
+            Vector2 mousePosition = WindowToGridPosition(_mousePosition);
+            Vector2 nodePosition = GridToWindowPosition(node.Position);
             Vector2 size = NodePreferences.STANDARD_NODE_SIZE;
             //if (nodeSizes.TryGetValue(node, out size)) width = size.x;
             //else width = 200;
@@ -484,12 +656,12 @@ namespace RPG.Nodes
 
         private void RecalculateDragOffsets()
         {
-            Node[] nodes = GetSelectedNodes();
+            Node[] nodes = GetSelected<Node>();
             _dragOffset = new Dictionary<Node, Vector2>();
             foreach (var node in nodes)
             {
-                _dragOffset[node] = node.Position - _cachedEvent.mousePosition;
-                //_dragOffset[node] = node.position - WindowToGridPosition(_cachedEvent.mousePosition);
+                //_dragOffset[node] = node.Position - _mousePosition;
+                _dragOffset[node] = node.Position - WindowToGridPosition(_mousePosition);
             }
         }
 
@@ -504,5 +676,73 @@ namespace RPG.Nodes
             _shouldRepaint = should;
         }
         #endregion
+
+        private void CheckHoveringAndSelection()
+        {
+            if (_cachedEvent.type != EventType.Layout) return;
+
+            //Vector2 mousePosition = _mousePosition;
+            Vector2 mousePosition = WindowToGridPosition(_mousePosition);
+            List<Object> boxSelected = new List<Object>(_boxSelectedObjects);
+
+            for (int i = 0; i < Graph.NodeCount; i++)
+            {
+                Node node = Graph.GetNode(i);
+                NodeEditor nodeEditor = NodeEditor.GetEditor(node);
+
+                Vector2 nodeSize = GUILayoutUtility.GetLastRect().size;
+                Rect nodeRect = new Rect(node.Position, nodeSize);
+                if (nodeRect.Contains(mousePosition)) _hoveredNode = node;
+
+                if (_currentActivity == Activity.DraggingGrid && nodeRect.Overlaps(_selectionRect)) boxSelected.Add(node);
+
+                //Check hovering over ports
+                var inputNode = node as IInput;
+                if (inputNode != null)
+                {
+                    InputPort input = inputNode.InputPort;
+                    Rect inputRect = nodeEditor.GetPortRect(input);
+                    //inputRect = GridToWindowRectNotClipped(inputRect);
+                    if (inputRect.Contains(mousePosition)) HoveredPort = input;
+                }
+
+                ISingleOutput sOutputNode = node as ISingleOutput;
+                if (sOutputNode != null)
+                {
+                    OutputPort output = sOutputNode.OutputPort;
+                    Rect outputRect = nodeEditor.GetPortRect(output);
+                    //outputRect = GridToWindowRectNotClipped(outputRect);
+                    if (outputRect.Contains(mousePosition)) HoveredPort = output;
+                }
+
+                IMultipleOutput mOutputNode = node as IMultipleOutput;
+                if (mOutputNode != null)
+                {
+                    List<OutputPort> outputs = mOutputNode.GetOutputs();
+                    foreach (OutputPort output in outputs)
+                    {
+                        Rect outputRect = nodeEditor.GetPortRect(output);
+                        //outputRect = GridToWindowRectNotClipped(outputRect);
+                        if (outputRect.Contains(mousePosition)) HoveredPort = output;
+                    }
+                }
+            }
+
+            for (int i = 0; i < Graph.ConnectionCount; i++)
+            {
+                Connection connection = Graph.GetConnection(i);
+                Vector2 start = NodeEditor.FindPortRect(connection.Start).position;
+                Vector2 end = NodeEditor.FindPortRect(connection.End).position;
+
+                if (NodeUtilities.PointOverlapBezier(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH)) _hoveredConnection = connection;
+
+                //TODO: Add range overlap check, as just overlapping might be too annoying.
+                if (_currentActivity == Activity.DraggingGrid &&
+                    (_selectionRect.Contains(start) || _selectionRect.Contains(end)))
+                    boxSelected.Add(connection);
+            }
+
+            if (!_isLayoutEvent && _currentActivity == Activity.DraggingGrid) Selection.objects = boxSelected.ToArray();
+        }
     }
 }

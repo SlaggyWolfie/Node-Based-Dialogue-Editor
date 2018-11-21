@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
-namespace RPG.Nodes
+namespace RPG.Dialogue
 {
     public sealed class BranchNode : Node, IInput, IMultipleOutput
     {
@@ -68,6 +69,12 @@ namespace RPG.Nodes
             PickBranch(GetBranch(index));
         }
 
+        public void ClearMultipleConnections()
+        {
+            foreach (Branch branch in _branches)
+                branch.OutputPort.ClearConnections();
+        }
+
         public List<OutputPort> GetOutputs()
         {
             List<OutputPort> outputs = new List<OutputPort>();
@@ -83,6 +90,12 @@ namespace RPG.Nodes
         public void AssignNodesToOutputPorts(Node node)
         {
             _branches.ForEach(branch => branch.OutputPort.Node = this);
+        }
+
+        public void OffsetMultiplePorts(Vector2 offset)
+        {
+            foreach (Branch branch in _branches)
+                branch.OutputPort.Position += offset;
         }
     }
 }

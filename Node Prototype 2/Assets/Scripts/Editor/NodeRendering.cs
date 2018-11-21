@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Nodes
+namespace RPG.Nodes.Editor
 {
     public class NodeRendering
     {
@@ -74,7 +71,7 @@ namespace RPG.Nodes
             GUI.color = oldColor;
         }
 
-        public static void DrawConnection(Vector2 start, Vector2 end, Color color)
+        public static void DrawConnection(Vector2 start, Vector2 end, Color color, float width)
         {
             Vector2 startTangent = start;
             startTangent.x = start.x < end.x ?
@@ -86,7 +83,7 @@ namespace RPG.Nodes
                 Mathf.LerpUnclamped(end.x, start.x, 0.7f) :
                 Mathf.LerpUnclamped(end.x, start.x, -0.7f);
 
-            Handles.DrawBezier(start, end, startTangent, endTangent, color, null, 2);
+            Handles.DrawBezier(start, end, startTangent, endTangent, color, null, width);
             DrawArrow((start + end) / 2, (endTangent - startTangent).normalized, 6, 4);
         }
 
@@ -102,6 +99,35 @@ namespace RPG.Nodes
             Vector2 right = bottomMiddle + bottomDifference;
 
             Handles.DrawAAConvexPolygon(top, left, right);
+        }
+
+        Vector2[] QuadraticBezierCurve(int pointAmount, Vector2 start, Vector2 end, float straightness)
+        {
+            float curve = 1 - straightness;
+
+            Vector2 startTangent = start;
+            startTangent.x = start.x < end.x ?
+                Mathf.LerpUnclamped(start.x, end.x, curve) :
+                Mathf.LerpUnclamped(start.x, end.x, -curve);
+
+            Vector2 endTangent = end;
+            endTangent.x = end.x < start.x ?
+                Mathf.LerpUnclamped(end.x, start.x, curve) :
+                Mathf.LerpUnclamped(end.x, start.x, -curve);
+
+            List<Vector2> points = new List<Vector2>();
+            float jump = 1.0f / pointAmount;
+            for (float time = 0; time <= 1; time += jump)
+            {
+                float inverseTime = 1 - time;
+                Vector2 point = Mathf.Pow(inverseTime, 3) * start +
+                                Mathf.Pow(inverseTime, 2) * time * startTangent +
+                                Mathf.Pow(time, 2) * inverseTime * endTangent +
+                                Mathf.Pow(time, 3) * end;
+                points.Add(point);
+            }
+
+            return points.ToArray();
         }
     }
 

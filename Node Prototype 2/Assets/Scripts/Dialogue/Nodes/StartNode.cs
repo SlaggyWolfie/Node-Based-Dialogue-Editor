@@ -1,4 +1,4 @@
-﻿namespace RPG.Nodes
+﻿namespace RPG.Dialogue
 {
     public sealed class StartNode : Node, ISingleOutput
     {

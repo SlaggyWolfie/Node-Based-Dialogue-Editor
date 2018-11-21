@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-namespace RPG.Nodes
+namespace RPG.Nodes.Editor
 {
     public static class NodeUtilities
     {
@@ -32,7 +28,7 @@ namespace RPG.Nodes
             texture.SetPixels(colorPixels);
             texture.wrapMode = TextureWrapMode.Repeat;
             texture.filterMode = FilterMode.Bilinear;
-            texture.name = "Grid";
+            texture.name = "Grid Texture";
             texture.Apply();
             return texture;
         }
@@ -40,15 +36,12 @@ namespace RPG.Nodes
         {
             Texture2D texture = new Texture2D(gridSize, gridSize);
             Color[] colors = new Color[gridSize * gridSize];
-            for (int columns = 0; columns < gridSize; columns++)
+            for (int rows = 0; rows < gridSize; rows++)
             {
-                for (int rows = 0; rows < gridSize; rows++)
+                for (int columns = 0; columns < gridSize; columns++)
                 {
                     Color color = line;
-
-                    //Absolute color
-                    if (columns != gridSize - 1 && rows != gridSize - 1) color.a = 0;
-
+                    if (columns != gridSize / 2 - 1 && rows != gridSize / 2 - 1) color.a = 0;
                     colors[columns * gridSize + rows] = color;
                 }
             }
@@ -56,7 +49,7 @@ namespace RPG.Nodes
             texture.SetPixels(colors);
             texture.wrapMode = TextureWrapMode.Clamp;
             texture.filterMode = FilterMode.Bilinear;
-            texture.name = "Cross";
+            texture.name = "Grid Cross Texture";
             texture.Apply();
             return texture;
         }
@@ -83,5 +76,10 @@ namespace RPG.Nodes
             GUI.matrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
         }
 
+        public static bool PointOverlapBezier(Vector2 point, Vector2 start, Vector2 end, float width)
+        {
+            throw new NotImplementedException();
+            return true;
+        }
     }
 }

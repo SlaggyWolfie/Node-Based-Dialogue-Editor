@@ -58,8 +58,16 @@ namespace RPG.Nodes
             else if (port == End) DisconnectEnd(); ;
         }
 
-        public void DisconnectStart() { Start = null; }
-        public void DisconnectEnd() { End = null; }
+        public void DisconnectStart()
+        {
+            Start.Connection = null;
+            Start = null;
+        }
+        public void DisconnectEnd()
+        {
+            End.RemoveConnection(this);
+            End = null;
+        }
         public void DisconnectInput() { DisconnectEnd(); }
         public void DisconnectOutput() { DisconnectStart(); }
 
