@@ -1,10 +1,16 @@
-﻿using RPG.Nodes.Base;
+﻿using System;
+using RPG.Dialogue;
+using RPG.Nodes.Base;
+using UnityEngine;
 
 namespace RPG.Nodes
 {
+    [Serializable]
     public sealed class Branch : ScriptableObjectWithID
     {
+        [SerializeField]
         private OutputPort _outputPort = null;
+        [SerializeField]
         private BranchCondition _branchCondition = null;
         private DialogueNode _dialogueNode = null;
 

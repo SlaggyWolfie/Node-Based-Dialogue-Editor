@@ -86,12 +86,12 @@ namespace RPG.Nodes
             _nodes.Add(node);
         }
 
-        public virtual Connection AddConnection()
-        {
-            Connection connection = (Connection)CreateInstance(typeof(Connection));
-            AddConnection(connection);
-            return connection;
-        }
+        //public virtual Connection AddConnection()
+        //{
+        //    Connection connection = CreateInstance<Connection>();
+        //    AddConnection(connection);
+        //    return connection;
+        //}
         public virtual void AddConnection(Connection connection)
         {
             _connections.Add(connection);

@@ -1,4 +1,7 @@
-﻿namespace RPG.Nodes.Base
+﻿using System;
+using UnityEngine;
+
+namespace RPG.Nodes.Base
 {
     public enum VariableLocation
     {
@@ -8,10 +11,13 @@
         Scene
     }
 
+    [Serializable]
     public class Variable : BaseValue
     {
+        [SerializeField]
         private string _name = null;
 
+        [SerializeField]
         private VariableLocation _variableLocation = VariableLocation.None;
         
         public string Name

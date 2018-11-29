@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using RPG.Nodes;
 using UnityEngine;
 
 namespace RPG.Dialogue
 {
+    [Serializable]
     public sealed class BranchNode : Node, IInput, IMultipleOutput
     {
         private Branch _pickedBranch = null;
+        [SerializeField]
         private List<Branch> _branches = new List<Branch>();
 
+        [SerializeField]
         private InputPort _inputPort = null;
         public InputPort InputPort
         {
@@ -94,8 +99,8 @@ namespace RPG.Dialogue
 
         public void OffsetMultiplePorts(Vector2 offset)
         {
-            foreach (Branch branch in _branches)
-                branch.OutputPort.Position += offset;
+            //foreach (Branch branch in _branches)
+            //    branch.OutputPort.Position += offset;
         }
     }
 }

@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RPG.Nodes.Base;
+using UnityEngine;
 
 namespace RPG.Nodes
 {
+    [Serializable]
     public class BranchCondition : ObjectWithID
     {
+        [SerializeField]
         private List<Condition> _conditions = new List<Condition>();
+        [SerializeField]
         private bool _isAnd = true;
 
         public bool Evaluate()

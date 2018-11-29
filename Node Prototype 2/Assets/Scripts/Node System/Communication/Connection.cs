@@ -10,6 +10,7 @@ namespace RPG.Nodes
     public class Connection : ScriptableObjectWithID
     {
         [SerializeField]
+        //[HideInInspector]
         private NodeGraph _graph = null;
         public NodeGraph Graph
         {
@@ -21,19 +22,29 @@ namespace RPG.Nodes
         private List<ConnectionModifier> _modifiers = new List<ConnectionModifier>();
 
         [SerializeField]
+        //[HideInInspector]
         private OutputPort _start = null;
         public OutputPort Start
         {
             get { return _start; }
-            set { _start = value; }
+            set
+            {
+                _start = value;
+                //_start.Connection = this;
+            }
         }
 
         [SerializeField]
+        //[HideInInspector]
         private InputPort _end = null;
         public InputPort End
         {
             get { return _end; }
-            set { _end = value; }
+            set
+            {
+                _end = value;
+                //_end.ConnectionsCount = this;
+            }
         }
 
         public void Traverse()
@@ -118,6 +129,14 @@ namespace RPG.Nodes
         {
             if (index < 0 || index >= ModifierCount) return null;
             return _modifiers[index];
+        }
+
+        public static void Connect(Connection connection, InputPort input, OutputPort output)
+        {
+            connection.Start = output;
+            connection.End = input;
+            output.Connection = connection;
+            input.AddConnection(connection);
         }
     }
 }

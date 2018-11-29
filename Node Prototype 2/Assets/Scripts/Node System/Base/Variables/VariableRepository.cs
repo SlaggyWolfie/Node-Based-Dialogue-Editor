@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RPG.Nodes.Base
 {
+    [Serializable]
     public class VariableRepository
     {
         private const bool PRESCRIPTIVE_OR_DESCRIPTIVE = true;
 
         private VariableLocation _location = VariableLocation.None;
+        [SerializeField]
         private List<Variable> _variables = new List<Variable>();
 
         public VariableLocation Location

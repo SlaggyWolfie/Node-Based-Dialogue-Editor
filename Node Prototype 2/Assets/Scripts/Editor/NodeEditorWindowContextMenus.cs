@@ -136,7 +136,10 @@ namespace RPG.Nodes.Editor
                 string path = GraphEditor.GetNodeMenuName(type);
                 if (string.IsNullOrEmpty(path)) continue;
                 Type capturedType = type;
-                contextMenu.AddItem(new GUIContent(path), false, () => { CreateNode(capturedType, mousePosition); });
+                contextMenu.AddItem(new GUIContent(path), false, () =>
+                {
+                    CreateNode(capturedType, mousePosition);
+                });
             }
 
             //contextMenu.AddSeparator("");

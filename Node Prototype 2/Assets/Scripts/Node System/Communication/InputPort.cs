@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RPG.Nodes
 {
+    [Serializable]
     public class InputPort : Port
     {
+        [SerializeField]
+        //[HideInInspector]
         private List<Connection> _connections = new List<Connection>();
-        private bool _isConnected;
 
         public int ConnectionsCount
         {
@@ -49,7 +52,10 @@ namespace RPG.Nodes
 
         public void Connect(OutputPort output)
         {
-            if (CanConnect(output)) output.Connection.End = this;
+            if (!CanConnect(output)) return;
+            Connection connection = output.Connection;
+            Connection.Connect(connection, this, output);
+            //AddConnection(output.Connection);
         }
 
         public override bool CanConnect(Port port)
@@ -59,7 +65,7 @@ namespace RPG.Nodes
 
         public override void Connect(Port port)
         {
-            if (CanConnect(port)) ((OutputPort)port).Connection.End = this;
+            if (CanConnect(port)) ((OutputPort)port).Connect(this);
         }
 
         //public override void Disconnect(Port port)

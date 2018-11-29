@@ -1,14 +1,17 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 
 namespace RPG.Nodes.Editor
 {
+    [Serializable]
     public sealed partial class NodeEditorWindow : EditorWindow
     {
         private NodeEditorWindow()
         {
             IsPanning = false;
+            NullifyStuff();
         }
 
         private static NodeEditorWindow _currentNodeEditorWindow = null;
@@ -50,35 +53,46 @@ namespace RPG.Nodes.Editor
 
         private void OnEnable()
         {
-            //On Before Deserialize
+            IsPanning = false;
+            NullifyStuff();
         }
 
         private void OnGUI()
         {
             if (_graph == null) return;
 
+            if (Event.current.keyCode == KeyCode.T) Select(this, false);
+
             PreCache();
+            //ResetHover();
             //throw new NotImplementedException();
             GraphEditor = NodeGraphEditor.GetEditor(_graph);
             GraphEditor.Rectangle = position;
-
-            HandleEvents();
+            
+            //HandleEvents();
 
             DrawGrid();
             DrawNodes();
             DrawConnections();
             DrawHeldConnection();
             DrawSelectionBox();
-            CheckHoveringAndSelection();
             //DrawTooltip();
 
+            CheckHoveringAndSelection();
             GraphEditor.OnGUI();
+            HandleEvents();
 
-            if (_shouldRepaint)
-            {
-                Repaint();
-                _shouldRepaint = false;
-            }
+            //if (_shouldUseEvent)
+            //{
+            //    _cachedEvent.Use();
+            //    _shouldUseEvent = false;
+            //}
+
+            //if (_shouldRepaint)
+            //{
+            //    Repaint();
+            //    _shouldRepaint = false;
+            //}
 
             ResetCache();
         }

@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace RPG.Nodes.Editor
 {
-    [CustomNodeGraphEditor(typeof(NodeGraph))]
-    public abstract class NodeGraphEditor : BaseEditor<NodeGraphEditor, NodeGraph, CustomNodeGraphEditorAttribute>
+    [Serializable, CustomNodeGraphEditor(typeof(NodeGraph))]
+    public class NodeGraphEditor : BaseEditor<NodeGraphEditor, NodeGraph, CustomNodeGraphEditorAttribute>
     {
         private Rect _rectangle;
         public Rect Rectangle
@@ -25,14 +25,14 @@ namespace RPG.Nodes.Editor
         
         public void RemoveNode(Node node)
         {
-            UnityEngine.Object.DestroyImmediate(node, true);
             Target.RemoveNode(node);
+            UnityEngine.Object.DestroyImmediate(node, true);
         }
 
         public void RemoveConnection(Connection connection)
         {
-            UnityEngine.Object.DestroyImmediate(connection, true);
             Target.RemoveConnection(connection);
+            UnityEngine.Object.DestroyImmediate(connection, true);
         }
 
         public virtual void OnGUI() { }

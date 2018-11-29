@@ -1,4 +1,6 @@
 ﻿using System;
+using UnityEngine;
+
 namespace RPG.Nodes.Base
 {
     public enum ComparisonType
@@ -12,18 +14,25 @@ namespace RPG.Nodes.Base
         LesserThanOrEqual
     };
 
+    [Serializable]
     public class Condition : ObjectWithID
     {
         private VariableType _variableType = VariableType.None;
+        [SerializeField]
         private ComparisonType _comparison = ComparisonType.None;
 
+        [SerializeField]
         private bool _isOutsideVariable = false;
 
+        [SerializeField]
         private Variable _variable = null;
 
+        [SerializeField]
         private BaseValue _actualCheck = null;
 
+        [SerializeField]
         private Value _localValue = null;
+        [SerializeField]
         private Variable _otherVariable = null;
 
         private BaseValue _ActualCheck

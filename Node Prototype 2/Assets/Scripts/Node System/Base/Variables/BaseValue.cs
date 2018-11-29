@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace RPG.Nodes.Base
 {
@@ -10,11 +11,15 @@ namespace RPG.Nodes.Base
         String
     };
 
+    [Serializable]
     public abstract class BaseValue : ScriptableObjectWithID
     {
         private Type _variableTypeReal = null;
+
+        [SerializeField]
         private VariableType _variableTypeEnum = VariableType.None;
 
+        [SerializeField]
         private object _value = null;
 
         public Type RealType

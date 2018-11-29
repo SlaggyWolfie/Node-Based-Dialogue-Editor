@@ -1,9 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 namespace RPG.Nodes
 {
+    [Serializable]
     public sealed class OutputPort : Port
     {
+        [SerializeField, HideInInspector]
         private Connection _connection = null;
         public Connection Connection
         {
@@ -18,9 +21,10 @@ namespace RPG.Nodes
             set
             {
                 if (_connection == value) return;
-
-                _traversalSetup = false;
                 _connection = value;
+                _traversalSetup = false;
+
+                if (value == null) return;
                 _connection.Start = this;
                 SetupTraversal();
             }

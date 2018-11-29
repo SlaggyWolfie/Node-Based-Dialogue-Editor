@@ -1,10 +1,17 @@
-﻿namespace RPG.Nodes.Base
+﻿using System;
+using UnityEngine;
+
+namespace RPG.Nodes.Base
 {
+    [Serializable]
     public class Blackboard : ScriptableObjectWithID
     {
+        [SerializeField]
         private NodeGraph _currentNodeGraph = null;
-
+        
+        [SerializeField]
         private VariableRepository _globalVariableRepository = null;
+        [SerializeField]
         private VariableRepository _currentLocalVariableRepository = null;
 
         public VariableRepository GlobalVariableRepository

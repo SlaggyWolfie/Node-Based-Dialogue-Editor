@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using RPG.Other;
+using RPG.Nodes;
+using UnityEngine;
 
-namespace RPG.Nodes
+namespace RPG.Dialogue
 {
+    [Serializable]
     public sealed class DialogueNode : Node, IInput, ISingleOutput
     {
+        [SerializeField]
         private InputPort _inputPort = null;
+        [SerializeField]
         private OutputPort _outputPort = null;
 
         #region Node Stuff
@@ -37,11 +43,15 @@ namespace RPG.Nodes
             }
         }
         #endregion
-
-        //extra
-        private string _text = "default text";
-        private string _speaker = "default speaker name";
+        
+        [SerializeField]
+        private string _speaker = "Speaker...";
+        [SerializeField]
+        [ResizableTextArea]
+        private string _text = "Text...";
+        [SerializeField]
         private AudioClip _audio = null;
+        [SerializeField]
         private float _duration = 0;
 
         public string Text

@@ -6,54 +6,6 @@ namespace RPG.Nodes.Editor
 {
     public static class NodeUtilities
     {
-        public static Texture2D GenerateGridTexture(Color line, Color background, int gridSize = NodePreferences.GRID_SIZE)
-        {
-            Texture2D texture = new Texture2D(gridSize, gridSize);
-            Color[] colorPixels = new Color[gridSize * gridSize];
-            for (int column = 0; column < gridSize; column++)
-            {
-                for (int row = 0; row < gridSize; row++)
-                {
-                    Color color = background;
-
-                    //Nice fading between the grid and background
-                    int startFadePosition = gridSize / 4;
-                    if (column % startFadePosition == 0 || row % startFadePosition == 0) color = Color.Lerp(line, background, 0.65f);
-                    if (column == gridSize - 1 || row == gridSize - 1) color = Color.Lerp(line, background, 0.35f);
-
-                    colorPixels[column * gridSize + row] = color;
-                }
-            }
-
-            texture.SetPixels(colorPixels);
-            texture.wrapMode = TextureWrapMode.Repeat;
-            texture.filterMode = FilterMode.Bilinear;
-            texture.name = "Grid Texture";
-            texture.Apply();
-            return texture;
-        }
-        public static Texture2D GenerateCrossTexture(Color line, int gridSize = NodePreferences.GRID_SIZE)
-        {
-            Texture2D texture = new Texture2D(gridSize, gridSize);
-            Color[] colors = new Color[gridSize * gridSize];
-            for (int rows = 0; rows < gridSize; rows++)
-            {
-                for (int columns = 0; columns < gridSize; columns++)
-                {
-                    Color color = line;
-                    if (columns != gridSize / 2 - 1 && rows != gridSize / 2 - 1) color.a = 0;
-                    colors[columns * gridSize + rows] = color;
-                }
-            }
-
-            texture.SetPixels(colors);
-            texture.wrapMode = TextureWrapMode.Clamp;
-            texture.filterMode = FilterMode.Bilinear;
-            texture.name = "Grid Cross Texture";
-            texture.Apply();
-            return texture;
-        }
-
         public static void AutoSaveAssets()
         {
             if (NodePreferences.Settings.ShouldAutoSave) AssetDatabase.SaveAssets();
@@ -74,6 +26,13 @@ namespace RPG.Nodes.Editor
             Vector2 reverseViewport = rect.size * (zoom - 1) * 0.5f;
             Vector3 offset = new Vector3(reverseViewport.x, reverseViewport.y + topPadding * (1 - zoom), 0);
             GUI.matrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
+        }
+
+
+        //Left to Right Direction
+        public static Vector2 GetPerpendicular(Vector2 direction)
+        {
+            return new Vector2(-direction.y, direction.x);
         }
 
         public static bool PointOverlapBezier(Vector2 point, Vector2 start, Vector2 end, float width)

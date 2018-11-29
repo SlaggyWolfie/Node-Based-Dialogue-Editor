@@ -1,18 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RPG.Nodes.Base;
 using UnityEngine;
 
 namespace RPG.Nodes
 {
+    [Serializable]
     public abstract class Port : ObjectWithID
     {
-        private Vector2 _position = Vector2.zero;
-        public Vector2 Position
-        {
-            get { return _position; }
-            set { _position = value; }
-        }
+        //[SerializeField]
+        ////[HideInInspector]
+        //private Vector2 _position = Vector2.zero;
+        //public Vector2 Position
+        //{
+        //    get { return _position; }
+        //    set { _position = value; }
+        //}
 
+        [SerializeField]
+        //[HideInInspector]
         private Node _node = null;
         public Node Node
         {
@@ -27,6 +33,10 @@ namespace RPG.Nodes
         public abstract bool IsConnected { get; }
         public abstract bool IsConnectedTo(Port port);
 
+        public virtual void OnDestroy()
+        {
+            ClearConnections();
+        }
         //public abstract void Reconnect(List<Node> oldNodes, List<Node> newNodes);
     }
 }

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 using RPG.Nodes.Base;
+using RPG.Other;
 using Object = UnityEngine.Object;
 
 namespace RPG.Nodes.Editor
 {
     public sealed partial class NodeEditorWindow
     {
+        [ShowNonSerializedField]
         private NodeGraph _graph = null;
         public NodeGraph Graph
         {
@@ -17,6 +20,7 @@ namespace RPG.Nodes.Editor
             private set { _graph = value; }
         }
 
+        //[ShowNonSerializedField]
         private NodeGraphEditor _graphEditor = null;
         public NodeGraphEditor GraphEditor
         {
@@ -24,6 +28,7 @@ namespace RPG.Nodes.Editor
             private set { _graphEditor = value; }
         }
 
+        [ShowNonSerializedField]
         private Vector2 _panOffset;
         public Vector2 PanOffset
         {
@@ -35,6 +40,7 @@ namespace RPG.Nodes.Editor
             }
         }
 
+        [ShowNonSerializedField]
         private float _zoom = 1;
         public float Zoom
         {
@@ -46,12 +52,14 @@ namespace RPG.Nodes.Editor
             }
         }
 
+        [ShowNativeProperty]
         public bool IsPanning { get; private set; }
 
         private Event _cachedEvent = null;
         private Matrix4x4 _cachedMatrix = Matrix4x4.identity;
 
         private enum Activity { Idle, Holding, Dragging, HoldingGrid, DraggingGrid }
+        [ReadOnly, SerializeField]
         private Activity _currentActivity = Activity.Idle;
 
         private bool _leftMouseButtonUsed = false;
@@ -74,13 +82,18 @@ namespace RPG.Nodes.Editor
             get { return _draggedPort; }
             set
             {
-                _draggedInput = null;
-                _draggedOutput = null;
-
-                _draggedPort = value;
-
-                if (value is InputPort) _draggedInput = (InputPort)value;
-                else if (value is OutputPort) _draggedOutput = (OutputPort)value;
+                if (value != null)
+                {
+                    _draggedPort = value;
+                    _draggedInput = value as InputPort;
+                    _draggedOutput = value as OutputPort;
+                }
+                else
+                {
+                    _draggedPort = null;
+                    _draggedInput = null;
+                    _draggedOutput = null;
+                }
             }
         }
         private InputPort DraggedInput
@@ -96,12 +109,21 @@ namespace RPG.Nodes.Editor
 
         private Port HoveredPort
         {
-            get { return _draggedPort; }
+            get { return _hoveredPort; }
             set
             {
-                _hoveredPort = value;
-                _hoveredInput = value as InputPort;
-                _hoveredOutput = value as OutputPort;
+                if (value != null)
+                {
+                    _hoveredPort = value;
+                    _hoveredInput = value as InputPort;
+                    _hoveredOutput = value as OutputPort;
+                }
+                else
+                {
+                    _hoveredPort = null;
+                    _hoveredInput = null;
+                    _hoveredOutput = null;
+                }
             }
         }
         private InputPort HoveredInput
@@ -139,24 +161,35 @@ namespace RPG.Nodes.Editor
             get { return _draggedOutputTarget; }
             set { DraggedPortTarget = value; }
         }
-
-        private bool IsDraggingPort { get { return DraggedPort != null; } }
+        [ShowNativeProperty]
+        private bool IsDraggingPort { get { return _draggedPort != null; } }
+        [ShowNativeProperty]
         private bool IsDraggingInput { get { return DraggedInput != null; } }
+        [ShowNativeProperty]
         private bool IsDraggingOutput { get { return DraggedOutput != null; } }
+        [ShowNativeProperty]
         private bool IsHoveringPort { get { return HoveredPort != null; } }
+        [ShowNativeProperty]
         private bool IsHoveringInput { get { return HoveredInput != null; } }
+        [ShowNativeProperty]
         private bool IsHoveringOutput { get { return HoveredOutput != null; } }
 
+        //[ShowNonSerializedField]
         private Node _draggedNode = null;
+        //[ShowNonSerializedField]
         private Node _hoveredNode = null;
 
+        [ShowNativeProperty]
         private bool IsDraggingNode { get { return _draggedNode != null; } }
+        [ShowNativeProperty]
         private bool IsHoveringNode { get { return _hoveredNode != null; } }
 
-        private bool _shouldRepaint = false;
+        //private bool _shouldRepaint = false;
+        [ShowNonSerializedField]
         private Rect _selectionRect = default(Rect);
 
         private Dictionary<Node, Vector2> _dragOffset = new Dictionary<Node, Vector2>();
+        [ShowNonSerializedField]
         private Vector2 _dragStart = Vector2.zero;
 
         //New and unsorted
@@ -167,7 +200,7 @@ namespace RPG.Nodes.Editor
         }
 
         private List<Object> _cachedSelectedObjects = new List<Object>();
-        private Object[] _boxSelectedObjects = null;
+        //private Object[] _boxSelectedObjects = new Object[] { };
 
         private Func<bool> _isDockedMethod;
         private Func<bool> IsDockedMethod
@@ -182,7 +215,9 @@ namespace RPG.Nodes.Editor
                 return _isDockedMethod;
             }
         }
+        [ShowNativeProperty]
         private bool IsDocked { get { return IsDockedMethod(); } }
+        [ShowNativeProperty]
         private float TopPadding { get { return IsDocked ? 19 : 22; } }
 
         private List<Node> _culledNodes = null;
@@ -190,10 +225,25 @@ namespace RPG.Nodes.Editor
         private Type[] NodeTypes { get { return _nodeTypes ?? (_nodeTypes = NodeReflection.GetNodeTypes()); } }
 
         private Connection _hoveredConnection = null;
+        [ShowNativeProperty]
         private bool IsHoveringConnection { get { return _hoveredConnection != null; } }
 
         private bool _isLayoutEvent = false;
         private bool _isRepaintEvent = false;
+        [ShowNonSerializedField]
         private Vector2 _mousePosition = Vector2.zero;
+
+        //[ShowNonSerializedField]
+        //[SerializeField]
+        private SerializableDictionary<Node, Vector2> _nodeSizes = null;
+
+        //[ShowNativeProperty]
+        //private bool EditingTextField { get { return EditorGUIUtility.editingTextField; } }
+
+        //[ShowNativeProperty]
+        //private ScriptableObject[] Selected { get { return Selection.objects as ScriptableObject[]; } }
+
+        //private List<Object> _boxSelected = new List<Object>();
+        //private bool _shouldUseEvent = false;
     }
 }

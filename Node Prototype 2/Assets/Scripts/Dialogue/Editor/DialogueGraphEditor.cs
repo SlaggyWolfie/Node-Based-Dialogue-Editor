@@ -1,19 +1,20 @@
 ﻿using RPG.Dialogue;
 using RPG.Nodes.Editor;
 
-[CustomNodeGraphEditor(typeof(DialogueGraph))]
-public class DialogueGraphEditor : NodeGraphEditor
+namespace RPG.Dialogue
 {
-    ///// <summary> 
-    ///// Overriding GetNodeMenuName lets you control if and how nodes are categorized.
-    ///// In this example we are sorting out all node types that are not in the XNode.Examples namespace.
-    ///// </summary>
-    //public override string GetNodeMenuName(System.Type type)
+    //[CustomNodeGraphEditor(typeof(DialogueGraph))]
+    //public class DialogueGraphEditor : NodeGraphEditor
     //{
-    //    if (type.Namespace == "XNode.Examples.MathNodes")
+    //    /// <summary> 
+    //    /// Overriding GetNodeMenuName lets you control if and how nodes are categorized.
+    //    /// In this example we are sorting out all node types that are not in the XNode.Examples namespace.
+    //    /// </summary>
+    //    public override string GetNodeMenuName(System.Type type)
     //    {
-    //        return base.GetNodeMenuName(type).Replace("X Node/Examples/Math Nodes/", "");
+    //        return type.Namespace == "RPG.Dialogue" ?
+    //            base.GetNodeMenuName(type).Replace("Scripts/Dialogue/Node", "")
+    //            : null;
     //    }
-    //    else return null;
     //}
 }

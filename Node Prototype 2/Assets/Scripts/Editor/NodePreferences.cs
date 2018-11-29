@@ -15,11 +15,13 @@ namespace RPG.Nodes.Editor
         public static readonly Color SELECTION_FACE_COLOR = new Color(0, 0, 0, 0.1f);
         public static readonly Color SELECTION_BORDER_COLOR = new Color(1, 1, 1, 0.6f);
 
-        public const float HEADER_HEIGHT = 30;
-        public static readonly Vector2 STANDARD_NODE_SIZE = new Vector2(200, 200);
+        public const float PROPERTY_HEIGHT = 30;
+        public const float PROPERTY_MIN_WIDTH = 30;
+        public static readonly Vector2 STANDARD_NODE_SIZE = new Vector2(210, 210);
+        public static readonly Vector2 STANDARD_PORT_SIZE = new Vector2(16, 16);
         public static readonly Vector2 DUPLICATION_OFFSET = new Vector2(30, 30);
 
-        public const float CONNECTION_WIDTH = 2;
+        public const float CONNECTION_WIDTH = 8;
         public const float MIN_ZOOM = 1;
         public const float MAX_ZOOM = 5;
         public const int GRID_SIZE = 64;
@@ -32,8 +34,8 @@ namespace RPG.Nodes.Editor
 
         private Texture2D _gridTexture = null;
         private Texture2D _crossTexture = null;
-        public Texture2D GridTexture { get { return _gridTexture ?? (_gridTexture = NodeUtilities.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR)); } }
-        public Texture2D CrossTexture { get { return _crossTexture ?? (_crossTexture = NodeUtilities.GenerateCrossTexture(CROSS_LINE_COLOR, GRID_SIZE)); } }
+        public Texture2D GridTexture { get { return _gridTexture ?? (_gridTexture = NodeResources.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR)); } }
+        public Texture2D CrossTexture { get { return _crossTexture ?? (_crossTexture = NodeResources.GenerateCrossTexture(CROSS_LINE_COLOR)); } }
 
 
         public enum ConnectionType { Bezier, Line, Angled }
@@ -57,18 +59,18 @@ namespace RPG.Nodes.Editor
                 set { _gridSnap = value; }
             }
 
-            private Dictionary<Type, GraphSettings> _graphSettings = null;
+            //private Dictionary<Type, GraphSettings> _graphSettings = null;
         }
 
         [Serializable]
         public sealed class GraphSettings
         {
-            private ConnectionType _connectionType = ConnectionType.Bezier;
+            //private ConnectionType _connectionType = ConnectionType.Bezier;
 
             private Texture2D _gridTexture = null;
             private Texture2D _crossTexture = null;
-            public Texture2D GridTexture { get { return _gridTexture ?? (_gridTexture = NodeUtilities.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR)); } }
-            public Texture2D CrossTexture { get { return _crossTexture ?? (_crossTexture = NodeUtilities.GenerateCrossTexture(CROSS_LINE_COLOR)); } }
+            public Texture2D GridTexture { get { return _gridTexture ?? (_gridTexture = NodeResources.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR)); } }
+            public Texture2D CrossTexture { get { return _crossTexture ?? (_crossTexture = NodeResources.GenerateCrossTexture(CROSS_LINE_COLOR)); } }
         }
 
         private bool _shouldAutoSave = true;

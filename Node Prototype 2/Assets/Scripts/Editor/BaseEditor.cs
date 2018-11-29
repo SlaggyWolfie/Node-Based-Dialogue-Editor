@@ -6,6 +6,7 @@ using UnityEditor;
 
 namespace RPG.Nodes.Editor
 {
+    [Serializable]
     public abstract class BaseEditor<TEditor, TTarget, TAttribute>
         where TEditor : BaseEditor<TEditor, TTarget, TAttribute>
         where TTarget : ScriptableObjectWithID
@@ -22,8 +23,8 @@ namespace RPG.Nodes.Editor
             TEditor editor;
             if (_editors.TryGetValue(target, out editor))
             {
-                //if (editor._target == null) editor._target = target;
-                //if (editor._serializedObject == null) editor._serializedObject = new SerializedObject(target);
+                if (editor._target == null) editor._target = target;
+                if (editor._serializedObject == null) editor._serializedObject = new SerializedObject(target);
                 return editor;
             }
 

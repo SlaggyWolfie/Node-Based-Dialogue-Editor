@@ -29,7 +29,8 @@ namespace RPG.Nodes.Editor
 
             //Draw tiled background
             GUI.DrawTextureWithTexCoords(rect, gridTexture, new Rect(tileOffset, tileAmount));
-            GUI.DrawTextureWithTexCoords(rect, crossTexture, new Rect(tileOffset + new Vector2(0.5f, 0.5f), tileAmount));
+            GUI.DrawTextureWithTexCoords(rect, crossTexture,
+                new Rect(tileOffset + new Vector2(0.5f, 0.5f), tileAmount));
         }
 
         public static void DrawPort(Rect rect, Texture backgroundTexture, Texture foregroundTexture,
@@ -49,7 +50,8 @@ namespace RPG.Nodes.Editor
             GUI.color = oldColor;
         }
 
-        public static void DrawPort(Rect rect, Texture backgroundTexture, Texture foregroundTexture, Texture foregroundTexture2,
+        public static void DrawPort(Rect rect, Texture backgroundTexture, Texture foregroundTexture,
+            Texture foregroundTexture2,
             Color backgroundColor, Color foregroundColor, Color foregroundColor2, bool drawForeground = false)
         {
             Color oldColor = GUI.color;
@@ -73,47 +75,51 @@ namespace RPG.Nodes.Editor
 
         public static void DrawConnection(Vector2 start, Vector2 end, Color color, float width)
         {
+            bool startIsLeftOfEnd = start.x < end.x;
+
             Vector2 startTangent = start;
-            startTangent.x = start.x < end.x ?
-                Mathf.LerpUnclamped(start.x, end.x, 0.7f) :
-                Mathf.LerpUnclamped(start.x, end.x, -0.7f);
+            startTangent.x = startIsLeftOfEnd
+                ? Mathf.LerpUnclamped(start.x, end.x, 0.7f)
+                : Mathf.LerpUnclamped(start.x, end.x, -0.7f);
 
             Vector2 endTangent = end;
-            endTangent.x = end.x < start.x ?
-                Mathf.LerpUnclamped(end.x, start.x, 0.7f) :
-                Mathf.LerpUnclamped(end.x, start.x, -0.7f);
+            endTangent.x = startIsLeftOfEnd
+                ? Mathf.LerpUnclamped(end.x, start.x, 0.7f)
+                : Mathf.LerpUnclamped(end.x, start.x, -0.7f);
 
             Handles.DrawBezier(start, end, startTangent, endTangent, color, null, width);
-            DrawArrow((start + end) / 2, (endTangent - startTangent).normalized, 6, 4);
+            DrawArrow((start + end) / 2, (endTangent - startTangent).normalized, 16);
         }
 
-        public static void DrawArrow(Vector2 position, Vector2 directionNormalized, float width, float height)
+        public static void DrawArrow(Vector2 position, Vector2 directionNormalized, float length)
         {
             //direction = direction.normalized;
-            Vector2 heightDirection = directionNormalized * height;
+            float halfWidth = length / Mathf.Tan(Mathf.Deg2Rad * 60);
+            Vector2 heightDirection = directionNormalized * length;
             Vector2 top = position + heightDirection * 2 / 3;
             Vector2 bottomMiddle = top - heightDirection;
-            Vector2 perpendicularDirection = Vector3.Cross(directionNormalized, Vector3.forward);
-            Vector2 bottomDifference = perpendicularDirection * width / 2;
+            Vector2 perpendicularDirection = NodeUtilities.GetPerpendicular(directionNormalized);
+            //Vector2 perpendicularDirection = Vector3.Cross(directionNormalized, Vector3.forward);
+            Vector2 bottomDifference = perpendicularDirection * halfWidth;
             Vector2 left = bottomMiddle - bottomDifference;
             Vector2 right = bottomMiddle + bottomDifference;
 
             Handles.DrawAAConvexPolygon(top, left, right);
         }
 
-        Vector2[] QuadraticBezierCurve(int pointAmount, Vector2 start, Vector2 end, float straightness)
+        public static Vector2[] CubicBezierCurve(int pointAmount, Vector2 start, Vector2 end, float straightness)
         {
             float curve = 1 - straightness;
 
             Vector2 startTangent = start;
-            startTangent.x = start.x < end.x ?
-                Mathf.LerpUnclamped(start.x, end.x, curve) :
-                Mathf.LerpUnclamped(start.x, end.x, -curve);
+            startTangent.x = start.x < end.x
+                ? Mathf.LerpUnclamped(start.x, end.x, curve)
+                : Mathf.LerpUnclamped(start.x, end.x, -curve);
 
             Vector2 endTangent = end;
-            endTangent.x = end.x < start.x ?
-                Mathf.LerpUnclamped(end.x, start.x, curve) :
-                Mathf.LerpUnclamped(end.x, start.x, -curve);
+            endTangent.x = end.x > start.x
+                ? Mathf.LerpUnclamped(end.x, start.x, curve)
+                : Mathf.LerpUnclamped(end.x, start.x, -curve);
 
             List<Vector2> points = new List<Vector2>();
             float jump = 1.0f / pointAmount;
@@ -128,19 +134,6 @@ namespace RPG.Nodes.Editor
             }
 
             return points.ToArray();
-        }
-    }
-
-    public static class ExtensionClass
-    {
-        public static Vector3 ToVector3(this Vector2 vector2)
-        {
-            return new Vector3(vector2.x, vector2.y);
-        }
-
-        public static Vector2 ToVector2(this Vector3 vector3)
-        {
-            return new Vector2(vector3.x, vector3.y);
         }
     }
 }

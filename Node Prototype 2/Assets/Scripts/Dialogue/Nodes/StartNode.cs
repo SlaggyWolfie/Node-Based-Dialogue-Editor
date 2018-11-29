@@ -1,15 +1,21 @@
-﻿namespace RPG.Dialogue
+﻿using System;
+using RPG.Nodes;
+using UnityEngine;
+
+namespace RPG.Dialogue
 {
+    [Serializable]
     public sealed class StartNode : Node, ISingleOutput
     {
+        [SerializeField]
         private OutputPort _outputPort = null;
         
         public OutputPort OutputPort
         {
             get
             {
-                if (_outputPort == null)
-                    _outputPort = new OutputPort() { Node = this };
+                //if (_outputPort == null)
+                //    _outputPort = new OutputPort() { Node = this };
                 return _outputPort;
             }
             set

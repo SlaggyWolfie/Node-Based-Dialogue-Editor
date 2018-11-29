@@ -1,19 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using RPG.Nodes;
 using RPG.Nodes.Base;
 using UnityEngine;
 
 namespace RPG.Dialogue
 {
+    [Serializable]
     public sealed class ConditionNode : Node, IInput, IMultipleOutput
     {
+        [SerializeField]
         private InputPort _inputPort = null;
 
         private OutputPort _evaluatedOutputPort = null;
 
+        [SerializeField]
         private OutputPort _ifOutputPort = null;
+        [SerializeField]
         private OutputPort _elseOutputPort = null;
 
+        [SerializeField]
         private List<Condition> _conditions = new List<Condition>();
+        [SerializeField]
         private bool _isAnd = true;
 
         private OutputPort EvaluatedOutputPort
@@ -184,8 +192,8 @@ namespace RPG.Dialogue
 
         public void OffsetMultiplePorts(Vector2 offset)
         {
-            IfOutputPort.Position += offset;
-            ElseOutputPort.Position += offset;
+            //IfOutputPort.Position += offset;
+            //ElseOutputPort.Position += offset;
         }
 
         #endregion

@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f176fa5a3b22c4389cd63774725a19, type: 3}
+  m_Name: New Dialogue Graph 1
+  m_EditorClassIdentifier: 
+  _id: -1
+  _localVariableRepository:
+    _variables: []
+  _nodes:
+  - {fileID: 114867903702144218}
+  - {fileID: 114106112912579754}
+  _connections:
+  - {fileID: 114137454367086188}
+  - {fileID: 114593697276318444}
+  - {fileID: 114144737920284520}
+  - {fileID: 114974346924387400}
+--- !u!114 &114106112912579754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: 2
+  m_EditorClassIdentifier: 
+  _id: -1
+  _position: {x: 795, y: 369}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: -1
+    _node: {fileID: 114106112912579754}
+    _connections:
+    - {fileID: 114974346924387400}
+  _outputPort:
+    _id: -1
+    _node: {fileID: 114106112912579754}
+    _connection: {fileID: 0}
+  _speaker: Speaker...
+  _text: Text...
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114137454367086188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection
+  m_EditorClassIdentifier: 
+  _id: -1
+  _graph: {fileID: 11400000}
+  _start:
+    _id: -1
+    _node: {fileID: 114867903702144218}
+    _connection: {fileID: 0}
+  _end:
+    _id: -1
+    _node: {fileID: 0}
+    _connections:
+    - {fileID: 114137454367086188}
+--- !u!114 &114144737920284520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection
+  m_EditorClassIdentifier: 
+  _id: -1
+  _graph: {fileID: 11400000}
+  _start:
+    _id: -1
+    _node: {fileID: 114867903702144218}
+    _connection: {fileID: 114974346924387400}
+  _end:
+    _id: -1
+    _node: {fileID: 114106112912579754}
+    _connections:
+    - {fileID: 114974346924387400}
+--- !u!114 &114593697276318444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection
+  m_EditorClassIdentifier: 
+  _id: -1
+  _graph: {fileID: 11400000}
+  _start:
+    _id: -1
+    _node: {fileID: 114867903702144218}
+    _connection: {fileID: 0}
+  _end:
+    _id: -1
+    _node: {fileID: 114106112912579754}
+    _connections:
+    - {fileID: 114593697276318444}
+--- !u!114 &114867903702144218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: 1
+  m_EditorClassIdentifier: 
+  _id: -1
+  _position: {x: 431, y: 298}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: -1
+    _node: {fileID: 114867903702144218}
+    _connections: []
+  _outputPort:
+    _id: -1
+    _node: {fileID: 114867903702144218}
+    _connection: {fileID: 114974346924387400}
+  _speaker: Speaker...
+  _text: Text...
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114974346924387400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection
+  m_EditorClassIdentifier: 
+  _id: -1
+  _graph: {fileID: 11400000}
+  _start:
+    _id: -1
+    _node: {fileID: 114867903702144218}
+    _connection: {fileID: 114974346924387400}
+  _end:
+    _id: -1
+    _node: {fileID: 114106112912579754}
+    _connections:
+    - {fileID: 114974346924387400}
