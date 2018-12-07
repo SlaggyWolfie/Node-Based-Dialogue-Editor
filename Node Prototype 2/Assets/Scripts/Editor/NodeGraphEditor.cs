@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Nodes.Editor
@@ -27,6 +28,9 @@ namespace RPG.Nodes.Editor
         {
             Target.RemoveNode(node);
             UnityEngine.Object.DestroyImmediate(node, true);
+            
+            //TODO: Expand Undo Functionality.
+            //Undo.DestroyObjectImmediate(node);
         }
 
         public void RemoveConnection(Connection connection)

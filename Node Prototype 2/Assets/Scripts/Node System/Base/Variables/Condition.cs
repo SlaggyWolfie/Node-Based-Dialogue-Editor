@@ -15,7 +15,7 @@ namespace RPG.Nodes.Base
     };
 
     [Serializable]
-    public class Condition : ObjectWithID
+    public class Condition : BaseObject
     {
         private VariableType _variableType = VariableType.None;
         [SerializeField]
@@ -35,7 +35,7 @@ namespace RPG.Nodes.Base
         [SerializeField]
         private Variable _otherVariable = null;
 
-        private BaseValue _ActualCheck
+        public BaseValue ActualCheckedAgainstValue
         {
             get
             {
@@ -123,10 +123,10 @@ namespace RPG.Nodes.Base
             switch (comparison)
             {
                 case ComparisonType.IsEqual:
-                    result = _variable.BoolValue == _ActualCheck.BoolValue;
+                    result = _variable.BoolValue == ActualCheckedAgainstValue.BoolValue;
                     break;
                 case ComparisonType.IsNotEqual:
-                    result = _variable.BoolValue != _ActualCheck.BoolValue;
+                    result = _variable.BoolValue != ActualCheckedAgainstValue.BoolValue;
                     break;
                 case ComparisonType.None:
                 case ComparisonType.GreaterThan:
@@ -147,10 +147,10 @@ namespace RPG.Nodes.Base
             switch (comparison)
             {
                 case ComparisonType.IsEqual:
-                    result = _variable.StringValue == _ActualCheck.StringValue;
+                    result = _variable.StringValue == ActualCheckedAgainstValue.StringValue;
                     break;
                 case ComparisonType.IsNotEqual:
-                    result = _variable.StringValue != _ActualCheck.StringValue;
+                    result = _variable.StringValue != ActualCheckedAgainstValue.StringValue;
                     break;
                 case ComparisonType.None:
                 case ComparisonType.GreaterThan:
@@ -167,7 +167,7 @@ namespace RPG.Nodes.Base
         private bool EvaluateFloat(ComparisonType comparison, float epsilon = float.Epsilon)
         {
             bool result = false;
-            bool areEqual = NearlyEqual(_variable.FloatValue, _ActualCheck.FloatValue, epsilon);
+            bool areEqual = NearlyEqual(_variable.FloatValue, ActualCheckedAgainstValue.FloatValue, epsilon);
 
             switch (comparison)
             {
@@ -178,16 +178,16 @@ namespace RPG.Nodes.Base
                     result = !areEqual;
                     break;
                 case ComparisonType.GreaterThan:
-                    result = !areEqual && _variable.FloatValue > _ActualCheck.FloatValue;
+                    result = !areEqual && _variable.FloatValue > ActualCheckedAgainstValue.FloatValue;
                     break;
                 case ComparisonType.LesserThan:
-                    result = !areEqual && _variable.FloatValue < _ActualCheck.FloatValue;
+                    result = !areEqual && _variable.FloatValue < ActualCheckedAgainstValue.FloatValue;
                     break;
                 case ComparisonType.GreaterThanOrEqual:
-                    result = areEqual || _variable.FloatValue > _ActualCheck.FloatValue;
+                    result = areEqual || _variable.FloatValue > ActualCheckedAgainstValue.FloatValue;
                     break;
                 case ComparisonType.LesserThanOrEqual:
-                    result = areEqual || _variable.FloatValue < _ActualCheck.FloatValue;
+                    result = areEqual || _variable.FloatValue < ActualCheckedAgainstValue.FloatValue;
                     break;
                 case ComparisonType.None:
                 default:
@@ -199,20 +199,22 @@ namespace RPG.Nodes.Base
 
         private static bool NearlyEqual(float a, float b, float epsilon)
         {
-            float absoluteA = Math.Abs(a);
-            float absoluteB = Math.Abs(b);
-            float difference = Math.Abs(a - b);
+            float absoluteA = Mathf.Abs(a);
+            float absoluteB = Mathf.Abs(b);
+            float difference = Mathf.Abs(a - b);
 
             //shortcut, handles infinity
             if (a == b) return true;
-            else if (a == 0 || b == 0 || difference < float.MinValue)
+
+            if (a == 0 || b == 0 || difference < float.MinValue)
             {
                 //a or b is zero or both are extremely close to it
                 //relative error is less meaningful here
                 return difference < epsilon * float.MinValue;
             }
             //shortcut, handles infinity
-            else return difference / Math.Min(absoluteA + absoluteB, float.MaxValue) < epsilon;
+
+            return difference / Math.Min(absoluteA + absoluteB, float.MaxValue) < epsilon;
         }
 
         //private bool EvaluateFloat(ComparisonType comparison)

@@ -12,12 +12,7 @@ namespace RPG.Dialogue
 
         public InputPort InputPort
         {
-            get
-            {
-                //if (_inputPort == null)
-                //    _inputPort = new InputPort() { Node = this };
-                return _inputPort;
-            }
+            get { return _inputPort ?? (_inputPort = new InputPort() { Node = this }); }
             set
             {
                 _inputPort = value;

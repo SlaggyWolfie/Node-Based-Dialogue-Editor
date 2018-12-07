@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RPG.Nodes
 {
     [Serializable]
-    public abstract class NodeGraph : ScriptableObjectWithID
+    public abstract class NodeGraph : BaseScriptableObject
     {
         [SerializeField]
         private Flow _flow = null;
@@ -17,8 +17,8 @@ namespace RPG.Nodes
         }
 
         [SerializeField]
-        private VariableRepository _localVariableRepository = null;
-        public VariableRepository LocalVariableRepository { get { return _localVariableRepository ?? (_localVariableRepository = new VariableRepository()); } }
+        private VariableInventory _localVariableInventory = null;
+        public VariableInventory LocalVariableInventory { get { return _localVariableInventory ?? (_localVariableInventory = new VariableInventory()); } }
 
         [SerializeField]
         private List<Node> _nodes = new List<Node>();

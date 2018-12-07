@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Name: New Dialogue Graph
   m_EditorClassIdentifier: 
   _id: -1
-  _localVariableRepository:
-    _variables: []
+  _flow:
+    _currentNode: {fileID: 0}
+    _traversedNode: []
+  _localVariableInventory: {fileID: 0}
   _nodes:
-  - {fileID: 114859977221900382}
-  - {fileID: 114867903702144218}
+  - {fileID: 114990889321441946}
   _connections: []
---- !u!114 &114859977221900382
+--- !u!114 &114990889321441946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26,51 +27,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
-  m_Name: 2
+  m_Script: {fileID: 11500000, guid: 4f86e2d608b38124eb9c2a7f2f5c92d5, type: 3}
+  m_Name: Condition Node
   m_EditorClassIdentifier: 
   _id: -1
-  _position: {x: 626, y: 347}
+  _position: {x: 276, y: 68}
   _graph: {fileID: 11400000}
   _inputPort:
     _id: -1
-    _position: {x: 0, y: 0}
-    _node: {fileID: 114859977221900382}
+    _node: {fileID: 114990889321441946}
     _connections: []
-  _outputPort:
+  _ifOutputPort:
     _id: -1
-    _position: {x: 0, y: 0}
-    _node: {fileID: 114859977221900382}
+    _node: {fileID: 114990889321441946}
     _connection: {fileID: 0}
-  _speaker: Speaker...
-  _text: Text...
-  _audio: {fileID: 0}
-  _duration: 0
---- !u!114 &114867903702144218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
-  m_Name: 1
-  m_EditorClassIdentifier: 
-  _id: -1
-  _position: {x: 378, y: 392}
-  _graph: {fileID: 11400000}
-  _inputPort:
+  _elseOutputPort:
     _id: -1
-    _position: {x: -154, y: 41}
-    _node: {fileID: 114867903702144218}
-    _connections: []
-  _outputPort:
-    _id: -1
-    _position: {x: -154, y: 41}
-    _node: {fileID: 114867903702144218}
+    _node: {fileID: 114990889321441946}
     _connection: {fileID: 0}
-  _speaker: Speaker...
-  _text: Text...
-  _audio: {fileID: 0}
-  _duration: 0
+  _conditions: []
+  _isAnd: 1

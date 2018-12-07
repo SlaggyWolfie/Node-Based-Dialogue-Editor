@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RPG.Nodes
 {
     [Serializable]
-    public abstract class Port : ObjectWithID
+    public abstract class Port : BaseObject
     {
         //[SerializeField]
         ////[HideInInspector]

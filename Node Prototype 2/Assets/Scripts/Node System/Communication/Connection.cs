@@ -7,7 +7,7 @@ using UnityEngine;
 namespace RPG.Nodes
 {
     [System.Serializable]
-    public class Connection : ScriptableObjectWithID
+    public class Connection : BaseScriptableObject
     {
         [SerializeField]
         //[HideInInspector]

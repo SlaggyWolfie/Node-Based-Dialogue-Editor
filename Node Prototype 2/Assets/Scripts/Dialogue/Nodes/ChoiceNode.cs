@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RPG.Dialogue
 {
     [Serializable]
-    public sealed class BranchNode : Node, IInput, IMultipleOutput
+    public sealed class ChoiceNode : Node, IInput, IMultipleOutput
     {
         private Branch _pickedBranch = null;
         [SerializeField]
@@ -16,8 +16,12 @@ namespace RPG.Dialogue
         private InputPort _inputPort = null;
         public InputPort InputPort
         {
-            get { return _inputPort; }
-            set { _inputPort = value; }
+            get { return _inputPort ?? (_inputPort = new InputPort() { Node = this }); }
+            set
+            {
+                _inputPort = value;
+                _inputPort.Node = this;
+            }
         }
 
         #region List Wrapping Interface
@@ -74,10 +78,9 @@ namespace RPG.Dialogue
             PickBranch(GetBranch(index));
         }
 
-        public void ClearMultipleConnections()
+        public void ClearOutputs()
         {
-            foreach (Branch branch in _branches)
-                branch.OutputPort.ClearConnections();
+            foreach (Branch branch in _branches) branch.OutputPort.ClearConnections();
         }
 
         public List<OutputPort> GetOutputs()

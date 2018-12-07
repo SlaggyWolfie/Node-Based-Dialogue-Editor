@@ -28,7 +28,6 @@ namespace RPG.Nodes.Editor
             GUI.matrix = Matrix4x4.TRS(offset, Quaternion.identity, Vector3.one);
         }
 
-
         //Left to Right Direction
         public static Vector2 GetPerpendicular(Vector2 direction)
         {

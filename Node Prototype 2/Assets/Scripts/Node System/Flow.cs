@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace RPG.Nodes
 {
+    [Serializable]
     public class Flow
     {
+        [SerializeField]
         private Node _currentNode = null;
+        [SerializeField]
         private List<Node> _traversedNode = new List<Node>();
 
         public Node CurrentNode { get { return _currentNode; } }

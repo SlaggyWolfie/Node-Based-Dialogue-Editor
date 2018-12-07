@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RPG.Nodes
 {
     [Serializable]
-    public sealed class Branch : ScriptableObjectWithID
+    public sealed class Branch : BaseScriptableObject
     {
         [SerializeField]
         private OutputPort _outputPort = null;

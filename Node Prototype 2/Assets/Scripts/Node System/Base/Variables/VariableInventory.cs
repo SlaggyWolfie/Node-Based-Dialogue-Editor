@@ -5,10 +5,12 @@ using UnityEngine;
 namespace RPG.Nodes.Base
 {
     [Serializable]
-    public class VariableRepository
+    public sealed class VariableInventory : BaseScriptableObject
     {
-        private const bool PRESCRIPTIVE_OR_DESCRIPTIVE = true;
+        //private const bool PRESCRIPTIVE_OR_DESCRIPTIVE = false;
 
+        [SerializeField]
+        [HideInInspector]
         private VariableLocation _location = VariableLocation.None;
         [SerializeField]
         private List<Variable> _variables = new List<Variable>();
@@ -16,7 +18,7 @@ namespace RPG.Nodes.Base
         public VariableLocation Location
         {
             get { return _location; }
-            set { _location = value; }
+            internal set { _location = value; }
         }
 
         #region List Wrapping Interface
@@ -40,20 +42,20 @@ namespace RPG.Nodes.Base
         public void AddVariable(Variable variable)
         {
 #pragma warning disable 0162
-            if (PRESCRIPTIVE_OR_DESCRIPTIVE)
-            {
-                if (variable.Location == Location)
-                    _variables.Add(variable);
-                else throw new InvalidOperationException("Wrong variable location!");
-            }
-            else
-            {
-                _variables.Add(variable);
-                variable.Location = Location;
-            }
+            //if (PRESCRIPTIVE_OR_DESCRIPTIVE)
+            //{
+            //    if (variable.Location == Location) _variables.Add(variable);
+            //    else throw new InvalidOperationException("Wrong variable location!");
+            //}
+            //else
+            //{
+            //    _variables.Add(variable);
+            //    variable.Location = Location;
+            //}
 #pragma warning restore 0162
 
-            //_variables.Add(variable);
+            _variables.Add(variable);
+            variable.VariableInventory = this;
         }
 
         public void RemoveVariable(Variable variable)

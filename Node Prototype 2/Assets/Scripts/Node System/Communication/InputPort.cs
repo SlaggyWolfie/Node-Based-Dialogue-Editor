@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RPG.Nodes
 {
     [Serializable]
-    public class InputPort : Port
+    public sealed class InputPort : Port
     {
         [SerializeField]
         //[HideInInspector]

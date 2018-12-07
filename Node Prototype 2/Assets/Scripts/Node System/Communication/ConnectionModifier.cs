@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RPG.Nodes.Base
 {
     [Serializable]
-    public abstract class ConnectionModifier : ObjectWithID
+    public abstract class ConnectionModifier : BaseObject
     {
         [SerializeField]
         [HideInInspector]

@@ -54,6 +54,7 @@ namespace RPG.Dialogue
 
         public void RemoveCondition(int index)
         {
+            if (index <= -1 || index >= ConditionCount) return;
             _conditions.RemoveAt(index);
         }
         #endregion
@@ -102,19 +103,23 @@ namespace RPG.Dialogue
         #region IO
         public InputPort InputPort
         {
-            get { return _inputPort; }
-            set { _inputPort = value; }
+            get { return _inputPort ?? (_inputPort = new InputPort() { Node = this }); }
+            set
+            {
+                _inputPort = value;
+                _inputPort.Node = this;
+            }
         }
 
         public OutputPort IfOutputPort
         {
-            get { return _ifOutputPort; }
+            get { return _ifOutputPort ?? (_ifOutputPort = new OutputPort()); }
             set { _ifOutputPort = value; }
         }
 
         public OutputPort ElseOutputPort
         {
-            get { return _elseOutputPort; }
+            get { return _elseOutputPort ?? (_elseOutputPort = new OutputPort()); }
             set { _elseOutputPort = value; }
         }
         #endregion
@@ -176,18 +181,18 @@ namespace RPG.Dialogue
 
         public List<OutputPort> GetOutputs()
         {
-            return new List<OutputPort>() { _ifOutputPort, _elseOutputPort };
+            return new List<OutputPort>() { IfOutputPort, ElseOutputPort };
         }
 
         public new Node NextNode()
         {
-            return EvaluatedOutputPort != null ?EvaluatedOutputPort.Connection.End.Node : null;
+            return EvaluatedOutputPort != null ? EvaluatedOutputPort.Connection.End.Node : null;
         }
 
         public void AssignNodesToOutputPorts(Node node)
         {
-            _ifOutputPort.Node = node;
-            _elseOutputPort.Node = node;
+            IfOutputPort.Node = node;
+            ElseOutputPort.Node = node;
         }
 
         public void OffsetMultiplePorts(Vector2 offset)
@@ -198,7 +203,7 @@ namespace RPG.Dialogue
 
         #endregion
 
-        public void ClearMultipleConnections()
+        public void ClearOutputs()
         {
             //Destroy(IfOutputPort);
             //Destroy(ElseOutputPort);

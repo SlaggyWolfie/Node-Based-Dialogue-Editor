@@ -9,7 +9,7 @@ namespace RPG.Nodes.Editor
     [Serializable]
     public abstract class BaseEditor<TEditor, TTarget, TAttribute>
         where TEditor : BaseEditor<TEditor, TTarget, TAttribute>
-        where TTarget : ScriptableObjectWithID
+        where TTarget : BaseScriptableObject
         where TAttribute : IEditorAttribute
     {
         private static Dictionary<TTarget, TEditor> _editors = new Dictionary<TTarget, TEditor>();
@@ -34,6 +34,8 @@ namespace RPG.Nodes.Editor
             editor._serializedObject = new SerializedObject(target);
 
             _editors[target] = editor;
+
+            editor.OnEnable();
             return editor;
         }
 
@@ -52,7 +54,7 @@ namespace RPG.Nodes.Editor
 
         private static Dictionary<Type, Type> GetCustomEditors()
         {
-            var dictionary = new Dictionary<Type, Type>();
+            Dictionary<Type, Type> dictionary = new Dictionary<Type, Type>();
 
             Type[] editorTypes = NodeReflection.GetDerivedTypes<TEditor>();
             //Type[] editorTypes = NodeReflection.GetDerivedTypes(typeof(TEditor));
@@ -74,6 +76,8 @@ namespace RPG.Nodes.Editor
 
         private SerializedObject _serializedObject = null;
         public SerializedObject SerializedObject { get { return _serializedObject; } }
+
+        protected virtual void OnEnable() { }
     }
 
     public interface IEditorAttribute { Type GetInspectedType(); }

@@ -4,15 +4,16 @@ using UnityEngine;
 namespace RPG.Nodes.Base
 {
     [System.Serializable]
-    public class ScriptableObjectWithID : UnityEngine.ScriptableObject
+    public class BaseObject
     {
         [ShowNativeProperty]
-        private int Hash
+        private int HashCode
         {
             get { return GetHashCode(); }
         }
 
-        [SerializeField, HideInInspector]
+        [SerializeField]
+        [HideInInspector]
         protected int _id = -1;
 
         public int ID

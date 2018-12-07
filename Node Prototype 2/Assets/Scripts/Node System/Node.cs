@@ -8,16 +8,16 @@ namespace RPG.Nodes
 {
     public class PortHandler
     {
-        public Node node = null;
+        //private Node _node = null;
         public IInput inputNode = null;
-        public ISingleOutput singleOutputNode = null;
+        public IOutput outputNode = null;
         public IMultipleOutput multipleOutputNode = null;
 
         public PortHandler(Node node)
         {
-            this.node = node;
+            //_node = node;
             inputNode = node as IInput;
-            singleOutputNode = node as ISingleOutput;
+            outputNode = node as IOutput;
             multipleOutputNode = node as IMultipleOutput;
         }
 
@@ -25,18 +25,33 @@ namespace RPG.Nodes
             where T : IPort
         {
             if (typeof(T) == typeof(IInput) && inputNode != null) action.Invoke((T)inputNode);
-            if (typeof(T) == typeof(ISingleOutput) && singleOutputNode != null) action.Invoke((T)singleOutputNode);
+            if (typeof(T) == typeof(IOutput) && outputNode != null) action.Invoke((T)outputNode);
             if (typeof(T) == typeof(IMultipleOutput) && multipleOutputNode != null) action.Invoke((T)multipleOutputNode);
         }
+
+        //public void InputPortAction(Action action)
+        //{
+        //    if (inputNode != null) action.Invoke();
+        //}
+
+        //public void SingeOutputPortAction(Action action)
+        //{
+        //    if (outputNode != null) action.Invoke();
+        //}
+
+        //public void MultipleOutputPortAction(Action action)
+        //{
+        //    if (multipleOutputNode != null) action.Invoke();
+        //}
 
         public void InputPortAction(Action<IInput> action)
         {
             if (inputNode != null) action.Invoke(inputNode);
         }
 
-        public void SingeOutputPortAction(Action<ISingleOutput> action)
+        public void SingeOutputPortAction(Action<IOutput> action)
         {
-            if (singleOutputNode != null) action.Invoke(singleOutputNode);
+            if (outputNode != null) action.Invoke(outputNode);
         }
 
         public void MultipleOutputPortAction(Action<IMultipleOutput> action)
@@ -46,7 +61,7 @@ namespace RPG.Nodes
     }
 
     [Serializable]
-    public abstract class Node : ScriptableObjectWithID
+    public abstract class Node : BaseScriptableObject
     {
         private PortHandler _portHandler = null;
         public PortHandler PortHandler { get { return _portHandler ?? (_portHandler = new PortHandler(this)); } }
@@ -120,7 +135,7 @@ namespace RPG.Nodes
 
         public Node NextNode()
         {
-            ISingleOutput sOutputNode = this as ISingleOutput;
+            IOutput sOutputNode = this as IOutput;
             if (sOutputNode != null) return CheckNextNodePort(sOutputNode.OutputPort);
 
             IMultipleOutput mOutputNode = this as IMultipleOutput;
@@ -198,11 +213,10 @@ namespace RPG.Nodes
 
     public interface IPort { }
     public interface IInput : IPort { InputPort InputPort { get; set; } }
-    public interface IOutput : IPort { }
-    public interface ISingleOutput : IOutput { OutputPort OutputPort { get; set; } }
-    public interface IMultipleOutput : IOutput
+    public interface IOutput : IPort { OutputPort OutputPort { get; set; } }
+    public interface IMultipleOutput : IPort
     {
-        void ClearMultipleConnections();
+        void ClearOutputs();
         List<OutputPort> GetOutputs();
         Node NextNode();
         void AssignNodesToOutputPorts(Node node);

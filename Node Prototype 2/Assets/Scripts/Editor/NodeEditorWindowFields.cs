@@ -193,7 +193,7 @@ namespace RPG.Nodes.Editor
         private Vector2 _dragStart = Vector2.zero;
 
         //New and unsorted
-        private static T[] GetSelected<T>() where T : ScriptableObjectWithID
+        private static T[] GetSelected<T>() where T : BaseScriptableObject
         {
             //return Selection.objects.OfType<T>().ToArray();
             return Selection.GetFiltered<T>(SelectionMode.Unfiltered);
@@ -236,6 +236,8 @@ namespace RPG.Nodes.Editor
         //[ShowNonSerializedField]
         //[SerializeField]
         private SerializableDictionary<Node, Vector2> _nodeSizes = null;
+
+        private List<SubWindow> _subWindows = new List<SubWindow>();
 
         //[ShowNativeProperty]
         //private bool EditingTextField { get { return EditorGUIUtility.editingTextField; } }

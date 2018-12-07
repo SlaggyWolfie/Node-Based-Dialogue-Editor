@@ -4,29 +4,29 @@ using UnityEngine;
 namespace RPG.Nodes.Base
 {
     [Serializable]
-    public class Blackboard : ScriptableObjectWithID
+    public class Blackboard : BaseScriptableObject
     {
         [SerializeField]
         private NodeGraph _currentNodeGraph = null;
         
         [SerializeField]
-        private VariableRepository _globalVariableRepository = null;
+        private VariableInventory _globalVariableInventory = null;
         [SerializeField]
-        private VariableRepository _currentLocalVariableRepository = null;
+        private VariableInventory _currentLocalVariableInventory = null;
 
-        public VariableRepository GlobalVariableRepository
+        public VariableInventory GlobalVariableInventory
         {
             get
             {
-                return _globalVariableRepository ??
-                       (_globalVariableRepository = new VariableRepository() { Location = VariableLocation.Global });
+                return _globalVariableInventory ??
+                       (_globalVariableInventory = new VariableInventory() { Location = VariableLocation.Global });
             }
-            set { _globalVariableRepository = value; }
+            set { _globalVariableInventory = value; }
         }
 
-        public VariableRepository CurrentLocalVariableRepository
+        public VariableInventory CurrentLocalVariableInventory
         {
-            get { return _currentLocalVariableRepository; }
+            get { return _currentLocalVariableInventory; }
         }
 
         public NodeGraph CurrentNodeGraph
@@ -35,7 +35,7 @@ namespace RPG.Nodes.Base
             set
             {
                 _currentNodeGraph = value;
-                _currentLocalVariableRepository = value.LocalVariableRepository;
+                _currentLocalVariableInventory = value.LocalVariableInventory;
                 //_currentSceneVariableRepository = value.SceneVariableRepository;
             }
         }

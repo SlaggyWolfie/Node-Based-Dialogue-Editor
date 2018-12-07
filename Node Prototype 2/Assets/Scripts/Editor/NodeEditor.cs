@@ -13,9 +13,9 @@ namespace RPG.Nodes.Editor
 
         private enum RenamingState { Idle, StandBy, Renaming }
         private RenamingState _renaming = RenamingState.Idle;
-        
+
         protected Dictionary<Port, Rect> _portRects = new Dictionary<Port, Rect>();
-        
+
         protected virtual void OnValidate() { }
 
         public virtual void OnHeaderGUI()
@@ -47,11 +47,12 @@ namespace RPG.Nodes.Editor
         {
             string title = Target.name;
             if (_renaming != RenamingState.Idle) RenamingGUI();
-            else
-            {
-                EditorGUILayout.LabelField(title, NodeResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
-            }
+            else EditorGUILayout.LabelField(title, NodeResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
 
+            DrawDefaultHeaderPorts();
+        }
+        protected void DrawDefaultHeaderPorts()
+        {
             bool headerInput = Target.InputPortIsInHeader();
             bool headerOutput = Target.OutputPortIsInHeader();
             if (!headerInput && !headerOutput) return;
@@ -59,26 +60,33 @@ namespace RPG.Nodes.Editor
             Rect headerRectProbably = GUILayoutUtility.GetLastRect();
             Rect portRect = headerRectProbably;
             portRect.size = NodePreferences.STANDARD_PORT_SIZE;
-            const float xOffset = 2;
+            const float xOffset = 0;
+            const float yOffset = 8;
 
             if (headerInput && Target.PortHandler.inputNode != null)
             {
                 Rect rect = portRect;
-                rect.position += new Vector2(-xOffset, 8);
-                NodeRendering.DrawPort(rect, NodeResources.DotOuter, NodeResources.Dot, Color.white, Color.gray, Target.PortHandler.inputNode.InputPort.IsConnected);
-                //rect.position += Target.Position;
-                _portRects[Target.PortHandler.inputNode.InputPort] = rect;
+                rect.position += new Vector2(-xOffset, yOffset);
+                InputPort inputPort = Target.PortHandler.inputNode.InputPort;
+                DrawPort(inputPort, rect);
             }
 
-            if (headerOutput && Target.PortHandler.singleOutputNode != null)
+            if (headerOutput && Target.PortHandler.outputNode != null)
             {
                 Rect rect = portRect;
-                rect.position += new Vector2(headerRectProbably.width - (16 - xOffset), 8);
-                NodeRendering.DrawPort(rect, NodeResources.DotOuter, NodeResources.Dot, Color.white, Color.gray, Target.PortHandler.singleOutputNode.OutputPort.IsConnected);
-                //rect.position += Target.Position;
-                _portRects[Target.PortHandler.singleOutputNode.OutputPort] = rect;
+                rect.position += new Vector2(headerRectProbably.width - (16 - xOffset), yOffset);
+                OutputPort outputPort = Target.PortHandler.outputNode.OutputPort;
+                DrawPort(outputPort, rect);
             }
         }
+
+        protected void DrawPort(Port port, Rect rect)
+        {
+            NodeRendering.DrawPort(rect, NodeResources.DotOuter, NodeResources.Dot,
+                Color.white, Color.gray, port.IsConnected);
+            _portRects[port] = rect;
+        }
+
         protected void DefaultNodeEditorBody()
         {
             SerializedObject.Update();

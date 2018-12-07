@@ -77,6 +77,7 @@ namespace RPG.Nodes.Editor
             DrawHeldConnection();
             DrawSelectionBox();
             //DrawTooltip();
+            DrawSubWindows();
 
             CheckHoveringAndSelection();
             GraphEditor.OnGUI();

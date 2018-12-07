@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RPG.Dialogue
 {
     [Serializable]
-    public sealed class DialogueNode : Node, IInput, ISingleOutput
+    public sealed class DialogueNode : Node, IInput, IOutput
     {
         [SerializeField]
         private InputPort _inputPort = null;
@@ -16,12 +16,7 @@ namespace RPG.Dialogue
         #region Node Stuff
         public InputPort InputPort
         {
-            get
-            {
-                if (_inputPort == null)
-                    _inputPort = new InputPort() { Node = this };
-                return _inputPort;
-            }
+            get { return _inputPort ?? (_inputPort = new InputPort() {Node = this}); }
             set
             {
                 _inputPort = value;
@@ -30,12 +25,7 @@ namespace RPG.Dialogue
         }
         public OutputPort OutputPort
         {
-            get
-            {
-                if (_outputPort == null)
-                    _outputPort = new OutputPort() { Node = this };
-                return _outputPort;
-            }
+            get { return _outputPort ?? (_outputPort = new OutputPort() {Node = this}); }
             set
             {
                 _outputPort = value;

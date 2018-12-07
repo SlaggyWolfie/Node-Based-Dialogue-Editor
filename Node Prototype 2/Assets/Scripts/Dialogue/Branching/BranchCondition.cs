@@ -6,49 +6,37 @@ using UnityEngine;
 namespace RPG.Nodes
 {
     [Serializable]
-    public class BranchCondition : ObjectWithID
+    public class BranchCondition : BaseObject
     {
         [SerializeField]
         private List<Condition> _conditions = new List<Condition>();
         [SerializeField]
-        private bool _isAnd = true;
+        private bool _allConditionsMustBeTrue = true;
 
         public bool Evaluate()
         {
-            bool result = false;
-
-            if (_isAnd)
+            //AND &&
+            if (_allConditionsMustBeTrue)
             {
-                result = true;
-
                 foreach (Condition condition in _conditions)
                 {
-                    if (condition.Evaluate()) continue;
-
-                    result = false;
-                    break;
+                    if (!condition.Evaluate()) return false;
                 }
+                return true;
             }
-            else
+
+            //OR ||
+            foreach (Condition condition in _conditions)
             {
-                result = false;
-
-                foreach (Condition condition in _conditions)
-                {
-                    if (!condition.Evaluate()) continue;
-
-                    result = true;
-                    break;
-                }
+                if (condition.Evaluate()) return true;
             }
-
-            return result;
+            return false;
         }
 
-        public bool IsAnd
+        public bool AllConditionsMustBeTrue
         {
-            get { return _isAnd; }
-            set { _isAnd = value; }
+            get { return _allConditionsMustBeTrue; }
+            set { _allConditionsMustBeTrue = value; }
         }
 
         #region List Wrapping Interface
