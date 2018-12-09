@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor.Nodes
 {
     public sealed class NodePreferences
     {

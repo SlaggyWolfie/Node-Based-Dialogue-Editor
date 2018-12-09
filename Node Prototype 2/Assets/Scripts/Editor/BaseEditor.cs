@@ -4,7 +4,7 @@ using System.Linq;
 using RPG.Nodes.Base;
 using UnityEditor;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor
 {
     [Serializable]
     public abstract class BaseEditor<TEditor, TTarget, TAttribute>
@@ -56,7 +56,7 @@ namespace RPG.Nodes.Editor
         {
             Dictionary<Type, Type> dictionary = new Dictionary<Type, Type>();
 
-            Type[] editorTypes = NodeReflection.GetDerivedTypes<TEditor>();
+            Type[] editorTypes = ReflectionUtilities.GetDerivedTypes<TEditor>();
             //Type[] editorTypes = NodeReflection.GetDerivedTypes(typeof(TEditor));
             foreach (Type type in editorTypes)
             {

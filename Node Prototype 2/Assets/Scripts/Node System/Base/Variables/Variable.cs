@@ -28,7 +28,7 @@ namespace RPG.Nodes.Base
         public VariableInventory VariableInventory
         {
             get { return _variableInventory; }
-            internal set
+            set
             {
                 _variableInventory = value;
                 Location = value.Location;

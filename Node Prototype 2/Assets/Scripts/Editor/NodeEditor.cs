@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using RPG.Nodes;
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor.Nodes
 {
     [Serializable, CustomNodeEditor(typeof(Node))]
     public class NodeEditor : BaseEditor<NodeEditor, Node, CustomNodeEditorAttribute>

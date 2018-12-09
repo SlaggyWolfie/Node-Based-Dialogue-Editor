@@ -31,7 +31,7 @@ MonoBehaviour:
   m_Name: Condition Node
   m_EditorClassIdentifier: 
   _id: -1
-  _position: {x: 276, y: 68}
+  _position: {x: 134, y: 48}
   _graph: {fileID: 11400000}
   _inputPort:
     _id: -1

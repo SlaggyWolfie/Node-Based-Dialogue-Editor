@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using RPG.Other;
+﻿using System.Collections.Generic;
+using RPG.Nodes;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using ScrObject = RPG.Nodes.Base.BaseScriptableObject;
 //using ScrObj = UnityEngine.Ba;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor.Nodes
 {
     public sealed partial class NodeEditorWindow
     {
@@ -218,19 +217,19 @@ namespace RPG.Nodes.Editor
                 DraggedOutput = null;
                 DraggedOutputTarget = null;
                 EditorUtility.SetDirty(Graph);
-                NodeUtilities.AutoSaveAssets();
+                NodeUtility.AutoSaveAssets();
             }
             else if (_currentActivity == Activity.Dragging)
             {
                 Node[] nodes = GetSelected<Node>();
                 foreach (Node node in nodes) EditorUtility.SetDirty(node);
-                NodeUtilities.AutoSaveAssets();
+                NodeUtility.AutoSaveAssets();
             }
             else if (!IsHoveringNode)
             {
                 //If clicking outside the node, release the field focus
                 if (!IsPanning) EditorGUI.FocusTextInControl(null);
-                NodeUtilities.AutoSaveAssets();
+                NodeUtility.AutoSaveAssets();
             }
 
             if (_currentActivity == Activity.Holding && !(_cachedEvent.control || _cachedEvent.shift))
@@ -440,7 +439,7 @@ namespace RPG.Nodes.Editor
                 Vector2 start = NodeEditor.FindPortRect(connection.Start).center;
                 Vector2 end = NodeEditor.FindPortRect(connection.End).center;
 
-                if (NodeUtilities.PointOverlapBezier(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH))
+                if (NodeUtility.PointOverlapBezier(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH))
                     _hoveredConnection = connection;
 
                 //TODO: Add range overlap check, as just overlapping might be too annoying.

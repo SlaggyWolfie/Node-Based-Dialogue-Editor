@@ -2,9 +2,9 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor.Nodes
 {
-    public static class NodeUtilities
+    public static class NodeUtility
     {
         public static void AutoSaveAssets()
         {

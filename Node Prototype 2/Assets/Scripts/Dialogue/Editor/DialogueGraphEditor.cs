@@ -1,5 +1,5 @@
 ﻿using RPG.Dialogue;
-using RPG.Nodes.Editor;
+using RPG.Editor.Nodes;
 
 namespace RPG.Dialogue
 {

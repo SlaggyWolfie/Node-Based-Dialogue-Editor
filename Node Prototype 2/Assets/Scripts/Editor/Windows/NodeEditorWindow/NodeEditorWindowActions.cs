@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using RPG.Nodes;
 using RPG.Other;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
-//using ScrObject = RPG.Nodes.Base.ScriptableObjectWithID;
+//using ScrObj = RPG.Nodes.Base.BaseScriptableObject;
 using ScrObj = UnityEngine.ScriptableObject;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor.Nodes
 {
     public sealed partial class NodeEditorWindow
     {
@@ -91,7 +92,7 @@ namespace RPG.Nodes.Editor
 
             _nodeSizes = new SerializableDictionary<Node, Vector2>();
             Color oldColor = GUI.color;
-            NodeUtilities.BeginZoom(position, Zoom, TopPadding);
+            NodeUtility.BeginZoom(position, Zoom, TopPadding);
 
             for (int i = 0; i < _graph.NodeCount; i++)
             {
@@ -157,7 +158,7 @@ namespace RPG.Nodes.Editor
                 GUILayout.EndArea();
             }
 
-            NodeUtilities.EndZoom(position, Zoom, TopPadding);
+            NodeUtility.EndZoom(position, Zoom, TopPadding);
         }
 
         private void DrawGrid()
@@ -190,19 +191,6 @@ namespace RPG.Nodes.Editor
             if (nodePosition.x + size.x < 0) return true;
             if (nodePosition.y + size.y < 0) return true;
             return false;
-        }
-
-        private void DrawSubWindows()
-        {
-            BeginWindows();
-
-            for (int i = _subWindows.Count - 1; i >= 0; i--)
-            {
-                SubWindow subWindow = _subWindows[i];
-                subWindow.OnGUI();
-            }
-
-            EndWindows();
         }
         #endregion
 
@@ -249,7 +237,7 @@ namespace RPG.Nodes.Editor
 
         private void CreateNode(Type type, Vector2 position)
         {
-            if (!NodeReflection.IsOfType(type, typeof(Node))) return;
+            if (!ReflectionUtilities.IsOfType(type, typeof(Node))) return;
 
             Node node = Graph.AddNode(type);
             node.Position = position;
@@ -257,7 +245,7 @@ namespace RPG.Nodes.Editor
             node.AssignNodesToPorts();
 
             AssetDatabase.AddObjectToAsset(node, Graph);
-            NodeUtilities.AutoSaveAssets();
+            NodeUtility.AutoSaveAssets();
             Repaint();
         }
 
@@ -321,7 +309,7 @@ namespace RPG.Nodes.Editor
             Graph.AddConnection(connection);
             connection.name = "Connection";
             AssetDatabase.AddObjectToAsset(connection, Graph);
-            NodeUtilities.AutoSaveAssets();
+            NodeUtility.AutoSaveAssets();
             Repaint();
 
             return connection;
@@ -364,22 +352,7 @@ namespace RPG.Nodes.Editor
             Selection.objects = newNodes;
         }
         #endregion
-
-        #region Subwindows
-
-        public void OpenSubWindow<T>(Vector2 position, params object[] parameters) where T : SubWindow
-        {
-            T subWindow = (T)Activator.CreateInstance(typeof(T), parameters);
-            subWindow.Rect = new Rect(position, NodePreferences.STANDARD_NODE_SIZE);
-
-            _subWindows.Add(subWindow);
-        }
-
-        public void CloseSubWindow(SubWindow subWindow)
-        {
-            _subWindows.Remove(subWindow);
-        }
-        #endregion
+        
         #endregion
 
     }

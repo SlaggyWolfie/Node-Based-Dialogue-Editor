@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Reflection;
 using NaughtyAttributes;
+using RPG.Nodes;
 using UnityEditor;
 using UnityEngine;
 using RPG.Nodes.Base;
 using RPG.Other;
 using Object = UnityEngine.Object;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor.Nodes
 {
     public sealed partial class NodeEditorWindow
     {
@@ -193,6 +194,8 @@ namespace RPG.Nodes.Editor
         private Vector2 _dragStart = Vector2.zero;
 
         //New and unsorted
+        //--------------------------------------------------------------------------------------------------------//
+
         private static T[] GetSelected<T>() where T : BaseScriptableObject
         {
             //return Selection.objects.OfType<T>().ToArray();
@@ -222,7 +225,7 @@ namespace RPG.Nodes.Editor
 
         private List<Node> _culledNodes = null;
         private Type[] _nodeTypes = null;
-        private Type[] NodeTypes { get { return _nodeTypes ?? (_nodeTypes = NodeReflection.GetNodeTypes()); } }
+        private Type[] NodeTypes { get { return _nodeTypes ?? (_nodeTypes = ReflectionUtilities.GetDerivedTypes<Node>()); } }
 
         private Connection _hoveredConnection = null;
         [ShowNativeProperty]
@@ -236,8 +239,6 @@ namespace RPG.Nodes.Editor
         //[ShowNonSerializedField]
         //[SerializeField]
         private SerializableDictionary<Node, Vector2> _nodeSizes = null;
-
-        private List<SubWindow> _subWindows = new List<SubWindow>();
 
         //[ShowNativeProperty]
         //private bool EditingTextField { get { return EditorGUIUtility.editingTextField; } }

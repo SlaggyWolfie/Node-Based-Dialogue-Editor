@@ -1,7 +1,7 @@
 ﻿using System;
 using RPG.Nodes;
 using RPG.Nodes.Base;
-using RPG.Nodes.Editor;
+using RPG.Editor.Nodes;
 using UnityEditor;
 using UnityEngine;
 
@@ -93,7 +93,7 @@ namespace RPG.Dialogue
             {
                 Undo.RecordObject(ConditionNode, "Add Condition to " + ConditionNode.name + ConditionNode.GetHashCode());
                 //ConditionNode._CreateDefaultCondition();
-                NodeEditorWindow.CurrentNodeEditorWindow.OpenSubWindow<AddVariableSubWindow>(
+                NodeEditorWindow.CurrentNodeEditorWindow.OpenSubWindow<CreateVariableWindow>(
                     new Vector2(_cachedRect.x, _cachedRect.max.y), ConditionNode);
                 //EditorUtility.SetDirty(ConditionNode);
             }

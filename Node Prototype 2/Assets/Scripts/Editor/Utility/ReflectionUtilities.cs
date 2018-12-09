@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using RPG.Nodes;
 using UnityEngine;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor
 {
-    public static class NodeReflection
+    public static class ReflectionUtilities
     {
         public static bool GetAttribute<T>(Type type, out T outAttribute) where T : Attribute
         {
@@ -63,11 +64,6 @@ namespace RPG.Nodes.Editor
             }
 
             return types.ToArray();
-        }
-
-        public static Type[] GetNodeTypes()
-        {
-            return GetDerivedTypes<Node>();
         }
 
         public static KeyValuePair<TAttribute, MethodInfo>[] GetAttributeMethods<TAttribute>(object o) where TAttribute : Attribute

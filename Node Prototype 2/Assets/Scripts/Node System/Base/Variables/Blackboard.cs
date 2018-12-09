@@ -1,43 +1,58 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Nodes.Base
 {
-    [Serializable]
-    public class Blackboard : BaseScriptableObject
+    public class Blackboard
     {
-        [SerializeField]
-        private NodeGraph _currentNodeGraph = null;
-        
-        [SerializeField]
+        private static Blackboard _blackboard = null;
+
+        public static Blackboard Instance
+        {
+            get { return _blackboard ?? new Blackboard(); }
+        }
+
         private VariableInventory _globalVariableInventory = null;
-        [SerializeField]
         private VariableInventory _currentLocalVariableInventory = null;
 
         public VariableInventory GlobalVariableInventory
         {
             get
             {
-                return _globalVariableInventory ??
-                       (_globalVariableInventory = new VariableInventory() { Location = VariableLocation.Global });
+                return _globalVariableInventory ?? (_globalVariableInventory = GetAGlobalVariableInventory());
             }
-            set { _globalVariableInventory = value; }
         }
 
         public VariableInventory CurrentLocalVariableInventory
         {
             get { return _currentLocalVariableInventory; }
+            set { _currentLocalVariableInventory = value; }
         }
 
-        public NodeGraph CurrentNodeGraph
+        public Blackboard()
         {
-            get { return _currentNodeGraph; }
-            set
-            {
-                _currentNodeGraph = value;
-                _currentLocalVariableInventory = value.LocalVariableInventory;
-                //_currentSceneVariableRepository = value.SceneVariableRepository;
-            }
+            _globalVariableInventory = GetAGlobalVariableInventory();
+        }
+
+        private VariableInventory GetAGlobalVariableInventory()
+        {
+            //TODO: Test this
+            //Search for assets with this label
+            string[] GUIDs = AssetDatabase.FindAssets("l:global_variable_inventory");
+
+            //If any assets are found, take the first and load it as a Variable Inventory
+            if (GUIDs.Length != 0)
+                return AssetDatabase.LoadAssetAtPath<VariableInventory>(AssetDatabase.GUIDToAssetPath(GUIDs[0]));
+
+            //If no assets are found, create one
+            VariableInventory globalVariableInventory = ScriptableObject.CreateInstance<VariableInventory>();
+            globalVariableInventory.name = "Global Variable Inventory";
+            globalVariableInventory.Location = VariableLocation.Global;
+            AssetDatabase.SetLabels(globalVariableInventory, new[] { "global_variable_inventory", "variable_inventory" });
+            AssetDatabase.CreateAsset(globalVariableInventory, string.Format("Assets/{0}.asset", globalVariableInventory.name));
+
+            return globalVariableInventory;
         }
     }
 }

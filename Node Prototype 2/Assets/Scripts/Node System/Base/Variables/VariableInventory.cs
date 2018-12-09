@@ -41,7 +41,7 @@ namespace RPG.Nodes.Base
 
         public void AddVariable(Variable variable)
         {
-#pragma warning disable 0162
+            //#pragma warning disable 0162
             //if (PRESCRIPTIVE_OR_DESCRIPTIVE)
             //{
             //    if (variable.Location == Location) _variables.Add(variable);
@@ -52,7 +52,7 @@ namespace RPG.Nodes.Base
             //    _variables.Add(variable);
             //    variable.Location = Location;
             //}
-#pragma warning restore 0162
+            //#pragma warning restore 0162
 
             _variables.Add(variable);
             variable.VariableInventory = this;

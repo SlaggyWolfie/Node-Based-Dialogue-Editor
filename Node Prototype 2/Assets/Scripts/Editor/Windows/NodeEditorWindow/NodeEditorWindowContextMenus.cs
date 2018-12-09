@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using RPG.Nodes;
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor.Nodes
 {
     public partial class NodeEditorWindow
     {
@@ -77,7 +78,7 @@ namespace RPG.Nodes.Editor
 
             AddCustomContextMenuItems(contextMenu, port);
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
-            NodeUtilities.AutoSaveAssets();
+            NodeUtility.AutoSaveAssets();
         }
 
         private void ShowConnectionContextMenu()
@@ -122,7 +123,7 @@ namespace RPG.Nodes.Editor
             }
 
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
-            NodeUtilities.AutoSaveAssets();
+            NodeUtility.AutoSaveAssets();
         }
 
         private void ShowGraphContextMenu()
@@ -150,7 +151,7 @@ namespace RPG.Nodes.Editor
 
         private static void AddCustomContextMenuItems(GenericMenu contextMenu, object obj)
         {
-            KeyValuePair<ContextMenu, MethodInfo>[] items = NodeReflection.GetAttributeMethods<ContextMenu>(obj);
+            KeyValuePair<ContextMenu, MethodInfo>[] items = ReflectionUtilities.GetAttributeMethods<ContextMenu>(obj);
 
             //#if UNITY_5_5_OR_NEWER
             var list = items.ToList();

@@ -1,12 +1,13 @@
 ﻿using System;
+using RPG.Nodes;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor.Nodes
 {
     [Serializable]
-    public sealed partial class NodeEditorWindow : EditorWindow
+    public sealed partial class NodeEditorWindow : ParentEditorWindow
     {
         private NodeEditorWindow()
         {
@@ -43,7 +44,7 @@ namespace RPG.Nodes.Editor
         {
             CurrentNodeEditorWindow = this;
             _graphEditor = NodeGraphEditor.GetEditor(_graph);
-            if (_graphEditor != null) NodeUtilities.AutoSaveAssets();
+            if (_graphEditor != null) NodeUtility.AutoSaveAssets();
         }
 
         private void OnDisable()
@@ -148,7 +149,7 @@ namespace RPG.Nodes.Editor
             if (AssetDatabase.Contains(_graph))
             {
                 EditorUtility.SetDirty(_graph);
-                NodeUtilities.AutoSaveAssets();
+                NodeUtility.AutoSaveAssets();
             }
             else SaveAs();
         }
@@ -162,7 +163,7 @@ namespace RPG.Nodes.Editor
             if (existingGraph != null) AssetDatabase.DeleteAsset(path);
             AssetDatabase.CreateAsset(_graph, path);
             EditorUtility.SetDirty(_graph);
-            NodeUtilities.AutoSaveAssets();
+            NodeUtility.AutoSaveAssets();
         }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+using RPG.Nodes;
 using UnityEngine;
 
-namespace RPG.Nodes.Editor
+namespace RPG.Editor.Nodes
 {
     [Serializable, CustomNodeGraphEditor(typeof(NodeGraph))]
     public class NodeGraphEditor : BaseEditor<NodeGraphEditor, NodeGraph, CustomNodeGraphEditorAttribute>
@@ -44,7 +42,7 @@ namespace RPG.Nodes.Editor
         public virtual string GetNodeMenuName(Type type)
         {
             CreateNodeMenuAttribute attribute;
-            return NodeReflection.GetAttribute(type, out attribute) ? attribute.menuName : 
+            return ReflectionUtilities.GetAttribute(type, out attribute) ? attribute.menuName : 
                 UnityEditor.ObjectNames.NicifyVariableName(type.ToString().Replace('.', '/'));
         }
     }
