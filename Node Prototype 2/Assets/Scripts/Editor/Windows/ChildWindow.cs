@@ -1,42 +1,74 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using RPG.Editor.Nodes;
+using UnityEditor;
+using UnityEngine;
 
 namespace RPG.Editor
 {
-    public abstract class ChildWindow
+    public sealed class ChildWindow : IWindowEditorContainer
     {
-        protected ParentEditorWindow _parent = null;
-        public ParentEditorWindow Parent
+        public static ChildWindow OpenWindow<T>(Vector2 position, params object[] parameters)
+            where T : WindowEditor
         {
-            get { return _parent; }
-            set { _parent = value; }
+            ChildWindow window = Activator.CreateInstance<ChildWindow>();
+            window._editor = (T)Activator.CreateInstance(typeof(T), parameters);
+            window._editor.Rect = new Rect(position, NodePreferences.STANDARD_NODE_SIZE);
+            return window;
         }
 
-        protected string _name = null;
-        public string Name
+        public static ChildWindow OpenWindow<T>(Window parent,Vector2 position, params object[] parameters)
+            where T : WindowEditor
         {
-            get { return _name; }
-            set { _name = value; }
+            ChildWindow window = OpenWindow<T>(position, parameters);
+            window.ParentWindow = parent;
+            return window;
         }
 
-        protected Rect _rect = Rect.zero;
-        public Rect Rect
+        private Window _parentWindow = null;
+        public Window ParentWindow
         {
-            get { return _rect; }
-            set { _rect = value; }
+            get { return _parentWindow; }
+            set { _parentWindow = value; }
         }
 
-        public virtual void OnGUI()
+        private WindowEditor _editor = null;
+        public WindowEditor Editor { get { return _editor; } }
+
+        public void OnGUI()
         {
-            Rect = GUILayout.Window(1, Rect, OnGUI, Name);
+            Editor.Rect = GUILayout.Window(1, Editor.Rect, OnGUI, Editor.Name);
         }
-        public virtual void OnGUI(int unusedWindowID)
+        public void OnGUI(int unusedWindowID)
         {
+            Editor.OnGUI();
             GUI.DragWindow();
         }
-
-        protected void Repaint()
-        {
-            if (_parent != null) _parent.Repaint();
-        }
     }
+
+    //public sealed class ChildWindow<T> : ChildWindow, IWindowBehaviourContainer<T> where T : WindowBehaviour
+    //{
+    //    //public static ChildWindow<TBehaviour> OpenWindow<TBehaviour>(Vector2 position, params object[] parameters)
+    //    //    where TBehaviour : WindowBehaviour
+    //    //{
+    //    //    ChildWindow<TBehaviour> window = (ChildWindow<TBehaviour>)Activator.CreateInstance(typeof(ChildWindow<TBehaviour>));
+    //    //    window._behaviour = (TBehaviour)Activator.CreateInstance(typeof(TBehaviour), parameters);
+    //    //    window._behaviour.Rect = new Rect(position, NodePreferences.STANDARD_NODE_SIZE);
+    //    //    return window;
+    //    //}
+
+    //    //public static ChildWindow<TBehaviour> OpenWindow<TBehaviour>(Window parent, Vector2 position, params object[] parameters)
+    //    //    where TBehaviour : WindowBehaviour
+    //    //{
+    //    //    var window = OpenWindow<TBehaviour>(position, parameters);
+    //    //    window._parentWindow = parent;
+    //    //    return window;
+    //    //}
+
+    //    //private T _behaviour = null;
+    //    //public T Behaviour { get { return _behaviour; } }
+
+    //    //public override void OnGUI() { Behaviour.OnGUI(); }
+    //}
 }

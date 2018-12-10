@@ -1,7 +1,7 @@
 ﻿using NaughtyAttributes;
 using UnityEngine;
 
-namespace RPG.Nodes.Base
+namespace RPG.Base
 {
     [System.Serializable]
     public class BaseObject

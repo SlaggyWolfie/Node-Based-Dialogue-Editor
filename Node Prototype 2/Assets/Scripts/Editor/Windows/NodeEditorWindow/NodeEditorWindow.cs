@@ -1,5 +1,6 @@
 ﻿using System;
 using RPG.Nodes;
+using RPG.Nodes.Base;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine;
 namespace RPG.Editor.Nodes
 {
     [Serializable]
-    public sealed partial class NodeEditorWindow : ParentEditorWindow
+    public sealed partial class NodeEditorWindow : Window
     {
         private NodeEditorWindow()
         {
@@ -36,15 +37,17 @@ namespace RPG.Editor.Nodes
 
         public static void RepaintAll()
         {
-            NodeEditorWindow[] windows = Resources.FindObjectsOfTypeAll<NodeEditorWindow>();
+            NodeEditorWindow[] windows = UnityEngine.Resources.FindObjectsOfTypeAll<NodeEditorWindow>();
             foreach (var window in windows) window.Repaint();
         }
 
-        private void OnFocus()
+        protected override void OnFocus()
         {
+            base.OnFocus();
             CurrentNodeEditorWindow = this;
             _graphEditor = NodeGraphEditor.GetEditor(_graph);
-            if (_graphEditor != null) NodeUtility.AutoSaveAssets();
+            Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
+            if (_graphEditor != null) OtherUtilities.AutoSaveAssets();
         }
 
         private void OnDisable()
@@ -58,7 +61,7 @@ namespace RPG.Editor.Nodes
             NullifyStuff();
         }
 
-        private void OnGUI()
+        public override void OnGUI()
         {
             if (_graph == null) return;
 
@@ -67,6 +70,7 @@ namespace RPG.Editor.Nodes
             PreCache();
             //ResetHover();
             //throw new NotImplementedException();
+            Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
             GraphEditor = NodeGraphEditor.GetEditor(_graph);
             GraphEditor.Rectangle = position;
             
@@ -78,7 +82,7 @@ namespace RPG.Editor.Nodes
             DrawHeldConnection();
             DrawSelectionBox();
             //DrawTooltip();
-            DrawSubWindows();
+            DrawChildWindows();
 
             CheckHoveringAndSelection();
             GraphEditor.OnGUI();
@@ -149,7 +153,7 @@ namespace RPG.Editor.Nodes
             if (AssetDatabase.Contains(_graph))
             {
                 EditorUtility.SetDirty(_graph);
-                NodeUtility.AutoSaveAssets();
+                OtherUtilities.AutoSaveAssets();
             }
             else SaveAs();
         }
@@ -163,7 +167,7 @@ namespace RPG.Editor.Nodes
             if (existingGraph != null) AssetDatabase.DeleteAsset(path);
             AssetDatabase.CreateAsset(_graph, path);
             EditorUtility.SetDirty(_graph);
-            NodeUtility.AutoSaveAssets();
+            OtherUtilities.AutoSaveAssets();
         }
     }
 }

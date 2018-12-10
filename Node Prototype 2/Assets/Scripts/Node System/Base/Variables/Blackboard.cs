@@ -10,7 +10,7 @@ namespace RPG.Nodes.Base
 
         public static Blackboard Instance
         {
-            get { return _blackboard ?? new Blackboard(); }
+            get { return _blackboard ?? (_blackboard = new Blackboard()); }
         }
 
         private VariableInventory _globalVariableInventory = null;
@@ -37,20 +37,25 @@ namespace RPG.Nodes.Base
 
         private VariableInventory GetAGlobalVariableInventory()
         {
+            string label = "Global Variable Inventory";
+            
             //TODO: Test this
             //Search for assets with this label
-            string[] GUIDs = AssetDatabase.FindAssets("l:global_variable_inventory");
+            string[] GUIDs = AssetDatabase.FindAssets("l:" + label);
+            //string[] GUIDs = AssetDatabase.FindAssets("t:VariableInventory");
 
             //If any assets are found, take the first and load it as a Variable Inventory
             if (GUIDs.Length != 0)
                 return AssetDatabase.LoadAssetAtPath<VariableInventory>(AssetDatabase.GUIDToAssetPath(GUIDs[0]));
 
             //If no assets are found, create one
+            Debug.Log("Creating a new Global Variable Inventory.");
             VariableInventory globalVariableInventory = ScriptableObject.CreateInstance<VariableInventory>();
             globalVariableInventory.name = "Global Variable Inventory";
             globalVariableInventory.Location = VariableLocation.Global;
-            AssetDatabase.SetLabels(globalVariableInventory, new[] { "global_variable_inventory", "variable_inventory" });
+            //AssetDatabase.SetLabels(globalVariableInventory, new[] { label });
             AssetDatabase.CreateAsset(globalVariableInventory, string.Format("Assets/{0}.asset", globalVariableInventory.name));
+            AssetDatabase.SetLabels(globalVariableInventory, new[] { label });
 
             return globalVariableInventory;
         }

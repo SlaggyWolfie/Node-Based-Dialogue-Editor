@@ -1,4 +1,5 @@
-﻿using RPG.Nodes.Base;
+﻿using RPG.Base;
+using RPG.Nodes.Base;
 
 namespace Wolfram.RPG.Events
 {

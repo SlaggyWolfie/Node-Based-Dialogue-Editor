@@ -15,11 +15,9 @@ MonoBehaviour:
   _flow:
     _currentNode: {fileID: 0}
     _traversedNode: []
-  _localVariableInventory: {fileID: 0}
-  _nodes:
-  - {fileID: 114990889321441946}
+  _nodes: []
   _connections: []
---- !u!114 &114990889321441946
+--- !u!114 &114066436466023316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27,23 +25,114 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f86e2d608b38124eb9c2a7f2f5c92d5, type: 3}
-  m_Name: Condition Node
+  m_Script: {fileID: 11500000, guid: 51e2cf115de64db4783c16fbb30c5402, type: 3}
+  m_Name: Name Var
   m_EditorClassIdentifier: 
   _id: -1
-  _position: {x: 134, y: 48}
-  _graph: {fileID: 11400000}
-  _inputPort:
-    _id: -1
-    _node: {fileID: 114990889321441946}
-    _connections: []
-  _ifOutputPort:
-    _id: -1
-    _node: {fileID: 114990889321441946}
-    _connection: {fileID: 0}
-  _elseOutputPort:
-    _id: -1
-    _node: {fileID: 114990889321441946}
-    _connection: {fileID: 0}
-  _conditions: []
-  _isAnd: 1
+  _variableTypeEnum: 3
+  _boolValue: 0
+  _floatValue: 0
+  _stringValue: This is Johnny.
+  _variableLocation: 1
+  _variableInventory: {fileID: 114469467005864798}
+--- !u!114 &114075608313632340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d069e8eac31b4e4db58fc4247cadf25, type: 3}
+  m_Name: Nodes
+  m_EditorClassIdentifier: 
+  _id: -1
+--- !u!114 &114251742204985480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e2cf115de64db4783c16fbb30c5402, type: 3}
+  m_Name: TtestLocal
+  m_EditorClassIdentifier: 
+  _id: -1
+  _variableTypeEnum: 1
+  _boolValue: 1
+  _floatValue: 0
+  _stringValue: 
+  _variableLocation: 1
+  _variableInventory: {fileID: 114469467005864798}
+--- !u!114 &114352420588015366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d069e8eac31b4e4db58fc4247cadf25, type: 3}
+  m_Name: Connections
+  m_EditorClassIdentifier: 
+  _id: -1
+--- !u!114 &114469467005864798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8870d03e8b4f94aa1e4a63daecbece, type: 3}
+  m_Name: Local Variable Inventory
+  m_EditorClassIdentifier: 
+  _id: -1
+  _location: 1
+  _variables:
+  - {fileID: 114251742204985480}
+  - {fileID: 114992747134240760}
+  - {fileID: 114066436466023316}
+--- !u!114 &114862083235372052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d069e8eac31b4e4db58fc4247cadf25, type: 3}
+  m_Name: Nodes
+  m_EditorClassIdentifier: 
+  _id: -1
+--- !u!114 &114887835810871490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d069e8eac31b4e4db58fc4247cadf25, type: 3}
+  m_Name: Connections
+  m_EditorClassIdentifier: 
+  _id: -1
+--- !u!114 &114992747134240760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e2cf115de64db4783c16fbb30c5402, type: 3}
+  m_Name: TestF
+  m_EditorClassIdentifier: 
+  _id: -1
+  _variableTypeEnum: 2
+  _boolValue: 0
+  _floatValue: 2313
+  _stringValue: 
+  _variableLocation: 1
+  _variableInventory: {fileID: 114469467005864798}

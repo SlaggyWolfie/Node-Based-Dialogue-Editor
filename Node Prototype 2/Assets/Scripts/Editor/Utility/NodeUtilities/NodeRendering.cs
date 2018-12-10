@@ -98,7 +98,7 @@ namespace RPG.Editor.Nodes
             Vector2 heightDirection = directionNormalized * length;
             Vector2 top = position + heightDirection * 2 / 3;
             Vector2 bottomMiddle = top - heightDirection;
-            Vector2 perpendicularDirection = NodeUtility.GetPerpendicular(directionNormalized);
+            Vector2 perpendicularDirection = OtherUtilities.GetPerpendicular(directionNormalized);
             //Vector2 perpendicularDirection = Vector3.Cross(directionNormalized, Vector3.forward);
             Vector2 bottomDifference = perpendicularDirection * halfWidth;
             Vector2 left = bottomMiddle - bottomDifference;

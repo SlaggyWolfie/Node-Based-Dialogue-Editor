@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RPG.Base;
 using RPG.Nodes.Base;
 using UnityEngine;
 

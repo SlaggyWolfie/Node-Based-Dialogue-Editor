@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using RPG.Base;
 using RPG.Nodes;
 using RPG.Other;
 using UnityEditor;
@@ -92,7 +93,7 @@ namespace RPG.Editor.Nodes
 
             _nodeSizes = new SerializableDictionary<Node, Vector2>();
             Color oldColor = GUI.color;
-            NodeUtility.BeginZoom(position, Zoom, TopPadding);
+            OtherUtilities.BeginZoom(position, Zoom, TopPadding);
 
             for (int i = 0; i < _graph.NodeCount; i++)
             {
@@ -119,7 +120,7 @@ namespace RPG.Editor.Nodes
                 if (selected)
                 {
                     GUIStyle style = new GUIStyle(nodeEditor.GetBodyStyle());
-                    GUIStyle highlightStyle = new GUIStyle(NodeResources.Styles.nodeHighlight) { padding = style.padding };
+                    GUIStyle highlightStyle = new GUIStyle(MyResources.Styles.nodeHighlight) { padding = style.padding };
                     style.padding = new RectOffset();
                     GUI.color = nodeEditor.GetTint();
                     GUILayout.BeginVertical(style);
@@ -158,7 +159,7 @@ namespace RPG.Editor.Nodes
                 GUILayout.EndArea();
             }
 
-            NodeUtility.EndZoom(position, Zoom, TopPadding);
+            OtherUtilities.EndZoom(position, Zoom, TopPadding);
         }
 
         private void DrawGrid()
@@ -245,7 +246,7 @@ namespace RPG.Editor.Nodes
             node.AssignNodesToPorts();
 
             AssetDatabase.AddObjectToAsset(node, Graph);
-            NodeUtility.AutoSaveAssets();
+            OtherUtilities.AutoSaveAssets();
             Repaint();
         }
 
@@ -309,7 +310,7 @@ namespace RPG.Editor.Nodes
             Graph.AddConnection(connection);
             connection.name = "Connection";
             AssetDatabase.AddObjectToAsset(connection, Graph);
-            NodeUtility.AutoSaveAssets();
+            OtherUtilities.AutoSaveAssets();
             Repaint();
 
             return connection;

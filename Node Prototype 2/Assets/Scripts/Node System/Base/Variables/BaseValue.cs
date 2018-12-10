@@ -1,4 +1,5 @@
 ﻿using System;
+using RPG.Base;
 using UnityEngine;
 
 namespace RPG.Nodes.Base
@@ -43,9 +44,12 @@ namespace RPG.Nodes.Base
         private VariableType _variableTypeEnum = VariableType.None;
         private Type _variableTypeReal = null;
 
-        [SerializeField]
-        [HideInInspector]
-        private object _value = null;
+        //[SerializeField]
+        //[HideInInspector]
+        //private object _value = null;
+        [SerializeField] private bool _boolValue = false;
+        [SerializeField] private float _floatValue = 0;
+        [SerializeField] private string _stringValue = string.Empty;
 
         public Type RealType
         {
@@ -66,25 +70,53 @@ namespace RPG.Nodes.Base
             }
         }
 
-        public object UncastValue
+        //public object UncastValue
+        //{
+        //    get { return _value; }
+        //    set { _value = value; }
+        //}
+        public object Value
         {
-            get { return _value; }
-            set { _value = value; }
+            get
+            {
+                switch (EnumType)
+                {
+                    case VariableType.Boolean: return BoolValue;
+                    case VariableType.Float: return FloatValue;
+                    default:
+                    case VariableType.String: return StringValue;
+                }
+            }
+            set
+            {
+                switch (EnumType)
+                {
+                    case VariableType.Boolean:
+                        BoolValue = (bool)value;
+                        break;
+                    case VariableType.Float:
+                        FloatValue = (float)value;
+                        break;
+                    case VariableType.String:
+                        StringValue = value.ToString();
+                        break;
+                }
+            }
         }
         public bool BoolValue
         {
-            get { return (bool)_value; }
-            set { _value = value; }
+            get { return _boolValue; }
+            set { _boolValue = value; }
         }
         public float FloatValue
         {
-            get { return (float)_value; }
-            set { _value = value; }
+            get { return _floatValue; }
+            set { _floatValue = value; }
         }
         public string StringValue
         {
-            get { return (string)_value; }
-            set { _value = value; }
+            get { return _stringValue; }
+            set { _stringValue = value; }
         }
 
         public bool IsBoolean { get { return EnumType == VariableType.Boolean; } }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RPG.Base;
 using UnityEngine;
 
 namespace RPG.Nodes.Base
@@ -18,7 +19,8 @@ namespace RPG.Nodes.Base
         public VariableLocation Location
         {
             get { return _location; }
-            internal set { _location = value; }
+            /*internal*/
+            set { _location = value; }
         }
 
         #region List Wrapping Interface
@@ -30,6 +32,7 @@ namespace RPG.Nodes.Base
 
         public Variable GetVariable(int index)
         {
+            if (index < 0 || index >= VariableCount) return null;
             return _variables[index];
         }
 
@@ -41,26 +44,13 @@ namespace RPG.Nodes.Base
 
         public void AddVariable(Variable variable)
         {
-            //#pragma warning disable 0162
-            //if (PRESCRIPTIVE_OR_DESCRIPTIVE)
-            //{
-            //    if (variable.Location == Location) _variables.Add(variable);
-            //    else throw new InvalidOperationException("Wrong variable location!");
-            //}
-            //else
-            //{
-            //    _variables.Add(variable);
-            //    variable.Location = Location;
-            //}
-            //#pragma warning restore 0162
-
             _variables.Add(variable);
             variable.VariableInventory = this;
         }
 
         public void RemoveVariable(Variable variable)
         {
-            _variables.Remove(variable);
+            if (variable != null) _variables.Remove(variable);
         }
         #endregion
     }

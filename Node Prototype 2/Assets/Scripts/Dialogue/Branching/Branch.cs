@@ -1,4 +1,5 @@
 ﻿using System;
+using RPG.Base;
 using RPG.Dialogue;
 using RPG.Nodes.Base;
 using UnityEngine;

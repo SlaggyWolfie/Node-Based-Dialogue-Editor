@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RPG.Dialogue.ConditionNodeEditor" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAhAIACgAAAAAAACAAAEAAEAAAAEBACAQ=</HashCode>
+      <FileName>Assets\Scripts\Dialogue\Editor\ConditionNodeEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.BaseEditor&lt;TEditor, TTarget&gt;" Collapsed="true">
+    <Position X="5.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAECAAQAAAAAAAEAQAAAAACIA=</HashCode>
+      <FileName>Assets\Scripts\Editor\BaseEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.BaseForCustomEditors&lt;TEditor, TTarget, TAttribute&gt;" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAAAAAEAAAECAEQAAAAAAAEAQAAAAACIA=</HashCode>
+      <FileName>Assets\Scripts\Editor\BaseForCustomEditors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.MyResources" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAIAIAAAAAMAAAECAAAAAAABAICgAAIAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Utility\NodeUtilities\MyResources.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.ReflectionUtilities" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAACAAAAAAAAAAAAAAgAAAICAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Utility\ReflectionUtilities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.ChildWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAQAAgAAAAAQgAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Windows\ChildWindow.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RPG.Editor.UtilityWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAgAAAAAQAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Windows\UtilityWindow.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RPG.Editor.Window" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACIAAEAAAAAAAAAAKAAAAAgAAAEAAAAgiAAAAABEA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Windows\Window.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.WindowEditor" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAQAAAAAAAAQAACAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Windows\WindowEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Nodes.NodeEditor" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCMAAAgQCAAAAAAQEAAIBAIAAAABAAmAEAAEAAgAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\NodeEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Nodes.CustomNodeEditorAttribute" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\NodeEditor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RPG.Editor.Nodes.NodeGraphEditor" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAABAAAAAAAEAAEAAAAAAAAQhAQBAAACAAAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\NodeGraphEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Nodes.CustomNodeGraphEditorAttribute" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\NodeGraphEditor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RPG.Editor.Nodes.NodePreferences" Collapsed="true">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAIIAAAKYAgACAgBACAIAAAIIEkBgAADAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Utility\NodeUtilities\NodePreferences.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Nodes.NodeRendering" Collapsed="true">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAAAAAAAAAQAAAAAAAAABAAAAAAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Utility\NodeUtilities\NodeRendering.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Nodes.OtherUtilities" Collapsed="true">
+    <Position X="11.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAQAAAAAABMAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Utility\NodeUtilities\OtherUtilities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Nodes.NodeEditorWindow" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="RPG.Editor.Nodes.NodeEditorWindow.NodePortSelector" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Editor\Windows\NodeEditorWindow\NodeEditorWindowContextMenus.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Enum Name="RPG.Editor.Nodes.NodeEditorWindow.Activity" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Editor\Windows\NodeEditorWindow\NodeEditorWindowFields.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <InheritanceLine Type="RPG.Editor.Window" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="6.5" />
+        <Point X="2.5" Y="6.26" />
+        <Point X="15.26" Y="6.26" />
+        <Point X="15.26" Y="1.688" />
+        <Point X="15.5" Y="1.688" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>kMCBCKuFeqQ6hXtoMCOxAK6iZUyQNA4K1VCSQUAlDEA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Windows\NodeEditorWindow\NodeEditorWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Nodes.CreateVariableEditor" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUCAAABQoAAAAAiwAAAQEAAIAAAAAACAAEAAACA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Windows\Window Behaviours\CreateVariableEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Nodes.EditVariableEditor" Collapsed="true">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUCAAAFQoAAAAAiQAAAUEAAAAAAAAACAAEAAACA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Windows\Window Behaviours\EditVariableEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Variables.BlackboardEditorWindow" Collapsed="true">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAANQAEEAAAAAAAAAAAAAAAYAAAAAAAAACCAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Variables\BlackboardEditorWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Editor.Variables.VariableInventoryEditor" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAhAAEACAAEAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Variables\VariableInventoryEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPG.Other.ResizableTextAreaPropertyDrawer" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAAAADAAIAAAAAAAABAAABEAAEAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Other\Editor\ResizableTextAreaPropertyDrawer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RPG.Editor.IEditorAttribute" Collapsed="true">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\BaseForCustomEditors.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RPG.Editor.IWindowEditorContainer" Collapsed="true">
+    <Position X="10" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Editor\Windows\IWindowBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

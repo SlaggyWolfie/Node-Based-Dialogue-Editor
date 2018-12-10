@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace RPG.Editor.Variables
 {
-    public class BlackboardEditorWindow : EditorWindow
+    public class BlackboardEditorWindow : Window
     {
         //TODO: Finish this.
         private static BlackboardEditorWindow _currentBlackboardEditorWindow = null;
@@ -26,37 +26,63 @@ namespace RPG.Editor.Variables
         {
             VariableInventory variableInventory = EditorUtility.InstanceIDToObject(instanceID) as VariableInventory;
             if (variableInventory == null) return false;
-
-            BlackboardEditorWindow window = (BlackboardEditorWindow)GetWindow(typeof(BlackboardEditorWindow), false, "RPG Node Editor", true);
-            window.wantsMouseMove = true;
-            return true;
+            return OpenWindow() != null;
         }
 
-        //public static NodeEditorWindow OpenWindow()
-        //{
-        //    BlackboardEditorWindow window = CreateInstance<BlackboardEditorWindow>();
-        //    //window.titleContent = new GUIContent("Node Editor");
-        //    //window.wantsMouseMove = true;
-        //    //window.Show();
-        //    return window;
-        //}
+        [MenuItem("Window/RPG Framework/Blackboard")]
+        public static BlackboardEditorWindow OpenWindow()
+        {
+            BlackboardEditorWindow window = (BlackboardEditorWindow)GetWindow(typeof(BlackboardEditorWindow), false, "Blackboard", true);
+            window.wantsMouseMove = true;
+            return window;
+        }
 
         private Blackboard _blackboard = null;
         private Blackboard Blackboard { get { return _blackboard ?? Blackboard.Instance; } }
-
-        private void OnFocus()
+        private VariableInventoryEditor _globalVariableInventoryEditor = null;
+        private VariableInventoryEditor GVIEditor
         {
+            get
+            {
+                return _globalVariableInventoryEditor ?? (_globalVariableInventoryEditor =
+                           VariableInventoryEditor.GetEditor(Blackboard.GlobalVariableInventory));
+            }
+        }
+        private VariableInventoryEditor _localVariableInventoryEditor = null;
+        private VariableInventoryEditor LVIEditor
+        {
+            get
+            {
+                if (_localVariableInventoryEditor != null) return _localVariableInventoryEditor;
+
+                if (Blackboard.CurrentLocalVariableInventory == null) return null;
+                _localVariableInventoryEditor = VariableInventoryEditor.GetEditor(Blackboard.CurrentLocalVariableInventory);
+                return _localVariableInventoryEditor;
+            }
+        }
+
+        protected override void OnFocus()
+        {
+            base.OnFocus();
             CurrentBlackboardEditorWindow = this;
-            if (Blackboard != null) NodeUtility.AutoSaveAssets();
+            if (Blackboard != null) OtherUtilities.AutoSaveAssets();
         }
 
-        private void OnGUI()
+        public override void OnGUI()
         {
+            //return;
             if (Blackboard == null) return;
-            //Draw Global Inventory
-            //Draw Local Inventory
+            bool globalIsNull = GVIEditor == null;
+            bool localIsNull = LVIEditor == null;
+            if (globalIsNull && localIsNull) return;
+
+            EditorGUILayout.BeginVertical();
+            if (!globalIsNull) GVIEditor.OnGUI();
+            if (!localIsNull) LVIEditor.OnGUI();
+            EditorGUILayout.EndVertical();
         }
-        
+
+
         //public void Save()
         //{
         //    if (AssetDatabase.Contains(_graph))

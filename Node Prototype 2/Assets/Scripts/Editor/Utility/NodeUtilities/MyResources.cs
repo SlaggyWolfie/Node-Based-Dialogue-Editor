@@ -1,24 +1,25 @@
-﻿using UnityEditor;
+﻿using RPG.Editor.Nodes;
+using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Editor.Nodes
+namespace RPG.Editor
 {
-    public static class NodeResources
+    public static class MyResources
     {
         // Textures
         private static Texture2D _dot;
-        public static Texture2D Dot { get { return _dot != null ? _dot : _dot = Resources.Load<Texture2D>("dot"); } }
+        public static Texture2D Dot { get { return _dot != null ? _dot : _dot = UnityEngine.Resources.Load<Texture2D>("dot"); } }
         private static Texture2D _dotOuter;
-        public static Texture2D DotOuter { get { return _dotOuter != null ? _dotOuter : _dotOuter = Resources.Load<Texture2D>("dot_outer"); } }
+        public static Texture2D DotOuter { get { return _dotOuter != null ? _dotOuter : _dotOuter = UnityEngine.Resources.Load<Texture2D>("dot_outer"); } }
         private static Texture2D _nodeBody;
-        public static Texture2D NodeBody { get { return _nodeBody != null ? _nodeBody : _nodeBody = Resources.Load<Texture2D>("node"); } }
+        public static Texture2D NodeBody { get { return _nodeBody != null ? _nodeBody : _nodeBody = UnityEngine.Resources.Load<Texture2D>("node"); } }
         private static Texture2D _nodeHighlight;
         public static Texture2D NodeHighlight
         {
             get
             {
                 return _nodeHighlight != null ? _nodeHighlight :
-                    _nodeHighlight = Resources.Load<Texture2D>("node_highlight");
+                    _nodeHighlight = UnityEngine.Resources.Load<Texture2D>("node_highlight");
             }
         }
 

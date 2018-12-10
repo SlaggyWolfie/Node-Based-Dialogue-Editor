@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using RPG.Base;
 using RPG.Nodes.Base;
+using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Nodes
@@ -16,9 +19,17 @@ namespace RPG.Nodes
             set { _flow = value; }
         }
 
-        [SerializeField]
-        private VariableInventory _localVariableInventory = null;
-        public VariableInventory LocalVariableInventory { get { return _localVariableInventory ?? (_localVariableInventory = new VariableInventory()); } }
+        //[SerializeField]
+        //private VariableInventory _localVariableInventory = null;
+        //public VariableInventory LocalVariableInventory { get { return _localVariableInventory ?? (_localVariableInventory = new VariableInventory()); } }
+
+
+        private VariableInventory _variableInventory = null;
+        public void _SetLocalVariableInventory(VariableInventory variableInventory)
+        {
+            _variableInventory = variableInventory;
+        }
+        public VariableInventory LocalVariableInventory { get { return _variableInventory; } }
 
         [SerializeField]
         private List<Node> _nodes = new List<Node>();
@@ -78,7 +89,7 @@ namespace RPG.Nodes
             if (index < 0 || index >= NodeCount) return null;
             return _nodes[index];
         }
-        
+
         public void SendNodeToFront(Node node)
         {
             if (node == null) return;

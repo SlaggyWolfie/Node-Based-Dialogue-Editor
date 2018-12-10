@@ -43,7 +43,7 @@ namespace RPG.Dialogue
             EditorGUILayout.BeginVertical();
             DrawConditionsAndScroll(enabledGui);
 
-            DrawConditionButtons();
+            DrawButtons();
             DrawAndOrToggle(enabledGui);
             DrawIfElsePorts();
 
@@ -85,7 +85,7 @@ namespace RPG.Dialogue
             EditorGUILayout.EndScrollView();
         }
 
-        private void DrawConditionButtons()
+        private void DrawButtons()
         {
             EditorGUILayout.BeginHorizontal();
 
@@ -93,8 +93,8 @@ namespace RPG.Dialogue
             {
                 Undo.RecordObject(ConditionNode, "Add Condition to " + ConditionNode.name + ConditionNode.GetHashCode());
                 //ConditionNode._CreateDefaultCondition();
-                NodeEditorWindow.CurrentNodeEditorWindow.OpenSubWindow<CreateVariableWindow>(
-                    new Vector2(_cachedRect.x, _cachedRect.max.y), ConditionNode);
+                //NodeEditorWindow.CurrentNodeEditorWindow.OpenChildWindow<CreateVariableBehaviour>(
+                //    new Vector2(_cachedRect.x, _cachedRect.max.y), ConditionNode);
                 //EditorUtility.SetDirty(ConditionNode);
             }
 
@@ -163,9 +163,9 @@ namespace RPG.Dialogue
 
         private static void DrawCheckingValues(Condition condition, float perPieceWidth)
         {
-            EditorGUILayout.TextField(condition.Variable.UncastValue.ToString(), GUILayout.Width(perPieceWidth));
+            EditorGUILayout.TextField(condition.Variable.Value.ToString(), GUILayout.Width(perPieceWidth));
             ComparisonSign(condition.ComparisonType, EditorStyles.label.CalcSize(new GUIContent("==")).x);
-            EditorGUILayout.TextField(condition.ActualCheckedAgainstValue.UncastValue.ToString(), GUILayout.Width(perPieceWidth));
+            EditorGUILayout.TextField(condition.ActualCheckedAgainstValue.Value.ToString(), GUILayout.Width(perPieceWidth));
         }
 
         private static void ComparisonSign(ComparisonType comparison, float width)

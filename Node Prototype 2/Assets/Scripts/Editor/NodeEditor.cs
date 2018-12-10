@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace RPG.Editor.Nodes
 {
-    [Serializable, CustomNodeEditor(typeof(Node))]
-    public class NodeEditor : BaseEditor<NodeEditor, Node, CustomNodeEditorAttribute>
+    [CustomNodeEditor(typeof(Node))]
+    public class NodeEditor : BaseForCustomEditors<NodeEditor, Node, CustomNodeEditorAttribute>
     {
         public static Action<Node> onUpdateNode;
 
@@ -37,7 +37,7 @@ namespace RPG.Editor.Nodes
                 _renaming = RenamingState.Renaming;
             }
 
-            Target.name = EditorGUILayout.TextField(Target.name, NodeResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
+            Target.name = EditorGUILayout.TextField(Target.name, MyResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
 
             if (EditorGUIUtility.editingTextField) return;
             Rename(Target.name);
@@ -47,7 +47,7 @@ namespace RPG.Editor.Nodes
         {
             string title = Target.name;
             if (_renaming != RenamingState.Idle) RenamingGUI();
-            else EditorGUILayout.LabelField(title, NodeResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
+            else EditorGUILayout.LabelField(title, MyResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
 
             DrawDefaultHeaderPorts();
         }
@@ -82,7 +82,7 @@ namespace RPG.Editor.Nodes
 
         protected void DrawPort(Port port, Rect rect)
         {
-            NodeRendering.DrawPort(rect, NodeResources.DotOuter, NodeResources.Dot,
+            NodeRendering.DrawPort(rect, MyResources.DotOuter, MyResources.Dot,
                 Color.white, Color.gray, port.IsConnected);
             _portRects[port] = rect;
         }
@@ -124,7 +124,7 @@ namespace RPG.Editor.Nodes
         }
         public virtual GUIStyle GetBodyStyle()
         {
-            return NodeResources.Styles.nodeBody;
+            return MyResources.Styles.nodeBody;
         }
 
         public virtual Rect GetPortRect(Port port)

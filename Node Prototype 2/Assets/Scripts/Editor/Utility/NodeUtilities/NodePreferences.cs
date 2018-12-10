@@ -34,8 +34,8 @@ namespace RPG.Editor.Nodes
 
         private Texture2D _gridTexture = null;
         private Texture2D _crossTexture = null;
-        public Texture2D GridTexture { get { return _gridTexture ?? (_gridTexture = NodeResources.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR)); } }
-        public Texture2D CrossTexture { get { return _crossTexture ?? (_crossTexture = NodeResources.GenerateCrossTexture(CROSS_LINE_COLOR)); } }
+        public Texture2D GridTexture { get { return _gridTexture ?? (_gridTexture = MyResources.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR)); } }
+        public Texture2D CrossTexture { get { return _crossTexture ?? (_crossTexture = MyResources.GenerateCrossTexture(CROSS_LINE_COLOR)); } }
 
 
         public enum ConnectionType { Bezier, Line, Angled }
@@ -69,8 +69,8 @@ namespace RPG.Editor.Nodes
 
             private Texture2D _gridTexture = null;
             private Texture2D _crossTexture = null;
-            public Texture2D GridTexture { get { return _gridTexture ?? (_gridTexture = NodeResources.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR)); } }
-            public Texture2D CrossTexture { get { return _crossTexture ?? (_crossTexture = NodeResources.GenerateCrossTexture(CROSS_LINE_COLOR)); } }
+            public Texture2D GridTexture { get { return _gridTexture ?? (_gridTexture = MyResources.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR)); } }
+            public Texture2D CrossTexture { get { return _crossTexture ?? (_crossTexture = MyResources.GenerateCrossTexture(CROSS_LINE_COLOR)); } }
         }
 
         private bool _shouldAutoSave = true;

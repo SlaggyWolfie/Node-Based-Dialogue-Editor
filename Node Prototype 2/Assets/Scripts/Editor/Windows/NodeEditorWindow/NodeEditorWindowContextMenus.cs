@@ -78,7 +78,7 @@ namespace RPG.Editor.Nodes
 
             AddCustomContextMenuItems(contextMenu, port);
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
-            NodeUtility.AutoSaveAssets();
+            OtherUtilities.AutoSaveAssets();
         }
 
         private void ShowConnectionContextMenu()
@@ -123,7 +123,7 @@ namespace RPG.Editor.Nodes
             }
 
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
-            NodeUtility.AutoSaveAssets();
+            OtherUtilities.AutoSaveAssets();
         }
 
         private void ShowGraphContextMenu()

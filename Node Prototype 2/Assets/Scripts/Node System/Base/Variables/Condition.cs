@@ -1,4 +1,5 @@
 ﻿using System;
+using RPG.Base;
 using UnityEngine;
 
 namespace RPG.Nodes.Base

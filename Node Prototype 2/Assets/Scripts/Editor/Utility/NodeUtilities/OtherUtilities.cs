@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RPG.Editor.Nodes
 {
-    public static class NodeUtility
+    public static class OtherUtilities
     {
         public static void AutoSaveAssets()
         {

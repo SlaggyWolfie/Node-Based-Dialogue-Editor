@@ -1,51 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RPG.Dialogue;
 using RPG.Nodes.Base;
-using RPG.Nodes;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace RPG.Editor.Nodes
 {
-    public class CreateVariableWindow : ChildWindow
+    public class CreateVariableEditor : WindowEditor
     {
         private string _variableName = String.Empty;
         private VariableType _variableType = VariableType.Boolean;
-        private object _variableValue = null;
+        //private object _variableValue = null;
+        private bool _boolValue = false;
+        private float _floatValue = 0;
+        private string _stringValue = string.Empty;
 
         private VariableInventory _variableInventory = null;
 
         //Called via activator
-        public CreateVariableWindow(VariableInventory variableInventory) : this()
+        public CreateVariableEditor(VariableInventory variableInventory) : this()
         {
             _variableInventory = variableInventory;
             //Debug.Log("Correct constructor");
         }
 
-        public CreateVariableWindow()
+        public CreateVariableEditor()
         {
-            Name = "Add Variable";
+            Name = "Create Variable";
         }
 
-        public override void OnGUI(int unusedWindowID)
+        public override void OnGUI()
         {
             //GUILayout.BeginArea(Rect);
-
             bool enabledGUI = GUI.enabled;
 
+            Rect rect = EditorGUILayout.BeginVertical();
             DrawVariableNameField();
             DrawVariableTypeSelection(enabledGUI);
             DrawVariableTypeValue(enabledGUI);
             DrawButtons(enabledGUI);
+            EditorGUILayout.EndVertical();
 
-            _rect.size = GUILayoutUtility.GetLastRect().size;
+            _rect.size = rect.size;
 
             //GUILayout.EndArea();
-            GUI.DragWindow();
+            //GUI.DragWindow();
         }
 
         private void DrawVariableTypeValue(bool enabledGUI)
@@ -57,14 +55,14 @@ namespace RPG.Editor.Nodes
                 case VariableType.None:
                     break;
                 case VariableType.Boolean:
-                    _variableValue = DrawTrueAndFalseToggle((bool) _variableValue, enabledGUI);
+                    _boolValue = DrawTrueAndFalseToggle(_boolValue, enabledGUI);
                     break;
                 case VariableType.Float:
-                    _variableValue = EditorGUILayout.FloatField((float) _variableValue);
+                    _floatValue = EditorGUILayout.FloatField(_floatValue);
                     //_value = float.Parse(GUILayout.TextField((string)_value));
                     break;
                 case VariableType.String:
-                    _variableValue = EditorGUILayout.TextField((string) _variableValue);
+                    _stringValue = EditorGUILayout.TextField(_stringValue);
                     //_value = GUILayout.TextField((string)_value);
                     break;
             }
@@ -75,9 +73,7 @@ namespace RPG.Editor.Nodes
         private void DrawVariableTypeSelection(bool enabledGUI)
         {
             EditorGUILayout.BeginHorizontal();
-
             _variableType = DrawVariableTypes(_variableType, enabledGUI);
-
             EditorGUILayout.EndHorizontal();
         }
 
@@ -108,11 +104,7 @@ namespace RPG.Editor.Nodes
             if (isWantedType) GUI.enabled = false;
 
             bool toggled = GUILayout.Toggle(isWantedType, wantedVarType.ToString().Replace("VariableType.", ""), GUI.skin.button);
-            if (toggled)
-            {
-                varType = wantedVarType;
-                DoDefaultValues(varType);
-            }
+            if (toggled) varType = wantedVarType;
 
             GUI.enabled = enabledGui;
             return varType;
@@ -124,15 +116,15 @@ namespace RPG.Editor.Nodes
             {
                 case VariableType.Boolean:
                     //_value = default(bool);
-                    _variableValue = false;
+                    _boolValue = false;
                     break;
                 case VariableType.Float:
                     //_value = default(float);
-                    _variableValue = 0.0f;
+                    _floatValue = 0.0f;
                     break;
                 case VariableType.String:
                     //_value = default(string);
-                    _variableValue = string.Empty;
+                    _stringValue = string.Empty;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("varType", varType, null);
@@ -157,14 +149,32 @@ namespace RPG.Editor.Nodes
 
             return value;
         }
-        
+
+        //private bool IsValueValid()
+        //{
+        //    switch (_variableType)
+        //    {
+        //        case VariableType.Boolean:
+        //            //_value = default(bool);
+        //            _boolValue = false;
+        //            break;
+        //        case VariableType.Float:
+        //            //_value = default(float);
+        //            _floatValue = 0.0f;
+        //            break;
+        //        case VariableType.String:
+        //            //_value = default(string);
+        //            _stringValue = string.Empty;
+        //            break;
+        //    }
+        //}
+
         private void DrawButtons(bool enabledGui)
         {
-            if (_variableName == string.Empty || _variableType == VariableType.None || _variableValue == null)
+            if (_variableName == string.Empty || _variableType == VariableType.None)
                 GUI.enabled = false;
 
             bool shouldClose = false;
-            NodeEditorWindow window = NodeEditorWindow.CurrentNodeEditorWindow;
 
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Create"))
@@ -180,24 +190,34 @@ namespace RPG.Editor.Nodes
                 shouldClose = true;
             }
 
-            if (shouldClose) window.CloseSubWindow(this);
+            if (shouldClose) Window.CloseWindow(this);
             EditorGUILayout.EndHorizontal();
         }
 
         private void AddVariable()
         {
             Variable variable = ScriptableObject.CreateInstance<Variable>();
-            
+
             variable.name = _variableName;
             variable.VariableInventory = _variableInventory;
             variable.EnumType = _variableType;
-            variable.UncastValue = _variableValue;
-
+            //variable.UncastValue = _variableValue;
+            AssignValue(variable);
             _variableInventory.AddVariable(variable);
 
             AssetDatabase.AddObjectToAsset(variable, _variableInventory);
-            NodeUtility.AutoSaveAssets();
-            Repaint();
+            OtherUtilities.AutoSaveAssets();
+            //Repaint();
+        }
+
+        private void AssignValue(Variable variable)
+        {
+            switch (_variableType)
+            {
+                case VariableType.Boolean: variable.BoolValue = _boolValue; break;
+                case VariableType.Float: variable.FloatValue = _floatValue; break;
+                case VariableType.String: variable.StringValue = _stringValue; break;
+            }
         }
     }
 }

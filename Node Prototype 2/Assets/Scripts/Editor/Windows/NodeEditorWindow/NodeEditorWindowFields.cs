@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using NaughtyAttributes;
+using RPG.Base;
 using RPG.Nodes;
 using UnityEditor;
 using UnityEngine;
