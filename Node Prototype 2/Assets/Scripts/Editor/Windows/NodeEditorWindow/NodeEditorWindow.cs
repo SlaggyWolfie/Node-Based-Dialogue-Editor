@@ -46,7 +46,8 @@ namespace RPG.Editor.Nodes
             base.OnFocus();
             CurrentNodeEditorWindow = this;
             _graphEditor = NodeGraphEditor.GetEditor(_graph);
-            Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
+            if (_graph.LocalVariableInventory != null)
+                Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
             if (_graphEditor != null) OtherUtilities.AutoSaveAssets();
         }
 
@@ -73,7 +74,7 @@ namespace RPG.Editor.Nodes
             Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
             GraphEditor = NodeGraphEditor.GetEditor(_graph);
             GraphEditor.Rectangle = position;
-            
+
             //HandleEvents();
 
             DrawGrid();
@@ -107,7 +108,7 @@ namespace RPG.Editor.Nodes
         {
             _cachedEvent = Event.current;
             _cachedMatrix = GUI.matrix;
-            
+
             _mousePosition = _cachedEvent.mousePosition;
 
             _leftMouseButtonUsed = _cachedEvent.button == 0;

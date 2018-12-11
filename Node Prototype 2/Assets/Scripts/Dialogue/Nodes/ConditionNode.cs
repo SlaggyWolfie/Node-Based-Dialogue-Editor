@@ -20,6 +20,8 @@ namespace RPG.Dialogue
         private OutputPort _elseOutputPort = null;
 
         [SerializeField]
+        private List<Value> _values = new List<Value>();
+        [SerializeField]
         private List<Condition> _conditions = new List<Condition>();
         [SerializeField]
         private bool _isAnd = true;
@@ -38,8 +40,7 @@ namespace RPG.Dialogue
             get { return _isAnd; }
             set { _isAnd = value; }
         }
-
-        #region List Wrapping Interface
+        #region List Wrapping Interface Conditions
 
         #region Standard Index Stuff
         public int ConditionCount
@@ -49,6 +50,7 @@ namespace RPG.Dialogue
 
         public Condition GetCondition(int index)
         {
+            if (index <= -1 || index >= ConditionCount) return null;
             return _conditions[index];
         }
 
@@ -61,12 +63,45 @@ namespace RPG.Dialogue
 
         public void AddCondition(Condition condition)
         {
-            _conditions.Add(condition);
+            if (condition != null)
+                _conditions.Add(condition);
         }
 
         public void RemoveCondition(Condition condition)
         {
-            _conditions.Remove(condition);
+            if (condition != null)
+                _conditions.Remove(condition);
+        }
+        #endregion
+
+        #region List Wrapping Interface Values
+        #region Standard Index Stuff
+        public int ValueCount
+        {
+            get { return _values.Count; }
+        }
+
+        public Value GetValue(int index)
+        {
+            if (index <= -1 || index >= ConditionCount) return null;
+            return _values[index];
+        }
+
+        public void RemoveValue(int index)
+        {
+            if (index <= -1 || index >= ConditionCount) return;
+            _values.RemoveAt(index);
+        }
+        #endregion
+
+        public void AddValue(Value value)
+        {
+            if (value != null) _values.Add(value);
+        }
+
+        public void RemoveValue(Value value)
+        {
+            if (value != null) _values.Remove(value);
         }
         #endregion
 

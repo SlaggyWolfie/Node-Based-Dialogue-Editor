@@ -15,9 +15,11 @@ MonoBehaviour:
   _flow:
     _currentNode: {fileID: 0}
     _traversedNode: []
-  _nodes: []
+  _nodes:
+  - {fileID: 114075944361065122}
+  - {fileID: 114680612839842890}
   _connections: []
---- !u!114 &114066436466023316
+--- !u!114 &114075944361065122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25,59 +27,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51e2cf115de64db4783c16fbb30c5402, type: 3}
-  m_Name: Name Var
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
   m_EditorClassIdentifier: 
   _id: -1
-  _variableTypeEnum: 3
-  _boolValue: 0
-  _floatValue: 0
-  _stringValue: This is Johnny.
-  _variableLocation: 1
-  _variableInventory: {fileID: 114469467005864798}
---- !u!114 &114075608313632340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d069e8eac31b4e4db58fc4247cadf25, type: 3}
-  m_Name: Nodes
-  m_EditorClassIdentifier: 
-  _id: -1
---- !u!114 &114251742204985480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51e2cf115de64db4783c16fbb30c5402, type: 3}
-  m_Name: TtestLocal
-  m_EditorClassIdentifier: 
-  _id: -1
-  _variableTypeEnum: 1
-  _boolValue: 1
-  _floatValue: 0
-  _stringValue: 
-  _variableLocation: 1
-  _variableInventory: {fileID: 114469467005864798}
---- !u!114 &114352420588015366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d069e8eac31b4e4db58fc4247cadf25, type: 3}
-  m_Name: Connections
-  m_EditorClassIdentifier: 
-  _id: -1
---- !u!114 &114469467005864798
+  _position: {x: 486, y: 74}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: -1
+    _node: {fileID: 114075944361065122}
+    _connections: []
+  _outputPort:
+    _id: -1
+    _node: {fileID: 114075944361065122}
+    _connection: {fileID: 0}
+  _speaker: Speaker...
+  _text: Text...
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114348834553749882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,36 +57,10 @@ MonoBehaviour:
   m_Name: Local Variable Inventory
   m_EditorClassIdentifier: 
   _id: -1
-  _location: 1
+  _location: 0
   _variables:
-  - {fileID: 114251742204985480}
-  - {fileID: 114992747134240760}
-  - {fileID: 114066436466023316}
---- !u!114 &114862083235372052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d069e8eac31b4e4db58fc4247cadf25, type: 3}
-  m_Name: Nodes
-  m_EditorClassIdentifier: 
-  _id: -1
---- !u!114 &114887835810871490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d069e8eac31b4e4db58fc4247cadf25, type: 3}
-  m_Name: Connections
-  m_EditorClassIdentifier: 
-  _id: -1
---- !u!114 &114992747134240760
+  - {fileID: 114551814258419342}
+--- !u!114 &114551814258419342
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,12 +69,67 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51e2cf115de64db4783c16fbb30c5402, type: 3}
-  m_Name: TestF
+  m_Name: TestBool
   m_EditorClassIdentifier: 
   _id: -1
-  _variableTypeEnum: 2
-  _boolValue: 0
-  _floatValue: 2313
+  _variableTypeEnum: 1
+  _boolValue: 1
+  _floatValue: 0
   _stringValue: 
-  _variableLocation: 1
-  _variableInventory: {fileID: 114469467005864798}
+  _variableLocation: 0
+  _variableInventory: {fileID: 114348834553749882}
+--- !u!114 &114680612839842890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f86e2d608b38124eb9c2a7f2f5c92d5, type: 3}
+  m_Name: Condition Node
+  m_EditorClassIdentifier: 
+  _id: -1
+  _position: {x: 124, y: 46}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: -1
+    _node: {fileID: 114680612839842890}
+    _connections: []
+  _ifOutputPort:
+    _id: -1
+    _node: {fileID: 114680612839842890}
+    _connection: {fileID: 0}
+  _elseOutputPort:
+    _id: -1
+    _node: {fileID: 114680612839842890}
+    _connection: {fileID: 0}
+  _values:
+  - {fileID: 114761893719421812}
+  _conditions:
+  - _id: -1
+    _comparison: 1
+    _isOutsideVariable: 1
+    _variable: {fileID: 114551814258419342}
+    _actualCheck: {fileID: 114030480108574024, guid: 965b1597b3e174244843bfd057fc16d9,
+      type: 2}
+    _localValue: {fileID: 0}
+    _otherVariable: {fileID: 114030480108574024, guid: 965b1597b3e174244843bfd057fc16d9,
+      type: 2}
+  _isAnd: 1
+--- !u!114 &114761893719421812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp:RPG.Nodes.Base:Value
+  _id: -1
+  _variableTypeEnum: 1
+  _boolValue: 1
+  _floatValue: 0
+  _stringValue: 

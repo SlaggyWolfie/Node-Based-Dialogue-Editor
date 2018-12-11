@@ -1,4 +1,5 @@
 ﻿using System;
+using RPG.Editor;
 using RPG.Nodes;
 using RPG.Nodes.Base;
 using RPG.Editor.Nodes;
@@ -95,6 +96,7 @@ namespace RPG.Dialogue
                 //ConditionNode._CreateDefaultCondition();
                 //NodeEditorWindow.CurrentNodeEditorWindow.OpenChildWindow<CreateVariableBehaviour>(
                 //    new Vector2(_cachedRect.x, _cachedRect.max.y), ConditionNode);
+                Window.GetChildWindow<CreateConditionEditor>(new Vector2(_cachedRect.x, _cachedRect.max.y), ConditionNode);
                 //EditorUtility.SetDirty(ConditionNode);
             }
 
@@ -105,9 +107,11 @@ namespace RPG.Dialogue
                 //EditorUtility.SetDirty(ConditionNode);
             }
 
-            if (GUILayout.Button("Edit *"))
-            {
-            }
+            //if (GUILayout.Button("Edit *"))
+            //{
+            //    Undo.RecordObject(ConditionNode, "Edit Condition from " + ConditionNode.name + ConditionNode.GetHashCode());
+            //    //Window.GetChildWindow<EditConditionEditor>(new Vector2(_cachedRect.x, _cachedRect.max.y), ConditionNode);
+            //}
 
             EditorGUILayout.EndHorizontal();
         }

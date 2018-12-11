@@ -1,11 +1,7 @@
 fileFormatVersion: 2
 guid: 3133718f4145d7f4698fae7e322f416d
 labels:
-- Connection Holder
-- Connection Holder
 - Local Variable Inventory
-- Node Holder
-- Node Holder
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

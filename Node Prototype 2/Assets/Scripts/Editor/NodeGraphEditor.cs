@@ -73,12 +73,7 @@ namespace RPG.Editor.Nodes
             Target._SetLocalVariableInventory(GetVariableInventory(name, name));
         }
 
-        public virtual void OnGUI()
-        {
-            //Debug.Log(AssetDatabase.GetAssetPath(NodeHolder.SubAsset));
-            //Debug.Log(AssetDatabase.GetAssetPath(ConnectionsHolder.SubAsset));
-            //Debug.Log(AssetDatabase.GetAssetPath(LocalVariableInventory));
-        }
+        public virtual void OnGUI() { }
 
         public virtual string GetNodeMenuName(Type type)
         {
