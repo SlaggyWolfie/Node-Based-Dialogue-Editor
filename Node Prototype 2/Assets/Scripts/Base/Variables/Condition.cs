@@ -18,41 +18,24 @@ namespace RPG.Nodes.Base
     [Serializable]
     public class Condition : BaseObject
     {
-        private VariableType _variableType = VariableType.None;
         [SerializeField]
         private ComparisonType _comparison = ComparisonType.None;
 
         [SerializeField]
-        private bool _isOutsideVariable = false;
+        private bool _usingBuiltInValue = false;
 
         [SerializeField]
         private Variable _variable = null;
 
-        [SerializeField]
-        private BaseValue _actualCheck = null;
+        //[SerializeField]
+        private BaseValue _actualValue = null;
 
         [SerializeField]
         private Value _localValue = null;
         [SerializeField]
         private Variable _otherVariable = null;
 
-        public BaseValue ActualCheckedAgainstValue
-        {
-            get
-            {
-                if (IsOutsideVariable) _actualCheck = OtherVariable;
-                else _actualCheck = LocalValue;
-
-                return _actualCheck;
-            }
-        }
-
-        public VariableType VariableType
-        {
-            get { return _variableType; }
-            set { _variableType = value; }
-        }
-
+        //public VariableType VariableType { get { return Variable != null ? Variable.EnumType : VariableType.None; } }
         public ComparisonType ComparisonType
         {
             get { return _comparison; }
@@ -65,24 +48,31 @@ namespace RPG.Nodes.Base
             set { _variable = value; }
         }
 
-        public bool IsOutsideVariable
+        public bool UsingBuiltInValue
         {
-            get { return _isOutsideVariable; }
+            get { return _usingBuiltInValue; }
             set
             {
-                _isOutsideVariable = value;
-
-                if (value) _actualCheck = OtherVariable;
-                else _actualCheck = LocalValue;
+                _usingBuiltInValue = value;
+                if (value) _actualValue = OtherVariable;
+                else _actualValue = LocalValue;
             }
         }
 
+        public BaseValue ActualValue
+        {
+            get
+            {
+                if (UsingBuiltInValue) _actualValue = OtherVariable;
+                else _actualValue = LocalValue;
+                return _actualValue;
+            }
+        }
         public Value LocalValue
         {
             get { return _localValue; }
             set { _localValue = value; }
         }
-
         public Variable OtherVariable
         {
             get { return _otherVariable; }
@@ -91,114 +81,68 @@ namespace RPG.Nodes.Base
 
         public bool Evaluate()
         {
-            return Evaluate(_variableType);
+            return Variable != null && Evaluate(Variable.EnumType);
         }
 
         #region Evaluate
         private bool Evaluate(VariableType variableType)
         {
-            bool result = false;
             switch (variableType)
             {
-                case VariableType.Boolean:
-                    result = EvaluateBoolean(_comparison);
-                    break;
-                case VariableType.Float:
-                    result = EvaluateFloat(_comparison);
-                    break;
-                case VariableType.String:
-                    result = EvaluateString(_comparison);
-                    break;
-                case VariableType.None:
-                default:
-                    throw new ArgumentOutOfRangeException();
+                case VariableType.Boolean: return EvaluateBoolean(_comparison);
+                case VariableType.Float: return EvaluateFloat(_comparison);
+                case VariableType.String: return EvaluateString(_comparison);
             }
 
-            return result;
+            return false;
         }
 
         private bool EvaluateBoolean(ComparisonType comparison)
         {
-            bool result = false;
-
             switch (comparison)
             {
-                case ComparisonType.IsEqual:
-                    result = _variable.BoolValue == ActualCheckedAgainstValue.BoolValue;
-                    break;
-                case ComparisonType.IsNotEqual:
-                    result = _variable.BoolValue != ActualCheckedAgainstValue.BoolValue;
-                    break;
-                case ComparisonType.None:
-                case ComparisonType.GreaterThan:
-                case ComparisonType.LesserThan:
-                case ComparisonType.GreaterThanOrEqual:
-                case ComparisonType.LesserThanOrEqual:
-                default:
-                    break; //throw new ArgumentOutOfRangeException(nameof(comparison), comparison, null);
+                case ComparisonType.IsEqual:return Variable.BoolValue == ActualValue.BoolValue;
+                case ComparisonType.IsNotEqual:return Variable.BoolValue != ActualValue.BoolValue;
             }
 
-            return result;
+            return false;
         }
 
         private bool EvaluateString(ComparisonType comparison)
         {
-            bool result = false;
-
             switch (comparison)
             {
-                case ComparisonType.IsEqual:
-                    result = _variable.StringValue == ActualCheckedAgainstValue.StringValue;
-                    break;
-                case ComparisonType.IsNotEqual:
-                    result = _variable.StringValue != ActualCheckedAgainstValue.StringValue;
-                    break;
-                case ComparisonType.None:
-                case ComparisonType.GreaterThan:
-                case ComparisonType.LesserThan:
-                case ComparisonType.GreaterThanOrEqual:
-                case ComparisonType.LesserThanOrEqual:
-                default:
-                    break; //throw new ArgumentOutOfRangeException(nameof(comparison), comparison, null);
+                case ComparisonType.IsEqual:return _variable.StringValue == ActualValue.StringValue;
+                case ComparisonType.IsNotEqual:return _variable.StringValue != ActualValue.StringValue;
             }
 
-            return result;
+            return false;
         }
 
         private bool EvaluateFloat(ComparisonType comparison, float epsilon = float.Epsilon)
         {
-            bool result = false;
-            bool areEqual = NearlyEqual(_variable.FloatValue, ActualCheckedAgainstValue.FloatValue, epsilon);
+            bool areEqual = NearlyEqual(_variable.FloatValue, ActualValue.FloatValue, epsilon);
 
             switch (comparison)
             {
                 case ComparisonType.IsEqual:
-                    result = areEqual;
-                    break;
+                    return areEqual;
                 case ComparisonType.IsNotEqual:
-                    result = !areEqual;
-                    break;
+                    return !areEqual;
                 case ComparisonType.GreaterThan:
-                    result = !areEqual && _variable.FloatValue > ActualCheckedAgainstValue.FloatValue;
-                    break;
+                    return !areEqual && _variable.FloatValue > ActualValue.FloatValue;
                 case ComparisonType.LesserThan:
-                    result = !areEqual && _variable.FloatValue < ActualCheckedAgainstValue.FloatValue;
-                    break;
+                    return !areEqual && _variable.FloatValue < ActualValue.FloatValue;
                 case ComparisonType.GreaterThanOrEqual:
-                    result = areEqual || _variable.FloatValue > ActualCheckedAgainstValue.FloatValue;
-                    break;
+                    return areEqual || _variable.FloatValue > ActualValue.FloatValue;
                 case ComparisonType.LesserThanOrEqual:
-                    result = areEqual || _variable.FloatValue < ActualCheckedAgainstValue.FloatValue;
-                    break;
-                case ComparisonType.None:
-                default:
-                    break; //throw new ArgumentOutOfRangeException(nameof(comparison), comparison, null);
+                    return areEqual || _variable.FloatValue < ActualValue.FloatValue;
             }
 
-            return result;
+            return false;
         }
 
-        private static bool NearlyEqual(float a, float b, float epsilon)
+        public static bool NearlyEqual(float a, float b, float epsilon)
         {
             float absoluteA = Mathf.Abs(a);
             float absoluteB = Mathf.Abs(b);

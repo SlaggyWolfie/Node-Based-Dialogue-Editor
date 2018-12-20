@@ -17,7 +17,7 @@ namespace RPG.Editor.Nodes
             public OutputPort output = null;
         }
 
-        #region Context Menu Manipulation
+        #region Context Menus
         private void ShowPortContextMenu(Port port)
         {
             GenericMenu contextMenu = new GenericMenu();
@@ -46,8 +46,9 @@ namespace RPG.Editor.Nodes
 
                 if (namedNodes.Count != 0 || unnamedNodes.Count != 0)
                 {
-                    contextMenu.AddSeparator("");
+                    contextMenu.AddSeparator(string.Empty);
 
+                    //TODO: Test this
                     foreach (NodePortSelector namedNode in namedNodes)
                     {
                         NodePortSelector captured = namedNode;
@@ -89,15 +90,16 @@ namespace RPG.Editor.Nodes
 
             if (oneConnectionSelected)
             {
-                contextMenu.AddItem(new GUIContent("Move To Top"), false, () => SendConnectionToFront(connection));
+                contextMenu.AddItem(new GUIContent("Send to Front"), false, () => SendConnectionToFront(connection));
+                contextMenu.AddItem(new GUIContent("Send to Back"), false, () => SendConnectionToBack(connection));
+                contextMenu.AddItem(new GUIContent("Send Forward"), false, () => SendConnectionForward(connection));
+                contextMenu.AddItem(new GUIContent("Send Backward"), false, () => SendConnectionBackward(connection));
+                contextMenu.AddSeparator(string.Empty);
             }
 
             contextMenu.AddItem(new GUIContent("Remove"), false, RemoveSelectedConnections);
 
-            if (oneConnectionSelected)
-            {
-                AddCustomContextMenuItems(contextMenu, connection);
-            }
+            if (oneConnectionSelected)AddCustomContextMenuItems(contextMenu, connection);
 
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
         }
@@ -110,17 +112,18 @@ namespace RPG.Editor.Nodes
 
             if (oneNodeSelected)
             {
-                contextMenu.AddItem(new GUIContent("Move To Top"), false, () => SendNodeToFront(node));
+                contextMenu.AddItem(new GUIContent("Send to Front"), false, () => SendNodeToFront(node));
+                contextMenu.AddItem(new GUIContent("Send to Back"), false, () => SendNodeToBack(node));
+                contextMenu.AddItem(new GUIContent("Send Forward"), false, () => SendNodeForward(node));
+                contextMenu.AddItem(new GUIContent("Send Backwards"), false, () => SendNodeBackward(node));
+                contextMenu.AddSeparator(string.Empty);
                 contextMenu.AddItem(new GUIContent("Rename"), false, RenameSelectedNode);
             }
 
             contextMenu.AddItem(new GUIContent("Duplicate"), false, DuplicateSelectedNodes);
             contextMenu.AddItem(new GUIContent("Remove"), false, RemoveSelectedNodes);
 
-            if (oneNodeSelected)
-            {
-                AddCustomContextMenuItems(contextMenu, node);
-            }
+            if (oneNodeSelected)AddCustomContextMenuItems(contextMenu, node);
 
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
             OtherUtilities.AutoSaveAssets();
@@ -143,7 +146,7 @@ namespace RPG.Editor.Nodes
                 });
             }
 
-            //contextMenu.AddSeparator("");
+            //contextMenu.AddSeparator(string.Empty);
             //contextMenu.AddItem(new GUIContent("Preferences"), false, OpenPreferences);
             AddCustomContextMenuItems(contextMenu, Graph);
             contextMenu.DropDown(new Rect(mousePosition, Vector2.zero));
@@ -161,7 +164,7 @@ namespace RPG.Editor.Nodes
 
             if (items.Length == 0) return;
 
-            contextMenu.AddSeparator("");
+            contextMenu.AddSeparator(string.Empty);
             foreach (var kvp in items)
             {
                 var kvp1 = kvp;

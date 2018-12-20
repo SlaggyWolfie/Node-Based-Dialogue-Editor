@@ -8,10 +8,6 @@ namespace RPG.Dialogue
     [Serializable]
     public sealed class ChoiceNode : Node, IInput, IMultipleOutput
     {
-        private Branch _pickedBranch = null;
-        [SerializeField]
-        private List<Branch> _branches = new List<Branch>();
-
         [SerializeField]
         private InputPort _inputPort = null;
         public InputPort InputPort
@@ -24,9 +20,11 @@ namespace RPG.Dialogue
             }
         }
 
-        #region List Wrapping Interface
+        private Branch _choice = null;
+        [SerializeField]
+        private List<Branch> _branches = new List<Branch>();
 
-        #region Standard Index Stuff
+        #region List Wrap
         public int BranchCount
         {
             get { return _branches.Count; }
@@ -34,27 +32,30 @@ namespace RPG.Dialogue
 
         public Branch GetBranch(int index)
         {
+            if (index < 0 || index >= BranchCount) return null;
             return _branches[index];
         }
 
         public void RemoveBranch(int index)
         {
+            if (index < 0 || index >= BranchCount) return;
             _branches.RemoveAt(index);
         }
-        #endregion
-
         public void RemoveBranch(Branch branch)
         {
-            _branches.Remove(branch);
+            if (branch != null)
+                _branches.Remove(branch);
         }
-        #endregion
+
+        public void AddBranch(Branch branch)
+        {
+            _branches.Add(branch);
+        }
 
         public Branch CreateBranch()
         {
             Branch branch = new Branch(this);
-
-            _branches.Add(branch);
-
+            AddBranch(branch);
             return branch;
         }
 
@@ -67,10 +68,11 @@ namespace RPG.Dialogue
         {
             return _branches.FindAll(branch => branch.IsAvailable);
         }
+        #endregion
 
         public void PickBranch(Branch branch)
         {
-            _pickedBranch = branch;
+            _choice = branch;
         }
 
         public void PickBranch(int index)
@@ -92,7 +94,7 @@ namespace RPG.Dialogue
 
         public new Node NextNode()
         {
-            return _pickedBranch != null ? _pickedBranch.DialogueNode : null;
+            return _choice != null ? _choice.DialogueNode : null;
         }
 
         public void AssignNodesToOutputPorts(Node node)

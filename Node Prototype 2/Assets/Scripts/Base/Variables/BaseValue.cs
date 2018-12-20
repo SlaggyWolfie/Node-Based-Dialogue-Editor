@@ -124,6 +124,4 @@ namespace RPG.Nodes.Base
         public bool IsString { get { return EnumType == VariableType.String; } }
         public bool HasType { get { return EnumType != VariableType.None; } }
     }
-
-    public class Value : BaseValue { }
 }

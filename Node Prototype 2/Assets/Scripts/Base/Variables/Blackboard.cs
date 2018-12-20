@@ -39,7 +39,6 @@ namespace RPG.Nodes.Base
         {
             string label = "Global Variable Inventory";
             
-            //TODO: Test this
             //Search for assets with this label
             string[] GUIDs = AssetDatabase.FindAssets("l:" + label);
             //string[] GUIDs = AssetDatabase.FindAssets("t:VariableInventory");

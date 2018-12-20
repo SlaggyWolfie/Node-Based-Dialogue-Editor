@@ -4,27 +4,44 @@ using UnityEngine;
 
 namespace RPG.Editor
 {
-    public static class MyResources
+    public static class NodeResources
     {
         // Textures
-        private static Texture2D _dot;
-        public static Texture2D Dot { get { return _dot != null ? _dot : _dot = UnityEngine.Resources.Load<Texture2D>("dot"); } }
-        private static Texture2D _dotOuter;
-        public static Texture2D DotOuter { get { return _dotOuter != null ? _dotOuter : _dotOuter = UnityEngine.Resources.Load<Texture2D>("dot_outer"); } }
-        private static Texture2D _nodeBody;
-        public static Texture2D NodeBody { get { return _nodeBody != null ? _nodeBody : _nodeBody = UnityEngine.Resources.Load<Texture2D>("node"); } }
-        private static Texture2D _nodeHighlight;
-        public static Texture2D NodeHighlight
+        private static Texture2D _dotTexture;
+        public static Texture2D DotTexture
         {
             get
             {
-                return _nodeHighlight != null ? _nodeHighlight :
-                    _nodeHighlight = UnityEngine.Resources.Load<Texture2D>("node_highlight");
+                return _dotTexture ?? (_dotTexture = Resources.Load<Texture2D>("dot"));
+            }
+        }
+        private static Texture2D _outerDotTexture;
+        public static Texture2D OuterDotTexture
+        {
+            get
+            {
+                return _outerDotTexture ?? (_outerDotTexture = Resources.Load<Texture2D>("dot_outer"));
+            }
+        }
+        private static Texture2D _nodeBodyTexture;
+        public static Texture2D NodeBodyTexture
+        {
+            get
+            {
+                return _nodeBodyTexture ?? (_nodeBodyTexture = Resources.Load<Texture2D>("node"));
+            }
+        }
+        private static Texture2D _nodeHighlightTexture;
+        public static Texture2D NodeHighlightTexture
+        {
+            get
+            {
+                return _nodeHighlightTexture ?? (_nodeHighlightTexture = Resources.Load<Texture2D>("node_highlight"));
             }
         }
 
         // Styles
-        private static StyleHolder _styles = null;
+        private static StyleHolder _styles;
         public static StyleHolder Styles { get { return _styles ?? (_styles = new StyleHolder()); } }
 
         public class StyleHolder
@@ -52,14 +69,14 @@ namespace RPG.Editor
 
                 nodeBody = new GUIStyle
                 {
-                    normal = { background = NodeBody },
+                    normal = { background = NodeBodyTexture },
                     border = new RectOffset(32, 32, 32, 32),
                     padding = new RectOffset(16, 16, 4, 16)
                 };
 
                 nodeHighlight = new GUIStyle
                 {
-                    normal = { background = NodeHighlight },
+                    normal = { background = NodeHighlightTexture },
                     border = new RectOffset(32, 32, 32, 32)
                 };
 

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RPG.Base
 {
     [System.Serializable]
-    public class BaseScriptableObject : UnityEngine.ScriptableObject
+    public class BaseScriptableObject : ScriptableObject
     {
         [ShowNativeProperty]
         private int HashCode

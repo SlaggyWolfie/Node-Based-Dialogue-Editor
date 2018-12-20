@@ -75,6 +75,18 @@ namespace RPG.Editor.Nodes
 
         public static void DrawConnection(Vector2 start, Vector2 end, Color color, float width)
         {
+            //DrawConnectionBezier(start, end, color, width);
+            DrawConnectionStraight(start,end, color, width);
+        }
+
+        public static void DrawConnectionStraight(Vector2 start, Vector2 end, Color color, float width)
+        {
+            Handles.DrawAAPolyLine(null, width, start, end);
+            DrawArrow((start + end) / 2, (end - start).normalized, width * 2);
+        }
+
+        public static void DrawConnectionBezier(Vector2 start, Vector2 end, Color color, float width)
+        {
             bool startIsLeftOfEnd = start.x < end.x;
 
             Vector2 startTangent = start;
@@ -88,7 +100,11 @@ namespace RPG.Editor.Nodes
                 : Mathf.LerpUnclamped(end.x, start.x, -0.7f);
 
             Handles.DrawBezier(start, end, startTangent, endTangent, color, null, width);
+
+            //Draw arrow at the center
             DrawArrow((start + end) / 2, (endTangent - startTangent).normalized, 16);
+            //Vector2 center = CubicBezierCurvePoint(0.5f, start, end, startTangent, endTangent);
+            //DrawArrow(center, (endTangent - startTangent).normalized, 16);
         }
 
         public static void DrawArrow(Vector2 position, Vector2 directionNormalized, float length)
@@ -105,6 +121,37 @@ namespace RPG.Editor.Nodes
             Vector2 right = bottomMiddle + bottomDifference;
 
             Handles.DrawAAConvexPolygon(top, left, right);
+        }
+
+        public static Vector2 CubicBezierCurvePoint(float time, Vector2 start, Vector2 end, float straightness)
+        {
+            float curve = 1 - straightness;
+
+            Vector2 startTangent = start;
+            startTangent.x = start.x < end.x
+                ? Mathf.LerpUnclamped(start.x, end.x, curve)
+                : Mathf.LerpUnclamped(start.x, end.x, -curve);
+
+            Vector2 endTangent = end;
+            endTangent.x = end.x > start.x
+                ? Mathf.LerpUnclamped(end.x, start.x, curve)
+                : Mathf.LerpUnclamped(end.x, start.x, -curve);
+
+            return CubicBezierCurvePoint(time, start, end, startTangent, endTangent);
+        }
+
+        public static Vector2 CubicBezierCurvePoint(float time, Vector2 start, Vector2 end, Vector2 control1, Vector2 control2)
+        {
+            Vector2 startTangent = control1;
+            Vector2 endTangent = control2;
+
+            float inverseTime = 1 - time;
+            Vector2 point = Mathf.Pow(inverseTime, 3) * start +
+                            Mathf.Pow(inverseTime, 2) * time * startTangent +
+                            Mathf.Pow(time, 2) * inverseTime * endTangent +
+                            Mathf.Pow(time, 3) * end;
+
+            return point;
         }
 
         public static Vector2[] CubicBezierCurve(int pointAmount, Vector2 start, Vector2 end, float straightness)

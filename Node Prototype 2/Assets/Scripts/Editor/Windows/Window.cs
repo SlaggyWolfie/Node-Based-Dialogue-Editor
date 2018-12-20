@@ -83,8 +83,6 @@ namespace RPG.Editor
 
             for (int i = _childWindows.Count - 1; i >= 0; i--)
             {
-                //ChildWindow childWindow = _childWindows[i];
-                //Debug.Log(string.Format("{0}: {1}", childWindow.Name, childWindow.Rect));
                 _childWindows[i].OnGUI();
             }
 

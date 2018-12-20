@@ -11,11 +11,11 @@ namespace RPG.Editor.Nodes
     [CustomNodeGraphEditor(typeof(NodeGraph))]
     public class NodeGraphEditor : BaseForCustomEditors<NodeGraphEditor, NodeGraph, CustomNodeGraphEditorAttribute>
     {
-        private Rect _rectangle;
-        public Rect Rectangle
+        private Rect _rect;
+        public Rect Rect
         {
-            get { return _rectangle; }
-            set { _rectangle = value; }
+            get { return _rect; }
+            set { _rect = value; }
         }
 
         public VariableInventory GetVariableInventory(string name, string labelIdentifier)

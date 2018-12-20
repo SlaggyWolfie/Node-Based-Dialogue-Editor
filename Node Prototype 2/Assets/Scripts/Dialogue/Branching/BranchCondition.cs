@@ -75,8 +75,7 @@ namespace RPG.Nodes
             Condition condition = new Condition
             {
                 ComparisonType = ComparisonType.IsEqual,
-                VariableType = VariableType.Boolean,
-                IsOutsideVariable = false
+                UsingBuiltInValue = false
             };
 
             AddCondition(condition);
@@ -91,8 +90,7 @@ namespace RPG.Nodes
                 Variable = new Variable() { BoolValue = true },
                 LocalValue = new Value() { BoolValue = true },
                 ComparisonType = ComparisonType.IsEqual,
-                VariableType = VariableType.Boolean,
-                IsOutsideVariable = false
+                UsingBuiltInValue = false
             };
 
             AddCondition(condition);

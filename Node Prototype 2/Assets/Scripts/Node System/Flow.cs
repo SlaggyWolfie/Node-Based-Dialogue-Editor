@@ -20,14 +20,15 @@ namespace RPG.Nodes
             EnterNode(_currentNode);
         }
 
-        public void NextNode()
+        public Node NextNode()
         {
-            if (_currentNode == null) return;
+            if (_currentNode == null) return null;
             ExitNode(_currentNode);
             _traversedNode.Add(_currentNode);
 
             _currentNode = _currentNode.NextNode();
             EnterNode(_currentNode);
+            return _currentNode;
         }
 
         private static void EnterNode(Node node)

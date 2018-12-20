@@ -16,10 +16,11 @@ MonoBehaviour:
     _currentNode: {fileID: 0}
     _traversedNode: []
   _nodes:
-  - {fileID: 114075944361065122}
-  - {fileID: 114680612839842890}
+  - {fileID: 114548205810896676}
+  - {fileID: 114949554574789802}
+  - {fileID: 114611326897999902}
   _connections: []
---- !u!114 &114075944361065122
+--- !u!114 &114065767854363354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27,25 +28,108 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
-  m_Name: Dialogue Node
+  m_Script: {fileID: 11500000, guid: 51e2cf115de64db4783c16fbb30c5402, type: 3}
+  m_Name: VarBool
   m_EditorClassIdentifier: 
   _id: -1
-  _position: {x: 486, y: 74}
+  _variableTypeEnum: 1
+  _boolValue: 0
+  _floatValue: 0
+  _stringValue: 
+  _variableLocation: 0
+  _variableInventory: {fileID: 114759000309405566}
+--- !u!114 &114143820397693696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e2cf115de64db4783c16fbb30c5402, type: 3}
+  m_Name: TestFloat
+  m_EditorClassIdentifier: 
+  _id: -1
+  _variableTypeEnum: 2
+  _boolValue: 0
+  _floatValue: 123
+  _stringValue: 
+  _variableLocation: 0
+  _variableInventory: {fileID: 114759000309405566}
+--- !u!114 &114548205810896676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47cd81fef435c6a4b9d4f8f97b25eff5, type: 3}
+  m_Name: Start Node
+  m_EditorClassIdentifier: 
+  _id: -1
+  _position: {x: 491, y: 249}
+  _graph: {fileID: 11400000}
+  _outputPort:
+    _id: -1
+    _node: {fileID: 114548205810896676}
+    _connection: {fileID: 0}
+--- !u!114 &114611326897999902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99323ba9a9e867c449d75f57de0e35e4, type: 3}
+  m_Name: Choice Node
+  m_EditorClassIdentifier: 
+  _id: -1
+  _position: {x: 836, y: 88}
   _graph: {fileID: 11400000}
   _inputPort:
     _id: -1
-    _node: {fileID: 114075944361065122}
+    _node: {fileID: 114611326897999902}
     _connections: []
-  _outputPort:
-    _id: -1
-    _node: {fileID: 114075944361065122}
-    _connection: {fileID: 0}
-  _speaker: Speaker...
-  _text: Text...
-  _audio: {fileID: 0}
-  _duration: 0
---- !u!114 &114348834553749882
+  _branches:
+  - _id: -1
+    _outputPort:
+      _id: -1
+      _node: {fileID: 114611326897999902}
+      _connection: {fileID: 0}
+    _branchCondition:
+      _id: -1
+      _conditions: []
+      _allConditionsMustBeTrue: 1
+  - _id: -1
+    _outputPort:
+      _id: -1
+      _node: {fileID: 114611326897999902}
+      _connection: {fileID: 0}
+    _branchCondition:
+      _id: -1
+      _conditions: []
+      _allConditionsMustBeTrue: 1
+  - _id: -1
+    _outputPort:
+      _id: -1
+      _node: {fileID: 114611326897999902}
+      _connection: {fileID: 0}
+    _branchCondition:
+      _id: -1
+      _conditions: []
+      _allConditionsMustBeTrue: 1
+  - _id: -1
+    _outputPort:
+      _id: -1
+      _node: {fileID: 114611326897999902}
+      _connection: {fileID: 0}
+    _branchCondition:
+      _id: -1
+      _conditions: []
+      _allConditionsMustBeTrue: 1
+--- !u!114 &114759000309405566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,26 +143,9 @@ MonoBehaviour:
   _id: -1
   _location: 0
   _variables:
-  - {fileID: 114551814258419342}
---- !u!114 &114551814258419342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51e2cf115de64db4783c16fbb30c5402, type: 3}
-  m_Name: TestBool
-  m_EditorClassIdentifier: 
-  _id: -1
-  _variableTypeEnum: 1
-  _boolValue: 1
-  _floatValue: 0
-  _stringValue: 
-  _variableLocation: 0
-  _variableInventory: {fileID: 114348834553749882}
---- !u!114 &114680612839842890
+  - {fileID: 114065767854363354}
+  - {fileID: 114143820397693696}
+--- !u!114 &114949554574789802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,46 +157,20 @@ MonoBehaviour:
   m_Name: Condition Node
   m_EditorClassIdentifier: 
   _id: -1
-  _position: {x: 124, y: 46}
+  _position: {x: 495.33002, y: 304.63998}
   _graph: {fileID: 11400000}
   _inputPort:
     _id: -1
-    _node: {fileID: 114680612839842890}
+    _node: {fileID: 114949554574789802}
     _connections: []
   _ifOutputPort:
     _id: -1
-    _node: {fileID: 114680612839842890}
+    _node: {fileID: 114949554574789802}
     _connection: {fileID: 0}
   _elseOutputPort:
     _id: -1
-    _node: {fileID: 114680612839842890}
+    _node: {fileID: 114949554574789802}
     _connection: {fileID: 0}
-  _values:
-  - {fileID: 114761893719421812}
-  _conditions:
-  - _id: -1
-    _comparison: 1
-    _isOutsideVariable: 1
-    _variable: {fileID: 114551814258419342}
-    _actualCheck: {fileID: 114030480108574024, guid: 965b1597b3e174244843bfd057fc16d9,
-      type: 2}
-    _localValue: {fileID: 0}
-    _otherVariable: {fileID: 114030480108574024, guid: 965b1597b3e174244843bfd057fc16d9,
-      type: 2}
+  _values: []
+  _conditions: []
   _isAnd: 1
---- !u!114 &114761893719421812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp:RPG.Nodes.Base:Value
-  _id: -1
-  _variableTypeEnum: 1
-  _boolValue: 1
-  _floatValue: 0
-  _stringValue: 
