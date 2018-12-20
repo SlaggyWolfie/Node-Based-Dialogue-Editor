@@ -1,6 +1,7 @@
 ﻿using System;
 using RPG.Dialogue;
 using RPG.Nodes.Base;
+using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -259,7 +260,7 @@ namespace RPG.Editor.Nodes
             _conditionNode.AddValue(value);
 
             AssetDatabase.AddObjectToAsset(value, _conditionNode);
-            OtherUtilities.AutoSaveAssets();
+            EditorUtilities.AutoSaveAssets();
 
             return value;
             //Repaint();

@@ -5,6 +5,7 @@ using System.Text;
 using RPG.Editor.Nodes;
 using RPG.Nodes;
 using RPG.Nodes.Base;
+using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -65,7 +66,7 @@ namespace RPG.Editor.Variables
         {
             base.OnFocus();
             CurrentBlackboardEditorWindow = this;
-            if (Blackboard != null) OtherUtilities.AutoSaveAssets();
+            if (Blackboard != null) EditorUtilities.AutoSaveAssets();
         }
 
         public override void OnGUI()

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using RPG.Nodes;
+using RPG.Utility;
+using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -217,19 +219,19 @@ namespace RPG.Editor.Nodes
                 DraggedOutput = null;
                 DraggedOutputTarget = null;
                 EditorUtility.SetDirty(Graph);
-                OtherUtilities.AutoSaveAssets();
+                EditorUtilities.AutoSaveAssets();
             }
             else if (_currentActivity == Activity.Dragging)
             {
                 Node[] nodes = GetSelected<Node>();
                 foreach (Node node in nodes) EditorUtility.SetDirty(node);
-                OtherUtilities.AutoSaveAssets();
+                EditorUtilities.AutoSaveAssets();
             }
             else if (!IsHoveringNode)
             {
                 //If clicking outside the node, release the field focus
                 if (!IsPanning) EditorGUI.FocusTextInControl(null);
-                OtherUtilities.AutoSaveAssets();
+                EditorUtilities.AutoSaveAssets();
             }
 
             if (_currentActivity == Activity.Holding && !(_cachedEvent.control || _cachedEvent.shift))
@@ -434,38 +436,32 @@ namespace RPG.Editor.Nodes
 
             for (int i = 0; i < Graph.ConnectionCount; i++)
             {
-                continue;
+                //continue;
                 Connection connection = Graph.GetConnection(i);
                 Vector2 start = NodeEditor.FindPortRect(connection.Start).center;
                 Vector2 end = NodeEditor.FindPortRect(connection.End).center;
 
-                if (OtherUtilities.PointOverlapBezier(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH))
+                start = GridToWindowPosition(start);
+                end = GridToWindowPosition(end);
+                
+                //if (OtherUtilities.PointOverlapBezier(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH))
+                if (LineSegment.WideSegmentPointCheck(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH / Zoom))
                     _hoveredConnection = connection;
 
                 //TODO: Add range overlap check, as just overlapping might be too annoying.
-                if (isDraggingGrid && (_selectionRect.Contains(start) || _selectionRect.Contains(end)))
+                if (isDraggingGrid && (selectionRect.Contains(start) || selectionRect.Contains(end)))
                     boxSelected.Add(connection);
             }
 
             //return;
             if (isDraggingGrid)
             {
-                if (_cachedEvent.control || _cachedEvent.shift)
-                    boxSelected.AddRange(_cachedSelectedObjects);
-
+                if (_cachedEvent.control || _cachedEvent.shift) boxSelected.AddRange(_cachedSelectedObjects);
                 Selection.objects = boxSelected.ToArray();
-
-                //string result = "Box Selected: ";
-                //boxSelected.ForEach(o => result += "\n" + o.name);
-                //Debug.Log(result);
             }
             else _selectionRect = Rect.zero;
-
-            //_selectionRect = Rect.zero;
-            //Debug.Log("Hovered Node: " + _hoveredNode);
-            //Debug.Log("Dragged Node: " + _draggedNode);
         }
-
+        
         private void ResetHover()
         {
             if (_isLayoutEvent) return;

@@ -5,6 +5,7 @@ using System.Text;
 using RPG.Base;
 using RPG.Editor.Nodes;
 using RPG.Nodes.Base;
+using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -102,7 +103,7 @@ namespace RPG.Editor.Variables
                     Undo.RecordObject(Target, string.Format("Remove Variable {2} from {0} {1}", Target.name, Target.GetHashCode(), var.name));
                     Target.RemoveVariable(var);
                     UnityEngine.Object.DestroyImmediate(var, true);
-                    OtherUtilities.AutoSaveAssets();
+                    EditorUtilities.AutoSaveAssets();
                 }
                 //EditorUtility.SetDirty(ConditionNode);
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using RPG.Nodes.Base;
+using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -210,7 +211,7 @@ namespace RPG.Editor.Nodes
             AssignValue(_variable);
 
             //AssetDatabase.AddObjectToAsset(variable, _variableInventory);
-            OtherUtilities.AutoSaveAssets();
+            EditorUtilities.AutoSaveAssets();
             //Repaint();
         }
 

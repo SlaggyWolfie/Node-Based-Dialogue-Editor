@@ -2,15 +2,10 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Editor.Nodes
+namespace RPG.Utility
 {
-    public static class OtherUtilities
+    public static class Utilities
     {
-        public static void AutoSaveAssets()
-        {
-            if (NodePreferences.Settings.ShouldAutoSave) AssetDatabase.SaveAssets();
-        }
-
         public static void BeginZoom(Rect rect, float zoom, float topPadding)
         {
             GUI.EndClip();
@@ -38,6 +33,26 @@ namespace RPG.Editor.Nodes
         {
             throw new NotImplementedException();
             return true;
+        }
+
+        public static bool NearlyEqual(float a, float b, float epsilon)
+        {
+            float absoluteA = Mathf.Abs(a);
+            float absoluteB = Mathf.Abs(b);
+            float difference = Mathf.Abs(a - b);
+
+            //shortcut, handles infinity
+            if (a == b) return true;
+
+            if (a == 0 || b == 0 || difference < float.MinValue)
+            {
+                //a or b is zero or both are extremely close to it
+                //relative error is less meaningful here
+                return difference < epsilon * float.MinValue;
+            }
+            //shortcut, handles infinity
+
+            return difference / Math.Min(absoluteA + absoluteB, float.MaxValue) < epsilon;
         }
     }
 }

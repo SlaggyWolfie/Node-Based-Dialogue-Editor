@@ -16,10 +16,9 @@ public class DialogueLogger : MonoBehaviour
     private void Update()
     {
         if (_graph == null) return;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            HandleNode(_graph.Flow.NextNode());
-        }
+        if (Input.GetKeyDown(KeyCode.C)) Debug.Log(Vector2.positiveInfinity.magnitude);
+        if (Input.GetKeyDown(KeyCode.X)) Debug.Log(Vector2.positiveInfinity);
+        if (Input.GetKeyDown(KeyCode.Space)) HandleNode(_graph.Flow.NextNode());
     }
 
     private void HandleNode(Node node)

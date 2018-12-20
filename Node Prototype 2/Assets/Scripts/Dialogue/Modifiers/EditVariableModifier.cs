@@ -1,5 +1,6 @@
 ﻿using System;
 using RPG.Nodes.Base;
+using RPG.Utility;
 using UnityEngine;
 
 namespace RPG.Dialogue
@@ -73,7 +74,7 @@ namespace RPG.Dialogue
                     case EditOperation.Subtract: Variable.FloatValue -= ActualValue.FloatValue; break;
                     case EditOperation.Multiply: Variable.FloatValue *= ActualValue.FloatValue; break;
                     case EditOperation.Divide:
-                        if (Condition.NearlyEqual(ActualValue.FloatValue, 0, float.Epsilon)) break;
+                        if (Utilities.NearlyEqual(ActualValue.FloatValue, 0, float.Epsilon)) break;
                         Variable.FloatValue /= ActualValue.FloatValue;
                         break;
                     default: throw new ArgumentOutOfRangeException();
@@ -82,14 +83,18 @@ namespace RPG.Dialogue
             else Variable.Value = ActualValue.Value;
         }
 
-        //public EventModifier ShallowCopy()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public override void ApplyDataCopy(ConnectionModifier original)
+        {
+            EditVariableModifier evm = original as EditVariableModifier;
+            if (evm == null) return;
 
-        //public EventModifier DeepCopy()
-        //{
-        //    throw new NotImplementedException();
-        //}
+            _variable = evm._variable;
+            _localValue = evm._localValue;
+            _otherVariable = evm._otherVariable;
+            _operation = evm._operation;
+            _usingBuiltInValue = evm._usingBuiltInValue;
+        }
+
+        public override ConnectionModifier Copy() { return (EditVariableModifier)MemberwiseClone(); }
     }
 }

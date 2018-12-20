@@ -11,7 +11,7 @@ using Event = RPG.Events.Event;
 namespace RPG.Dialogue
 {
     [Serializable]
-    public class EventModifier : ConnectionModifier//, ICopyable<EventModifier>
+    public sealed class EventModifier : ConnectionModifier
     {
         [SerializeField]
         private Event _event = null;
@@ -22,6 +22,14 @@ namespace RPG.Dialogue
         }
 
         public override void Execute() { if (Event != null) EventQueue.Instance.Send(Event); }
-        public override ConnectionModifier DeepCopy() { return (EventModifier)MemberwiseClone(); }
+
+        public override void ApplyDataCopy(ConnectionModifier original)
+        {
+            EventModifier em = original as EventModifier;
+            if (em == null) return;
+            _event = em._event;
+        }
+
+        public override ConnectionModifier Copy() { return (EventModifier)MemberwiseClone(); }
     }
 }

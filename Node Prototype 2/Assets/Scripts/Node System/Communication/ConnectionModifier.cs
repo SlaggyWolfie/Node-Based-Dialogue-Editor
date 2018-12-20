@@ -8,7 +8,7 @@ namespace RPG.Nodes.Base
 {
     [Serializable]
     //public abstract class ConnectionModifier : BaseObject//, ICopyable<ConnectionModifier>
-    public abstract class ConnectionModifier : BaseScriptableObject, ICopyable<ConnectionModifier>
+    public abstract class ConnectionModifier : BaseScriptableObject, ICopyable<ConnectionModifier>//, IComplexCopyable<ConnectionModifier>
     {
         [SerializeField]
         [HideInInspector]
@@ -21,8 +21,7 @@ namespace RPG.Nodes.Base
         }
 
         public abstract void Execute();
-
-        public ConnectionModifier ShallowCopy() { return (ConnectionModifier)MemberwiseClone(); }
-        public abstract ConnectionModifier DeepCopy();
+        public abstract void ApplyDataCopy(ConnectionModifier original);
+        public abstract ConnectionModifier Copy();
     }
 }

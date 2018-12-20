@@ -40,6 +40,7 @@ namespace RPG.Editor.Nodes
 
         public enum ConnectionType { Bezier, Line, Angled }
 
+        //TODO
         [Serializable]
         public sealed class NodeEditorSettings
         {

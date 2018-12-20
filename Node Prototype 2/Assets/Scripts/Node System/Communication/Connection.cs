@@ -81,7 +81,8 @@ namespace RPG.Nodes
         }
         public virtual ConnectionModifier CreateAndAddModifier(Type type)
         {
-            ConnectionModifier mod = (ConnectionModifier)Activator.CreateInstance(type);
+            //ConnectionModifier mod = (ConnectionModifier)Activator.CreateInstance(type);
+            ConnectionModifier mod = (ConnectionModifier)CreateInstance(type);
             AddModifier(mod);
             return mod;
         }
@@ -98,9 +99,9 @@ namespace RPG.Nodes
         public virtual ConnectionModifier CopyModifier(ConnectionModifier original)
         {
             //ConnectionModifier mod = original.ShallowCopy();
-            ConnectionModifier mod = original.DeepCopy();
-            _modifiers.Add(mod);
-            mod.Connection = this;
+            //ConnectionModifier mod = original.DeepCopy();
+            ConnectionModifier mod = CreateAndAddModifier(original.GetType());
+            mod.ApplyDataCopy(original);
             return mod;
         }
 

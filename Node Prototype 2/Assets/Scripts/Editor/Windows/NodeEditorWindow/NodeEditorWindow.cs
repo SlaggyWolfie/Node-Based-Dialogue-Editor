@@ -1,7 +1,7 @@
 ﻿using System;
 using RPG.Nodes;
 using RPG.Nodes.Base;
-using RPG.Other;
+using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -53,7 +53,7 @@ namespace RPG.Editor.Nodes
             if (_graph.LocalVariableInventory != null)
                 Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
 
-            if (_graphEditor != null) OtherUtilities.AutoSaveAssets();
+            if (_graphEditor != null) EditorUtilities.AutoSaveAssets();
         }
 
         private void OnDisable()
@@ -159,7 +159,7 @@ namespace RPG.Editor.Nodes
             if (AssetDatabase.Contains(_graph))
             {
                 EditorUtility.SetDirty(_graph);
-                OtherUtilities.AutoSaveAssets();
+                EditorUtilities.AutoSaveAssets();
             }
             else SaveAs();
         }
@@ -173,7 +173,7 @@ namespace RPG.Editor.Nodes
             if (existingGraph != null) AssetDatabase.DeleteAsset(path);
             AssetDatabase.CreateAsset(_graph, path);
             EditorUtility.SetDirty(_graph);
-            OtherUtilities.AutoSaveAssets();
+            EditorUtilities.AutoSaveAssets();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using RPG.Base;
+using RPG.Utility;
 using UnityEngine;
 
 namespace RPG.Nodes.Base
@@ -121,7 +122,7 @@ namespace RPG.Nodes.Base
 
         private bool EvaluateFloat(ComparisonType comparison, float epsilon = float.Epsilon)
         {
-            bool areEqual = NearlyEqual(_variable.FloatValue, ActualValue.FloatValue, epsilon);
+            bool areEqual = Utilities.NearlyEqual(_variable.FloatValue, ActualValue.FloatValue, epsilon);
 
             switch (comparison)
             {
@@ -140,26 +141,6 @@ namespace RPG.Nodes.Base
             }
 
             return false;
-        }
-
-        public static bool NearlyEqual(float a, float b, float epsilon)
-        {
-            float absoluteA = Mathf.Abs(a);
-            float absoluteB = Mathf.Abs(b);
-            float difference = Mathf.Abs(a - b);
-
-            //shortcut, handles infinity
-            if (a == b) return true;
-
-            if (a == 0 || b == 0 || difference < float.MinValue)
-            {
-                //a or b is zero or both are extremely close to it
-                //relative error is less meaningful here
-                return difference < epsilon * float.MinValue;
-            }
-            //shortcut, handles infinity
-
-            return difference / Math.Min(absoluteA + absoluteB, float.MaxValue) < epsilon;
         }
 
         //private bool EvaluateFloat(ComparisonType comparison)

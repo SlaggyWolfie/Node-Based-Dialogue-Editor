@@ -1,6 +1,7 @@
 ﻿using RPG.Dialogue;
 using RPG.Nodes.Base;
 using RPG.Editor.Nodes;
+using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ namespace RPG.Editor
 
         public override float GetWidth()
         {
-            return NodePreferences.STANDARD_NODE_SIZE.x * 1.5f;
+            return NodePreferences.STANDARD_NODE_SIZE.x;
         }
 
         public override void OnGUI()
@@ -232,14 +233,14 @@ namespace RPG.Editor
             value.name = "Edit Variable " + EditVariableModifier.GetHashCode() + " Local Value";
             EditVariableModifier.LocalValue = value;
             AssetDatabase.AddObjectToAsset(value, EditVariableModifier);
-            OtherUtilities.AutoSaveAssets();
+            EditorUtilities.AutoSaveAssets();
         }
 
         private void DeleteLocalValue()
         {
-            UnityEngine.Object.DestroyImmediate(EditVariableModifier.LocalValue);
+            Object.DestroyImmediate(EditVariableModifier.LocalValue);
             EditVariableModifier.LocalValue = null;
-            OtherUtilities.AutoSaveAssets();
+            EditorUtilities.AutoSaveAssets();
         }
     }
 }

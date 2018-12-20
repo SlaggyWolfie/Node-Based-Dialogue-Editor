@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RPG.Events
 {
-    public class EventQueue
+    public sealed class EventQueue
     {
         //private EventQueue() { }
         private static EventQueue _instance;

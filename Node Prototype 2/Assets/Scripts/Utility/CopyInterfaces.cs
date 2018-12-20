@@ -7,13 +7,18 @@ using RPG.Nodes.Base;
 
 namespace RPG.Other
 {
-    public interface ICopyable
+    public interface ICopyable<T>
+    {
+        void ApplyDataCopy(T original);
+        T Copy();
+    }
+
+    public interface IComplexCopyable
     {
         object ShallowCopy();
         object DeepCopy();
     }
-
-    public interface ICopyable<out T>
+    public interface IComplexCopyable<out T>
     {
         T ShallowCopy();
         T DeepCopy();
@@ -29,12 +34,12 @@ namespace RPG.Other
             return cloneMethod();
         }
 
-        public static object DefaultShallowCopy(this ICopyable copyInterface)
+        public static object DefaultShallowCopy(this IComplexCopyable copyInterface)
         {
             return MemberwiseClone(copyInterface);
         }
 
-        public static T DefaultShallowCopy<T>(this ICopyable<T> copyInterface)
+        public static T DefaultShallowCopy<T>(this IComplexCopyable<T> copyInterface)
         {
             return (T)MemberwiseClone(copyInterface);
         }

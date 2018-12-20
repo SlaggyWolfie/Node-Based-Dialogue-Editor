@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using RPG.Base;
 using RPG.Nodes;
+using RPG.Nodes.Base;
 using RPG.Other;
+using RPG.Utility;
+using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -80,12 +83,79 @@ namespace RPG.Editor.Nodes
                     //Debug.Log(string.Format("Drawing Connection from: {0} to {1}", connection.Start.Node.name, connection.End.Node.name));
 
                     NodeRendering.DrawConnection(start, end, NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_WIDTH / Zoom);
-                    //DrawModifiers((start + end) / 2, connection);
+                    DrawConnectionModifiers((start + end) / 2, connection);
                 }
             }
         }
 
-        private void DrawModifiers(Vector2 position, Connection connection) { throw new NotImplementedException(); }
+        private void DrawConnectionModifiers(Vector2 position, Connection connection)
+        {
+            if (_isLayoutEvent) _culledMods = new List<ConnectionModifier>();
+
+            _modifierSizes = new Dictionary<ConnectionModifier, Vector2>();
+            Color oldColor = GUI.color;
+            Utilities.BeginZoom(this.position, Zoom, TopPadding);
+
+            for (int i = 0; i < connection.ModifierCount; i++)
+            {
+                ConnectionModifier mod = connection.GetModifier(i);
+                if (mod == null) continue;
+                bool selected = Selection.Contains(mod);
+
+                if (_isLayoutEvent)
+                {
+                    if (!selected && ShouldBeCulled(mod, position))
+                    {
+                        _culledMods.Add(mod);
+                        continue;
+                    }
+                }
+                else if (_culledMods.Contains(mod)) continue;
+
+                ConnectionModifierEditor modEditor = ConnectionModifierEditor.GetEditor(mod);
+
+                Vector2 modPosition = GridToWindowPositionNotClipped(position);
+                GUILayout.BeginArea(new Rect(modPosition, new Vector2(modEditor.GetWidth(), 4000)));
+
+                if (selected)
+                {
+                    GUIStyle style = new GUIStyle(modEditor.GetBodyStyle());
+                    GUIStyle highlightStyle = new GUIStyle(NodeResources.Styles.nodeHighlight) { padding = style.padding };
+                    style.padding = new RectOffset();
+                    GUILayout.BeginVertical(style);
+                    GUI.color = Color.white;
+                    GUILayout.BeginVertical(new GUIStyle(highlightStyle));
+                }
+                else
+                {
+                    GUIStyle style = new GUIStyle(modEditor.GetBodyStyle());
+                    GUILayout.BeginVertical(style);
+                }
+
+                GUI.color = oldColor;
+                EditorGUI.BeginChangeCheck();
+
+                modEditor.OnGUI();
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    EditorUtility.SetDirty(mod);
+                    modEditor.SerializedObject.ApplyModifiedProperties();
+                }
+
+                GUILayout.EndVertical();
+                if (!_isLayoutEvent)
+                {
+                    Rect rect = GUILayoutUtility.GetLastRect();
+                    _modifierSizes[mod] = rect.size;
+                }
+                if (selected) GUILayout.EndVertical();
+
+                GUILayout.EndArea();
+            }
+
+            Utilities.EndZoom(this.position, Zoom, TopPadding);
+        }
 
         private void DrawNodes()
         {
@@ -93,7 +163,7 @@ namespace RPG.Editor.Nodes
 
             _nodeSizes = new Dictionary<Node, Vector2>();
             Color oldColor = GUI.color;
-            OtherUtilities.BeginZoom(position, Zoom, TopPadding);
+            Utilities.BeginZoom(position, Zoom, TopPadding);
 
             for (int i = 0; i < _graph.NodeCount; i++)
             {
@@ -159,7 +229,7 @@ namespace RPG.Editor.Nodes
                 GUILayout.EndArea();
             }
 
-            OtherUtilities.EndZoom(position, Zoom, TopPadding);
+            Utilities.EndZoom(position, Zoom, TopPadding);
         }
 
         private void DrawGrid()
@@ -191,6 +261,20 @@ namespace RPG.Editor.Nodes
             Vector2 size = _nodeSizes[node];
             if (nodePosition.x + size.x < 0) return true;
             if (nodePosition.y + size.y < 0) return true;
+            return false;
+        }
+
+        private bool ShouldBeCulled(ConnectionModifier mod, Vector2 position)
+        {
+            Vector2 modPosition = GridToWindowPositionNotClipped(position);
+            if (modPosition.x / Zoom > this.position.width) return true;
+            if (modPosition.y / Zoom > this.position.height) return true;
+
+            if (!_modifierSizes.ContainsKey(mod)) return false;
+
+            Vector2 size = _modifierSizes[mod];
+            if (modPosition.x + size.x < 0) return true;
+            if (modPosition.y + size.y < 0) return true;
             return false;
         }
         #endregion
@@ -247,7 +331,7 @@ namespace RPG.Editor.Nodes
             //node.PortSetup();
 
             AssetDatabase.AddObjectToAsset(node, Graph);
-            OtherUtilities.AutoSaveAssets();
+            EditorUtilities.AutoSaveAssets();
             Repaint();
         }
 
@@ -325,7 +409,7 @@ namespace RPG.Editor.Nodes
             Connection connection = Graph.CreateAndAddConnection();
             connection.name = "Connection";
             AssetDatabase.AddObjectToAsset(connection, Graph);
-            OtherUtilities.AutoSaveAssets();
+            EditorUtilities.AutoSaveAssets();
             Repaint();
 
             return connection;
@@ -379,6 +463,31 @@ namespace RPG.Editor.Nodes
 
             Selection.objects = newNodes;
         }
+        #region Modifiers
+
+        private void AddConnectionModifierToConnection<T>(Connection connection)
+            where T : ConnectionModifier
+        {
+            AddConnectionModifierToConnection(connection, typeof(T));
+        }
+        private void AddConnectionModifierToConnection(Connection connection, Type type)
+        {
+            if (!ReflectionUtilities.IsOfType(type, typeof(ConnectionModifier))) return;
+
+            ConnectionModifier mod = connection.CreateAndAddModifier(type);
+            mod.name = ObjectNames.NicifyVariableName(type.Name);
+
+            AssetDatabase.AddObjectToAsset(mod, connection);
+            EditorUtilities.AutoSaveAssets();
+            Repaint();
+        }
+
+        private void RemoveSelectedConnectionModifiers()
+        {
+            foreach (Node node in GetSelected<Node>())
+                GraphEditor.RemoveNode(node);
+        }
+        #endregion
         #endregion
 
         #endregion

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using RPG.Nodes;
+using RPG.Nodes.Base;
+using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -79,7 +81,7 @@ namespace RPG.Editor.Nodes
 
             AddCustomContextMenuItems(contextMenu, port);
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
-            OtherUtilities.AutoSaveAssets();
+            EditorUtilities.AutoSaveAssets();
         }
 
         private void ShowConnectionContextMenu()
@@ -95,12 +97,35 @@ namespace RPG.Editor.Nodes
                 contextMenu.AddItem(new GUIContent("Send Forward"), false, () => SendConnectionForward(connection));
                 contextMenu.AddItem(new GUIContent("Send Backward"), false, () => SendConnectionBackward(connection));
                 contextMenu.AddSeparator(string.Empty);
+
+                var modTypes = ReflectionUtilities.GetDerivedTypes<ConnectionModifier>();
+                if (modTypes.Length != 0)
+                {
+                    foreach (Type modType in modTypes)
+                    {
+                        var type = modType;
+                        contextMenu.AddItem(
+                            new GUIContent("Add Connection Modifier/" + ObjectNames.NicifyVariableName(modType.Name)),
+                            false, () => AddConnectionModifierToConnection(connection, type));
+                    }
+                }
             }
 
             contextMenu.AddItem(new GUIContent("Remove"), false, RemoveSelectedConnections);
 
             if (oneConnectionSelected)AddCustomContextMenuItems(contextMenu, connection);
 
+            contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
+        }
+
+        private void ShowConnectionModifierContextMenu()
+        {
+            GenericMenu contextMenu = new GenericMenu();
+            bool oneConnectionSelected = Selection.objects.Length == 1 && Selection.activeObject is ConnectionModifier;
+            ConnectionModifier modifier = oneConnectionSelected ? (ConnectionModifier)Selection.activeObject : null;
+
+            contextMenu.AddItem(new GUIContent("Remove"), false, RemoveSelectedConnectionModifiers);
+            if (oneConnectionSelected) AddCustomContextMenuItems(contextMenu, modifier);
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
         }
 
@@ -126,7 +151,7 @@ namespace RPG.Editor.Nodes
             if (oneNodeSelected)AddCustomContextMenuItems(contextMenu, node);
 
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
-            OtherUtilities.AutoSaveAssets();
+            EditorUtilities.AutoSaveAssets();
         }
 
         private void ShowGraphContextMenu()

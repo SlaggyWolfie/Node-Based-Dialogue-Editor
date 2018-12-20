@@ -249,5 +249,8 @@ namespace RPG.Editor.Nodes
 
         //private List<Object> _boxSelected = new List<Object>();
         //private bool _shouldUseEvent = false;
+
+        private List<ConnectionModifier> _culledMods = null;
+        private Dictionary<ConnectionModifier, Vector2> _modifierSizes = null;
     }
 }
