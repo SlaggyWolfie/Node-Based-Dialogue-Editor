@@ -1,6 +1,7 @@
 ﻿using System;
 using RPG.Nodes;
 using RPG.Nodes.Base;
+using RPG.Other;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -35,19 +36,23 @@ namespace RPG.Editor.Nodes
             return true;
         }
 
-        public static void RepaintAll()
-        {
-            NodeEditorWindow[] windows = UnityEngine.Resources.FindObjectsOfTypeAll<NodeEditorWindow>();
-            foreach (var window in windows) window.Repaint();
-        }
+        //public static void RepaintAll()
+        //{
+        //    NodeEditorWindow[] windows = Resources.FindObjectsOfTypeAll<NodeEditorWindow>();
+        //    foreach (var window in windows) window.Repaint();
+        //}
 
         protected override void OnFocus()
         {
             base.OnFocus();
             CurrentNodeEditorWindow = this;
+
+            if (_graph == null) return;
             _graphEditor = NodeGraphEditor.GetEditor(_graph);
+
             if (_graph.LocalVariableInventory != null)
                 Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
+
             if (_graphEditor != null) OtherUtilities.AutoSaveAssets();
         }
 
@@ -73,7 +78,7 @@ namespace RPG.Editor.Nodes
             //throw new NotImplementedException();
             Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
             GraphEditor = NodeGraphEditor.GetEditor(_graph);
-            GraphEditor.Rectangle = position;
+            GraphEditor.Rect = position;
 
             //HandleEvents();
 

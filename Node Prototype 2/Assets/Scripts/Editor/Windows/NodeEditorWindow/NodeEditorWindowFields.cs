@@ -239,7 +239,7 @@ namespace RPG.Editor.Nodes
 
         //[ShowNonSerializedField]
         //[SerializeField]
-        private SerializableDictionary<Node, Vector2> _nodeSizes = null;
+        private Dictionary<Node, Vector2> _nodeSizes = null;
 
         //[ShowNativeProperty]
         //private bool EditingTextField { get { return EditorGUIUtility.editingTextField; } }

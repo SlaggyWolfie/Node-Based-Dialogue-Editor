@@ -1,12 +1,14 @@
 ﻿using System;
 using RPG.Base;
 using RPG.Nodes.Base;
+using RPG.Other;
 using UnityEngine;
 
 namespace RPG.Nodes.Base
 {
     [Serializable]
-    public abstract class ConnectionModifier : BaseObject
+    //public abstract class ConnectionModifier : BaseObject//, ICopyable<ConnectionModifier>
+    public abstract class ConnectionModifier : BaseScriptableObject, ICopyable<ConnectionModifier>
     {
         [SerializeField]
         [HideInInspector]
@@ -19,6 +21,7 @@ namespace RPG.Nodes.Base
         }
 
         public abstract void Execute();
+
         public ConnectionModifier ShallowCopy() { return (ConnectionModifier)MemberwiseClone(); }
         public abstract ConnectionModifier DeepCopy();
     }

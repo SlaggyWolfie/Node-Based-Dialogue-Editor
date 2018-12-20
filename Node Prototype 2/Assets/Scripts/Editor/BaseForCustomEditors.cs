@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using RPG.Base;
-using RPG.Nodes.Base;
 using UnityEditor;
 
 namespace RPG.Editor
@@ -64,7 +62,7 @@ namespace RPG.Editor
                 object[] attributes = type.GetCustomAttributes(typeof(TAttribute), false);
                 if (attributes.Length == 0) continue;
 
-                TAttribute attribute = (TAttribute)attributes.First();
+                TAttribute attribute = (TAttribute)attributes[0];
                 dictionary[attribute.GetInspectedType()] = type;
             }
 

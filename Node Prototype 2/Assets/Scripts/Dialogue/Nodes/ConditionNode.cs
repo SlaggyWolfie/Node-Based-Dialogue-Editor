@@ -110,8 +110,7 @@ namespace RPG.Dialogue
             Condition condition = new Condition
             {
                 ComparisonType = ComparisonType.IsEqual,
-                VariableType = VariableType.Boolean,
-                IsOutsideVariable = false
+                UsingBuiltInValue = false
             };
 
             AddCondition(condition);
@@ -126,8 +125,7 @@ namespace RPG.Dialogue
                 Variable = new Variable() { BoolValue = true },
                 LocalValue = new Value() { BoolValue = true },
                 ComparisonType = ComparisonType.IsEqual,
-                VariableType = VariableType.Boolean,
-                IsOutsideVariable = false
+                UsingBuiltInValue = false
             };
 
             AddCondition(condition);
@@ -148,13 +146,13 @@ namespace RPG.Dialogue
 
         public OutputPort IfOutputPort
         {
-            get { return _ifOutputPort ?? (_ifOutputPort = new OutputPort()); }
+            get { return _ifOutputPort ?? (_ifOutputPort = new OutputPort() { Node = this }); }
             set { _ifOutputPort = value; }
         }
 
         public OutputPort ElseOutputPort
         {
-            get { return _elseOutputPort ?? (_elseOutputPort = new OutputPort()); }
+            get { return _elseOutputPort ?? (_elseOutputPort = new OutputPort() { Node = this }); }
             set { _elseOutputPort = value; }
         }
         #endregion
@@ -221,6 +219,7 @@ namespace RPG.Dialogue
 
         public new Node NextNode()
         {
+            _evaluatedOutputPort = null;
             return EvaluatedOutputPort != null ? EvaluatedOutputPort.Connection.End.Node : null;
         }
 

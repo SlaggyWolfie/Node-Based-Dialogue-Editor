@@ -1,7 +1,7 @@
 ﻿using RPG.Dialogue;
 using RPG.Editor.Nodes;
 
-namespace RPG.Dialogue
+namespace RPG.Dialogue.Editor
 {
     //[CustomNodeGraphEditor(typeof(DialogueGraph))]
     //public class DialogueGraphEditor : NodeGraphEditor

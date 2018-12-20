@@ -31,7 +31,7 @@ namespace RPG.Editor.Variables
 
         public void OnHeaderGUI()
         {
-            EditorGUILayout.LabelField(Target.name, MyResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
+            EditorGUILayout.LabelField(Target.name, NodeResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
         }
 
         public void OnBodyGUI()

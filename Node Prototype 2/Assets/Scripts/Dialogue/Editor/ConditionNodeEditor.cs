@@ -6,7 +6,7 @@ using RPG.Editor.Nodes;
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Dialogue
+namespace RPG.Dialogue.Editor
 {
     [CustomNodeEditor(typeof(ConditionNode))]
     public sealed class ConditionNodeEditor : NodeEditor
@@ -55,7 +55,7 @@ namespace RPG.Dialogue
             SerializedObject.ApplyModifiedProperties();
         }
 
-        private void DrawConditionsAndScroll(bool enabledGui)
+        private void DrawConditionsAndScroll(bool enabledGUI)
         {
             EditorGUILayout.PrefixLabel("Conditions");
             if (ConditionNode.ConditionCount == 0) return;
@@ -74,11 +74,11 @@ namespace RPG.Dialogue
                 GUI.enabled = false;
 
                 EditorGUILayout.ObjectField(GUIContent.none, condition.Variable,
-                    condition.Variable.GetType(), false, GUILayout.ExpandWidth(true));
+                    condition.Variable.GetType(), false, GUILayout.MinWidth(50));
 
-                DrawCheckingValues(condition, EditorStyles.label.CalcSize(new GUIContent("False")).x);
+                DrawConditionValues(condition, EditorStyles.label.CalcSize(new GUIContent("False")).x/*, enabledGUI*/);
 
-                GUI.enabled = enabledGui;
+                GUI.enabled = enabledGUI;
 
                 EditorGUILayout.EndHorizontal();
             }
@@ -140,7 +140,7 @@ namespace RPG.Dialogue
 
         private void DrawIfElsePorts()
         {
-            EditorGUILayout.BeginHorizontal();
+            //EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("IF");
 
             Rect previousRect = GUILayoutUtility.GetLastRect();
@@ -148,11 +148,11 @@ namespace RPG.Dialogue
             ifRect.size = NodePreferences.STANDARD_PORT_SIZE;
             ifRect.position = new Vector2(previousRect.xMax - ifRect.size.x, previousRect.y);
 
-            DrawPort(ConditionNode.IfOutputPort, ifRect);
+            DrawAndCachePort(ConditionNode.IfOutputPort, ifRect);
 
-            EditorGUILayout.EndHorizontal();
+            //EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.BeginHorizontal();
+            //EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("ELSE");
 
             previousRect = GUILayoutUtility.GetLastRect();
@@ -160,16 +160,23 @@ namespace RPG.Dialogue
             elseRect.size = NodePreferences.STANDARD_PORT_SIZE;
             elseRect.position = new Vector2(previousRect.xMax - elseRect.size.x, previousRect.y);
 
-            DrawPort(ConditionNode.ElseOutputPort, elseRect);
+            DrawAndCachePort(ConditionNode.ElseOutputPort, elseRect);
 
-            EditorGUILayout.EndHorizontal();
+            //EditorGUILayout.EndHorizontal();
         }
 
-        private static void DrawCheckingValues(Condition condition, float perPieceWidth)
+        private static void DrawConditionValues(Condition condition, float perPieceWidth/*, bool enabledGUI*/)
         {
-            EditorGUILayout.TextField(condition.Variable.Value.ToString(), GUILayout.Width(perPieceWidth));
+            //EditorGUILayout.TextField(condition.Variable.Value.ToString(), GUILayout.Width(perPieceWidth));
             ComparisonSign(condition.ComparisonType, EditorStyles.label.CalcSize(new GUIContent("==")).x);
-            EditorGUILayout.TextField(condition.ActualCheckedAgainstValue.Value.ToString(), GUILayout.Width(perPieceWidth));
+            if (condition.UsingBuiltInValue)
+            {
+                //GUI.enabled = false;
+
+                EditorGUILayout.ObjectField(GUIContent.none, condition.OtherVariable,
+                    condition.OtherVariable.GetType(), false, GUILayout.MinWidth(50));
+            }
+            else EditorGUILayout.TextField(condition.LocalValue.Value.ToString(), GUILayout.Width(perPieceWidth));
         }
 
         private static void ComparisonSign(ComparisonType comparison, float width)

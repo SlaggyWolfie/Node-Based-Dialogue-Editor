@@ -46,7 +46,7 @@ namespace RPG.Editor.Nodes
                 end = mousePosition;
             }
 
-            NodeRendering.DrawConnection(start, end, color, NodePreferences.CONNECTION_WIDTH);
+            NodeRendering.DrawConnection(start, end, color, NodePreferences.CONNECTION_WIDTH / Zoom);
             //NodeUtilities.DrawPort(new Rect());
             //DrawModifiers((start + end) / 2);
         }
@@ -70,7 +70,7 @@ namespace RPG.Editor.Nodes
                     OutputPort output = connection.Start;
                     Vector2 start = NodeEditor.FindPortRect(output).center + output.Node.Position;
 
-                    if (connection.Start.Node == connection.End.Node) Debug.Log("Nani?");
+                    //if (connection.Start.Node == connection.End.Node) Debug.Log("Nani?");
                     //Debug.Log(string.Format("Testing: {0} vs {1}", start,
                     //    NodeEditor.FindPortRect(connection.End.Node.PortHandler.singleOutputNode.OutputPort).center +
                     //    connection.End.Node.Position));
@@ -79,7 +79,7 @@ namespace RPG.Editor.Nodes
 
                     //Debug.Log(string.Format("Drawing Connection from: {0} to {1}", connection.Start.Node.name, connection.End.Node.name));
 
-                    NodeRendering.DrawConnection(start, end, NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_WIDTH);
+                    NodeRendering.DrawConnection(start, end, NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_WIDTH / Zoom);
                     //DrawModifiers((start + end) / 2, connection);
                 }
             }
@@ -91,7 +91,7 @@ namespace RPG.Editor.Nodes
         {
             if (_isLayoutEvent) _culledNodes = new List<Node>();
 
-            _nodeSizes = new SerializableDictionary<Node, Vector2>();
+            _nodeSizes = new Dictionary<Node, Vector2>();
             Color oldColor = GUI.color;
             OtherUtilities.BeginZoom(position, Zoom, TopPadding);
 
@@ -120,7 +120,7 @@ namespace RPG.Editor.Nodes
                 if (selected)
                 {
                     GUIStyle style = new GUIStyle(nodeEditor.GetBodyStyle());
-                    GUIStyle highlightStyle = new GUIStyle(MyResources.Styles.nodeHighlight) { padding = style.padding };
+                    GUIStyle highlightStyle = new GUIStyle(NodeResources.Styles.nodeHighlight) { padding = style.padding };
                     style.padding = new RectOffset();
                     GUI.color = nodeEditor.GetTint();
                     GUILayout.BeginVertical(style);
@@ -240,10 +240,11 @@ namespace RPG.Editor.Nodes
         {
             if (!ReflectionUtilities.IsOfType(type, typeof(Node))) return;
 
-            Node node = Graph.AddNode(type);
+            Node node = Graph.CreateAndAddNode(type);
             node.Position = position;
             node.name = ObjectNames.NicifyVariableName(type.Name);
-            node.AssignNodesToPorts();
+            node.Init();
+            //node.PortSetup();
 
             AssetDatabase.AddObjectToAsset(node, Graph);
             OtherUtilities.AutoSaveAssets();
@@ -259,6 +260,21 @@ namespace RPG.Editor.Nodes
         private void SendNodeToFront(Node node)
         {
             Graph.SendNodeToFront(node);
+        }
+
+        private void SendNodeToBack(Node node)
+        {
+            Graph.SendNodeToBack(node);
+        }
+
+        private void SendNodeForward(Node node)
+        {
+            Graph.SendNodeForward(node);
+        }
+
+        private void SendNodeBackward(Node node)
+        {
+            Graph.SendNodeBackward(node);
         }
 
         public void DuplicateSelectedNodes()
@@ -306,8 +322,7 @@ namespace RPG.Editor.Nodes
 
         private Connection CreateConnection()
         {
-            Connection connection = CreateInstance<Connection>();
-            Graph.AddConnection(connection);
+            Connection connection = Graph.CreateAndAddConnection();
             connection.name = "Connection";
             AssetDatabase.AddObjectToAsset(connection, Graph);
             OtherUtilities.AutoSaveAssets();
@@ -324,6 +339,18 @@ namespace RPG.Editor.Nodes
         private void SendConnectionToFront(Connection connection)
         {
             Graph.SendConnectionToFront(connection);
+        }
+        private void SendConnectionToBack(Connection connection)
+        {
+            Graph.SendConnectionToBack(connection);
+        }
+        private void SendConnectionForward(Connection connection)
+        {
+            Graph.SendConnectionForward(connection);
+        }
+        private void SendConnectionBackward(Connection connection)
+        {
+            Graph.SendConnectionBackward(connection);
         }
 
         public void DuplicateSelectedConnections()
@@ -353,7 +380,7 @@ namespace RPG.Editor.Nodes
             Selection.objects = newNodes;
         }
         #endregion
-        
+
         #endregion
 
     }

@@ -15,13 +15,12 @@ namespace RPG.Editor.Nodes
         private ComparisonTypeSimple _comparisonTypeSimple = ComparisonTypeSimple.IsEqual;
 
         private bool _valueOrVariable = true;
-        private Variable _checkingVariable = null;
-        
+        private Variable _otherVariable = null;
+
         private VariableType _valueType = VariableType.Boolean;
         private bool _boolValue = false;
         private float _floatValue = 0;
         private string _stringValue = string.Empty;
-
 
         private ConditionNode _conditionNode = null;
 
@@ -29,7 +28,6 @@ namespace RPG.Editor.Nodes
         public CreateConditionEditor(ConditionNode conditionNode) : this()
         {
             _conditionNode = conditionNode;
-            //Debug.Log("Correct constructor");
         }
 
         public CreateConditionEditor()
@@ -37,13 +35,24 @@ namespace RPG.Editor.Nodes
             Name = "Create Condition";
         }
 
+        private UnityEngine.Object obj = null;
         public override void OnGUI()
         {
-            //GUILayout.BeginArea(Rect);
             bool enabledGUI = GUI.enabled;
 
             Rect rect = EditorGUILayout.BeginVertical();
+
+            EditorGUI.BeginChangeCheck();
+            obj = EditorGUILayout.ObjectField("Object Test", obj, typeof(UnityEngine.Object), true,
+                GUILayout.MinWidth(NodePreferences.PROPERTY_MIN_WIDTH));
+            if (EditorGUI.EndChangeCheck())
+            {
+                //if (obj != null)
+                Debug.Log(obj);
+            }
+
             DrawVariable(ref _variable, enabledGUI);
+            //DrawVariable(_variable, enabledGUI);
 
             if (_variable != null)
             {
@@ -54,30 +63,35 @@ namespace RPG.Editor.Nodes
 
             DrawButtons(enabledGUI);
             EditorGUILayout.EndVertical();
-
-            //_rect.size = GUILayoutUtility.GetLastRect().size;
-
-            //GUILayout.EndArea();
-            //GUI.DragWindow();
         }
+
+        //private void DrawVariable(Variable variable, bool enabledGUI)
+        //{
+        //    _variable = (Variable)EditorGUILayout.ObjectField("Variable", _variable, typeof(Variable), true,
+        //        GUILayout.MinWidth(NodePreferences.PROPERTY_MIN_WIDTH));
+
+        //    if (_variable != null)
+        //    {
+        //        _valueType = _variable.EnumType;
+
+        //        GUI.enabled = false;
+        //        EditorGUILayout.TextField(_variable.Value.ToString());
+        //        GUI.enabled = enabledGUI;
+        //    }
+        //}
 
         private void DrawVariable(ref Variable variable, bool enabledGUI)
         {
-            //EditorGUILayout.BeginHorizontal();
-            //EditorGUILayout.PrefixLabel("Variable:");
-
             variable = (Variable)EditorGUILayout.ObjectField("Variable", variable, typeof(Variable), true,
                 GUILayout.MinWidth(NodePreferences.PROPERTY_MIN_WIDTH));
 
-            if (variable != null)
-            {
-                _valueType = variable.EnumType;
+            if (variable == null) return;
 
-                GUI.enabled = false;
-                EditorGUILayout.TextField(variable.Value.ToString());
-                GUI.enabled = enabledGUI;
-            }
-            //EditorGUILayout.EndHorizontal();
+            _valueType = variable.EnumType;
+
+            GUI.enabled = false;
+            EditorGUILayout.TextField(variable.Value.ToString());
+            GUI.enabled = enabledGUI;
         }
 
         private void DrawComparison()
@@ -87,8 +101,6 @@ namespace RPG.Editor.Nodes
                 case VariableType.Float:
                     _comparisonType = (ComparisonType)EditorGUILayout.EnumPopup("Comparison:", _comparisonType);
                     break;
-                case VariableType.Boolean:
-                case VariableType.String:
                 default:
                     _comparisonTypeSimple = (ComparisonTypeSimple)EditorGUILayout.EnumPopup("Comparison:", _comparisonTypeSimple);
                     _comparisonType = (ComparisonType)_comparisonTypeSimple;
@@ -116,7 +128,7 @@ namespace RPG.Editor.Nodes
         private void DrawValueOrVariable(bool enabledGUI)
         {
             if (_valueOrVariable) DrawValue(enabledGUI);
-            else DrawVariable(ref _checkingVariable, enabledGUI);
+            else DrawVariable(ref _otherVariable, enabledGUI);
         }
 
         private void DrawValue(bool enabledGUI)
@@ -209,7 +221,8 @@ namespace RPG.Editor.Nodes
 
             if (!_valueOrVariable)
             {
-                if (_checkingVariable == null || (_variable != null && _checkingVariable.EnumType != _variable.EnumType)) GUI.enabled = false;
+                if (_otherVariable == null || (_variable != null && _otherVariable.EnumType != _variable.EnumType))
+                    GUI.enabled = false;
                 if (GUILayout.Button("Create"))
                 {
                     CreateCondition(null);
@@ -240,7 +253,7 @@ namespace RPG.Editor.Nodes
         private Value CreateValue()
         {
             Value value = ScriptableObject.CreateInstance<Value>();
-            
+
             value.EnumType = _valueType;
             AssignValue(ref value);
             _conditionNode.AddValue(value);
@@ -264,12 +277,14 @@ namespace RPG.Editor.Nodes
 
         private void CreateCondition(Value value)
         {
-            Condition condition = new Condition();
-            condition.IsOutsideVariable = !_valueOrVariable;
-            condition.Variable = _variable;
-            condition.LocalValue = value;
-            condition.OtherVariable = _checkingVariable;
-            condition.ComparisonType = _comparisonType;
+            Condition condition = new Condition
+            {
+                UsingBuiltInValue = !_valueOrVariable,
+                Variable = _variable,
+                LocalValue = value,
+                OtherVariable = _otherVariable,
+                ComparisonType = _comparisonType
+            };
             _conditionNode.AddCondition(condition);
         }
     }

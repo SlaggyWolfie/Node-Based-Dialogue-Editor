@@ -18,26 +18,20 @@ namespace RPG.Editor.Nodes
 
         protected virtual void OnValidate() { }
 
-        public virtual void OnHeaderGUI()
-        {
-            DefaultNodeEditorHeader();
-        }
-        public virtual void OnBodyGUI()
-        {
-            DefaultNodeEditorBody();
-        }
+        public virtual void OnHeaderGUI() { DefaultNodeEditorHeader(); }
+        public virtual void OnBodyGUI() { DefaultNodeEditorBody(); }
 
         protected void RenamingGUI()
         {
-            int controlID = EditorGUIUtility.GetControlID(FocusType.Keyboard) + 1;
+            int controlID = GUIUtility.GetControlID(FocusType.Keyboard) + 1;
             if (_renaming == RenamingState.StandBy)
             {
-                EditorGUIUtility.keyboardControl = controlID;
+                GUIUtility.keyboardControl = controlID;
                 EditorGUIUtility.editingTextField = true;
                 _renaming = RenamingState.Renaming;
             }
 
-            Target.name = EditorGUILayout.TextField(Target.name, MyResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
+            Target.name = EditorGUILayout.TextField(Target.name, NodeResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
 
             if (EditorGUIUtility.editingTextField) return;
             Rename(Target.name);
@@ -47,7 +41,7 @@ namespace RPG.Editor.Nodes
         {
             string title = Target.name;
             if (_renaming != RenamingState.Idle) RenamingGUI();
-            else EditorGUILayout.LabelField(title, MyResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
+            else EditorGUILayout.LabelField(title, NodeResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
 
             DrawDefaultHeaderPorts();
         }
@@ -68,7 +62,7 @@ namespace RPG.Editor.Nodes
                 Rect rect = portRect;
                 rect.position += new Vector2(-xOffset, yOffset);
                 InputPort inputPort = Target.PortHandler.inputNode.InputPort;
-                DrawPort(inputPort, rect);
+                DrawAndCachePort(inputPort, rect);
             }
 
             if (headerOutput && Target.PortHandler.outputNode != null)
@@ -76,13 +70,13 @@ namespace RPG.Editor.Nodes
                 Rect rect = portRect;
                 rect.position += new Vector2(headerRectProbably.width - (16 - xOffset), yOffset);
                 OutputPort outputPort = Target.PortHandler.outputNode.OutputPort;
-                DrawPort(outputPort, rect);
+                DrawAndCachePort(outputPort, rect);
             }
         }
 
-        protected void DrawPort(Port port, Rect rect)
+        protected void DrawAndCachePort(Port port, Rect rect)
         {
-            NodeRendering.DrawPort(rect, MyResources.DotOuter, MyResources.Dot,
+            NodeRendering.DrawPort(rect, NodeResources.OuterDotTexture, NodeResources.DotTexture,
                 Color.white, Color.gray, port.IsConnected);
             _portRects[port] = rect;
         }
@@ -124,7 +118,7 @@ namespace RPG.Editor.Nodes
         }
         public virtual GUIStyle GetBodyStyle()
         {
-            return MyResources.Styles.nodeBody;
+            return NodeResources.Styles.nodeBody;
         }
 
         public virtual Rect GetPortRect(Port port)

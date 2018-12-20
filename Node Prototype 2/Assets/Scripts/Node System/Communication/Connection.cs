@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using RPG.Base;
 using RPG.Nodes.Base;
@@ -7,9 +6,17 @@ using UnityEngine;
 
 namespace RPG.Nodes
 {
-    [System.Serializable]
+    [Serializable]
     public class Connection : BaseScriptableObject
     {
+        public static void Connect(Connection connection, InputPort input, OutputPort output)
+        {
+            connection.Start = output;
+            connection.End = input;
+            output.Connection = connection;
+            input.AddConnection(connection);
+        }
+
         [SerializeField]
         //[HideInInspector]
         private NodeGraph _graph = null;
@@ -53,41 +60,26 @@ namespace RPG.Nodes
             if (_modifiers.Count > 0) _modifiers.ForEach(m => m.Execute());
         }
 
-        public void RemoveSelf()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ClearConnections()
+        public void Disconnect()
         {
             DisconnectStart();
             DisconnectEnd();
         }
-
         public void DisconnectPort(Port port)
         {
             if (port == Start) DisconnectStart();
-            else if (port == End) DisconnectEnd(); ;
+            else if (port == End) DisconnectEnd();
         }
-
-        public void DisconnectStart()
-        {
-            Start.Connection = null;
-            Start = null;
-        }
-        public void DisconnectEnd()
-        {
-            End.RemoveConnection(this);
-            End = null;
-        }
+        public void DisconnectStart() { Start.Connection = null; Start = null; }
+        public void DisconnectEnd() { End.RemoveConnection(this); End = null; }
         public void DisconnectInput() { DisconnectEnd(); }
         public void DisconnectOutput() { DisconnectStart(); }
 
-        public T AddModifier<T>() where T : ConnectionModifier
+        public T CreateAndAddModifier<T>() where T : ConnectionModifier
         {
-            return (T)AddModifier(typeof(T));
+            return (T)CreateAndAddModifier(typeof(T));
         }
-        public virtual ConnectionModifier AddModifier(Type type)
+        public virtual ConnectionModifier CreateAndAddModifier(Type type)
         {
             ConnectionModifier mod = (ConnectionModifier)Activator.CreateInstance(type);
             AddModifier(mod);
@@ -125,19 +117,10 @@ namespace RPG.Nodes
             _modifiers.Clear();
         }
         public int ModifierCount { get { return _modifiers.Count; } }
-
         public ConnectionModifier GetModifier(int index)
         {
             if (index < 0 || index >= ModifierCount) return null;
             return _modifiers[index];
-        }
-
-        public static void Connect(Connection connection, InputPort input, OutputPort output)
-        {
-            connection.Start = output;
-            connection.End = input;
-            output.Connection = connection;
-            input.AddConnection(connection);
         }
     }
 }

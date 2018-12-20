@@ -11,15 +11,9 @@ using UnityEngine;
 
 namespace RPG.Editor.Variables
 {
-    public class BlackboardEditorWindow : Window
+    public sealed class BlackboardEditorWindow : Window
     {
-        //TODO: Finish this.
-        private static BlackboardEditorWindow _currentBlackboardEditorWindow = null;
-        public static BlackboardEditorWindow CurrentBlackboardEditorWindow
-        {
-            get { return _currentBlackboardEditorWindow; }
-            private set { _currentBlackboardEditorWindow = value; }
-        }
+        public static BlackboardEditorWindow CurrentBlackboardEditorWindow { get; private set; }
 
         [OnOpenAsset(1)]
         public static bool OnOpen(int instanceID, int line)
@@ -49,6 +43,12 @@ namespace RPG.Editor.Variables
             }
         }
         private VariableInventoryEditor _localVariableInventoryEditor = null;
+
+        static BlackboardEditorWindow()
+        {
+            CurrentBlackboardEditorWindow = null;
+        }
+
         private VariableInventoryEditor LVIEditor
         {
             get
