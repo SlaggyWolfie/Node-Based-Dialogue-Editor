@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define RPG_DEBUG_NODE
+
+using System;
 using RPG.Nodes;
 using RPG.Nodes.Base;
 using RPG.Utility.Editor;
@@ -71,7 +73,7 @@ namespace RPG.Editor.Nodes
         {
             if (_graph == null) return;
 
-            if (Event.current.keyCode == KeyCode.T) Select(this, false);
+            if (Event.current.keyCode == KeyCode.T && Event.current.control) Select(this, false);
 
             PreCache();
             //ResetHover();

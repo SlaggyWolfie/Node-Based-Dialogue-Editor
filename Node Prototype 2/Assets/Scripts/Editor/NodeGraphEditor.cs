@@ -54,19 +54,47 @@ namespace RPG.Editor.Nodes
 
         public void RemoveNode(Node node)
         {
+            OnNodeRemoval(node);
             Target.RemoveNode(node);
             UnityEngine.Object.DestroyImmediate(node, true);
 
             //TODO: Expand Undo Functionality.
             //Undo.DestroyObjectImmediate(node);
         }
-
         public void RemoveConnection(Connection connection)
         {
             Target.RemoveConnection(connection);
             UnityEngine.Object.DestroyImmediate(connection, true);
         }
 
+        protected void OnNodeRemoval(Node node)
+        {
+            node.PortHandler.InputPortAction(input =>
+            {
+                var inputConnections = input.InputPort.GetConnections();
+                for (int i = inputConnections.Count - 1; i >= 0; i--)
+                {
+                    Connection connection = inputConnections[i];
+                    if (connection != null) RemoveConnection(connection);
+                }
+            });
+
+            node.PortHandler.OutputPortAction(output =>
+            {
+                var outputConnection = output.OutputPort.Connection;
+                if (outputConnection != null) RemoveConnection(outputConnection);
+            });
+
+            node.PortHandler.MultipleOutputPortAction(output =>
+            {
+                var outputs = output.GetOutputs();
+                foreach (OutputPort outputPort in outputs)
+                {
+                    var outputConnection = outputPort.Connection;
+                    if (outputConnection != null) RemoveConnection(outputConnection);
+                }
+            });
+        }
         protected override void OnEnable()
         {
             string name = "Local Variable Inventory";

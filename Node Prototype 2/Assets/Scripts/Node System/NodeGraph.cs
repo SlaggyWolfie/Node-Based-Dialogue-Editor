@@ -162,7 +162,7 @@ namespace RPG.Nodes
         public int ConnectionCount { get { return _connections.Count; } }
         public Connection GetConnection(int index)
         {
-            if (index < 0 || index >= NodeCount) return null;
+            if (index < 0 || index >= ConnectionCount) return null;
             return _connections[index];
         }
 
@@ -237,6 +237,19 @@ namespace RPG.Nodes
         public Node FindStartNode()
         {
             return _nodes.Find(n => n is StartNode);
+        }
+
+        public void RemoveNullConnections()
+        {
+            //_connections.RemoveAll(connection => connection == null);
+            for (int i = ConnectionCount - 1; i >= 0; i--)
+            {
+                if (_connections[i] == null)
+                {
+                    Debug.Log(string.Format("Null connection in graph at index {0}", i));
+                    _connections.RemoveAt(i);
+                }
+            }
         }
     }
 }

@@ -69,6 +69,12 @@ namespace RPG.Editor.Nodes
                 for (int j = 0; j < input.ConnectionsCount; j++)
                 {
                     Connection connection = input.GetConnection(j);
+                    if (connection == null)
+                    {
+                        OnNull(input);
+                        continue;
+                    }
+
                     //if (connection.End == input) Debug.Log("NANI!?");
                     OutputPort output = connection.Start;
                     Vector2 start = NodeEditor.FindPortRect(output).center + output.Node.Position;
@@ -232,10 +238,7 @@ namespace RPG.Editor.Nodes
             Utilities.EndZoom(position, Zoom, TopPadding);
         }
 
-        private void DrawGrid()
-        {
-            NodeRendering.DrawGrid(position, Zoom, PanOffset);
-        }
+        private void DrawGrid() { NodeRendering.DrawGrid(position, Zoom, PanOffset); }
 
         public void DrawSelectionBox()
         {
@@ -492,5 +495,20 @@ namespace RPG.Editor.Nodes
 
         #endregion
 
+        private void OnNull(NodeGraph graph)
+        {
+            //TODO: Fix null connections
+            //TODO: Or make sure this never happens
+            Debug.LogError("Null connections. Removing! Should not happen. Pls fix");
+            graph.RemoveNullConnections();
+        }
+
+        private void OnNull(InputPort inputPort)
+        {
+            //TODO: Fix null connections
+            //TODO: Or make sure this never happens
+            Debug.LogError("Null connections. Removing! Should not happen. Pls fix");
+            inputPort.RemoveNullConnections();
+        }
     }
 }

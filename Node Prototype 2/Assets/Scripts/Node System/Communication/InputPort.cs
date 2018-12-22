@@ -15,9 +15,14 @@ namespace RPG.Nodes
         {
             get { return _connections.Count; }
         }
+
+        public List<Connection> GetConnections()
+        {
+            return new List<Connection>(_connections);
+        }
         public Connection GetConnection(int index)
         {
-            //if (index < 0 || index >= ConnectionsCount) return null;
+            if (index < 0 || index >= ConnectionsCount) return null;
             return _connections[index];
         }
         public void RemoveConnection(int index)
@@ -111,6 +116,11 @@ namespace RPG.Nodes
                     UnityEngine.Object.Destroy(_connections[i]);
 
             _connections.Clear();
+        }
+
+        public void RemoveNullConnections()
+        {
+            _connections.RemoveAll(connection => connection == null);
         }
 
         //public override void Reconnect(List<Node> oldNodes, List<Node> newNodes)

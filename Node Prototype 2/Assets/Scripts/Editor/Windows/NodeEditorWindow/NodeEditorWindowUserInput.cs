@@ -438,6 +438,12 @@ namespace RPG.Editor.Nodes
             {
                 //continue;
                 Connection connection = Graph.GetConnection(i);
+                if (connection == null)
+                {
+                    Debug.Log("Null connection at index " + i);
+                    OnNull(Graph);
+                    continue;
+                }
                 Vector2 start = NodeEditor.FindPortRect(connection.Start).center;
                 Vector2 end = NodeEditor.FindPortRect(connection.End).center;
 
