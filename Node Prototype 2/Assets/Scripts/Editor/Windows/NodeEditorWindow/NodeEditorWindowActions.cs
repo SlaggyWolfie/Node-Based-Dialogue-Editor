@@ -89,43 +89,19 @@ namespace RPG.Editor.Nodes
         private void DrawConnectionModifiers(Vector2 position, Connection connection)
         {
             if (_isLayoutEvent) _culledMods = new List<ConnectionModifier>();
-            //Vector2 unclippedWindowPosition = GridToWindowPositionNotClipped(modsPosition);
+            Color oldColor = GUI.color;
 
             Rect[] modRects;
             bool found = _connectionModifierRects.TryGetValue(connection, out modRects);
-            //if (modRects == null || modRects.Length != connection.ModifierCount) Debug.Log("Difference during " + Event.current.type);
-            //if (modRects != null & delet != null)
-            //    Debug.Log(string.Format("MR: {0}, D: {1}, Difference during {2}", modRects.Length, delet.Length,
-            //        Event.current.type));
             if (!found || modRects.Length != connection.ModifierCount)
             {
-                //if (modRects == null || modRects.Length != connection.ModifierCount) Debug.Log("Difference");
                 modRects = new Rect[connection.ModifierCount];
                 _connectionModifierRects[connection] = modRects;
             }
-            //Debug.Log(string.Format("Modifier Count: {0}, Cached Rects: {1}; During Event Type {2}",
-            //    connection.ModifierCount, modRects.Length, _cachedEvent.type.ToString()));
 
             float height = 0;
-            //bool cached = modRects.Length != 0;
-            //bool cached = !_isLayoutEvent;
-
             foreach (Rect rect in modRects) height = Mathf.Max(height, rect.yMax);
-            //if (cached)
-            //{
-            //    foreach (Rect rect in modRects)
-            //        height = Mathf.Max(height, rect.yMax);
-
-            //}
-            //else
-            //{
-            //    //height = NodePreferences.STANDARD_NODE_SIZE.y;
-            //}
-
-            //height /= Zoom;
             
-            Color oldColor = GUI.color;
-            //Vector2 unclippedWindowPosition = GridToWindowPositionNotClipped(modsPosition);
             Vector2 startPosition = position - new Vector2(0, height / 2);
 
             for (int i = 0; i < connection.ModifierCount; i++)
@@ -143,19 +119,11 @@ namespace RPG.Editor.Nodes
                 float y = 0;
                 if (i > 0)
                 {
-                    //if (cached)
-                    //{
-                    //    y += modRects[i - 1].yMax + EditorGUIUtility.standardVerticalSpacing;
-                    //    if (y < 1) y = modRects[i].y;
-                    //}
-                    //else
-                    //{
                         for (int j = 0; j < i; j++)
                         {
                             y += modRects[j].height + EditorGUIUtility.standardVerticalSpacing;
                         }
                         y -= EditorGUIUtility.standardVerticalSpacing;
-                    //}
                 }
 
                 Vector2 finalPosition = startPosition + new Vector2(0, y);
@@ -169,8 +137,7 @@ namespace RPG.Editor.Nodes
                 //    }
                 //}
                 //else if (_culledMods.Contains(mod)) continue;
-
-                //modPosition = ;
+                
                 Rect modRect = new Rect(GridToWindowPositionNotClipped(finalPosition), new Vector2(modEditor.GetWidth(), 4000));
                 GUILayout.BeginArea(modRect);
 
@@ -203,21 +170,17 @@ namespace RPG.Editor.Nodes
 
                 GUILayout.EndVertical();
                 if (selected) GUILayout.EndVertical();
+
                 if (_isRepaintEvent)
-                //if (!_isLayoutEvent)
                 {
                     Rect rect = GUILayoutUtility.GetLastRect();
-                    //_modifierSizes[mod] = rect.size;
                     rect.position = finalPosition;
                     modRects[i] = rect;
-                    //delet = modRects;
                 }
 
                 GUILayout.EndArea();
             }
         }
-
-        //private Rect[] delet;
 
         private void DrawNodes()
         {
@@ -363,22 +326,6 @@ namespace RPG.Editor.Nodes
         }
 
         #region Nodes
-        //private static void SelectNode(Node node, bool add)
-        //{
-        //    if (add)
-        //    {
-        //        List<Object> selection = new List<Object>(Selection.objects) { node };
-        //        Selection.objects = selection.ToArray();
-        //    }
-        //    else Selection.objects = new Object[] { node };
-        //}
-
-        //private static void DeselectNode(Node node)
-        //{
-        //    List<Object> selection = new List<Object>(Selection.objects);
-        //    selection.Remove(node);
-        //    Selection.objects = selection.ToArray();
-        //}
 
         private void CreateNode<T>(Vector2 position) where T : Node
         {
