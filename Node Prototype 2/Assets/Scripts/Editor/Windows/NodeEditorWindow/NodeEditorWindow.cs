@@ -3,6 +3,7 @@
 using System;
 using RPG.Nodes;
 using RPG.Nodes.Base;
+using RPG.Utility;
 using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -85,16 +86,20 @@ namespace RPG.Editor.Nodes
             //HandleEvents();
 
             DrawGrid();
+
+            Utilities.BeginZoom(position, Zoom, TopPadding);
             DrawNodes();
             DrawConnections();
             DrawHeldConnection();
+            Utilities.EndZoom(position, Zoom, TopPadding);
+
             DrawSelectionBox();
             //DrawTooltip();
             DrawChildWindows();
 
             CheckHoveringAndSelection();
             GraphEditor.OnGUI();
-            HandleEvents();
+            HandleGUIEvents();
 
             //if (_shouldUseEvent)
             //{

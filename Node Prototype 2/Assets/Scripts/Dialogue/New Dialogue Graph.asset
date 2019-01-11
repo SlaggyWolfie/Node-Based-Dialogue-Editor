@@ -1,0 +1,234 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f176fa5a3b22c4389cd63774725a19, type: 3}
+  m_Name: New Dialogue Graph
+  m_EditorClassIdentifier: 
+  _id: -1
+  _flow:
+    _currentNode: {fileID: 0}
+    _traversedNode: []
+  _nodes:
+  - {fileID: 114047521581649564}
+  - {fileID: 114524233183162628}
+  - {fileID: 114448971358698932}
+  _connections:
+  - {fileID: 114733508673946942}
+  - {fileID: 114608951790133398}
+--- !u!114 &114007826522767880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956e19172f599cf4c8f473ab5c20ca93, type: 3}
+  m_Name: Edit Variable -329198 Local Value
+  m_EditorClassIdentifier: 
+  _id: -1
+  _variableTypeEnum: 0
+  _boolValue: 0
+  _floatValue: 0
+  _stringValue: 
+--- !u!114 &114047521581649564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47cd81fef435c6a4b9d4f8f97b25eff5, type: 3}
+  m_Name: Start Node
+  m_EditorClassIdentifier: 
+  _id: 0
+  _position: {x: -316, y: 137}
+  _graph: {fileID: 11400000}
+  _outputPort:
+    _id: -1
+    _node: {fileID: 114047521581649564}
+    _connection: {fileID: 114733508673946942}
+--- !u!114 &114091602802423914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956e19172f599cf4c8f473ab5c20ca93, type: 3}
+  m_Name: Edit Variable -452774 Local Value
+  m_EditorClassIdentifier: 
+  _id: -1
+  _variableTypeEnum: 0
+  _boolValue: 0
+  _floatValue: 0
+  _stringValue: 
+--- !u!114 &114207230766607624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8870d03e8b4f94aa1e4a63daecbece, type: 3}
+  m_Name: Local Variable Inventory
+  m_EditorClassIdentifier: 
+  _id: -1
+  _location: 0
+  _variables: []
+--- !u!114 &114267380415277808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bda340d2035894580e535d299bec33, type: 3}
+  m_Name: Edit Variable
+  m_EditorClassIdentifier: 
+  _id: -1
+  _connection: {fileID: 114733508673946942}
+  _variable: {fileID: 114505864600819750, guid: 965b1597b3e174244843bfd057fc16d9,
+    type: 2}
+  _operation: 0
+  _usingBuiltInValue: 1
+  _localValue: {fileID: 114007826522767880}
+  _otherVariable: {fileID: 0}
+--- !u!114 &114448971358698932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 2
+  _position: {x: 341, y: 179}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: -1
+    _node: {fileID: 114448971358698932}
+    _connections:
+    - {fileID: 114733508673946942}
+  _outputPort:
+    _id: -1
+    _node: {fileID: 114448971358698932}
+    _connection: {fileID: 114608951790133398}
+  _speaker: 
+  _text: 
+  _audio: {fileID: 8300000, guid: 5d3d96bc89906524fadb6ef653e6224c, type: 3}
+  _duration: 0
+--- !u!114 &114524233183162628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517b26be2417d924a8b12c4f556cb348, type: 3}
+  m_Name: End Node
+  m_EditorClassIdentifier: 
+  _id: 1
+  _position: {x: 611, y: 35}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: -1
+    _node: {fileID: 114524233183162628}
+    _connections:
+    - {fileID: 114608951790133398}
+--- !u!114 &114608951790133398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection
+  m_EditorClassIdentifier: 
+  _id: 1
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: -1
+    _node: {fileID: 114448971358698932}
+    _connection: {fileID: 114608951790133398}
+  _end:
+    _id: -1
+    _node: {fileID: 114524233183162628}
+    _connections:
+    - {fileID: 114608951790133398}
+--- !u!114 &114648833522372750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bda340d2035894580e535d299bec33, type: 3}
+  m_Name: Edit Variable
+  m_EditorClassIdentifier: 
+  _id: -1
+  _connection: {fileID: 114733508673946942}
+  _variable: {fileID: 114505864600819750, guid: 965b1597b3e174244843bfd057fc16d9,
+    type: 2}
+  _operation: 0
+  _usingBuiltInValue: 1
+  _localValue: {fileID: 114091602802423914}
+  _otherVariable: {fileID: 0}
+--- !u!114 &114733508673946942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers:
+  - {fileID: 114267380415277808}
+  - {fileID: 114908457971848676}
+  _start:
+    _id: -1
+    _node: {fileID: 114047521581649564}
+    _connection: {fileID: 114733508673946942}
+  _end:
+    _id: -1
+    _node: {fileID: 114448971358698932}
+    _connections:
+    - {fileID: 114733508673946942}
+--- !u!114 &114908457971848676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0db216e33355d654eaa29f4e50fc31a8, type: 3}
+  m_Name: Throw Event
+  m_EditorClassIdentifier: 
+  _id: -1
+  _connection: {fileID: 114733508673946942}
+  _event: {fileID: 0}

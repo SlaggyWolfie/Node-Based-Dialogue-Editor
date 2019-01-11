@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RPG.Nodes;
+using RPG.Nodes.Base;
 using RPG.Utility;
 using RPG.Utility.Editor;
 using UnityEditor;
@@ -12,7 +14,7 @@ namespace RPG.Editor.Nodes
 {
     public sealed partial class NodeEditorWindow
     {
-        private void HandleEvents()
+        private void HandleGUIEvents()
         {
             wantsMouseMove = true;
 
@@ -27,7 +29,19 @@ namespace RPG.Editor.Nodes
                 case EventType.KeyDown: KeyDown(); break;
                 case EventType.ValidateCommand: ValidateCommand(); break;
                 case EventType.Ignore: Ignore(); break;
+                    //case EventType.MouseMove: break;
+                    //case EventType.KeyUp: break;
                     //case EventType.Repaint: break;
+                    //case EventType.Layout: break;
+                    //case EventType.DragUpdated: break;
+                    //case EventType.DragPerform: break;
+                    //case EventType.DragExited: break;
+                    //case EventType.Used: break;
+                    //case EventType.ExecuteCommand: break;
+                    //case EventType.ContextClick: break;
+                    //case EventType.MouseEnterWindow: break;
+                    //case EventType.MouseLeaveWindow: break;
+                    //default: throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -168,7 +182,16 @@ namespace RPG.Editor.Nodes
             {
                 bool controlOrShift = _cachedEvent.control || _cachedEvent.shift;
 
-                if (IsHoveringConnection)
+                if (IsHoveringConnectionModifier && IsHoveringTitle(_hoveredConnectionModifier))
+                {
+                    if (!Selection.Contains(_hoveredConnectionModifier))
+                        Select(_hoveredConnectionModifier, controlOrShift);
+                    else if (controlOrShift) Deselect(_hoveredConnectionModifier);
+
+                    _cachedEvent.Use();
+                    _currentActivity = Activity.Holding;
+                }
+                else if (IsHoveringConnection)
                 {
                     if (!Selection.Contains(_hoveredConnection))
                         Select(_hoveredConnection, controlOrShift);
@@ -203,7 +226,6 @@ namespace RPG.Editor.Nodes
                 if (_rightMouseButtonUsed || _middleMouseButtonUsed) ContextClick();
                 return;
             }
-
             if (IsDraggingPort)
             {
                 //If the connection is valid, save it
@@ -227,6 +249,12 @@ namespace RPG.Editor.Nodes
                 foreach (Node node in nodes) EditorUtility.SetDirty(node);
                 EditorUtilities.AutoSaveAssets();
             }
+            else if (!IsHoveringConnectionModifier)
+            {
+                //If clicking outside the Con. Mod, release the field focus
+                if (!IsPanning) EditorGUI.FocusTextInControl(null);
+                EditorUtilities.AutoSaveAssets();
+            }
             else if (!IsHoveringNode)
             {
                 //If clicking outside the node, release the field focus
@@ -236,7 +264,10 @@ namespace RPG.Editor.Nodes
 
             if (_currentActivity == Activity.Holding && !(_cachedEvent.control || _cachedEvent.shift))
             {
-                Select(_hoveredNode, false);
+                if (IsHoveringNode)
+                    Select(_hoveredNode, false);
+                else if (IsHoveringConnectionModifier)
+                    Select(_hoveredConnectionModifier, false);
             }
 
             Repaint();
@@ -254,6 +285,11 @@ namespace RPG.Editor.Nodes
             if (!IsDraggingPort && IsHoveringPort)
             {
                 ShowPortContextMenu(HoveredPort);
+            }
+            else if (IsHoveringConnectionModifier && IsHoveringTitle(_hoveredConnectionModifier))
+            {
+                if (!Selection.Contains(_hoveredConnectionModifier)) Select(_hoveredConnectionModifier, false);
+                ShowConnectionModifierContextMenu();
             }
             else if (IsHoveringConnection)
             {
@@ -347,17 +383,31 @@ namespace RPG.Editor.Nodes
             Zoom = 2;
             PanOffset = Vector2.zero;
         }
-        
+
         private bool IsHoveringTitle(Node node)
         {
-            //TODO
+            //DONE
             Vector2 mousePosition = _mousePosition;
             Vector2 nodePosition = GridToWindowPosition(node.Position);
-            Vector2 size = NodePreferences.STANDARD_NODE_SIZE;
-            //if (nodeSizes.TryGetValue(node, out size)) width = size.x;
-            //else width = 200;
-            Rect windowRect = new Rect(nodePosition, new Vector2(size.x / Zoom, NodePreferences.PROPERTY_HEIGHT / Zoom));
-            return windowRect.Contains(mousePosition);
+            Vector2 size;
+            if (!_nodeSizes.TryGetValue(node, out size)) size = NodePreferences.STANDARD_NODE_SIZE;
+            Rect titleRect = new Rect(nodePosition, new Vector2(size.x / Zoom, NodePreferences.PROPERTY_HEIGHT / Zoom));
+            return titleRect.Contains(mousePosition);
+        }
+
+        private bool IsHoveringTitle(ConnectionModifier mod)
+        {
+            Vector2 mousePosition = _mousePosition;
+            Connection connection = mod.Connection;
+            int index = connection.GetIndex(mod);
+
+            Rect[] rects;
+            bool found = _connectionModifierRects.TryGetValue(connection, out rects);
+            if (!found) return false;
+
+            Rect modRect = GridToWindowRect(rects[index]);
+            Rect titleRect = new Rect(modRect.position, new Vector2(modRect.width / Zoom, NodePreferences.PROPERTY_HEIGHT / Zoom));
+            return titleRect.Contains(mousePosition);
         }
 
         private void CheckHoveringAndSelection()
@@ -444,19 +494,33 @@ namespace RPG.Editor.Nodes
                     OnNull(Graph);
                     continue;
                 }
-                Vector2 start = NodeEditor.FindPortRect(connection.Start).center;
-                Vector2 end = NodeEditor.FindPortRect(connection.End).center;
+                Vector2 start = NodeEditor.FindPortRect(connection.Start).center + connection.Start.Node.Position;
+                Vector2 end = NodeEditor.FindPortRect(connection.End).center + connection.End.Node.Position;
 
                 start = GridToWindowPosition(start);
                 end = GridToWindowPosition(end);
-                
+
                 //if (OtherUtilities.PointOverlapBezier(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH))
                 if (LineSegment.WideSegmentPointCheck(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH / Zoom))
                     _hoveredConnection = connection;
 
-                //TODO: Add range overlap check, as just overlapping might be too annoying.
-                if (isDraggingGrid && (selectionRect.Contains(start) || selectionRect.Contains(end)))
+                //DONE: Add range percentage overlap check, as just overlapping might be too annoying.
+                if (isDraggingGrid &&
+                    LineSegment.WideLineRectOverlapPercentageCheck(selectionRect, start, end,
+                        NodePreferences.CONNECTION_WIDTH / Zoom) > 0.3f)
                     boxSelected.Add(connection);
+
+
+                Rect[] modifierRects;
+                if (!_connectionModifierRects.TryGetValue(connection, out modifierRects)) continue;
+
+                for (int j = 0; j < connection.ModifierCount; j++)
+                {
+                    ConnectionModifier mod = connection.GetModifier(j);
+                    Rect rect = GridToWindowRect(modifierRects[j]);
+                    if (rect.Contains(mousePosition)) _hoveredConnectionModifier = mod;
+                    if (isDraggingGrid && rect.Overlaps(selectionRect)) boxSelected.Add(mod);
+                }
             }
 
             //return;
@@ -467,7 +531,7 @@ namespace RPG.Editor.Nodes
             }
             else _selectionRect = Rect.zero;
         }
-        
+
         private void ResetHover()
         {
             if (_isLayoutEvent) return;

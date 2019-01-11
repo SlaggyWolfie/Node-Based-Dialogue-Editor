@@ -52,11 +52,13 @@ namespace RPG.Utility
             return (closestPoint - p).sqrMagnitude <= width * width;
         }
 
-        public static float WideLineRectOverlapCheck(Rect rect, Vector2 lineStart, Vector2 lineEnd, float width)
+        public static float WideLineRectOverlapPercentageCheck(Rect rect, Vector2 lineStart, Vector2 lineEnd, float width)
         {
             Rect r = rect;
             Vector2 a = lineStart;
             Vector2 b = lineEnd;
+            float abLength = (b - a).magnitude;
+
             LineSegment ab = new LineSegment(a, b);
 
             bool overlapA = r.Contains(a);
@@ -68,7 +70,7 @@ namespace RPG.Utility
                 Vector2[] intersection;
                 LineSegment[] edges = rect.GetEdges();
                 if (HandleIntersectionTest(ab, edges, 1, out intersection))
-                    return (intersection[0] - a).magnitude;
+                    return (intersection[0] - a).magnitude / abLength;
             }
 
             else if (overlapB)
@@ -76,7 +78,7 @@ namespace RPG.Utility
                 Vector2[] intersection;
                 LineSegment[] edges = rect.GetEdges();
                 if (HandleIntersectionTest(ab, edges, 1, out intersection))
-                    return (intersection[0] - b).magnitude;
+                    return (intersection[0] - b).magnitude / abLength;
             }
 
             else
@@ -84,7 +86,7 @@ namespace RPG.Utility
                 Vector2[] intersections;
                 LineSegment[] edges = rect.GetEdges();
                 if (HandleIntersectionTest(ab, edges, 2, out intersections))
-                    return (intersections[0] - intersections[1]).magnitude;
+                    return (intersections[0] - intersections[1]).magnitude / abLength;
             }
 
             return 0;
@@ -97,14 +99,19 @@ namespace RPG.Utility
             for (int i = 0; i < intersectionsRequired; i++) intersections[i] = Vector2.positiveInfinity;
 
             //foreach (Segment otherLine in lines)
-            for (int i = 0; i < lines.Length; i++)
+            int intersectionsMade = 0;
+            foreach (var otherLine in lines)
             {
-                LineSegment otherLine = lines[i];
-                switch (LineIntersectionTest(line, otherLine, out intersections[i]))
+                switch (LineIntersectionTest(line, otherLine, out intersections[intersectionsMade]))
                 {
                     case LineIntersectionResult.False: break;
-                    case LineIntersectionResult.True: intersectionsRequired--; break;
-                    case LineIntersectionResult.Collinear: /*intersectionsRequired = 0;*/ break;
+                    case LineIntersectionResult.True:
+                        intersectionsRequired--;
+                        intersectionsMade++;
+                        break;
+                    case LineIntersectionResult.Collinear:
+                        //intersectionsRequired = 0;
+                        break;
                     default: throw new ArgumentOutOfRangeException();
                 }
                 if (intersectionsRequired <= 0) return true;

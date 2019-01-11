@@ -7,14 +7,20 @@ using UnityEngine;
 namespace RPG.Editor
 {
     [CustomConnectionModifierEditor(typeof(ConnectionModifier))]
-    public class ConnectionModifierEditor : BaseForCustomEditors<ConnectionModifierEditor, ConnectionModifier, CustomConnectionModifierEditorAttribute>
+    public class ConnectionModifierEditor : BaseForCustomEditors<ConnectionModifierEditor,
+        ConnectionModifier, CustomConnectionModifierEditorAttribute>
     {
-        public virtual void OnGUI()
+        public virtual void OnHeaderGUI()
         {
-            DefaultConnectionModifierGUI();
+            EditorGUILayout.LabelField(Target.name, NodeResources.Styles.nodeHeader, GUILayout.Height(NodePreferences.PROPERTY_HEIGHT));
         }
 
-        protected void DefaultConnectionModifierGUI()
+        public virtual void OnBodyGUI()
+        {
+            DefaultConnectionModifierBodyGUI();
+        }
+
+        protected void DefaultConnectionModifierBodyGUI()
         {
             SerializedObject.Update();
 

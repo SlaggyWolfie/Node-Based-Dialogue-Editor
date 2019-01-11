@@ -64,8 +64,8 @@ namespace RPG.Editor.Nodes
                 InputPort input = inputNode != null ? inputNode.InputPort : null;
                 if (input == null) continue;
 
-                Vector2 end = NodeEditor.GetEditor(node).GetPortRect(input).center + node.Position;
-                end = GridToWindowPosition(end);
+                Vector2 end = NodeEditor.FindPortRect(input).center + node.Position;
+                Vector2 windowEnd = GridToWindowPositionNotClipped(end);
                 for (int j = 0; j < input.ConnectionsCount; j++)
                 {
                     Connection connection = input.GetConnection(j);
@@ -75,53 +75,104 @@ namespace RPG.Editor.Nodes
                         continue;
                     }
 
-                    //if (connection.End == input) Debug.Log("NANI!?");
                     OutputPort output = connection.Start;
                     Vector2 start = NodeEditor.FindPortRect(output).center + output.Node.Position;
+                    Vector2 windowStart = GridToWindowPositionNotClipped(start);
 
-                    //if (connection.Start.Node == connection.End.Node) Debug.Log("Nani?");
-                    //Debug.Log(string.Format("Testing: {0} vs {1}", start,
-                    //    NodeEditor.FindPortRect(connection.End.Node.PortHandler.singleOutputNode.OutputPort).center +
-                    //    connection.End.Node.Position));
-
-                    start = GridToWindowPosition(start);
-
-                    //Debug.Log(string.Format("Drawing Connection from: {0} to {1}", connection.Start.Node.name, connection.End.Node.name));
-
-                    NodeRendering.DrawConnection(start, end, NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_WIDTH / Zoom);
+                    NodeRendering.DrawConnection(windowStart, windowEnd, NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_WIDTH / Zoom);
                     DrawConnectionModifiers((start + end) / 2, connection);
                 }
             }
         }
 
+        private Dictionary<Connection, Rect[]> _connectionModifierRects = new Dictionary<Connection, Rect[]>();
         private void DrawConnectionModifiers(Vector2 position, Connection connection)
         {
             if (_isLayoutEvent) _culledMods = new List<ConnectionModifier>();
+            //Vector2 unclippedWindowPosition = GridToWindowPositionNotClipped(modsPosition);
 
-            _modifierSizes = new Dictionary<ConnectionModifier, Vector2>();
+            Rect[] modRects;
+            bool found = _connectionModifierRects.TryGetValue(connection, out modRects);
+            //if (modRects == null || modRects.Length != connection.ModifierCount) Debug.Log("Difference during " + Event.current.type);
+            //if (modRects != null & delet != null)
+            //    Debug.Log(string.Format("MR: {0}, D: {1}, Difference during {2}", modRects.Length, delet.Length,
+            //        Event.current.type));
+            if (!found || modRects.Length != connection.ModifierCount)
+            {
+                //if (modRects == null || modRects.Length != connection.ModifierCount) Debug.Log("Difference");
+                modRects = new Rect[connection.ModifierCount];
+                _connectionModifierRects[connection] = modRects;
+            }
+            //Debug.Log(string.Format("Modifier Count: {0}, Cached Rects: {1}; During Event Type {2}",
+            //    connection.ModifierCount, modRects.Length, _cachedEvent.type.ToString()));
+
+            float height = 0;
+            //bool cached = modRects.Length != 0;
+            //bool cached = !_isLayoutEvent;
+
+            foreach (Rect rect in modRects) height = Mathf.Max(height, rect.yMax);
+            //if (cached)
+            //{
+            //    foreach (Rect rect in modRects)
+            //        height = Mathf.Max(height, rect.yMax);
+
+            //}
+            //else
+            //{
+            //    //height = NodePreferences.STANDARD_NODE_SIZE.y;
+            //}
+
+            //height /= Zoom;
+            
             Color oldColor = GUI.color;
-            Utilities.BeginZoom(this.position, Zoom, TopPadding);
+            //Vector2 unclippedWindowPosition = GridToWindowPositionNotClipped(modsPosition);
+            Vector2 startPosition = position - new Vector2(0, height / 2);
 
             for (int i = 0; i < connection.ModifierCount; i++)
             {
                 ConnectionModifier mod = connection.GetModifier(i);
-                if (mod == null) continue;
-                bool selected = Selection.Contains(mod);
-
-                if (_isLayoutEvent)
+                if (mod == null)
                 {
-                    if (!selected && ShouldBeCulled(mod, position))
-                    {
-                        _culledMods.Add(mod);
-                        continue;
-                    }
+                    Debug.LogWarning("Null Mod!?");
+                    continue;
                 }
-                else if (_culledMods.Contains(mod)) continue;
 
+                bool selected = Selection.Contains(mod);
                 ConnectionModifierEditor modEditor = ConnectionModifierEditor.GetEditor(mod);
 
-                Vector2 modPosition = GridToWindowPositionNotClipped(position);
-                GUILayout.BeginArea(new Rect(modPosition, new Vector2(modEditor.GetWidth(), 4000)));
+                float y = 0;
+                if (i > 0)
+                {
+                    //if (cached)
+                    //{
+                    //    y += modRects[i - 1].yMax + EditorGUIUtility.standardVerticalSpacing;
+                    //    if (y < 1) y = modRects[i].y;
+                    //}
+                    //else
+                    //{
+                        for (int j = 0; j < i; j++)
+                        {
+                            y += modRects[j].height + EditorGUIUtility.standardVerticalSpacing;
+                        }
+                        y -= EditorGUIUtility.standardVerticalSpacing;
+                    //}
+                }
+
+                Vector2 finalPosition = startPosition + new Vector2(0, y);
+
+                //if (_isLayoutEvent)
+                //{
+                //    if (!selected && ShouldBeCulled(modsStartPosition + modPosition, cachedRect.size))
+                //    {
+                //        _culledMods.Add(mod);
+                //        continue;
+                //    }
+                //}
+                //else if (_culledMods.Contains(mod)) continue;
+
+                //modPosition = ;
+                Rect modRect = new Rect(GridToWindowPositionNotClipped(finalPosition), new Vector2(modEditor.GetWidth(), 4000));
+                GUILayout.BeginArea(modRect);
 
                 if (selected)
                 {
@@ -141,7 +192,8 @@ namespace RPG.Editor.Nodes
                 GUI.color = oldColor;
                 EditorGUI.BeginChangeCheck();
 
-                modEditor.OnGUI();
+                modEditor.OnHeaderGUI();
+                modEditor.OnBodyGUI();
 
                 if (EditorGUI.EndChangeCheck())
                 {
@@ -150,18 +202,22 @@ namespace RPG.Editor.Nodes
                 }
 
                 GUILayout.EndVertical();
-                if (!_isLayoutEvent)
+                if (selected) GUILayout.EndVertical();
+                if (_isRepaintEvent)
+                //if (!_isLayoutEvent)
                 {
                     Rect rect = GUILayoutUtility.GetLastRect();
-                    _modifierSizes[mod] = rect.size;
+                    //_modifierSizes[mod] = rect.size;
+                    rect.position = finalPosition;
+                    modRects[i] = rect;
+                    //delet = modRects;
                 }
-                if (selected) GUILayout.EndVertical();
 
                 GUILayout.EndArea();
             }
-
-            Utilities.EndZoom(this.position, Zoom, TopPadding);
         }
+
+        //private Rect[] delet;
 
         private void DrawNodes()
         {
@@ -169,7 +225,7 @@ namespace RPG.Editor.Nodes
 
             _nodeSizes = new Dictionary<Node, Vector2>();
             Color oldColor = GUI.color;
-            Utilities.BeginZoom(position, Zoom, TopPadding);
+            //Utilities.BeginZoom(position, Zoom, TopPadding);
 
             for (int i = 0; i < _graph.NodeCount; i++)
             {
@@ -235,7 +291,7 @@ namespace RPG.Editor.Nodes
                 GUILayout.EndArea();
             }
 
-            Utilities.EndZoom(position, Zoom, TopPadding);
+            //Utilities.EndZoom(position, Zoom, TopPadding);
         }
 
         private void DrawGrid() { NodeRendering.DrawGrid(position, Zoom, PanOffset); }
@@ -267,19 +323,25 @@ namespace RPG.Editor.Nodes
             return false;
         }
 
-        private bool ShouldBeCulled(ConnectionModifier mod, Vector2 position)
+        private bool ShouldBeCulled(Vector2 position, Vector2 size)
         {
-            Vector2 modPosition = GridToWindowPositionNotClipped(position);
-            if (modPosition.x / Zoom > this.position.width) return true;
-            if (modPosition.y / Zoom > this.position.height) return true;
+            position = GridToWindowPositionNotClipped(position);
+            if (position.x / Zoom > this.position.width) return true;
+            if (position.y / Zoom > this.position.height) return true;
 
-            if (!_modifierSizes.ContainsKey(mod)) return false;
-
-            Vector2 size = _modifierSizes[mod];
-            if (modPosition.x + size.x < 0) return true;
-            if (modPosition.y + size.y < 0) return true;
+            if (position.x + size.x < 0) return true;
+            if (position.y + size.y < 0) return true;
             return false;
         }
+
+        private bool ShouldBeCulled(Vector2 position)
+        {
+            position = GridToWindowPositionNotClipped(position);
+            if (position.x / Zoom > this.position.width) return true;
+            if (position.y / Zoom > this.position.height) return true;
+            return false;
+        }
+
         #endregion
 
         #region Object Manipulation 
@@ -399,7 +461,6 @@ namespace RPG.Editor.Nodes
         }
         #endregion
         #region Connections
-
         private void Connect(OutputPort output, InputPort input)
         {
             if (output.Connection != null) GraphEditor.RemoveConnection(output.Connection);
@@ -478,7 +539,7 @@ namespace RPG.Editor.Nodes
             if (!ReflectionUtilities.IsOfType(type, typeof(ConnectionModifier))) return;
 
             ConnectionModifier mod = connection.CreateAndAddModifier(type);
-            mod.name = ObjectNames.NicifyVariableName(type.Name);
+            mod.name = ObjectNames.NicifyVariableName(type.Name).Replace(" Modifier", "");
 
             AssetDatabase.AddObjectToAsset(mod, connection);
             EditorUtilities.AutoSaveAssets();
@@ -487,8 +548,8 @@ namespace RPG.Editor.Nodes
 
         private void RemoveSelectedConnectionModifiers()
         {
-            foreach (Node node in GetSelected<Node>())
-                GraphEditor.RemoveNode(node);
+            foreach (ConnectionModifier connectionModifier in GetSelected<ConnectionModifier>())
+                connectionModifier.Connection.RemoveModifier(connectionModifier);
         }
         #endregion
         #endregion

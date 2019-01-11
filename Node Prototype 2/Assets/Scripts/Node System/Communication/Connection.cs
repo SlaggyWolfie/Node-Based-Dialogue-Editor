@@ -123,5 +123,6 @@ namespace RPG.Nodes
             if (index < 0 || index >= ModifierCount) return null;
             return _modifiers[index];
         }
+        public int GetIndex(ConnectionModifier mod) { return _modifiers.IndexOf(mod); }
     }
 }

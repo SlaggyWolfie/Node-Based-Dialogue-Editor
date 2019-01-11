@@ -77,13 +77,16 @@ namespace RPG.Editor.Nodes
         public static void DrawConnection(Vector2 start, Vector2 end, Color color, float width)
         {
             //DrawConnectionBezier(start, end, color, width);
-            DrawConnectionStraight(start,end, color, width);
+            DrawConnectionStraight(start, end, color, width);
         }
 
         public static void DrawConnectionStraight(Vector2 start, Vector2 end, Color color, float width)
         {
             Handles.DrawAAPolyLine(null, width, start, end);
-            DrawArrow((start + end) / 2, (end - start).normalized, width * 2);
+            Vector2 direction = end - start;
+            Vector2 directionNormalized = direction.normalized;
+            DrawArrow(start + direction / 4, directionNormalized, width * 2);
+            DrawArrow(start + direction * 3 / 4, directionNormalized, width * 2);
         }
 
         public static void DrawConnectionBezier(Vector2 start, Vector2 end, Color color, float width)

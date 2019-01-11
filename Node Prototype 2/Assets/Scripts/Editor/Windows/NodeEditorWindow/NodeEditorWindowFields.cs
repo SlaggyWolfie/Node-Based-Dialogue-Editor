@@ -22,7 +22,6 @@ namespace RPG.Editor.Nodes
             private set { _graph = value; }
         }
 
-        //[ShowNonSerializedField]
         private NodeGraphEditor _graphEditor = null;
         public NodeGraphEditor GraphEditor
         {
@@ -30,6 +29,7 @@ namespace RPG.Editor.Nodes
             private set { _graphEditor = value; }
         }
 
+        #region Data?
         [ShowNonSerializedField]
         private Vector2 _panOffset;
         public Vector2 PanOffset
@@ -56,7 +56,26 @@ namespace RPG.Editor.Nodes
 
         [ShowNativeProperty]
         public bool IsPanning { get; private set; }
+        private Func<bool> _isDockedMethod;
+        private Func<bool> IsDockedMethod
+        {
+            get
+            {
+                if (_isDockedMethod != null) return _isDockedMethod;
 
+                const BindingFlags binding = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
+                MethodInfo isDockedMethod = typeof(NodeEditorWindow).GetProperty("docked", binding).GetGetMethod(true);
+                _isDockedMethod = (Func<bool>)Delegate.CreateDelegate(typeof(Func<bool>), this, isDockedMethod);
+                return _isDockedMethod;
+            }
+        }
+        [ShowNativeProperty]
+        private bool IsDocked { get { return IsDockedMethod(); } }
+        [ShowNativeProperty]
+        private float TopPadding { get { return IsDocked ? 19 : 22; } }
+        #endregion
+
+        #region Runtime Cache
         private Event _cachedEvent = null;
         private Matrix4x4 _cachedMatrix = Matrix4x4.identity;
 
@@ -68,6 +87,13 @@ namespace RPG.Editor.Nodes
         private bool _rightMouseButtonUsed = false;
         private bool _middleMouseButtonUsed = false;
 
+        private bool _isLayoutEvent = false;
+        private bool _isRepaintEvent = false;
+        [ShowNonSerializedField]
+        private Vector2 _mousePosition = Vector2.zero;
+        #endregion
+
+        #region Ports
         private Port _draggedPort = null;
         private Port _hoveredPort = null;
         private OutputPort _draggedOutput = null;
@@ -163,6 +189,7 @@ namespace RPG.Editor.Nodes
             get { return _draggedOutputTarget; }
             set { DraggedPortTarget = value; }
         }
+
         [ShowNativeProperty]
         private bool IsDraggingPort { get { return _draggedPort != null; } }
         [ShowNativeProperty]
@@ -175,7 +202,9 @@ namespace RPG.Editor.Nodes
         private bool IsHoveringInput { get { return HoveredInput != null; } }
         [ShowNativeProperty]
         private bool IsHoveringOutput { get { return HoveredOutput != null; } }
+        #endregion
 
+        #region Nodes
         //[ShowNonSerializedField]
         private Node _draggedNode = null;
         //[ShowNonSerializedField]
@@ -185,6 +214,7 @@ namespace RPG.Editor.Nodes
         private bool IsDraggingNode { get { return _draggedNode != null; } }
         [ShowNativeProperty]
         private bool IsHoveringNode { get { return _hoveredNode != null; } }
+        #endregion
 
         //private bool _shouldRepaint = false;
         [ShowNonSerializedField]
@@ -206,24 +236,6 @@ namespace RPG.Editor.Nodes
         private List<Object> _cachedSelectedObjects = new List<Object>();
         //private Object[] _boxSelectedObjects = new Object[] { };
 
-        private Func<bool> _isDockedMethod;
-        private Func<bool> IsDockedMethod
-        {
-            get
-            {
-                if (_isDockedMethod != null) return _isDockedMethod;
-
-                const BindingFlags binding = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
-                MethodInfo isDockedMethod = typeof(NodeEditorWindow).GetProperty("docked", binding).GetGetMethod(true);
-                _isDockedMethod = (Func<bool>)Delegate.CreateDelegate(typeof(Func<bool>), this, isDockedMethod);
-                return _isDockedMethod;
-            }
-        }
-        [ShowNativeProperty]
-        private bool IsDocked { get { return IsDockedMethod(); } }
-        [ShowNativeProperty]
-        private float TopPadding { get { return IsDocked ? 19 : 22; } }
-
         private List<Node> _culledNodes = null;
         private Type[] _nodeTypes = null;
         private Type[] NodeTypes { get { return _nodeTypes ?? (_nodeTypes = ReflectionUtilities.GetDerivedTypes<Node>()); } }
@@ -231,26 +243,14 @@ namespace RPG.Editor.Nodes
         private Connection _hoveredConnection = null;
         [ShowNativeProperty]
         private bool IsHoveringConnection { get { return _hoveredConnection != null; } }
+        private ConnectionModifier _hoveredConnectionModifier = null;
+        [ShowNativeProperty]
+        private bool IsHoveringConnectionModifier { get { return _hoveredConnectionModifier != null; } }
 
-        private bool _isLayoutEvent = false;
-        private bool _isRepaintEvent = false;
-        [ShowNonSerializedField]
-        private Vector2 _mousePosition = Vector2.zero;
-
-        //[ShowNonSerializedField]
-        //[SerializeField]
         private Dictionary<Node, Vector2> _nodeSizes = null;
 
-        //[ShowNativeProperty]
-        //private bool EditingTextField { get { return EditorGUIUtility.editingTextField; } }
-
-        //[ShowNativeProperty]
-        //private ScriptableObject[] Selected { get { return Selection.objects as ScriptableObject[]; } }
-
-        //private List<Object> _boxSelected = new List<Object>();
-        //private bool _shouldUseEvent = false;
-
         private List<ConnectionModifier> _culledMods = null;
-        private Dictionary<ConnectionModifier, Vector2> _modifierSizes = null;
+        //private Dictionary<ConnectionModifier, Vector2> _modifierSizes = null;
+        //private Dictionary<ConnectionModifier, Vector2> _modifierSizes = new Dictionary<ConnectionModifier, Vector2>();
     }
 }

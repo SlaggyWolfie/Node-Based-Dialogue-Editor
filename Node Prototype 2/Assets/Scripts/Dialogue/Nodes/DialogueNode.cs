@@ -1,6 +1,7 @@
 ﻿using System;
 using RPG.Other;
 using RPG.Nodes;
+using RPG.Nodes.Base;
 using UnityEngine;
 
 namespace RPG.Dialogue
@@ -35,10 +36,10 @@ namespace RPG.Dialogue
         #endregion
         
         [SerializeField]
-        private string _speaker = "Speaker...";
+        private string _speaker = string.Empty;
         [SerializeField]
         [ResizableTextArea]
-        private string _text = "Text...";
+        private string _text = string.Empty;
         [SerializeField]
         private AudioClip _audio = null;
         [SerializeField]

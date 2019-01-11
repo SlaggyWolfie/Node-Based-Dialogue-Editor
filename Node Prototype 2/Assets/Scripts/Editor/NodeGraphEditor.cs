@@ -95,6 +95,7 @@ namespace RPG.Editor.Nodes
                 }
             });
         }
+
         protected override void OnEnable()
         {
             string name = "Local Variable Inventory";

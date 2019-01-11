@@ -39,7 +39,7 @@ namespace RPG.Editor
             return NodePreferences.STANDARD_NODE_SIZE.x;
         }
 
-        public override void OnGUI()
+        public override void OnBodyGUI()
         {
             SerializedObject.Update();
             bool enabledGUI = GUI.enabled;
@@ -54,24 +54,25 @@ namespace RPG.Editor
                 DrawValueOrVariable(enabledGUI);
             }
 
+            //Debug.Log("Yo!?");
             SerializedObject.ApplyModifiedProperties();
         }
 
         private void DrawVariable(SerializedProperty variableProperty, bool enabledGUI)
         {
-            EditorGUI.BeginChangeCheck();
-            EditorGUILayout.ObjectField(variableProperty, typeof(Variable), new GUIContent("Variable"),
+            EditorGUILayout.PropertyField(variableProperty, new GUIContent("Variable"),
                 GUILayout.MinWidth(NodePreferences.PROPERTY_MIN_WIDTH));
 
-            if (!EditorGUI.EndChangeCheck()) return;
             SerializedObject.ApplyModifiedProperties();
             SerializedObject.Update();
-            if (variableProperty.objectReferenceValue == null) return;
 
-            _variableType = EditVariableModifier.Variable.EnumType;
+            if (EditVariableModifier.Variable != null)
+                _variableType = EditVariableModifier.Variable.EnumType;
+            
+            if (variableProperty.objectReferenceInstanceIDValue == 0) return;
 
             GUI.enabled = false;
-            EditorGUILayout.TextField(EditVariableModifier.Variable.Value.ToString());
+            EditorGUILayout.TextField("Value", ((Variable)variableProperty.objectReferenceValue).Value.ToString());
             GUI.enabled = enabledGUI;
         }
 
@@ -79,15 +80,16 @@ namespace RPG.Editor
         {
             if (_variableType == VariableType.Float)
             {
-                EditorGUILayout.ObjectField(_editOperationProperty);
+                EditorGUILayout.PropertyField(_editOperationProperty);
+                SerializedObject.ApplyModifiedProperties();
+                return;
+                //EditorGUILayout.ObjectField(_editOperationProperty);
             }
-            else
-            {
-                EditVariableModifier.Operation = EditVariableModifier.EditOperation.Set;
-                GUI.enabled = false;
-                EditorGUILayout.EnumPopup(EditVariableModifier.Operation);
-                GUI.enabled = enabledGUI;
-            }
+
+            EditVariableModifier.Operation = EditVariableModifier.EditOperation.Set;
+            GUI.enabled = false;
+            EditorGUILayout.EnumPopup(EditVariableModifier.Operation);
+            GUI.enabled = enabledGUI;
         }
 
         private void DrawValueChoice(bool enabledGUI)
@@ -115,23 +117,26 @@ namespace RPG.Editor
                 //Undo.RecordObject(EditVariableModifier, "Using Built In Value change");
                 //EditVariableModifier.UsingBuiltInValue = builtInValue;
                 _usingBuiltInValueProperty.boolValue = builtInValue;
-
-                if (builtInValue) CreateLocalValue();
-                else DeleteLocalValue();
+                SerializedObject.ApplyModifiedProperties();
             }
 
+            if (builtInValue) CreateLocalValue();
+            else DeleteLocalValue();
+
             EditorGUILayout.EndHorizontal();
-            SerializedObject.ApplyModifiedProperties();
         }
 
         private void DrawValueOrVariable(bool enabledGUI)
         {
-            if (EditVariableModifier.UsingBuiltInValue) DrawValue(enabledGUI);
+            //if (EditVariableModifier.UsingBuiltInValue) DrawValue(enabledGUI);
+            if (_usingBuiltInValueProperty.boolValue) DrawValue(enabledGUI);
             else DrawVariable(_otherVariableProperty, enabledGUI);
         }
 
         private void DrawValue(bool enabledGUI)
         {
+            if (EditVariableModifier.LocalValue == null) return;
+
             DrawValueTypeInferred(enabledGUI);
             Undo.RecordObject(EditVariableModifier, "Changed the value of the Local Value");
             DrawVariableTypeValue(enabledGUI);
@@ -139,9 +144,7 @@ namespace RPG.Editor
 
         private void DrawValueTypeInferred(bool enabledGUI)
         {
-            EditorGUILayout.BeginHorizontal();
             DrawVariableTypes(_variableType, enabledGUI);
-            EditorGUILayout.EndHorizontal();
         }
 
         private VariableType DrawVariableTypes(VariableType varType, bool enabledGUI)
@@ -238,7 +241,9 @@ namespace RPG.Editor
 
         private void DeleteLocalValue()
         {
-            Object.DestroyImmediate(EditVariableModifier.LocalValue);
+            if (EditVariableModifier.LocalValue == null) return; 
+
+            Object.DestroyImmediate(EditVariableModifier.LocalValue, true);
             EditVariableModifier.LocalValue = null;
             EditorUtilities.AutoSaveAssets();
         }

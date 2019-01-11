@@ -11,7 +11,7 @@ using Event = RPG.Events.Event;
 namespace RPG.Dialogue
 {
     [Serializable]
-    public sealed class EventModifier : ConnectionModifier
+    public sealed class ThrowEventModifier : ConnectionModifier
     {
         [SerializeField]
         private Event _event = null;
@@ -25,11 +25,11 @@ namespace RPG.Dialogue
 
         public override void ApplyDataCopy(ConnectionModifier original)
         {
-            EventModifier em = original as EventModifier;
+            ThrowEventModifier em = original as ThrowEventModifier;
             if (em == null) return;
             _event = em._event;
         }
 
-        public override ConnectionModifier Copy() { return (EventModifier)MemberwiseClone(); }
+        public override ConnectionModifier Copy() { return (ThrowEventModifier)MemberwiseClone(); }
     }
 }
