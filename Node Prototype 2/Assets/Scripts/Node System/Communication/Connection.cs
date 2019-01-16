@@ -7,18 +7,23 @@ using UnityEngine;
 namespace RPG.Nodes
 {
     [Serializable]
-    public class Connection : BaseScriptableObject
+    public class Connection : BaseScriptableObject, ISerializationCallbackReceiver
     {
-        public static void Connect(Connection connection, InputPort input, OutputPort output)
+        public static void AttemptToConnect(Connection connection, InputPort input, OutputPort output)
         {
-            connection.Start = output;
-            connection.End = input;
+            if (CanBeConnected(input, output)) Connect(connection, input, output);
+        }
+        public static bool CanBeConnected(InputPort input, OutputPort output)
+        {
+            return !output.IsConnected && input.Node != output.Node;
+        }
+        private static void Connect(Connection connection, InputPort input, OutputPort output)
+        {
             output.Connection = connection;
             input.AddConnection(connection);
         }
 
         [SerializeField]
-        //[HideInInspector]
         private NodeGraph _graph = null;
         public NodeGraph Graph
         {
@@ -30,35 +35,22 @@ namespace RPG.Nodes
         private List<ConnectionModifier> _modifiers = new List<ConnectionModifier>();
 
         [SerializeField]
-        //[HideInInspector]
         private OutputPort _start = null;
         public OutputPort Start
         {
             get { return _start; }
-            set
-            {
-                _start = value;
-                //_start.Connection = this;
-            }
+            set { _start = value; }
         }
 
         [SerializeField]
-        //[HideInInspector]
         private InputPort _end = null;
         public InputPort End
         {
             get { return _end; }
-            set
-            {
-                _end = value;
-                //_end.ConnectionsCount = this;
-            }
+            set { _end = value; }
         }
 
-        public void Traverse()
-        {
-            if (_modifiers.Count > 0) _modifiers.ForEach(m => m.Execute());
-        }
+        public void Traverse() { if (_modifiers.Count > 0) _modifiers.ForEach(m => m.Execute()); }
 
         public void Disconnect()
         {
@@ -98,8 +90,6 @@ namespace RPG.Nodes
         }
         public virtual ConnectionModifier CopyModifier(ConnectionModifier original)
         {
-            //ConnectionModifier mod = original.ShallowCopy();
-            //ConnectionModifier mod = original.DeepCopy();
             ConnectionModifier mod = CreateAndAddModifier(original.GetType());
             mod.ApplyDataCopy(original);
             return mod;
@@ -124,5 +114,29 @@ namespace RPG.Nodes
             return _modifiers[index];
         }
         public int GetIndex(ConnectionModifier mod) { return _modifiers.IndexOf(mod); }
+
+        public void OnBeforeSerialize() { }
+        public void OnAfterDeserialize() { FixInput(End); FixOutput(Start); }
+
+        private void FixInput(InputPort input)
+        {
+            input.Node.PortHandler.InputPortAction(inputNode => inputNode.InputPort = input);
+        }
+        private void FixOutput(OutputPort output)
+        {
+            Node node = output.Node;
+            if (node is IOutput) node.PortHandler.OutputPortAction(outputNode => outputNode.OutputPort = output);
+            else if (node is IMultipleOutput)
+            {
+                List<OutputPort> outputs = node.PortHandler.multipleOutputNode.GetOutputs();
+                for (var i = 0; i < outputs.Count; i++)
+                {
+                    OutputPort testedOutput = outputs[i];
+                    if (testedOutput.Connection != output.Connection) continue;
+                    outputs[i] = output;
+                    break;
+                }
+            }
+        }
     }
 }

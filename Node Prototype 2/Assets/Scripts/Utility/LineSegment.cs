@@ -31,12 +31,21 @@ namespace RPG.Utility
             end = temp;
         }
 
-        public static bool WideSegmentPointCheck(Vector2 point, LineSegment lineSegment, float width)
+        public static bool WideLineSegmentPointCheck(Vector2 point, LineSegment lineSegment, float width)
         {
-            return WideSegmentPointCheck(point, lineSegment.start, lineSegment.end, width);
+            return WideLineSegmentPointCheck(point, lineSegment.start, lineSegment.end, width);
         }
-        public static bool WideSegmentPointCheck(Vector2 point, Vector2 lineStart, Vector2 lineEnd, float width)
+
+        public static bool WideLineSegmentPointCheck(Vector2 point, Vector2 lineStart, Vector2 lineEnd, float width)
         {
+            Vector2 p = point; Vector2 a = lineStart; Vector2 b = lineEnd;
+            return LineCheck(p, a, b, width);// && LineCheck(p, b, a, width);
+        }
+
+        private static bool LineCheck(Vector2 point, Vector2 lineStart, Vector2 lineEnd, float width)
+        {
+            width /= 2;
+            float sqrWidth = width * width;
             Vector2 p = point;
             Vector2 a = lineStart;
             Vector2 b = lineEnd;
@@ -44,15 +53,26 @@ namespace RPG.Utility
             Vector2 ap = p - a;
             Vector2 ab = b - a;
 
-            float sqrDistanceAB = ab.sqrMagnitude;
+            //Less Expensive
             float dot = Vector2.Dot(ap, ab); //not a regular dot
-            float normalizedDot = dot / sqrDistanceAB; //between 0 and 1
+            if (dot < 0 && ap.sqrMagnitude > sqrWidth) return false;
 
+            Vector2 bp = p - b;
+            float dot2 = Vector2.Dot(bp, -ab);
+            if (dot2 < 0 && ap.sqrMagnitude > sqrWidth) return false;
+
+            float normalizedDot = dot / ab.sqrMagnitude; //between 0 and 1
             Vector2 closestPoint = a + ab * normalizedDot;
-            return (closestPoint - p).sqrMagnitude <= width * width;
+
+            ////More expensive
+            //Vector2 normalizedAB = ab.normalized;
+            //float dot = Vector2.Dot(ap, normalizedAB);
+            //Vector2 closestPoint = a + dot * normalizedAB;
+
+            return (closestPoint - p).sqrMagnitude <= sqrWidth;
         }
 
-        public static float WideLineRectOverlapPercentageCheck(Rect rect, Vector2 lineStart, Vector2 lineEnd, float width)
+        public static float LineRectOverlapPercentageCheck(Rect rect, Vector2 lineStart, Vector2 lineEnd)
         {
             Rect r = rect;
             Vector2 a = lineStart;

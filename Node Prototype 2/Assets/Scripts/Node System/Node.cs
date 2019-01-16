@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Security.Permissions;
 using RPG.Base;
 using RPG.Nodes.Base;
+using RPG.Other;
 using UnityEngine;
 
 namespace RPG.Nodes
 {
     [Serializable]
-    public abstract class Node : BaseScriptableObject
+    public abstract class Node : BaseScriptableObject, ICopyable<Node>
     {
         private PortHandler _portHandler = null;
         public PortHandler PortHandler { get { return _portHandler ?? (_portHandler = new PortHandler(this)); } }
@@ -37,6 +38,8 @@ namespace RPG.Nodes
 
         private void PortSetup()
         {
+            //Debug.Log("port setup");
+
             PortHandler.InputPortAction(input => input.InputPort.Node = this);
             PortHandler.OutputPortAction(output => output.OutputPort.Node = this);
             PortHandler.MultipleOutputPortAction(output => output.AssignNodesToOutputPorts(this));
@@ -86,7 +89,7 @@ namespace RPG.Nodes
             //if (mOutputNode != null) mOutputNode.ClearMultipleConnections();
         }
 
-        public Node NextNode()
+        public virtual Node NextNode()
         {
             IOutput sOutputNode = this as IOutput;
             if (sOutputNode != null) return CheckNextNodePort(sOutputNode.OutputPort);
@@ -145,6 +148,16 @@ namespace RPG.Nodes
         public virtual bool OutputPortIsInHeader() { return true; }
 
         public virtual void OnDestroy() { GetAllPorts().ForEach(port => port.OnDestroy()); }
+
+        public void ApplyDataCopy(Node original)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Node Copy()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [AttributeUsage(AttributeTargets.Class)]
@@ -178,6 +191,8 @@ namespace RPG.Nodes
             inputNode = node as IInput;
             outputNode = node as IOutput;
             multipleOutputNode = node as IMultipleOutput;
+
+            //Debug.Log("Port Handler Init");
         }
 
         public void PortAction<T>(Action<T> action)

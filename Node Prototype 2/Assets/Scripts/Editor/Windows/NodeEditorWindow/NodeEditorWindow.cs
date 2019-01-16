@@ -17,7 +17,7 @@ namespace RPG.Editor.Nodes
         private NodeEditorWindow()
         {
             IsPanning = false;
-            NullifyStuff();
+            ResetHoverAndDrag();
         }
 
         private static NodeEditorWindow _currentNodeEditorWindow = null;
@@ -67,7 +67,7 @@ namespace RPG.Editor.Nodes
         private void OnEnable()
         {
             IsPanning = false;
-            NullifyStuff();
+            ResetHoverAndDrag();
         }
 
         public override void OnGUI()

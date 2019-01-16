@@ -17,7 +17,7 @@ namespace RPG.Dialogue
         #region Node Stuff
         public InputPort InputPort
         {
-            get { return _inputPort ?? (_inputPort = new InputPort() {Node = this}); }
+            get { return _inputPort ?? (_inputPort = new InputPort() { Node = this }); }
             set
             {
                 _inputPort = value;
@@ -26,7 +26,7 @@ namespace RPG.Dialogue
         }
         public OutputPort OutputPort
         {
-            get { return _outputPort ?? (_outputPort = new OutputPort() {Node = this}); }
+            get { return _outputPort ?? (_outputPort = new OutputPort() { Node = this }); }
             set
             {
                 _outputPort = value;
@@ -34,7 +34,7 @@ namespace RPG.Dialogue
             }
         }
         #endregion
-        
+
         [SerializeField]
         private string _speaker = string.Empty;
         [SerializeField]

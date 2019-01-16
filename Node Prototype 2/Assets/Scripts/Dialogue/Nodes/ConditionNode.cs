@@ -158,29 +158,6 @@ namespace RPG.Dialogue
         #endregion
 
         #region Node Stuff
-
-        //public void Evaluate()
-        //{
-        //    bool result = false;
-
-        //    if (_isAnd)
-        //    {
-        //        result = true;
-
-        //        foreach (Condition condition in _conditions)
-        //            result &= condition.Evaluate();
-        //    }
-        //    else
-        //    {
-        //        result = false;
-
-        //        foreach (Condition condition in _conditions)
-        //            result |= condition.Evaluate();
-        //    }
-
-        //    _evaluatedOutputPort = result ? IfOutputPort : ElseOutputPort;
-        //}
-
         public void Evaluate()
         {
             bool result;
@@ -217,7 +194,7 @@ namespace RPG.Dialogue
             return new List<OutputPort>() { IfOutputPort, ElseOutputPort };
         }
 
-        public new Node NextNode()
+        public override Node NextNode()
         {
             _evaluatedOutputPort = null;
             return EvaluatedOutputPort != null ? EvaluatedOutputPort.Connection.End.Node : null;
@@ -239,8 +216,6 @@ namespace RPG.Dialogue
 
         public void ClearOutputs()
         {
-            //Destroy(IfOutputPort);
-            //Destroy(ElseOutputPort);
             IfOutputPort = null;
             ElseOutputPort = null;
             _evaluatedOutputPort = null;

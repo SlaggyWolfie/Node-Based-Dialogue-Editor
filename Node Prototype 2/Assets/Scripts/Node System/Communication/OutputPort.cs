@@ -13,16 +13,13 @@ namespace RPG.Nodes
             get
             {
                 if (_connection == null) return null;
-
-                _connection.Start = this;
-                SetupTraversal();
+                if (!_traversalSetup)SetupTraversal();
                 return _connection;
             }
             set
             {
                 if (_connection == value) return;
                 _connection = value;
-                _traversalSetup = false;
 
                 if (value == null) return;
                 _connection.Start = this;
@@ -43,39 +40,39 @@ namespace RPG.Nodes
             _traversalSetup = true;
         }
 
-        public bool CanConnect(InputPort input)
-        {
-            return input != null &&
-                   input.Node != null &&
-                   input.Node != Node;
-        }
-
-        public void Connect(InputPort input)
-        {
-            if (CanConnect(input)) input.Connect(this);
-        }
-
-        public override bool CanConnect(Port port)
-        {
-            return !(port is OutputPort) && CanConnect(port as InputPort);
-        }
-
-        public override void Connect(Port port)
-        {
-            if (CanConnect(port)) ((InputPort)port).Connect(this);
-        }
-
-        //public override void Disconnect(Port port)
+        //public bool CanConnect(InputPort input)
         //{
-        //    if (IsConnected) Disconnect(port as InputPort);
+        //    return input != null &&
+        //           input.Node != null &&
+        //           input.Node != Node;
         //}
 
-        //public void Disconnect(InputPort input)
+        //public void Connect(InputPort input)
         //{
-        //    if (!IsConnectedTo(input)) return;
-        //    input.RemoveConnection(Connection);
-        //    Connection.End = null;
+        //    if (CanConnect(input)) input.Connect(this);
         //}
+
+        //public override bool CanConnect(Port port)
+        //{
+        //    return !(port is OutputPort) && CanConnect(port as InputPort);
+        //}
+
+        //public override void Connect(Port port)
+        //{
+        //    if (CanConnect(port)) ((InputPort)port).Connect(this);
+        //}
+
+        ////public override void Disconnect(Port port)
+        ////{
+        ////    if (IsConnected) Disconnect(port as InputPort);
+        ////}
+
+        ////public void Disconnect(InputPort input)
+        ////{
+        ////    if (!IsConnectedTo(input)) return;
+        ////    input.RemoveConnection(Connection);
+        ////    Connection.End = null;
+        ////}
 
         public override bool IsConnected { get { return Connection != null; } }
         public override bool IsConnectedTo(Port port) { return IsConnectedTo(port as InputPort); }

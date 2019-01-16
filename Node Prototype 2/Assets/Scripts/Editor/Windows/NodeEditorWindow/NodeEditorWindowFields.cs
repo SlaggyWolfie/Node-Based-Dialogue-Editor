@@ -233,6 +233,15 @@ namespace RPG.Editor.Nodes
             return Selection.GetFiltered<T>(SelectionMode.Unfiltered);
         }
 
+        private static bool DifferentObjectsSelected()
+        {
+            int counter = 0;
+            if (GetSelected<Node>().Length > 0) counter++;
+            if (GetSelected<Connection>().Length > 0) counter++;
+            if (GetSelected<ConnectionModifier>().Length > 0) counter++;
+            return counter >= 2;
+        }
+
         private List<Object> _cachedSelectedObjects = new List<Object>();
         //private Object[] _boxSelectedObjects = new Object[] { };
 

@@ -8,23 +8,16 @@ namespace RPG.Nodes
     public sealed class InputPort : Port
     {
         [SerializeField]
-        //[HideInInspector]
         private List<Connection> _connections = new List<Connection>();
 
-        public int ConnectionsCount
-        {
-            get { return _connections.Count; }
-        }
-
-        public List<Connection> GetConnections()
-        {
-            return new List<Connection>(_connections);
-        }
+        public int ConnectionsCount { get { return _connections.Count; } }
+        public List<Connection> GetConnections() { return new List<Connection>(_connections); }
         public Connection GetConnection(int index)
         {
             if (index < 0 || index >= ConnectionsCount) return null;
             return _connections[index];
         }
+
         public void RemoveConnection(int index)
         {
             if (index < 0 || index >= ConnectionsCount) return;
@@ -41,59 +34,34 @@ namespace RPG.Nodes
             _connections.Add(connection);
         }
 
-        public Connection CreateConnection()
-        {
-            Connection inputConnection = new Connection();
-            AddConnection(inputConnection);
-            return inputConnection;
-        }
-
-        public bool CanConnect(OutputPort output)
-        {
-            return output != null &&
-                   output.Node != null &&
-                   output.Node != Node;
-        }
-
-        public void Connect(OutputPort output)
-        {
-            if (!CanConnect(output)) return;
-            Connection connection = output.Connection;
-            Connection.Connect(connection, this, output);
-            //AddConnection(output.Connection);
-        }
-
-        public override bool CanConnect(Port port)
-        {
-            return !(port is InputPort) && CanConnect(port as OutputPort);
-        }
-
-        public override void Connect(Port port)
-        {
-            if (CanConnect(port)) ((OutputPort)port).Connect(this);
-        }
-
-        //public override void Disconnect(Port port)
+        //public bool CanConnect(OutputPort output)
         //{
-        //    if (IsConnected) Disconnect(port as OutputPort);
+        //    return output != null &&
+        //           output.Node != null &&
+        //           output.Node != Node;
         //}
 
-        //public void Disconnect(OutputPort output)
+        //public void Connect(OutputPort output)
         //{
-        //    if (!IsConnectedTo(output)) return;
-        //    output.Connection.Start = null;
+        //    if (!CanConnect(output)) return;
+        //    Connection connection = output.Connection;
+        //    Connection.FinalizeConnection(connection, this, output);
+        //    //Connection.Connect(connection, this, output);
+        //    //AddConnection(output.Connection);
         //}
 
-        public override bool IsConnected
-        {
-            get { return ConnectionsCount != 0; }
-        }
+        //public override bool CanConnect(Port port)
+        //{
+        //    return !(port is InputPort) && CanConnect(port as OutputPort);
+        //}
 
-        public override bool IsConnectedTo(Port port)
-        {
-            return IsConnectedTo(port as OutputPort);
-        }
+        //public override void Connect(Port port)
+        //{
+        //    if (CanConnect(port)) ((OutputPort)port).Connect(this);
+        //}
 
+        public override bool IsConnected { get { return ConnectionsCount != 0; } }
+        public override bool IsConnectedTo(Port port) { return IsConnectedTo(port as OutputPort); }
         public bool IsConnectedTo(OutputPort output)
         {
             if (output == null) return false;
@@ -122,23 +90,5 @@ namespace RPG.Nodes
         {
             _connections.RemoveAll(connection => connection == null);
         }
-
-        //public override void Reconnect(List<Node> oldNodes, List<Node> newNodes)
-        //{
-        //    foreach (Connection connection in _connections)
-        //    {
-        //        int index = oldNodes.IndexOf(connection.Start.Node);
-        //        if (index >= 0) Connect(newNodes[index]);
-        //    }
-        //}
-
-        //public void Redirect(List<Node> newNodes)
-        //{
-        //    foreach (Node newNode in newNodes)
-        //    {
-        //        ISingleOutput sOutput = newNode as ISingleOutput;
-        //        if (sOutput != null) 
-        //    }
-        //}
     }
 }

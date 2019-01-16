@@ -286,6 +286,10 @@ namespace RPG.Editor.Nodes
             {
                 ShowPortContextMenu(HoveredPort);
             }
+            else if (DifferentObjectsSelected())
+            {
+                ShowDifferentObjectsContextMenu();
+            }
             else if (IsHoveringConnectionModifier && IsHoveringTitle(_hoveredConnectionModifier))
             {
                 if (!Selection.Contains(_hoveredConnectionModifier)) Select(_hoveredConnectionModifier, false);
@@ -315,23 +319,19 @@ namespace RPG.Editor.Nodes
         }
         private void ValidateCommand()
         {
-            if (_cachedEvent.commandName == "SoftDelete")
-                RemoveSelectedNodes();
+            if (_cachedEvent.commandName == "SoftDelete") RemoveSelectedNodes();
             else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX && _cachedEvent.commandName == "Delete")
                 RemoveSelectedNodes();
-            else if (_cachedEvent.commandName == "Duplicate")
-                DuplicateSelectedNodes();
+            else if (_cachedEvent.commandName == "Duplicate") DuplicateSelectedNodes();
             Repaint();
         }
         private void KeyDown()
         {
             if (EditorGUIUtility.editingTextField) return;
-            if (_cachedEvent.keyCode == KeyCode.F)
-                Home();
+            if (_cachedEvent.keyCode == KeyCode.F) Home();
             else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX && _cachedEvent.keyCode == KeyCode.Return)
                 RenameSelectedNode();
-            else if (_cachedEvent.keyCode == KeyCode.F2)
-                RenameSelectedNode();
+            else if (_cachedEvent.keyCode == KeyCode.F2) RenameSelectedNode();
         }
         #endregion
 
@@ -403,7 +403,7 @@ namespace RPG.Editor.Nodes
 
             Rect[] rects;
             bool found = _connectionModifierRects.TryGetValue(connection, out rects);
-            if (!found) return false;
+            if (!found || index >= rects.Length) return false;
 
             Rect modRect = GridToWindowRect(rects[index]);
             Rect titleRect = new Rect(modRect.position, new Vector2(modRect.width / Zoom, NodePreferences.PROPERTY_HEIGHT / Zoom));
@@ -413,32 +413,20 @@ namespace RPG.Editor.Nodes
         private void CheckHoveringAndSelection()
         {
             if (_isLayoutEvent) return;
-            //Debug.Log("Check Hover");
-            //Debug.Log("Node Sizes Count: " + _nodeSizes.Count);
-            //Debug.Log("Selection Rect: " + _selectionRect);
 
-            //Reset
-            _hoveredNode = null;
-            _hoveredConnection = null;
-            HoveredPort = null;
+            ResetHover();
 
             bool isDraggingGrid = _currentActivity == Activity.DraggingGrid;
 
-            //Rect selectionRect = new Rect(WindowToGridPosition(_selectionRect.position), _selectionRect.size);
             Rect selectionRect = _selectionRect;
             Vector2 mousePosition = _mousePosition;
-            //Vector2 mousePosition = WindowToGridPosition(_mousePosition);
-            //if (isDraggingGrid) _boxSelected = new List<Object>();
             List<Object> boxSelected = new List<Object>();
 
             for (int i = 0; i < Graph.NodeCount; i++)
             {
                 Node node = Graph.GetNode(i);
                 NodeEditor nodeEditor = NodeEditor.GetEditor(node);
-
-                //Vector2 nodeSize = _nodeRects[node].size;
-                //Rect nodeRect = new Rect(node.Position, new Vector2(nodeEditor.GetWidth(), 4000));
-                //Rect nodeRect = new Rect(node.Position, nodeSize);
+                
                 Vector2 size;
                 if (_nodeSizes.TryGetValue(node, out size))
                 {
@@ -454,9 +442,8 @@ namespace RPG.Editor.Nodes
                 {
                     InputPort input = inputNode.InputPort;
                     Rect inputRect = nodeEditor.GetPortRect(input);
-                    inputRect.position += node.Position;
-                    inputRect = GridToWindowRect(inputRect);
                     //inputRect.position += node.Position;
+                    inputRect = GridToWindowRect(inputRect);
                     if (inputRect.Contains(mousePosition)) HoveredPort = input;
                 }
 
@@ -465,7 +452,7 @@ namespace RPG.Editor.Nodes
                 {
                     OutputPort output = sOutputNode.OutputPort;
                     Rect outputRect = nodeEditor.GetPortRect(output);
-                    outputRect.position += node.Position;
+                    //outputRect.position += node.Position;
                     outputRect = GridToWindowRect(outputRect);
                     if (outputRect.Contains(mousePosition)) HoveredPort = output;
                 }
@@ -477,7 +464,7 @@ namespace RPG.Editor.Nodes
                     foreach (OutputPort output in outputs)
                     {
                         Rect outputRect = nodeEditor.GetPortRect(output);
-                        outputRect.position += node.Position;
+                        //outputRect.position += node.Position;
                         outputRect = GridToWindowRect(outputRect);
                         if (outputRect.Contains(mousePosition)) HoveredPort = output;
                     }
@@ -486,7 +473,6 @@ namespace RPG.Editor.Nodes
 
             for (int i = 0; i < Graph.ConnectionCount; i++)
             {
-                //continue;
                 Connection connection = Graph.GetConnection(i);
                 if (connection == null)
                 {
@@ -494,20 +480,18 @@ namespace RPG.Editor.Nodes
                     OnNull(Graph);
                     continue;
                 }
-                Vector2 start = NodeEditor.FindPortRect(connection.Start).center + connection.Start.Node.Position;
-                Vector2 end = NodeEditor.FindPortRect(connection.End).center + connection.End.Node.Position;
-
+                
+                Vector2 start = NodeEditor.FindPortRect(connection.Start).center;
+                Vector2 end = NodeEditor.FindPortRect(connection.End).center;
                 start = GridToWindowPosition(start);
                 end = GridToWindowPosition(end);
 
                 //if (OtherUtilities.PointOverlapBezier(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH))
-                if (LineSegment.WideSegmentPointCheck(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH / Zoom))
+                if (LineSegment.WideLineSegmentPointCheck(mousePosition, start, end, NodePreferences.CONNECTION_WIDTH * 2 / Zoom))
                     _hoveredConnection = connection;
 
                 //DONE: Add range percentage overlap check, as just overlapping might be too annoying.
-                if (isDraggingGrid &&
-                    LineSegment.WideLineRectOverlapPercentageCheck(selectionRect, start, end,
-                        NodePreferences.CONNECTION_WIDTH / Zoom) > 0.3f)
+                if (isDraggingGrid && LineSegment.LineRectOverlapPercentageCheck(selectionRect, start, end) > 0.3f)
                     boxSelected.Add(connection);
 
 
@@ -537,10 +521,11 @@ namespace RPG.Editor.Nodes
             if (_isLayoutEvent) return;
             _hoveredNode = null;
             _hoveredConnection = null;
+            _hoveredConnectionModifier = null;
             HoveredPort = null;
         }
 
-        private void NullifyStuff()
+        private void ResetHoverAndDrag()
         {
             HoveredPort = null;
             _hoveredNode = null;

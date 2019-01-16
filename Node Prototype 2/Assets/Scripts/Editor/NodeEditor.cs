@@ -78,7 +78,7 @@ namespace RPG.Editor.Nodes
         {
             NodeRendering.DrawPort(rect, NodeResources.OuterDotTexture, NodeResources.DotTexture,
                 Color.white, Color.gray, port.IsConnected);
-            _portRects[port] = rect;
+            if (Event.current.type == EventType.Repaint) _portRects[port] = rect;
         }
 
         protected void DefaultNodeEditorBody()
@@ -124,8 +124,14 @@ namespace RPG.Editor.Nodes
         public virtual Rect GetPortRect(Port port)
         {
             Rect rect;
-            //if (_portRects.ContainsKey(port)) Debug.Log("Port Rect: "/* + _portRects[port]*/);
-            return _portRects.TryGetValue(port, out rect) ? rect : Rect.zero;
+            if (!_portRects.TryGetValue(port, out rect))
+            {
+                //Debug.Log("Kek");
+                return rect;
+            }
+            rect.position += port.Node.Position;
+            return rect;
+
         }
         public static Rect FindPortRect(Port port)
         {
