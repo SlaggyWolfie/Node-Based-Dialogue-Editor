@@ -33,7 +33,7 @@ namespace RPG.Editor
 
             _editors[target] = editor;
 
-            editor.OnEnable();
+            editor.Awake();
             return editor;
         }
 
@@ -75,7 +75,7 @@ namespace RPG.Editor
         private SerializedObject _serializedObject = null;
         public SerializedObject SerializedObject { get { return _serializedObject; } }
 
-        protected virtual void OnEnable() { }
+        protected virtual void Awake() { }
     }
 
     public interface IEditorAttribute { Type GetInspectedType(); }

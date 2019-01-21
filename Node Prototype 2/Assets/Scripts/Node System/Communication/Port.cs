@@ -16,12 +16,13 @@ namespace RPG.Nodes
         }
 
         public abstract void ClearConnections();
+        public abstract void Disconnect();
         //public abstract bool CanConnect(Port port);
         //public abstract void Connect(Port port);
         //public abstract void Disconnect(Port port);
         public abstract bool IsConnected { get; }
         public abstract bool IsConnectedTo(Port port);
 
-        public virtual void OnDestroy() { ClearConnections(); }
+        public virtual void OnDestroy() { Disconnect(); }
     }
 }

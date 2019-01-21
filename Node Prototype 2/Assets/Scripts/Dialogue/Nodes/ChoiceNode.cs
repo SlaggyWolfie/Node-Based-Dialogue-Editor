@@ -70,22 +70,15 @@ namespace RPG.Dialogue
         }
         #endregion
 
-        public void PickBranch(Branch branch)
-        {
-            _choice = branch;
-        }
+        public void PickBranch(Branch branch) { _choice = branch; }
+        public void PickBranch(int index) { PickBranch(GetBranch(index)); }
 
-        public void PickBranch(int index)
-        {
-            PickBranch(GetBranch(index));
-        }
+        //public void ClearOutputs()
+        //{
+        //    foreach (Branch branch in _branches) branch.OutputPort.Disconnect();
+        //}
 
-        public void ClearOutputs()
-        {
-            foreach (Branch branch in _branches) branch.OutputPort.ClearConnections();
-        }
-
-        public List<OutputPort> GetOutputs()
+        public IEnumerable<OutputPort> GetOutputs()
         {
             List<OutputPort> outputs = new List<OutputPort>();
             _branches.ForEach(branch => outputs.Add(branch.OutputPort));
@@ -97,15 +90,20 @@ namespace RPG.Dialogue
             return _choice != null ? _choice.DialogueNode : null;
         }
 
-        public void AssignNodesToOutputPorts(Node node)
+        public void KillOutputPorts()
         {
-            _branches.ForEach(branch => branch.OutputPort.Node = this);
+            _branches.ForEach(branch => branch.OutputPort = null);
         }
 
-        public void OffsetMultiplePorts(Vector2 offset)
-        {
-            //foreach (Branch branch in _branches)
-            //    branch.OutputPort.Position += offset;
-        }
+        //public void AssignNodesToOutputPorts(Node node)
+        //{
+        //    _branches.ForEach(branch => branch.OutputPort.Node = this);
+        //}
+
+        //public void OffsetMultiplePorts(Vector2 offset)
+        //{
+        //    //foreach (Branch branch in _branches)
+        //    //    branch.OutputPort.Position += offset;
+        //}
     }
 }

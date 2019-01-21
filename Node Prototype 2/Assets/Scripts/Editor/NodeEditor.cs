@@ -14,7 +14,7 @@ namespace RPG.Editor.Nodes
         private enum RenamingState { Idle, StandBy, Renaming }
         private RenamingState _renaming = RenamingState.Idle;
 
-        protected Dictionary<Port, Rect> _portRects = new Dictionary<Port, Rect>();
+        protected Dictionary<Port, Rect> portRects = new Dictionary<Port, Rect>();
 
         protected virtual void OnValidate() { }
 
@@ -76,9 +76,10 @@ namespace RPG.Editor.Nodes
 
         protected void DrawAndCachePort(Port port, Rect rect)
         {
-            NodeRendering.DrawPort(rect, NodeResources.OuterDotTexture, NodeResources.DotTexture,
+            NodeRendering.DrawPort(rect, 
+                NodeResources.OuterDotTexture, NodeResources.DotTexture,
                 Color.white, Color.gray, port.IsConnected);
-            if (Event.current.type == EventType.Repaint) _portRects[port] = rect;
+            if (Event.current.type == EventType.Repaint) portRects[port] = rect;
         }
 
         protected void DefaultNodeEditorBody()
@@ -103,40 +104,19 @@ namespace RPG.Editor.Nodes
             Target.name = newName;
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(Target));
         }
-        public void InitiateRename()
-        {
-            _renaming = RenamingState.StandBy;
-        }
-
-        public virtual float GetWidth()
-        {
-            return NodePreferences.STANDARD_NODE_SIZE.x;
-        }
-        public virtual Color GetTint()
-        {
-            return Color.white;
-        }
-        public virtual GUIStyle GetBodyStyle()
-        {
-            return NodeResources.Styles.nodeBody;
-        }
+        public void InitiateRename() { _renaming = RenamingState.StandBy; }
+        public virtual float GetWidth() { return NodePreferences.STANDARD_NODE_SIZE.x; }
+        public virtual Color GetTint() { return Color.white; }
+        public virtual GUIStyle GetBodyStyle() { return NodeResources.Styles.nodeBody; }
 
         public virtual Rect GetPortRect(Port port)
         {
             Rect rect;
-            if (!_portRects.TryGetValue(port, out rect))
-            {
-                //Debug.Log("Kek");
-                return rect;
-            }
+            if (!portRects.TryGetValue(port, out rect)) return rect;
             rect.position += port.Node.Position;
             return rect;
-
         }
-        public static Rect FindPortRect(Port port)
-        {
-            return GetEditor(port.Node).GetPortRect(port);
-        }
+        public static Rect FindPortRect(Port port) { return GetEditor(port.Node).GetPortRect(port); }
 
         public static void UpdateCallback(Node node)
         {

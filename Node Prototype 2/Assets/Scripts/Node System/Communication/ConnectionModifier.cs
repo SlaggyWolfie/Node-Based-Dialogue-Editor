@@ -8,12 +8,11 @@ namespace RPG.Nodes.Base
 {
     [Serializable]
     //public abstract class ConnectionModifier : BaseObject//, ICopyable<ConnectionModifier>
-    public abstract class ConnectionModifier : BaseScriptableObject, ICopyable<ConnectionModifier>//, IComplexCopyable<ConnectionModifier>
+    public abstract class ConnectionModifier : BaseScriptableObject//, ICopyable<ConnectionModifier>//, IComplexCopyable<ConnectionModifier>
     {
         [SerializeField]
         [HideInInspector]
         private Connection _connection = null;
-
         public Connection Connection
         {
             get { return _connection; }
@@ -21,7 +20,5 @@ namespace RPG.Nodes.Base
         }
 
         public abstract void Execute();
-        public abstract void ApplyDataCopy(ConnectionModifier original);
-        public abstract ConnectionModifier Copy();
     }
 }

@@ -83,18 +83,18 @@ namespace RPG.Dialogue
             else Variable.Value = ActualValue.Value;
         }
 
-        public override void ApplyDataCopy(ConnectionModifier original)
-        {
-            EditVariableModifier evm = original as EditVariableModifier;
-            if (evm == null) return;
+        //public override void ApplyDataFromCopy(ConnectionModifier original)
+        //{
+        //    EditVariableModifier evm = original as EditVariableModifier;
+        //    if (evm == null) return;
 
-            _variable = evm._variable;
-            _localValue = evm._localValue;
-            _otherVariable = evm._otherVariable;
-            _operation = evm._operation;
-            _usingBuiltInValue = evm._usingBuiltInValue;
-        }
+        //    _variable = evm._variable;
+        //    _localValue = evm._localValue;
+        //    _otherVariable = evm._otherVariable;
+        //    _operation = evm._operation;
+        //    _usingBuiltInValue = evm._usingBuiltInValue;
+        //}
 
-        public override ConnectionModifier Copy() { return (EditVariableModifier)MemberwiseClone(); }
+        //public override ConnectionModifier Copy() { return (EditVariableModifier)MemberwiseClone(); }
     }
 }

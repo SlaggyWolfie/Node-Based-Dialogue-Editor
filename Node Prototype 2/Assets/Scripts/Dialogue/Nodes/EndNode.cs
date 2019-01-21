@@ -9,20 +9,11 @@ namespace RPG.Dialogue
     {
         [SerializeField]
         private InputPort _inputPort = null;
+
         public InputPort InputPort
         {
-            get
-            {
-                if (_inputPort != null) return _inputPort;
-                //Debug.Log("Why?");
-                _inputPort = new InputPort() { Node = this };
-                return _inputPort;
-            }
-            set
-            {
-                _inputPort = value;
-                _inputPort.Node = this;
-            }
+            get { return this.DefaultGetInputPort(ref _inputPort); }
+            set { this.ReplaceInputPort(ref _inputPort, value);}
         }
     }
 }

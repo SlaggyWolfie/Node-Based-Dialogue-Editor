@@ -32,7 +32,7 @@ namespace RPG.Editor.Nodes
         private void ShowPortContextMenu(Port port)
         {
             GenericMenu contextMenu = new GenericMenu();
-            contextMenu.AddItem(new GUIContent(CLEAR_CONNECTIONS_TEXT), false, port.ClearConnections);
+            contextMenu.AddItem(new GUIContent(CLEAR_CONNECTIONS_TEXT), false, port.Disconnect);
 
             InputPort input = port as InputPort;
             if (input != null)
@@ -101,10 +101,10 @@ namespace RPG.Editor.Nodes
 
             if (oneConnectionSelected)
             {
-                contextMenu.AddItem(new GUIContent(SEND_TO_FRONT_TEXT), false, () => SendConnectionToFront(connection));
-                contextMenu.AddItem(new GUIContent(SEND_TO_BACK_TEXT), false, () => SendConnectionToBack(connection));
-                contextMenu.AddItem(new GUIContent(SEND_FORWARD_TEXT), false, () => SendConnectionForward(connection));
-                contextMenu.AddItem(new GUIContent(SEND_BACKWARD_TEXT), false, () => SendConnectionBackward(connection));
+                contextMenu.AddItem(new GUIContent(SEND_TO_FRONT_TEXT), false, () => Graph.SendConnectionToFront(connection));
+                contextMenu.AddItem(new GUIContent(SEND_TO_BACK_TEXT), false, () => Graph.SendConnectionToBack(connection));
+                contextMenu.AddItem(new GUIContent(SEND_FORWARD_TEXT), false, () => Graph.SendConnectionForward(connection));
+                contextMenu.AddItem(new GUIContent(SEND_BACKWARD_TEXT), false, () => Graph.SendConnectionBackward(connection));
                 contextMenu.AddSeparator(string.Empty);
 
                 var modTypes = ReflectionUtilities.GetDerivedTypes<ConnectionModifier>();
@@ -131,7 +131,7 @@ namespace RPG.Editor.Nodes
             bool oneConnectionSelected = Selection.objects.Length == 1 && Selection.activeObject is ConnectionModifier;
             ConnectionModifier modifier = oneConnectionSelected ? (ConnectionModifier)Selection.activeObject : null;
 
-            contextMenu.AddItem(new GUIContent(DUPLICATE_TEXT), false, DuplicateSelectedConnectionModifiers);
+            contextMenu.AddItem(new GUIContent(DUPLICATE_TEXT), false, DuplicateSelected);
             contextMenu.AddItem(new GUIContent(REMOVE_TEXT), false, RemoveSelectedConnectionModifiers);
             if (oneConnectionSelected) AddCustomContextMenuItems(contextMenu, modifier);
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
@@ -145,16 +145,16 @@ namespace RPG.Editor.Nodes
 
             if (oneNodeSelected)
             {
-                contextMenu.AddItem(new GUIContent(SEND_TO_FRONT_TEXT), false, () => SendNodeToFront(node));
-                contextMenu.AddItem(new GUIContent(SEND_TO_BACK_TEXT), false, () => SendNodeToBack(node));
-                contextMenu.AddItem(new GUIContent(SEND_FORWARD_TEXT), false, () => SendNodeForward(node));
-                contextMenu.AddItem(new GUIContent(SEND_BACKWARD_TEXT), false, () => SendNodeBackward(node));
+                contextMenu.AddItem(new GUIContent(SEND_TO_FRONT_TEXT), false, () => Graph.SendNodeToFront(node));
+                contextMenu.AddItem(new GUIContent(SEND_TO_BACK_TEXT), false, () => Graph.SendNodeToBack(node));
+                contextMenu.AddItem(new GUIContent(SEND_FORWARD_TEXT), false, () => Graph.SendNodeForward(node));
+                contextMenu.AddItem(new GUIContent(SEND_BACKWARD_TEXT), false, () => Graph.SendNodeBackward(node));
                 contextMenu.AddSeparator(string.Empty);
                 contextMenu.AddItem(new GUIContent(RENAME_TEXT), false, RenameSelectedNode);
             }
 
-            contextMenu.AddItem(new GUIContent(DUPLICATE_TEXT), false, DuplicateSelectedNodes);
-            contextMenu.AddItem(new GUIContent(REMOVE_TEXT), false, RemoveSelectedNodes);
+            contextMenu.AddItem(new GUIContent(DUPLICATE_TEXT), false, DuplicateSelected);
+            contextMenu.AddItem(new GUIContent(REMOVE_TEXT), false, RemoveSelected);
 
             if (oneNodeSelected)AddCustomContextMenuItems(contextMenu, node);
 
@@ -189,8 +189,8 @@ namespace RPG.Editor.Nodes
             GenericMenu contextMenu = new GenericMenu();
             Vector2 mousePosition = _mousePosition;
             
-            contextMenu.AddItem(new GUIContent(DUPLICATE_TEXT), false, DuplicateDifferentSelectedObjects);
-            contextMenu.AddItem(new GUIContent(REMOVE_TEXT), false, RemoveDifferentSelectedObjects);
+            contextMenu.AddItem(new GUIContent(DUPLICATE_TEXT), false, DuplicateSelected);
+            contextMenu.AddItem(new GUIContent(REMOVE_TEXT), false, RemoveSelected);
 
             contextMenu.DropDown(new Rect(mousePosition, Vector2.zero));
         }

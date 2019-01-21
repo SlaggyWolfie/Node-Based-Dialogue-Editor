@@ -25,7 +25,7 @@ namespace RPG.Editor
         private VariableType _variableType = VariableType.None;
         //private SerializedProperty _
 
-        protected override void OnEnable()
+        protected override void Awake()
         {
             _variableProperty = SerializedObject.FindProperty("_variable");
             _otherVariableProperty = SerializedObject.FindProperty("_otherVariable");

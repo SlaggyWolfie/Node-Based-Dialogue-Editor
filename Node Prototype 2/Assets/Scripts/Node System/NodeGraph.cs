@@ -13,8 +13,10 @@ namespace RPG.Nodes
     [Serializable]
     public abstract class NodeGraph : BaseScriptableObject
     {
-        [SerializeField, HideInInspector] protected Counter _nodeCounter = new Counter();
-        [SerializeField, HideInInspector] protected Counter _connectionCounter = new Counter();
+        [SerializeField] protected Counter nodeCounter = new Counter();
+        [SerializeField] protected Counter connectionCounter = new Counter();
+        [SerializeField] public Counter connectionModifierCounter = new Counter();
+        [SerializeField] public Counter portCounter = new Counter();
 
         [SerializeField]
         private Flow _flow = null;
@@ -25,11 +27,17 @@ namespace RPG.Nodes
         }
 
         private VariableInventory _variableInventory = null;
+        public Action _missingVariableInventory;
         public void _SetLocalVariableInventory(VariableInventory variableInventory)
         {
             _variableInventory = variableInventory;
         }
-        public VariableInventory LocalVariableInventory { get { return _variableInventory; } }
+        public VariableInventory GetVariableInventory()
+        {
+            if (!_variableInventory && _missingVariableInventory != null) _missingVariableInventory.Invoke();
+            //if (_variableInventory == null && _missingVariableInventory != null) _missingVariableInventory.Invoke();
+            return _variableInventory;
+        }
 
         [SerializeField] private List<Node> _nodes = new List<Node>();
         [SerializeField] private List<Connection> _connections = new List<Connection>();
@@ -41,8 +49,7 @@ namespace RPG.Nodes
         public virtual Node CreateAndAddNode(Type type)
         {
             Node node = (Node)CreateInstance(type);
-            node.ID = _nodeCounter.Get();
-            AddNode(node);
+            InitNode(node);
             return node;
         }
         public virtual void AddNode(Node node)
@@ -51,46 +58,23 @@ namespace RPG.Nodes
             node.Graph = this;
         }
 
-        public T CopyNode<T>(T original) where T : Node
-        {
-            return (T)CopyNode((Node)original);
-        }
-        public virtual Node CopyNode(Node original)
-        {
-            Node node = ScriptableObject.Instantiate(original);
-            node.ClearConnections();
-            _nodes.Add(node);
-            node.Graph = this;
-            return node;
-        }
-
         public void RemoveNode(Node node)
         {
-            node.ClearConnections();
+            node.Disconnect();
             _nodes.Remove(node);
-            if (Application.isPlaying) Destroy(node);
         }
         public void RemoveNode(int index)
         {
             RemoveNode(GetNode(index));
         }
-        public void ClearNodes()
-        {
-            if (Application.isPlaying)
-                foreach (var node in _nodes)
-                    Destroy(node);
-            _nodes.Clear();
-        }
         public int NodeCount { get { return _nodes.Count; } }
         public Node GetNode(int index)
         {
-            if (index < 0 || index >= NodeCount) return null;
             return _nodes[index];
         }
 
         public void SendNodeBackward(Node node)
         {
-            if (node == null) return;
             int index = _nodes.IndexOf(node);
             if (index == 0) return;
             _nodes.RemoveAt(index);
@@ -99,7 +83,6 @@ namespace RPG.Nodes
 
         public void SendNodeForward(Node node)
         {
-            if (node == null) return;
             int index = _nodes.IndexOf(node);
             if (index == NodeCount - 1) return;
             _nodes.RemoveAt(index);
@@ -108,14 +91,12 @@ namespace RPG.Nodes
 
         public void SendNodeToBack(Node node)
         {
-            if (node == null) return;
             _nodes.Remove(node);
             _nodes.Insert(0, node);
         }
 
         public void SendNodeToFront(Node node)
         {
-            if (node == null) return;
             _nodes.Remove(node);
             _nodes.Add(node);
         }
@@ -123,53 +104,28 @@ namespace RPG.Nodes
         public virtual Connection CreateAndAddConnection()
         {
             Connection connection = CreateInstance<Connection>();
-            connection.ID = _connectionCounter.Get();
-            connection.name = "Connection " + connection.ID;
-            AddConnection(connection);
+            InitConnection(connection);
             return connection;
         }
         public virtual void AddConnection(Connection connection)
         {
+            if (connection == null) return;
             _connections.Add(connection);
             connection.Graph = this;
         }
 
-        public virtual Connection CopyConnection(Connection original)
-        {
-            Connection connection = ScriptableObject.Instantiate(original);
-            connection.Disconnect();
-            AddConnection(connection);
-            return connection;
-        }
-
         public void RemoveConnection(Connection connection)
         {
+            if (connection == null) return;
             connection.Disconnect();
             _connections.Remove(connection);
-            if (Application.isPlaying) Destroy(connection);
         }
-        public void RemoveConnection(int index)
-        {
-            RemoveConnection(GetConnection(index));
-        }
-        public void ClearConnections()
-        {
-            if (Application.isPlaying)
-                foreach (Connection connection in _connections)
-                    Destroy(connection);
-            _connections.Clear();
-        }
+        public void RemoveConnection(int index) { RemoveConnection(GetConnection(index)); }
         public int ConnectionCount { get { return _connections.Count; } }
-        public Connection GetConnection(int index)
-        {
-            if (index < 0 || index >= ConnectionCount) return null;
-            return _connections[index];
-        }
-
+        public Connection GetConnection(int index) { return _connections[index]; }
 
         public void SendConnectionBackward(Connection connection)
         {
-            if (connection == null) return;
             int index = _connections.IndexOf(connection);
             if (index == 0) return;
             _connections.RemoveAt(index);
@@ -178,7 +134,6 @@ namespace RPG.Nodes
 
         public void SendConnectionForward(Connection connection)
         {
-            if (connection == null) return;
             int index = _connections.IndexOf(connection);
             if (index == ConnectionCount - 1) return;
             _connections.RemoveAt(index);
@@ -187,18 +142,17 @@ namespace RPG.Nodes
 
         public void SendConnectionToBack(Connection connection)
         {
-            if (connection == null) return;
             _connections.Remove(connection);
             _connections.Insert(0, connection);
         }
 
         public void SendConnectionToFront(Connection connection)
         {
-            if (connection == null) return;
             _connections.Remove(connection);
             _connections.Add(connection);
         }
 
+        //TODO
         public NodeGraph Copy()
         {
             NodeGraph graph = Instantiate(this);
@@ -230,26 +184,43 @@ namespace RPG.Nodes
 
         private void OnDestroy()
         {
-            ClearConnections();
-            ClearNodes();
+            foreach (var connection in _connections)
+                DestroyHelper.Destroy(connection);
+                //DestroyImmediate(connection, true);
+            foreach (var node in _nodes)
+                DestroyHelper.Destroy(node);
+                //DestroyImmediate(node, true);
+
+            _connections.Clear();
+            _nodes.Clear();
         }
 
-        public Node FindStartNode()
-        {
-            return _nodes.Find(n => n is StartNode);
-        }
+        public Node FindStartNode() { return _nodes.Find(n => n is StartNode); }
 
         public void RemoveNullConnections()
         {
             //_connections.RemoveAll(connection => connection == null);
             for (int i = ConnectionCount - 1; i >= 0; i--)
             {
-                if (_connections[i] == null)
-                {
-                    Debug.Log(string.Format("Null connection in graph at index {0}", i));
-                    _connections.RemoveAt(i);
-                }
+                if (_connections[i] != null) continue;
+                Debug.Log(string.Format("Null connection in graph at index {0}", i));
+                _connections.RemoveAt(i);
             }
+        }
+
+        public void InitNode(Node node)
+        {
+            node.ID = nodeCounter.Get();
+            AddNode(node);
+            node.Init();
+            //Debug.Log("Node Init" + node.ID);
+        }
+        public void InitConnection(Connection connection)
+        {
+            connection.ID = connectionCounter.Get();
+            AddConnection(connection);
+            connection.name = "Connection " + connection.ID;
+            //Debug.Log("Connection Init: " + connection.ID);
         }
     }
 }

@@ -52,10 +52,7 @@ namespace RPG.Editor.Nodes
 
             if (_graph == null) return;
             _graphEditor = NodeGraphEditor.GetEditor(_graph);
-
-            if (_graph.LocalVariableInventory != null)
-                Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
-
+            Blackboard.Instance.CurrentLocalVariableInventory = _graph.GetVariableInventory();
             if (_graphEditor != null) EditorUtilities.AutoSaveAssets();
         }
 
@@ -79,7 +76,7 @@ namespace RPG.Editor.Nodes
             PreCache();
             //ResetHover();
             //throw new NotImplementedException();
-            Blackboard.Instance.CurrentLocalVariableInventory = _graph.LocalVariableInventory;
+            Blackboard.Instance.CurrentLocalVariableInventory = _graph.GetVariableInventory();
             GraphEditor = NodeGraphEditor.GetEditor(_graph);
             GraphEditor.Rect = position;
 

@@ -12,12 +12,8 @@ namespace RPG.Dialogue
 
         public OutputPort OutputPort
         {
-            get { return _outputPort ?? (_outputPort = new OutputPort { Node = this }); }
-            set
-            {
-                _outputPort = value;
-                _outputPort.Node = this;
-            }
+            get { return this.DefaultGetOutputPort(ref _outputPort); }
+            set { this.ReplaceOutputPort(ref _outputPort, value); }
         }
     }
 }

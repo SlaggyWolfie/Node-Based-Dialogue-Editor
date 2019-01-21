@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using RPG.Nodes;
 using RPG.Nodes.Base;
 using RPG.Utility.Editor;
@@ -339,7 +340,7 @@ namespace RPG.Editor.Nodes
         #endregion
 
         #region Object Manipulation 
-        private static void Select(ScrObj obj, bool add)
+        private static void Select(Object obj, bool add)
         {
             if (add)
             {
@@ -348,22 +349,210 @@ namespace RPG.Editor.Nodes
             }
             else Selection.objects = new Object[] { obj };
         }
-
-        private static void Deselect(ScrObj obj)
+        private static void Select(IEnumerable<Object> objects, bool add)
+        {
+            if (add)
+            {
+                List<Object> selection = new List<Object>(Selection.objects);
+                selection.AddRange(objects);
+                Selection.objects = selection.ToArray();
+            }
+            else Selection.objects = objects.ToArray();
+        }
+        private static void Deselect(Object obj)
         {
             List<Object> selection = new List<Object>(Selection.objects);
             selection.Remove(obj);
             Selection.objects = selection.ToArray();
         }
+        private static void Deselect(IEnumerable<Object> objects)
+        {
+            List<Object> selection = new List<Object>(Selection.objects);
+            selection.RemoveAll(objects.Contains);
+            //selection.RemoveAll(o => objects.Contains(o));
+            Selection.objects = selection.ToArray();
+        }
+        private static void ClearSelection() { Selection.objects = new Object[0]; }
 
         private void DuplicateSelected()
         {
+            //Get selected objects
+            Node[] nodes = GetSelected<Node>();
+            Connection[] connections = GetSelected<Connection>();
+            ConnectionModifier[] modifiers = GetSelected<ConnectionModifier>();
+            ClearSelection();
 
+            bool selectedNodes = nodes.Length != 0;
+            bool selectedConnections = connections.Length != 0;
+            bool selectedMods = modifiers.Length != 0;
+
+            //Determine course of action
+            if (selectedNodes && selectedConnections)
+            {
+                Select(DuplicateNodesAndConnections(nodes, connections, Graph).Cast<Object>(), false);
+
+                //Remove already duplicated modifiers
+                //TODO Might remove and/or structure later
+                if (selectedMods)
+                {
+                    List<ConnectionModifier> allConnectionModifiers = new List<ConnectionModifier>();
+                    List<ConnectionModifier> leftoverConnectionModifiers = new List<ConnectionModifier>(modifiers);
+                    foreach (Connection connection in connections)
+                        allConnectionModifiers.AddRange(connection.GetModifiers());
+                    allConnectionModifiers = allConnectionModifiers.Distinct().ToList();
+                    leftoverConnectionModifiers.RemoveAll(allConnectionModifiers.Contains);
+                    modifiers = leftoverConnectionModifiers.ToArray();
+                    selectedMods = modifiers.Length != 0;
+                }
+            }
+            else if (selectedNodes) Select(DuplicateNodes(nodes, Graph).Cast<Object>(), false);
+
+            if (selectedMods) Select(DuplicateConnectionModifiers(modifiers).Cast<Object>(), true);
+
+            EditorUtilities.AutoSaveAssets();
+            Repaint();
+        }
+        
+        private static T DuplicateNode<T>(T original, NodeGraph target) where T : Node
+        {
+            T node = ScriptableObject.Instantiate(original);
+            node.Disconnect();
+            node.name = original.name;
+            target.InitNode(node);
+            AssetDatabase.AddObjectToAsset(node, target);
+            return node;
+        }
+        private static Node DuplicateNode(Node original, NodeGraph target)
+        {
+            Node duplicate = ScriptableObject.Instantiate(original);
+            //duplicate.Disconnect();
+            //duplicate.Disconnect();
+            duplicate.ClearConnections();
+            duplicate.KillPorts();
+            duplicate.name = original.name;
+            target.InitNode(duplicate);
+            AssetDatabase.AddObjectToAsset(duplicate, target);
+            return duplicate;
+        }
+        private static IEnumerable<Node> DuplicateNodes(IEnumerable<Node> originalNodes, NodeGraph target = null)
+        {
+            List<Node> duplicates = new List<Node>();
+            foreach (Node original in originalNodes)
+            {
+                NodeGraph localTarget = target ?? original.Graph;
+                Node node = DuplicateNode(original, localTarget);
+                node.Position += NodePreferences.DUPLICATION_OFFSET;
+
+                //AssetDatabase.AddObjectToAsset(node, localTarget);
+                duplicates.Add(node);
+            }
+
+            EditorUtilities.AutoSaveAssets();
+            return duplicates;
+            //Repaint();
+        }
+        private static IEnumerable<ScrObj> DuplicateNodesAndConnections(
+            IEnumerable<Node> originalNodes, IEnumerable<Connection> originalConnections, NodeGraph target)
+        {
+            Dictionary<InputPort, InputPort> inputs = new Dictionary<InputPort, InputPort>();
+            Dictionary<OutputPort, OutputPort> outputs = new Dictionary<OutputPort, OutputPort>();
+
+            List<Node> duplicatedNodes = new List<Node>();
+            foreach (Node original in originalNodes)
+            {
+                Node duplicate = DuplicateNode(original, target);
+                duplicate.Position += NodePreferences.DUPLICATION_OFFSET;
+
+                //AssetDatabase.AddObjectToAsset(node, target);
+                duplicatedNodes.Add(duplicate);
+
+                original.PortHandler.InputPortAction(inputNode =>
+                    inputs[inputNode.InputPort] = duplicate.PortHandler.inputNode.InputPort);
+                original.PortHandler.OutputPortAction(outputNode =>
+                    outputs[outputNode.OutputPort] = duplicate.PortHandler.outputNode.OutputPort);
+
+                if (original.PortHandler.multipleOutputNode == null) continue;
+                var mOutputsOriginal = new List<OutputPort>(original.PortHandler.multipleOutputNode.GetOutputs());
+                var mOutputsDuplicate = new List<OutputPort>(duplicate.PortHandler.multipleOutputNode.GetOutputs());
+                for (int i = 0; i < mOutputsOriginal.Count; i++) outputs[mOutputsOriginal[i]] = mOutputsDuplicate[i];
+            }
+
+            //Duplicate connections and match ports and reconnect
+            List<Connection> duplicatedConnections = new List<Connection>();
+            foreach (Connection original in originalConnections)
+            {
+                InputPort duplicatedInput;
+                if (!inputs.TryGetValue(original.End, out duplicatedInput)) continue;
+                OutputPort duplicatedOutput;
+                if (!outputs.TryGetValue(original.Start, out duplicatedOutput)) continue;
+
+                Connection connection = DuplicateConnection(original, target);
+                if (!Connection.AttemptToConnect(connection, duplicatedInput, duplicatedOutput)) continue;
+
+                duplicatedConnections.Add(connection);
+            }
+
+            EditorUtilities.AutoSaveAssets();
+            return duplicatedNodes.Cast<ScrObj>().Concat(duplicatedConnections.Cast<ScrObj>());
+        }
+        
+        private static Connection DuplicateConnection(Connection original, NodeGraph target)
+        {
+            Connection connection = ScriptableObject.Instantiate(original);
+            connection.Disconnect();
+            connection.ClearModifiers();
+            target.InitConnection(connection);
+            AssetDatabase.AddObjectToAsset(connection, target);
+            DuplicateConnectionModifiers(original.GetModifiers(), connection);
+            return connection;
+        }
+        
+        private static T DuplicateConnectionModifier<T>(T original, Connection target) where T : ConnectionModifier
+        {
+            T connectionModifier = ScriptableObject.Instantiate(original);
+            connectionModifier.name = original.name;
+            target.InitConnectionModifier(connectionModifier);
+            AssetDatabase.AddObjectToAsset(connectionModifier, target);
+            return connectionModifier;
+        }
+        private static ConnectionModifier DuplicateConnectionModifier(ConnectionModifier original, Connection target)
+        {
+            ConnectionModifier connectionModifier = ScriptableObject.Instantiate(original);
+            connectionModifier.name = original.name;
+            target.InitConnectionModifier(connectionModifier);
+            AssetDatabase.AddObjectToAsset(connectionModifier, target);
+            return connectionModifier;
+        }
+        private static IEnumerable<ConnectionModifier> DuplicateConnectionModifiers(
+            IEnumerable<ConnectionModifier> originalConnectionModifiers, Connection target = null)
+        {
+            List<ConnectionModifier> duplicates = new List<ConnectionModifier>();
+            foreach (ConnectionModifier original in originalConnectionModifiers)
+            {
+                Connection localTarget = target ?? original.Connection;
+                ConnectionModifier mod = DuplicateConnectionModifier(original, localTarget);
+                duplicates.Add(mod);
+            }
+
+            EditorUtilities.AutoSaveAssets();
+            return duplicates;
+            //Repaint();
         }
 
         private void RemoveSelected()
         {
+            Node[] nodes = GetSelected<Node>();
+            Connection[] connections = GetSelected<Connection>();
+            ConnectionModifier[] modifiers = GetSelected<ConnectionModifier>();
 
+            ClearSelection();
+
+            foreach (ConnectionModifier connectionModifier in modifiers)
+                GraphEditor.RemoveConnectionModifier(connectionModifier);
+            foreach (Connection connection in connections)
+                GraphEditor.RemoveConnection(connection);
+            foreach (Node node in nodes)
+                GraphEditor.RemoveNode(node);
         }
 
         #region Nodes
@@ -380,65 +569,10 @@ namespace RPG.Editor.Nodes
             Node node = Graph.CreateAndAddNode(type);
             node.Position = position;
             node.name = ObjectNames.NicifyVariableName(type.Name);
-            node.Init();
-            //node.PortSetup();
 
             AssetDatabase.AddObjectToAsset(node, Graph);
             EditorUtilities.AutoSaveAssets();
             Repaint();
-        }
-
-        private void RemoveSelectedNodes()
-        {
-            foreach (Node node in GetSelected<Node>())
-                GraphEditor.RemoveNode(node);
-        }
-
-        private void SendNodeToFront(Node node)
-        {
-            Graph.SendNodeToFront(node);
-        }
-
-        private void SendNodeToBack(Node node)
-        {
-            Graph.SendNodeToBack(node);
-        }
-
-        private void SendNodeForward(Node node)
-        {
-            Graph.SendNodeForward(node);
-        }
-
-        private void SendNodeBackward(Node node)
-        {
-            Graph.SendNodeBackward(node);
-        }
-
-        public void DuplicateSelectedNodes()
-        {
-            //TODO: add the option to Duplicate Connections if they have also been selected
-            Node[] oldSelectedNodes = GetSelected<Node>();
-            Object[] newNodes = new Object[oldSelectedNodes.Length];
-
-            Dictionary<Node, Node> substitutes = new Dictionary<Node, Node>();
-            for (int i = 0; i < oldSelectedNodes.Length; i++)
-            {
-                Node oldNode = oldSelectedNodes[i];
-                if (oldNode.Graph != Graph) continue;
-                Node newNode = GraphEditor.CopyNode(oldNode);
-                substitutes[oldNode] = newNode;
-                newNode.Position = oldNode.Position + NodePreferences.DUPLICATION_OFFSET;
-                newNode.ClearConnections();
-                newNodes[i] = newNode;
-            }
-
-            // Walk through the selected nodes again, recreate connections, using the new nodes
-            //foreach (var oldNode in oldSelectedNodes)
-            //{
-            //    if (oldNode.Graph != Graph) continue;
-            //}
-
-            Selection.objects = newNodes;
         }
 
         private void RenameSelectedNode()
@@ -460,7 +594,7 @@ namespace RPG.Editor.Nodes
         private Connection CreateConnection()
         {
             Connection connection = Graph.CreateAndAddConnection();
-            connection.name = "Connection";
+            //connection.name = "Connection";
             AssetDatabase.AddObjectToAsset(connection, Graph);
             EditorUtilities.AutoSaveAssets();
             Repaint();
@@ -473,51 +607,7 @@ namespace RPG.Editor.Nodes
                 GraphEditor.RemoveConnection(connection);
         }
 
-        private void SendConnectionToFront(Connection connection)
-        {
-            Graph.SendConnectionToFront(connection);
-        }
-        private void SendConnectionToBack(Connection connection)
-        {
-            Graph.SendConnectionToBack(connection);
-        }
-        private void SendConnectionForward(Connection connection)
-        {
-            Graph.SendConnectionForward(connection);
-        }
-        private void SendConnectionBackward(Connection connection)
-        {
-            Graph.SendConnectionBackward(connection);
-        }
-
-        public void DuplicateSelectedConnections()
-        {
-            //TODO: add the option to Duplicate Connections if they have also been selected
-            Node[] oldSelectedNodes = GetSelected<Node>();
-            Object[] newNodes = new Object[oldSelectedNodes.Length];
-
-            Dictionary<Node, Node> substitutes = new Dictionary<Node, Node>();
-            for (int i = 0; i < oldSelectedNodes.Length; i++)
-            {
-                Node oldNode = oldSelectedNodes[i];
-                if (oldNode.Graph != Graph) continue;
-                Node newNode = GraphEditor.CopyNode(oldNode);
-                substitutes[oldNode] = newNode;
-                newNode.Position = oldNode.Position + NodePreferences.DUPLICATION_OFFSET;
-                newNode.ClearConnections();
-                newNodes[i] = newNode;
-            }
-
-            // Walk through the selected nodes again, recreate connections, using the new nodes
-            foreach (var oldNode in oldSelectedNodes)
-            {
-                if (oldNode.Graph != Graph) continue;
-            }
-
-            Selection.objects = newNodes;
-        }
         #region Modifiers
-
         private void AddConnectionModifierToConnection<T>(Connection connection)
             where T : ConnectionModifier
         {
@@ -535,39 +625,10 @@ namespace RPG.Editor.Nodes
             Repaint();
         }
 
-        private void DuplicateSelectedConnectionModifiers()
-        {
-            var originals = GetSelected<ConnectionModifier>();
-            foreach (ConnectionModifier original in originals)
-            {
-                ConnectionModifier mod = original.Connection.CreateAndAddModifier(original.GetType());
-                mod.name = original.name;
-                mod.ApplyDataCopy(original);
-                AssetDatabase.AddObjectToAsset(mod, original.Connection);
-                EditorUtilities.AutoSaveAssets();
-                Repaint();
-            }
-        }
-
         private void RemoveSelectedConnectionModifiers()
         {
             foreach (ConnectionModifier connectionModifier in GetSelected<ConnectionModifier>())
                 connectionModifier.Connection.RemoveModifier(connectionModifier);
-        }
-        #endregion
-        #region Different Selected Objects 
-        private void DuplicateDifferentSelectedObjects()
-        {
-            var nodes = GetSelected<Node>();
-            var connections = GetSelected<Connection>();
-            var mods = GetSelected<ConnectionModifier>();
-
-
-        }
-
-        private void RemoveDifferentSelectedObjects()
-        {
-
         }
         #endregion
         #endregion

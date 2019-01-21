@@ -23,13 +23,13 @@ namespace RPG.Dialogue
 
         public override void Execute() { if (Event != null) EventQueue.Instance.Send(Event); }
 
-        public override void ApplyDataCopy(ConnectionModifier original)
-        {
-            ThrowEventModifier em = original as ThrowEventModifier;
-            if (em == null) return;
-            _event = em._event;
-        }
+        //public override void ApplyDataFromCopy(ConnectionModifier original)
+        //{
+        //    ThrowEventModifier em = original as ThrowEventModifier;
+        //    if (em == null) return;
+        //    _event = em._event;
+        //}
 
-        public override ConnectionModifier Copy() { return (ThrowEventModifier)MemberwiseClone(); }
+        //public override ConnectionModifier Copy() { return (ThrowEventModifier)MemberwiseClone(); }
     }
 }

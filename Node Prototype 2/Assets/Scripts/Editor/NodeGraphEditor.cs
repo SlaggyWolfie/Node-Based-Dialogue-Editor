@@ -5,22 +5,16 @@ using RPG.Nodes;
 using RPG.Nodes.Base;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace RPG.Editor.Nodes
 {
     [CustomNodeGraphEditor(typeof(NodeGraph))]
     public class NodeGraphEditor : BaseForCustomEditors<NodeGraphEditor, NodeGraph, CustomNodeGraphEditorAttribute>
     {
-        private Rect _rect;
-        public Rect Rect
+        public static VariableInventory GetVariableInventory(ScriptableObject target, string name, string labelIdentifier)
         {
-            get { return _rect; }
-            set { _rect = value; }
-        }
-
-        public VariableInventory GetVariableInventory(string name, string labelIdentifier)
-        {
-            string graphPath = AssetDatabase.GetAssetPath(Target);
+            string graphPath = AssetDatabase.GetAssetPath(target);
             //Debug.Log("Graph's Path: " + graphPath);
 
             string[] GUIDs = AssetDatabase.FindAssets(string.Format("l:{0}", labelIdentifier));
@@ -36,7 +30,7 @@ namespace RPG.Editor.Nodes
 
             VariableInventory newSubAsset = ScriptableObject.CreateInstance<VariableInventory>();
             newSubAsset.name = name;
-            AssetDatabase.AddObjectToAsset(newSubAsset, Target);
+            AssetDatabase.AddObjectToAsset(newSubAsset, target);
             var labels = AssetDatabase.GetLabels(newSubAsset).ToList();
             labels.Add(labelIdentifier);
             AssetDatabase.SetLabels(newSubAsset, labels.ToArray());
@@ -44,45 +38,37 @@ namespace RPG.Editor.Nodes
 
         }
 
-        public Node CopyNode(Node original)
-        {
-            Node node = Target.CopyNode(original);
-            node.name = original.name;
-            AssetDatabase.AddObjectToAsset(node, Target);
-            return node;
-        }
+        public Rect Rect { get; set; }
 
-        public void RemoveNode(Node node)
+        protected override void Awake()
         {
-            OnNodeRemoval(node);
-            Target.RemoveNode(node);
-            UnityEngine.Object.DestroyImmediate(node, true);
-
-            //TODO: Expand Undo Functionality.
-            //Undo.DestroyObjectImmediate(node);
+            SetupVariableInventory();
+            Target._missingVariableInventory = SetupVariableInventory;
         }
-        public void RemoveConnection(Connection connection)
-        {
-            Target.RemoveConnection(connection);
-            UnityEngine.Object.DestroyImmediate(connection, true);
-        }
+        public virtual void OnGUI() { }
 
         protected void OnNodeRemoval(Node node)
         {
+            Debug.Log("On Node Removal");
             node.PortHandler.InputPortAction(input =>
             {
+                Debug.Log("On Node Removal Input");
                 var inputConnections = input.InputPort.GetConnections();
                 for (int i = inputConnections.Count - 1; i >= 0; i--)
                 {
+                    Debug.Log(i);
                     Connection connection = inputConnections[i];
-                    if (connection != null) RemoveConnection(connection);
+                    //if (connection != null)
+                    RemoveConnection(connection);
                 }
             });
 
             node.PortHandler.OutputPortAction(output =>
             {
+                Debug.Log("On Node Removal Output");
                 var outputConnection = output.OutputPort.Connection;
-                if (outputConnection != null) RemoveConnection(outputConnection);
+                //if (outputConnection != null)
+                RemoveConnection(outputConnection);
             });
 
             node.PortHandler.MultipleOutputPortAction(output =>
@@ -91,18 +77,49 @@ namespace RPG.Editor.Nodes
                 foreach (OutputPort outputPort in outputs)
                 {
                     var outputConnection = outputPort.Connection;
-                    if (outputConnection != null) RemoveConnection(outputConnection);
+                    //if (outputConnection != null)
+                    RemoveConnection(outputConnection);
                 }
             });
         }
 
-        protected override void OnEnable()
+        protected void OnConnectionRemoval(Connection connection)
         {
-            string name = "Local Variable Inventory";
-            Target._SetLocalVariableInventory(GetVariableInventory(name, name));
+            if (connection == null) return;
+            foreach (ConnectionModifier connectionModifier in connection.GetModifiers())
+                if (connectionModifier != null) RemoveConnectionModifier(connectionModifier);
         }
 
-        public virtual void OnGUI() { }
+        public void RemoveNode(Node node)
+        {
+            //Do not trust Unity.
+            OnNodeRemoval(node);
+            Target.RemoveNode(node);
+            DestroyHelper.Destroy(node);
+            //Object.DestroyImmediate(node, true);
+
+            //TODO: Expand Undo Functionality.
+            //Undo.DestroyObjectImmediate(node);
+        }
+        public void RemoveConnection(Connection connection)
+        {
+            OnConnectionRemoval(connection);
+            Target.RemoveConnection(connection);
+            DestroyHelper.Destroy(connection);
+            //Object.DestroyImmediate(connection, true);
+        }
+        public void RemoveConnectionModifier(ConnectionModifier connectionModifier)
+        {
+            connectionModifier.Connection.RemoveModifier(connectionModifier);
+            DestroyHelper.Destroy(connectionModifier);
+            //Object.DestroyImmediate(connectionModifier, true);
+        }
+
+        private void SetupVariableInventory()
+        {
+            string name = "Local Variable Inventory";
+            Target._SetLocalVariableInventory(GetVariableInventory(Target, name, name));
+        }
 
         public virtual string GetNodeMenuName(Type type)
         {

@@ -78,10 +78,15 @@ namespace RPG.Nodes
         public override bool IsConnectedTo(Port port) { return IsConnectedTo(port as InputPort); }
         public bool IsConnectedTo(InputPort input) { return IsConnected && input != null && Connection.End == input; }
 
+        public override void Disconnect()
+        {
+            //if (Application.isPlaying) UnityEngine.Object.Destroy(Connection);
+            if (Connection == null) return;
+            Connection.DisconnectStart();
+        }
+
         public override void ClearConnections()
         {
-            if (UnityEngine.Application.isPlaying)
-                UnityEngine.Object.Destroy(Connection);
             Connection = null;
         }
     }

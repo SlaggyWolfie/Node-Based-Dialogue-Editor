@@ -12,27 +12,16 @@ namespace RPG.Nodes
 
         public int ConnectionsCount { get { return _connections.Count; } }
         public List<Connection> GetConnections() { return new List<Connection>(_connections); }
-        public Connection GetConnection(int index)
-        {
-            if (index < 0 || index >= ConnectionsCount) return null;
-            return _connections[index];
-        }
-
-        public void RemoveConnection(int index)
-        {
-            if (index < 0 || index >= ConnectionsCount) return;
-            RemoveConnection(_connections[index]);
-        }
-        public void RemoveConnection(Connection connection)
-        {
-            if (UnityEngine.Application.isPlaying) UnityEngine.Object.Destroy(connection);
-            _connections.Remove(connection);
-        }
+        public Connection GetConnection(int index) { return _connections[index]; }
+        public void RemoveConnection(int index) { RemoveConnection(_connections[index]); }
+        public void RemoveConnection(Connection connection){_connections.Remove(connection);}
         public void AddConnection(Connection connection)
         {
             connection.End = this;
             _connections.Add(connection);
         }
+
+        public override void ClearConnections() { _connections.Clear();}
 
         //public bool CanConnect(OutputPort output)
         //{
@@ -77,13 +66,10 @@ namespace RPG.Nodes
             return result;
         }
 
-        public override void ClearConnections()
+        public override void Disconnect()
         {
-            if (UnityEngine.Application.isPlaying)
-                for (int i = 0; i >= 0; i--)
-                    UnityEngine.Object.Destroy(_connections[i]);
-
-            _connections.Clear();
+            _connections.ForEach(connection => connection.DisconnectEnd());
+            ClearConnections();
         }
 
         public void RemoveNullConnections()

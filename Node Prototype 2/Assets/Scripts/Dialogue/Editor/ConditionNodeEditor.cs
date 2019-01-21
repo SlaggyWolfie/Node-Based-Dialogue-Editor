@@ -22,7 +22,7 @@ namespace RPG.Dialogue.Editor
 
         private SerializedProperty _andOrProperty = null;
 
-        protected override void OnEnable()
+        protected override void Awake()
         {
             _andOrProperty = SerializedObject.FindProperty("_isAnd");
         }

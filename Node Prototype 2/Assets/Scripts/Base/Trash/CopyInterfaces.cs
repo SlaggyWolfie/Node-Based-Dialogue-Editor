@@ -9,7 +9,7 @@ namespace RPG.Other
 {
     public interface ICopyable<T>
     {
-        void ApplyDataCopy(T original);
+        void ApplyDataFromCopy(T original);
         T Copy();
     }
 

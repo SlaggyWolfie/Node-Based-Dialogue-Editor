@@ -203,7 +203,6 @@ namespace RPG.Editor.Nodes
         [ShowNativeProperty]
         private bool IsHoveringOutput { get { return HoveredOutput != null; } }
         #endregion
-
         #region Nodes
         //[ShowNonSerializedField]
         private Node _draggedNode = null;

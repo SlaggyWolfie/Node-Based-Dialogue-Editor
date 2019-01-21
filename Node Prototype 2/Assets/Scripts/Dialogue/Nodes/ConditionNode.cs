@@ -189,15 +189,22 @@ namespace RPG.Dialogue
         }
 
 
-        public List<OutputPort> GetOutputs()
+        public IEnumerable<OutputPort> GetOutputs()
         {
-            return new List<OutputPort>() { IfOutputPort, ElseOutputPort };
+            return new OutputPort[] { IfOutputPort, ElseOutputPort };
         }
 
         public override Node NextNode()
         {
             _evaluatedOutputPort = null;
             return EvaluatedOutputPort != null ? EvaluatedOutputPort.Connection.End.Node : null;
+        }
+
+        public void KillOutputPorts()
+        {
+            _evaluatedOutputPort = null;
+            _ifOutputPort = null;
+            _elseOutputPort = null;
         }
 
         public void AssignNodesToOutputPorts(Node node)

@@ -7,8 +7,8 @@ namespace RPG.Other
 {
     public class Counter
     {
-        private int _currentCounter = 0;
+        private int _currentCounter = -1;
         public int Peek() { return _currentCounter; }
-        public int Get() { return _currentCounter++; }
+        public int Get() { return ++_currentCounter; }
     }
 }

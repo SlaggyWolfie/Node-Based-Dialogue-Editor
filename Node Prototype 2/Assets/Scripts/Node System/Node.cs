@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Permissions;
 using RPG.Base;
 using RPG.Nodes.Base;
@@ -9,7 +10,7 @@ using UnityEngine;
 namespace RPG.Nodes
 {
     [Serializable]
-    public abstract class Node : BaseScriptableObject, ICopyable<Node>
+    public abstract class Node : BaseScriptableObject
     {
         private PortHandler _portHandler = null;
         public PortHandler PortHandler { get { return _portHandler ?? (_portHandler = new PortHandler(this)); } }
@@ -38,22 +39,14 @@ namespace RPG.Nodes
 
         private void PortSetup()
         {
-            //Debug.Log("port setup");
-
-            PortHandler.InputPortAction(input => input.InputPort.Node = this);
-            PortHandler.OutputPortAction(output => output.OutputPort.Node = this);
-            PortHandler.MultipleOutputPortAction(output => output.AssignNodesToOutputPorts(this));
-
-            //PortHandler.PortAction<IInput>(input => input.InputPort.Node = this);
-
-            //IInput inputNode = this as IInput;
-            //if (inputNode != null) inputNode.InputPort.Node = this;
-
-            //ISingleOutput sOutputNode = this as ISingleOutput;
-            //if (sOutputNode != null) sOutputNode.OutputPort.Node = this;
-
-            //IMultipleOutput mOutputNode = this as IMultipleOutput;
-            //if (mOutputNode != null) mOutputNode.AssignNodesToOutputPorts(this);
+            GetAllPorts().ForEach(port =>
+            {
+                port.Node = this;
+                port.ID = Graph.portCounter.Get();
+            });
+            //PortHandler.InputPortAction(input => input.InputPort.Node = this);
+            //PortHandler.OutputPortAction(output => output.OutputPort.Node = this);
+            //PortHandler.MultipleOutputPortAction(output => output.AssignNodesToOutputPorts(this));
         }
 
         public List<Port> GetAllPorts()
@@ -62,32 +55,22 @@ namespace RPG.Nodes
             PortHandler.InputPortAction(input => ports.Add(input.InputPort));
             PortHandler.OutputPortAction(output => ports.Add(output.OutputPort));
             PortHandler.MultipleOutputPortAction(output => ports.AddRange(output.GetOutputs().ToArray()));
-
-            //IInput inputNode = this as IInput;
-            //if (inputNode != null) ports.Add(inputNode.InputPort);
-
-            //ISingleOutput sOutputNode = this as ISingleOutput;
-            //if (sOutputNode != null) ports.Add(sOutputNode.OutputPort);
-
-            //IMultipleOutput mOutputNode = this as IMultipleOutput;
-            //if (mOutputNode != null) ports.AddRange((IEnumerable<Port>)mOutputNode.GetOutputs());
-
             return ports;
         }
 
         public void ClearConnections()
         {
-            GetAllPorts().ForEach(port => port.ClearConnections());
-
-            //IInput inputNode = this as IInput;
-            //if (inputNode != null) inputNode.InputPort.ClearConnections();
-
-            //ISingleOutput sOutputNode = this as ISingleOutput;
-            //if (sOutputNode != null) sOutputNode.OutputPort.ClearConnections();
-
-            //IMultipleOutput mOutputNode = this as IMultipleOutput;
-            //if (mOutputNode != null) mOutputNode.ClearMultipleConnections();
+            GetAllPorts().ForEach(p => p.ClearConnections());
         }
+
+        public void KillPorts()
+        {
+            PortHandler.InputPortAction(input => input.InputPort = null);
+            PortHandler.OutputPortAction(output => output.OutputPort = null);
+            PortHandler.MultipleOutputPortAction(output => output.KillOutputPorts());
+        }
+
+        public void Disconnect() { GetAllPorts().ForEach(port => port.Disconnect()); }
 
         public virtual Node NextNode()
         {
@@ -130,33 +113,50 @@ namespace RPG.Nodes
         public virtual void OnEnter() { }
         public virtual void OnExit() { }
 
-        public void OffsetPorts(Vector2 offset)
-        {
-            //GetAllPorts().ForEach(port => port.Position += offset);
+        //public void OffsetPorts(Vector2 offset)
+        //{
+        //    //GetAllPorts().ForEach(port => port.Position += offset);
 
-            //IInput inputNode = this as IInput;
-            //if (inputNode != null) inputNode.InputPort.Position += offset;
+        //    //IInput inputNode = this as IInput;
+        //    //if (inputNode != null) inputNode.InputPort.Position += offset;
 
-            //ISingleOutput sOutputNode = this as ISingleOutput;
-            //if (sOutputNode != null) sOutputNode.OutputPort.Position += offset;
+        //    //ISingleOutput sOutputNode = this as ISingleOutput;
+        //    //if (sOutputNode != null) sOutputNode.OutputPort.Position += offset;
 
-            //IMultipleOutput mOutputNode = this as IMultipleOutput;
-            //if (mOutputNode != null) mOutputNode.OffsetMultiplePorts(offset);
-        }
+        //    //IMultipleOutput mOutputNode = this as IMultipleOutput;
+        //    //if (mOutputNode != null) mOutputNode.OffsetMultiplePorts(offset);
+        //}
 
         public virtual bool InputPortIsInHeader() { return true; }
         public virtual bool OutputPortIsInHeader() { return true; }
 
-        public virtual void OnDestroy() { GetAllPorts().ForEach(port => port.OnDestroy()); }
-
-        public void ApplyDataCopy(Node original)
+        public virtual void OnDestroy()
         {
-            throw new NotImplementedException();
-        }
+            //Debug.Log("You only live once.");
+            GetAllPorts().ForEach(port => port.OnDestroy());
 
-        public Node Copy()
-        {
-            throw new NotImplementedException();
+            //Do not trust Unity.
+
+            //PortHandler.InputPortAction(input =>
+            //{
+            //    var inputConnections = input.InputPort.GetConnections();
+            //    foreach (var connection in inputConnections)
+            //    {
+            //        DestroyImmediate(connection, true);
+            //    }
+            //});
+
+            //PortHandler.OutputPortAction(output =>
+            //{
+            //    DestroyImmediate(output.OutputPort.Connection, true);
+            //});
+
+            //PortHandler.MultipleOutputPortAction(output =>
+            //{
+            //    var outputs = output.GetOutputs();
+            //    foreach (OutputPort outputPort in outputs)
+            //        DestroyImmediate(outputPort.Connection, true);
+            //});
         }
     }
 
@@ -172,11 +172,48 @@ namespace RPG.Nodes
     public interface IOutput : IPort { OutputPort OutputPort { get; set; } }
     public interface IMultipleOutput : IPort
     {
-        //void ClearOutputs();
-        List<OutputPort> GetOutputs();
+        IEnumerable<OutputPort> GetOutputs();
+        void KillOutputPorts();
         Node NextNode();
-        void AssignNodesToOutputPorts(Node node);
-        //void OffsetMultiplePorts(Vector2 offset);
+    }
+
+    public static class IPortExtensions
+    {
+        public static InputPort DefaultGetInputPort(this IInput inputNode, ref InputPort inputPort)
+        {
+            return inputPort ?? (inputPort = new InputPort() { Node = inputNode as Node });
+        }
+        public static void ReplaceInputPort(this IInput inputNode, ref InputPort oldPort, InputPort value)
+        {
+            if (oldPort != null)
+            {
+                oldPort.GetConnections().ForEach(c =>
+                {
+                    if (c != null) c.End = value;
+                });
+                oldPort.Node = null;
+                oldPort = null;
+            }
+
+            oldPort = value;
+            if (oldPort != null) oldPort.Node = inputNode as Node;
+        }
+        public static OutputPort DefaultGetOutputPort(this IOutput outputNode, ref OutputPort outputPort)
+        {
+            return outputPort ?? (outputPort = new OutputPort() { Node = outputNode as Node });
+        }
+        public static void ReplaceOutputPort(this IOutput outputNode, ref OutputPort outputPort, OutputPort value)
+        {
+            if (outputPort != null)
+            {
+                if (outputPort.Connection != null)
+                    outputPort.Connection.Start = value;
+                outputPort.Node = null;
+                outputPort = null;
+            }
+            outputPort = value;
+            if (outputPort != null) outputPort.Node = outputNode as Node;
+        }
     }
 
     public class PortHandler
@@ -191,8 +228,6 @@ namespace RPG.Nodes
             inputNode = node as IInput;
             outputNode = node as IOutput;
             multipleOutputNode = node as IMultipleOutput;
-
-            //Debug.Log("Port Handler Init");
         }
 
         public void PortAction<T>(Action<T> action)
@@ -203,14 +238,8 @@ namespace RPG.Nodes
             if (typeof(T) == typeof(IMultipleOutput) && multipleOutputNode != null) action.Invoke((T)multipleOutputNode);
         }
 
-        public void InputPortAction(Action<IInput> action)
-        {
-            if (inputNode != null) action.Invoke(inputNode);
-        }
-        public void OutputPortAction(Action<IOutput> action)
-        {
-            if (outputNode != null) action.Invoke(outputNode);
-        }
+        public void InputPortAction(Action<IInput> action) { if (inputNode != null) action.Invoke(inputNode); }
+        public void OutputPortAction(Action<IOutput> action) { if (outputNode != null) action.Invoke(outputNode); }
         public void MultipleOutputPortAction(Action<IMultipleOutput> action)
         {
             if (multipleOutputNode != null) action.Invoke(multipleOutputNode);

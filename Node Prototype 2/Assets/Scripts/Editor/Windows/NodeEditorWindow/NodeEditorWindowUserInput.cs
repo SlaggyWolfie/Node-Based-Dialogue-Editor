@@ -92,21 +92,11 @@ namespace RPG.Editor.Nodes
                                 Vector2 initial = node.Position;
                                 node.Position = mousePosition + _dragOffset[node];
 
-                                if (gridSnap)
-                                {
-                                    Vector2 newPosition;
-                                    const float gridOffset = NodePreferences.GRID_SIZE / 8.0f;
-                                    const float rounding = NodePreferences.GRID_SIZE / 4.0f;
-                                    newPosition.x = Mathf.Round((node.Position.x + gridOffset) / rounding) * rounding -
-                                                    gridOffset;
-                                    newPosition.y = Mathf.Round((node.Position.y + gridOffset) / rounding) * rounding -
-                                                    gridOffset;
-                                    node.Position = newPosition;
-                                }
+                                node.Position = ApplyGridSnap(gridSnap, node.Position);
 
                                 Vector2 offset = node.Position - initial;
                                 if (offset.sqrMagnitude <= 0) continue;
-                                node.OffsetPorts(offset);
+                                //node.OffsetPorts(offset);
                             }
 
                             Repaint();
@@ -150,6 +140,19 @@ namespace RPG.Editor.Nodes
                 IsPanning = true;
             }
         }
+
+        private static Vector2 ApplyGridSnap(bool gridSnap, Vector2 point)
+        {
+            if (!gridSnap) return point;
+
+            const float gridOffset = NodePreferences.GRID_SIZE / 8.0f;
+            const float rounding = NodePreferences.GRID_SIZE / 4.0f;
+            point.x = Mathf.Round((point.x + gridOffset) / rounding) * rounding - gridOffset;
+            point.y = Mathf.Round((point.y + gridOffset) / rounding) * rounding - gridOffset;
+
+            return point;
+        }
+
         private void MouseDown()
         {
             Repaint();
@@ -319,10 +322,14 @@ namespace RPG.Editor.Nodes
         }
         private void ValidateCommand()
         {
-            if (_cachedEvent.commandName == "SoftDelete") RemoveSelectedNodes();
+            //if (_cachedEvent.commandName == "SoftDelete") RemoveSelectedNodes();
+            //else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX && _cachedEvent.commandName == "Delete")
+            //    RemoveSelectedNodes();
+            //else if (_cachedEvent.commandName == "Duplicate") DuplicateSelectedNodes();
+            if (_cachedEvent.commandName == "SoftDelete") RemoveSelected();
             else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.MacOSX && _cachedEvent.commandName == "Delete")
-                RemoveSelectedNodes();
-            else if (_cachedEvent.commandName == "Duplicate") DuplicateSelectedNodes();
+                RemoveSelected();
+            else if (_cachedEvent.commandName == "Duplicate") DuplicateSelected(); ;
             Repaint();
         }
         private void KeyDown()
@@ -422,11 +429,16 @@ namespace RPG.Editor.Nodes
             Vector2 mousePosition = _mousePosition;
             List<Object> boxSelected = new List<Object>();
 
+            //TODO Investigate reverse recognition not working!?
+            //Never mind it works, it's just my architecture works bottom-top,
+            //instead of top-bottom-or-stop
+            //Why? Cause hovering
+            //TODO Investigate alternatives for conversion
             for (int i = 0; i < Graph.NodeCount; i++)
             {
                 Node node = Graph.GetNode(i);
                 NodeEditor nodeEditor = NodeEditor.GetEditor(node);
-                
+
                 Vector2 size;
                 if (_nodeSizes.TryGetValue(node, out size))
                 {
@@ -460,7 +472,7 @@ namespace RPG.Editor.Nodes
                 IMultipleOutput mOutputNode = node as IMultipleOutput;
                 if (mOutputNode != null)
                 {
-                    List<OutputPort> outputs = mOutputNode.GetOutputs();
+                    var outputs = mOutputNode.GetOutputs();
                     foreach (OutputPort output in outputs)
                     {
                         Rect outputRect = nodeEditor.GetPortRect(output);
@@ -480,7 +492,7 @@ namespace RPG.Editor.Nodes
                     OnNull(Graph);
                     continue;
                 }
-                
+
                 Vector2 start = NodeEditor.FindPortRect(connection.Start).center;
                 Vector2 end = NodeEditor.FindPortRect(connection.End).center;
                 start = GridToWindowPosition(start);

@@ -13,7 +13,7 @@ namespace RPG.Base
         }
 
         [SerializeField]
-        [HideInInspector]
+        //[HideInInspector]
         protected int _id = -1;
 
         public int ID
