@@ -120,12 +120,15 @@ namespace RPG.Nodes
         private bool _wasPreviouslySerialized = false;
         public void OnBeforeSerialize()
         {
+            //Debug.Log("Oloy");
             _wasPreviouslySerialized = true;
             //Debug.Log("Ser");
         }
         public void OnAfterDeserialize()
         {
+            //Debug.Log("Yolo");
             if (!_wasPreviouslySerialized) return;
+            //Debug.Log("Yolo__2");
             FixOutput(Start);
             FixInput(End);
             _wasPreviouslySerialized = false;
@@ -133,26 +136,26 @@ namespace RPG.Nodes
 
         private void FixInput(InputPort input)
         {
-            //Node node = input.Node;
-            //if (node == null) return;
-            //node.PortHandler.InputPortAction(inputNode => inputNode.InputPort = input);
+            Node node = input.Node;
+            if (node == null) return;
+            node.PortHandler.InputPortAction(inputNode => inputNode.InputPort = input);
         }
         private void FixOutput(OutputPort output)
         {
-            //Node node = output.Node;
-            //if (node == null) return;
-            //if (node is IOutput) node.PortHandler.OutputPortAction(outputNode => outputNode.OutputPort = output);
-            //else if (node is IMultipleOutput)
-            //{
-            //    var outputs = node.PortHandler.multipleOutputNode.GetOutputs().ToArray();
-            //    for (var i = 0; i < outputs.Length; i++)
-            //    {
-            //        OutputPort testedOutput = outputs[i];
-            //        if (testedOutput.Connection != output.Connection) continue;
-            //        outputs[i] = output;
-            //        break;
-            //    }
-            //}
+            Node node = output.Node;
+            if (node == null) return;
+            if (node is IOutput) node.PortHandler.OutputPortAction(outputNode => outputNode.OutputPort = output);
+            else if (node is IMultipleOutput)
+            {
+                var outputs = node.PortHandler.multipleOutputNode.GetOutputs().ToArray();
+                for (var i = 0; i < outputs.Length; i++)
+                {
+                    OutputPort testedOutput = outputs[i];
+                    if (testedOutput.Connection != output.Connection) continue;
+                    outputs[i] = output;
+                    break;
+                }
+            }
         }
 
         public void InitConnectionModifier(ConnectionModifier connectionModifier)

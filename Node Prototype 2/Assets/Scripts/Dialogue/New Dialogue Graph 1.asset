@@ -16,11 +16,74 @@ MonoBehaviour:
     _currentNode: {fileID: 0}
     _traversedNode: []
   _nodes:
-  - {fileID: 114846583868611888}
-  - {fileID: 114295880888139372}
+  - {fileID: 114119287109385882}
+  - {fileID: 114715950624245484}
+  - {fileID: 114659322654754166}
+  - {fileID: 114945697785616372}
   _connections:
-  - {fileID: 114505469022835156}
---- !u!114 &114295880888139372
+  - {fileID: 114455515060796832}
+  - {fileID: 114924335631870462}
+--- !u!114 &114119287109385882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47cd81fef435c6a4b9d4f8f97b25eff5, type: 3}
+  m_Name: Start Node
+  m_EditorClassIdentifier: 
+  _id: 2
+  _position: {x: 219.5, y: -164.5}
+  _graph: {fileID: 11400000}
+  _outputPort:
+    _id: 2
+    _node: {fileID: 114119287109385882}
+    _connection: {fileID: 114455515060796832}
+--- !u!114 &114455515060796832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 2
+    _node: {fileID: 114119287109385882}
+    _connection: {fileID: 114455515060796832}
+  _end:
+    _id: 3
+    _node: {fileID: 114715950624245484}
+    _connections:
+    - {fileID: 114455515060796832}
+  _wasPreviouslySerialized: 1
+--- !u!114 &114659322654754166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47cd81fef435c6a4b9d4f8f97b25eff5, type: 3}
+  m_Name: Start Node
+  m_EditorClassIdentifier: 
+  _id: 4
+  _position: {x: -15.5, y: -37.5}
+  _graph: {fileID: 11400000}
+  _outputPort:
+    _id: 4
+    _node: {fileID: 114659322654754166}
+    _connection: {fileID: 114924335631870462}
+--- !u!114 &114715950624245484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31,38 +94,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517b26be2417d924a8b12c4f556cb348, type: 3}
   m_Name: End Node
   m_EditorClassIdentifier: 
-  _id: 4
-  _position: {x: 619.5, y: -233.5}
+  _id: 3
+  _position: {x: 697.5, y: -157.5}
   _graph: {fileID: 11400000}
   _inputPort:
-    _id: 4
-    _node: {fileID: 114295880888139372}
+    _id: 3
+    _node: {fileID: 114715950624245484}
     _connections:
-    - {fileID: 114505469022835156}
---- !u!114 &114505469022835156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
-  m_Name: Connection 6
-  m_EditorClassIdentifier: 
-  _id: 6
-  _graph: {fileID: 11400000}
-  _modifiers: []
-  _start:
-    _id: 0
-    _node: {fileID: 114846583868611888}
-    _connection: {fileID: 114505469022835156}
-  _end:
-    _id: 4
-    _node: {fileID: 114295880888139372}
-    _connections:
-    - {fileID: 114505469022835156}
-  _wasPreviouslySerialized: 1
+    - {fileID: 114455515060796832}
 --- !u!114 &114731430399272184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,7 +116,7 @@ MonoBehaviour:
   _id: -1
   _location: 0
   _variables: []
---- !u!114 &114846583868611888
+--- !u!114 &114924335631870462
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,13 +124,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47cd81fef435c6a4b9d4f8f97b25eff5, type: 3}
-  m_Name: Start Node
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 1
   m_EditorClassIdentifier: 
-  _id: 0
-  _position: {x: 125.5, y: -233.5}
+  _id: 1
   _graph: {fileID: 11400000}
-  _outputPort:
-    _id: 0
-    _node: {fileID: 114846583868611888}
-    _connection: {fileID: 114505469022835156}
+  _modifiers: []
+  _start:
+    _id: 4
+    _node: {fileID: 114659322654754166}
+    _connection: {fileID: 114924335631870462}
+  _end:
+    _id: 5
+    _node: {fileID: 114945697785616372}
+    _connections:
+    - {fileID: 114924335631870462}
+  _wasPreviouslySerialized: 1
+--- !u!114 &114945697785616372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517b26be2417d924a8b12c4f556cb348, type: 3}
+  m_Name: End Node
+  m_EditorClassIdentifier: 
+  _id: 5
+  _position: {x: 462.5, y: -30.5}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 5
+    _node: {fileID: 114945697785616372}
+    _connections:
+    - {fileID: 114924335631870462}
