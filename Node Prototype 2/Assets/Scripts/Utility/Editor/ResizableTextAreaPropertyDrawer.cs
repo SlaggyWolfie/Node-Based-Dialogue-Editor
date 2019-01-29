@@ -30,13 +30,16 @@ namespace RPG.Other
             EditorGUI.BeginProperty(position, label, property);
             EditorGUI.PrefixLabel(labelRect, label);
             EditorGUI.BeginChangeCheck();
+            //EditorGUIUtility.editingTextField = true;
             string textAreaValue = EditorGUI.TextArea(textBoxRect, property.stringValue, style);
             //string textAreaValue = EditorGUILayout.TextArea(property.stringValue, GUILayout.MinHeight(EditorGUIUtility.singleLineHeight * 2));
             if (EditorGUI.EndChangeCheck())
             {
                 property.stringValue = textAreaValue;
-                Recalculate(position, property, ref textBoxRect, labelRect);
+                if (Event.current.type == EventType.Layout)
+                    Recalculate(position, property, ref textBoxRect, labelRect);
             }
+            //EditorGUIUtility.editingTextField = false;
             EditorGUI.EndProperty();
         }
 

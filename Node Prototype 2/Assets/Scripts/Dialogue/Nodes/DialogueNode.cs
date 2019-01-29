@@ -7,6 +7,7 @@ using UnityEngine;
 namespace RPG.Dialogue
 {
     [Serializable]
+    //[CreateNodeMenu(preferredName = "Dialogue Node", menuName = "RPG Framework/Dialogue Graph")]
     public sealed class DialogueNode : Node, IInput, IOutput
     {
         [SerializeField]
@@ -17,21 +18,13 @@ namespace RPG.Dialogue
         #region Node Stuff
         public InputPort InputPort
         {
-            get { return _inputPort ?? (_inputPort = new InputPort() { Node = this }); }
-            set
-            {
-                _inputPort = value;
-                _inputPort.Node = this;
-            }
+            get { return this.DefaultGetInputPort(ref _inputPort); }
+            set { this.ReplaceInputPort(ref _inputPort, value); }
         }
         public OutputPort OutputPort
         {
-            get { return _outputPort ?? (_outputPort = new OutputPort() { Node = this }); }
-            set
-            {
-                _outputPort = value;
-                _outputPort.Node = this;
-            }
+            get { return this.DefaultGetOutputPort(ref _outputPort); }
+            set { this.ReplaceOutputPort(ref _outputPort, value); }
         }
         #endregion
 

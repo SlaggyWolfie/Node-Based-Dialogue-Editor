@@ -2,230 +2,118 @@
 using System.Collections.Generic;
 using RPG.Nodes;
 using RPG.Nodes.Base;
+using RPG.Utility;
 using UnityEngine;
 
 namespace RPG.Dialogue
 {
     [Serializable]
-    public sealed class ConditionNode : Node, IInput, IMultipleOutput
+    public sealed class ConditionNode : Node, IInput, IMultipleOutput, ICondition, ISerializationCallbackReceiver
     {
-        [SerializeField]
-        private InputPort _inputPort = null;
-
         private OutputPort _evaluatedOutputPort = null;
 
-        [SerializeField]
-        private OutputPort _ifOutputPort = null;
-        [SerializeField]
-        private OutputPort _elseOutputPort = null;
+        [SerializeField] private InputPort _inputPort = null;
+        [SerializeField] private OutputPort _ifOutputPort = null;
+        [SerializeField] private OutputPort _elseOutputPort = null;
 
-        [SerializeField]
-        private List<Value> _values = new List<Value>();
-        [SerializeField]
-        private List<Condition> _conditions = new List<Condition>();
-        [SerializeField]
-        private bool _isAnd = true;
+        [SerializeField] private List<Value> _values = new List<Value>();
+        [SerializeField] private List<Condition> _conditions = new List<Condition>();
+        [SerializeField] private bool _isAnd = true;
 
         private OutputPort EvaluatedOutputPort
         {
-            get
-            {
-                if (_evaluatedOutputPort == null) Evaluate();
-                return _evaluatedOutputPort;
-            }
+            get { return _evaluatedOutputPort ?? (_evaluatedOutputPort = Evaluate() ? IfOutputPort : ElseOutputPort); }
         }
-
+        public InputPort InputPort
+        {
+            get { return this.DefaultGetInputPort(ref _inputPort); }
+            set { this.ReplaceInputPort(ref _inputPort, value); }
+        }
+        public OutputPort IfOutputPort
+        {
+            get { return this.DefaultGetOutputPort(ref _ifOutputPort); }
+            set { this.ReplaceOutputPort(ref _ifOutputPort, value); }
+        }
+        public OutputPort ElseOutputPort
+        {
+            get { return this.DefaultGetOutputPort(ref _elseOutputPort); }
+            set { this.ReplaceOutputPort(ref _elseOutputPort, value); }
+        }
         public bool IsAnd
         {
             get { return _isAnd; }
             set { _isAnd = value; }
         }
-        #region List Wrapping Interface Conditions
 
-        #region Standard Index Stuff
-        public int ConditionCount
-        {
-            get { return _conditions.Count; }
-        }
+        public int ConditionCount { get { return _conditions.Count; } }
+        public Condition GetCondition(int index) { return _conditions[index]; }
+        public void RemoveCondition(int index) { _conditions.RemoveAt(index); }
+        public bool RemoveCondition(Condition condition) { return _conditions.Remove(condition); }
+        public void AddCondition(Condition condition) { if (condition != null) _conditions.Add(condition); }
 
-        public Condition GetCondition(int index)
-        {
-            if (index <= -1 || index >= ConditionCount) return null;
-            return _conditions[index];
-        }
+        public int ValueCount { get { return _values.Count; } }
+        public Value GetValue(int index) { return _values[index]; }
+        public void AddValue(Value value) { if (value != null) _values.Add(value); }
+        public void RemoveValue(int index) { _values.RemoveAt(index); }
+        public bool RemoveValue(Value value) { return _values.Remove(value); }
 
-        public void RemoveCondition(int index)
+        private bool Evaluate()
         {
-            if (index <= -1 || index >= ConditionCount) return;
-            _conditions.RemoveAt(index);
-        }
-        #endregion
+            //I realize that both values would align were I to assign
+            //result a value in the 'if-else' scopes, so I just assign
+            //it a value here.
+            bool result = _isAnd;
 
-        public void AddCondition(Condition condition)
-        {
-            if (condition != null)
-                _conditions.Add(condition);
-        }
-
-        public void RemoveCondition(Condition condition)
-        {
-            if (condition != null)
-                _conditions.Remove(condition);
-        }
-        #endregion
-
-        #region List Wrapping Interface Values
-        #region Standard Index Stuff
-        public int ValueCount
-        {
-            get { return _values.Count; }
-        }
-
-        public Value GetValue(int index)
-        {
-            if (index <= -1 || index >= ConditionCount) return null;
-            return _values[index];
-        }
-
-        public void RemoveValue(int index)
-        {
-            if (index <= -1 || index >= ConditionCount) return;
-            _values.RemoveAt(index);
-        }
-        #endregion
-
-        public void AddValue(Value value)
-        {
-            if (value != null) _values.Add(value);
-        }
-
-        public void RemoveValue(Value value)
-        {
-            if (value != null) _values.Remove(value);
-        }
-        #endregion
-
-        public Condition CreateDefaultCondition()
-        {
-            Condition condition = new Condition
+            //Already have the value on the stack and not on the heap
+            //so why not?
+            //Also must scope if-else cause nested unscoped scopes.
+            if (result)
             {
-                ComparisonType = ComparisonType.IsEqual,
-                UsingBuiltInValue = false
-            };
-
-            AddCondition(condition);
-
-            return condition;
-        }
-
-        public Condition _CreateDefaultCondition()
-        {
-            Condition condition = new Condition
-            {
-                Variable = new Variable() { BoolValue = true },
-                LocalValue = new Value() { BoolValue = true },
-                ComparisonType = ComparisonType.IsEqual,
-                UsingBuiltInValue = false
-            };
-
-            AddCondition(condition);
-
-            return condition;
-        }
-
-        #region IO
-        public InputPort InputPort
-        {
-            get { return _inputPort ?? (_inputPort = new InputPort() { Node = this }); }
-            set
-            {
-                _inputPort = value;
-                _inputPort.Node = this;
-            }
-        }
-
-        public OutputPort IfOutputPort
-        {
-            get { return _ifOutputPort ?? (_ifOutputPort = new OutputPort() { Node = this }); }
-            set { _ifOutputPort = value; }
-        }
-
-        public OutputPort ElseOutputPort
-        {
-            get { return _elseOutputPort ?? (_elseOutputPort = new OutputPort() { Node = this }); }
-            set { _elseOutputPort = value; }
-        }
-        #endregion
-
-        #region Node Stuff
-        public void Evaluate()
-        {
-            bool result;
-
-            if (_isAnd)
-            {
-                result = true;
-
                 foreach (Condition condition in _conditions)
-                {
-                    if (condition.Evaluate()) continue;
-                    result = false;
-                    break;
-                }
+                    if (!condition.Evaluate()) return false;
             }
             else
             {
-                result = false;
-
                 foreach (Condition condition in _conditions)
-                {
-                    if (!condition.Evaluate()) continue;
-                    result = true;
-                    break;
-                }
+                    if (condition.Evaluate()) return true;
             }
 
-            _evaluatedOutputPort = result ? IfOutputPort : ElseOutputPort;
+            return result;
         }
 
-
-        public IEnumerable<OutputPort> GetOutputs()
+        public IEnumerable<OutputPort> GetOutputs() { return new OutputPort[] { IfOutputPort, ElseOutputPort }; }
+        public void ReplacePort(OutputPort oldPort, OutputPort newPort)
         {
-            return new OutputPort[] { IfOutputPort, ElseOutputPort };
+            if (oldPort == _ifOutputPort) _ifOutputPort = newPort;
+            else if (oldPort == _elseOutputPort) _elseOutputPort = newPort;
         }
 
         public override Node NextNode()
         {
-            _evaluatedOutputPort = null;
+            //Unsaves the evaluation, I guess
+            //Don't remember why it's here.
+            //_evaluatedOutputPort = null;
             return EvaluatedOutputPort != null ? EvaluatedOutputPort.Connection.End.Node : null;
         }
 
-        public void KillOutputPorts()
+        public void ResetOutputPorts()
         {
             _evaluatedOutputPort = null;
             _ifOutputPort = null;
             _elseOutputPort = null;
         }
 
-        public void AssignNodesToOutputPorts(Node node)
+        public void OnBeforeSerialize()
         {
-            IfOutputPort.Node = node;
-            ElseOutputPort.Node = node;
+            //throw new NotImplementedException();
         }
 
-        public void OffsetMultiplePorts(Vector2 offset)
+        public void OnAfterDeserialize()
         {
-            //IfOutputPort.Position += offset;
-            //ElseOutputPort.Position += offset;
-        }
-
-        #endregion
-
-        public void ClearOutputs()
-        {
-            IfOutputPort = null;
-            ElseOutputPort = null;
-            _evaluatedOutputPort = null;
+            //if (IfOutputPort.IsConnected)
+            //    IfOutputPort.Connection.Start = IfOutputPort;
+            //if (ElseOutputPort.IsConnected)
+            //    ElseOutputPort.Connection.Start = ElseOutputPort;
         }
     }
 }

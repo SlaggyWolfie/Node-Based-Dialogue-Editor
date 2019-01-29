@@ -1,6 +1,7 @@
 ﻿using System;
 using RPG.Dialogue;
 using RPG.Nodes.Base;
+using RPG.Utility;
 using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
@@ -24,11 +25,35 @@ namespace RPG.Editor.Nodes
         private string _stringValue = string.Empty;
 
         private ConditionNode _conditionNode = null;
+        private ConditionModifier _conditionModifier = null;
+
+        private ICondition ConditionTarget
+        {
+            get
+            {
+                if (_conditionNode != null) return _conditionNode;
+                if (_conditionModifier != null) return _conditionModifier;
+                return null;
+            }
+        }
+        private ScriptableObject SerializationTarget
+        {
+            get
+            {
+                if (_conditionNode != null) return _conditionNode;
+                if (_conditionModifier != null) return _conditionModifier;
+                return null;
+            }
+        }
 
         //Called via activator
         public CreateConditionEditor(ConditionNode conditionNode) : this()
         {
             _conditionNode = conditionNode;
+        }
+        public CreateConditionEditor(ConditionModifier conditionModifier) : this()
+        {
+            _conditionModifier = conditionModifier;
         }
 
         public CreateConditionEditor()
@@ -257,9 +282,9 @@ namespace RPG.Editor.Nodes
 
             value.EnumType = _valueType;
             AssignValue(ref value);
-            _conditionNode.AddValue(value);
+            ConditionTarget.AddValue(value);
 
-            AssetDatabase.AddObjectToAsset(value, _conditionNode);
+            AssetDatabase.AddObjectToAsset(value, SerializationTarget);
             EditorUtilities.AutoSaveAssets();
 
             return value;
@@ -286,7 +311,7 @@ namespace RPG.Editor.Nodes
                 OtherVariable = _otherVariable,
                 ComparisonType = _comparisonType
             };
-            _conditionNode.AddCondition(condition);
+            ConditionTarget.AddCondition(condition);
         }
     }
 }

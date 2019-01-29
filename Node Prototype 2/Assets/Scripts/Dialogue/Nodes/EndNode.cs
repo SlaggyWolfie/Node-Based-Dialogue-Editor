@@ -9,7 +9,6 @@ namespace RPG.Dialogue
     {
         [SerializeField]
         private InputPort _inputPort = null;
-
         public InputPort InputPort
         {
             get { return this.DefaultGetInputPort(ref _inputPort); }

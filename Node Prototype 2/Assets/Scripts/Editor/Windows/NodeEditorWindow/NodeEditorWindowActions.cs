@@ -28,7 +28,9 @@ namespace RPG.Editor.Nodes
             Vector2 mousePosition = _mousePosition;
 
             //mousePosition = WindowToGridPosition(mousePosition);
-            portPosition = GridToWindowPosition(portPosition);
+            //portPosition = GridToWindowPosition(portPosition);
+            mousePosition = WindowToWindowPositionNotClipped(mousePosition);
+            portPosition = GridToWindowPositionNotClipped(portPosition);
 
             if (DraggedPort is InputPort)
             {
@@ -51,10 +53,24 @@ namespace RPG.Editor.Nodes
             {
                 Connection connection = Graph.GetConnection(i);
 
+                if (connection == null || connection.End == null || connection.Start == null
+                    || connection.End.Node == null || connection.Start.Node == null)
+                {
+                    Debug.LogWarning("Fucked up connection. Removing.");
+                    Graph.RemoveConnection(connection);
+                    continue;
+                }
+
                 Vector2 end = NodeEditor.FindPortRect(connection.End).center;// + node.Position;
                 Vector2 windowEnd = GridToWindowPositionNotClipped(end);
                 Vector2 start = NodeEditor.FindPortRect(connection.Start).center;// + output.Node.Position;
                 Vector2 windowStart = GridToWindowPositionNotClipped(start);
+
+                if (Selection.Contains(connection))
+                {
+                    NodeRendering.DrawConnection(windowStart, windowEnd, Color.green,
+                        NodePreferences.CONNECTION_WIDTH / Zoom * 2, false);
+                }
 
                 NodeRendering.DrawConnection(windowStart, windowEnd,
                     NodePreferences.CONNECTION_PORT_COLOR, NodePreferences.CONNECTION_WIDTH / Zoom);
@@ -95,6 +111,7 @@ namespace RPG.Editor.Nodes
             Handles.CircleHandleCap(0, position, Quaternion.identity, 5, EventType.Layout);
             if (_isLayoutEvent) _culledMods = new List<ConnectionModifier>();
             Color oldColor = GUI.color;
+
 
             Rect[] modRects;
             bool found = _connectionModifierRects.TryGetValue(connection, out modRects);
@@ -412,23 +429,20 @@ namespace RPG.Editor.Nodes
             EditorUtilities.AutoSaveAssets();
             Repaint();
         }
-        
+
         private static T DuplicateNode<T>(T original, NodeGraph target) where T : Node
         {
-            T node = ScriptableObject.Instantiate(original);
-            node.Disconnect();
-            node.name = original.name;
-            target.InitNode(node);
-            AssetDatabase.AddObjectToAsset(node, target);
-            return node;
+            T duplicate = ScriptableObject.Instantiate(original);
+            duplicate.ResetPorts();
+            duplicate.name = original.name;
+            target.InitNode(duplicate);
+            AssetDatabase.AddObjectToAsset(duplicate, target);
+            return duplicate;
         }
         private static Node DuplicateNode(Node original, NodeGraph target)
         {
             Node duplicate = ScriptableObject.Instantiate(original);
-            //duplicate.Disconnect();
-            //duplicate.Disconnect();
-            duplicate.ClearConnections();
-            duplicate.KillPorts();
+            duplicate.ResetPorts();
             duplicate.name = original.name;
             target.InitNode(duplicate);
             AssetDatabase.AddObjectToAsset(duplicate, target);
@@ -440,11 +454,9 @@ namespace RPG.Editor.Nodes
             foreach (Node original in originalNodes)
             {
                 NodeGraph localTarget = target ?? original.Graph;
-                Node node = DuplicateNode(original, localTarget);
-                node.Position += NodePreferences.DUPLICATION_OFFSET;
-
-                //AssetDatabase.AddObjectToAsset(node, localTarget);
-                duplicates.Add(node);
+                Node duplicate = DuplicateNode(original, localTarget);
+                duplicate.Position += NodePreferences.DUPLICATION_OFFSET;
+                duplicates.Add(duplicate);
             }
 
             EditorUtilities.AutoSaveAssets();
@@ -462,13 +474,12 @@ namespace RPG.Editor.Nodes
             {
                 Node duplicate = DuplicateNode(original, target);
                 duplicate.Position += NodePreferences.DUPLICATION_OFFSET;
-
-                //AssetDatabase.AddObjectToAsset(node, target);
                 duplicatedNodes.Add(duplicate);
 
-                original.PortHandler.InputPortAction(inputNode =>
+                //Cache ports locally.
+                original.PortHandler.AttemptInputAction(inputNode =>
                     inputs[inputNode.InputPort] = duplicate.PortHandler.inputNode.InputPort);
-                original.PortHandler.OutputPortAction(outputNode =>
+                original.PortHandler.AttemptOutputAction(outputNode =>
                     outputs[outputNode.OutputPort] = duplicate.PortHandler.outputNode.OutputPort);
 
                 if (original.PortHandler.multipleOutputNode == null) continue;
@@ -495,10 +506,11 @@ namespace RPG.Editor.Nodes
             EditorUtilities.AutoSaveAssets();
             return duplicatedNodes.Cast<ScrObj>().Concat(duplicatedConnections.Cast<ScrObj>());
         }
-        
+
         private static Connection DuplicateConnection(Connection original, NodeGraph target)
         {
             Connection connection = ScriptableObject.Instantiate(original);
+            original.OnAfterDeserialize();
             connection.Disconnect();
             connection.ClearModifiers();
             target.InitConnection(connection);
@@ -506,7 +518,7 @@ namespace RPG.Editor.Nodes
             DuplicateConnectionModifiers(original.GetModifiers(), connection);
             return connection;
         }
-        
+
         private static T DuplicateConnectionModifier<T>(T original, Connection target) where T : ConnectionModifier
         {
             T connectionModifier = ScriptableObject.Instantiate(original);

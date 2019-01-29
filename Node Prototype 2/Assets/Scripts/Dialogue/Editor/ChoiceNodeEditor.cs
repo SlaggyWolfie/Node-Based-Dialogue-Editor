@@ -9,7 +9,7 @@ using UnityEngine;
 namespace RPG.Dialogue.Editor
 {
     [CustomNodeEditor(typeof(ChoiceNode))]
-    public sealed class ChoiceNodeEditor : NodeEditor
+    public sealed class ChoiceNodeEditor : NodeEditor, ISerializationCallbackReceiver
     {
         private Vector2 _scroll;
         //private Rect _cachedRect = Rect.zero;
@@ -69,6 +69,16 @@ namespace RPG.Dialogue.Editor
                 DrawAndCachePort(branch.OutputPort, portRect);
                 //EditorGUILayout.EndHorizontal();
             }
+        }
+
+        public void OnBeforeSerialize()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void OnAfterDeserialize()
+        {
+            //throw new NotImplementedException();
         }
     }
 }

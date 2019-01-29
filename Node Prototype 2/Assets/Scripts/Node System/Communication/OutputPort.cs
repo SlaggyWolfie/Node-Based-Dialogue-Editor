@@ -13,7 +13,7 @@ namespace RPG.Nodes
             get
             {
                 if (_connection == null) return null;
-                if (!_traversalSetup)SetupTraversal();
+                if (!_traversalSetup) SetupTraversal();
                 return _connection;
             }
             set

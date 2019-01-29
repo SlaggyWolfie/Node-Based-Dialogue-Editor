@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using RPG.Base;
 using UnityEngine;
 
 namespace RPG.Nodes
 {
     [Serializable]
-    public abstract class Port : BaseObject
+    public abstract class Port : BaseObject//, IEqualityComparer, IEqualityComparer<Port>
     {
         [SerializeField]
         private Node _node = null;
@@ -24,5 +26,14 @@ namespace RPG.Nodes
         public abstract bool IsConnectedTo(Port port);
 
         public virtual void OnDestroy() { Disconnect(); }
+
+        //public int GetHashCode(object obj) { return GetHashCode((Port)obj); }
+        //public new bool Equals(object x, object y) { return Equals((Port)x, (Port)y); }
+        //public int GetHashCode(Port obj) { return ID; }
+        //public bool Equals(Port x, Port y)
+        //{
+        //    if (x == null || y == null) return false;
+        //    return x.GetHashCode() == y.GetHashCode();
+        //}
     }
 }

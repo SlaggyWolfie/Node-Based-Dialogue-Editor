@@ -14,14 +14,14 @@ namespace RPG.Nodes
         public List<Connection> GetConnections() { return new List<Connection>(_connections); }
         public Connection GetConnection(int index) { return _connections[index]; }
         public void RemoveConnection(int index) { RemoveConnection(_connections[index]); }
-        public void RemoveConnection(Connection connection){_connections.Remove(connection);}
+        public void RemoveConnection(Connection connection) { _connections.Remove(connection); }
         public void AddConnection(Connection connection)
         {
             connection.End = this;
             _connections.Add(connection);
         }
 
-        public override void ClearConnections() { _connections.Clear();}
+        public override void ClearConnections() { _connections.Clear(); }
 
         //public bool CanConnect(OutputPort output)
         //{
@@ -68,7 +68,10 @@ namespace RPG.Nodes
 
         public override void Disconnect()
         {
-            _connections.ForEach(connection => connection.DisconnectEnd());
+            _connections.ForEach(connection =>
+            {
+                if (connection != null) connection.DisconnectEnd();
+            });
             ClearConnections();
         }
 

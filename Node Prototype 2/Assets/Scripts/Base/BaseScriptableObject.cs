@@ -10,6 +10,7 @@ namespace RPG.Base
         private int HashCode { get { return GetHashCode(); } }
 
         [SerializeField]
+        [HideInInspector]
         protected int _id = -1;
 
         [ShowNativeProperty]

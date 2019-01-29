@@ -49,29 +49,29 @@ namespace RPG.Editor.Nodes
 
         protected void OnNodeRemoval(Node node)
         {
-            Debug.Log("On Node Removal");
-            node.PortHandler.InputPortAction(input =>
+            //Debug.Log("On Node Removal");
+            node.PortHandler.AttemptInputAction(input =>
             {
-                Debug.Log("On Node Removal Input");
+                //Debug.Log("On Node Removal Input");
                 var inputConnections = input.InputPort.GetConnections();
                 for (int i = inputConnections.Count - 1; i >= 0; i--)
                 {
-                    Debug.Log(i);
+                    //Debug.Log(i);
                     Connection connection = inputConnections[i];
                     //if (connection != null)
                     RemoveConnection(connection);
                 }
             });
 
-            node.PortHandler.OutputPortAction(output =>
+            node.PortHandler.AttemptOutputAction(output =>
             {
-                Debug.Log("On Node Removal Output");
+                //Debug.Log("On Node Removal Output");
                 var outputConnection = output.OutputPort.Connection;
                 //if (outputConnection != null)
                 RemoveConnection(outputConnection);
             });
 
-            node.PortHandler.MultipleOutputPortAction(output =>
+            node.PortHandler.AttemptMultipleOutputAction(output =>
             {
                 var outputs = output.GetOutputs();
                 foreach (OutputPort outputPort in outputs)

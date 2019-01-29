@@ -341,36 +341,34 @@ namespace RPG.Editor.Nodes
             else if (_cachedEvent.keyCode == KeyCode.F2) RenameSelectedNode();
         }
         #endregion
-
-        #region Grid Positioning
+        
         public Vector2 WindowToGridPosition(Vector2 windowPosition)
         {
             return (windowPosition - position.size * 0.5f) * Zoom - PanOffset;
         }
-
         public Vector2 GridToWindowPosition(Vector2 gridPosition)
         {
             return position.size * 0.5f + (PanOffset + gridPosition) / Zoom;
         }
-
         public Rect GridToWindowRectNotClipped(Rect gridRect)
         {
             gridRect.position = GridToWindowPositionNotClipped(gridRect.position);
             return gridRect;
         }
-
         public Rect GridToWindowRect(Rect gridRect)
         {
             gridRect.position = GridToWindowPosition(gridRect.position);
             gridRect.size /= Zoom;
             return gridRect;
         }
-
         public Vector2 GridToWindowPositionNotClipped(Vector2 gridPosition)
         {
             return position.size * 0.5f * Zoom + PanOffset + gridPosition;
         }
-        #endregion
+        public Vector2 WindowToWindowPositionNotClipped(Vector2 windowPosition)
+        {
+            return windowPosition * Zoom;
+        }
 
         #region Other
 

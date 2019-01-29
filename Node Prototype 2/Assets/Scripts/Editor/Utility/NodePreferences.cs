@@ -34,8 +34,23 @@ namespace RPG.Editor.Nodes
 
         private Texture2D _gridTexture = null;
         private Texture2D _crossTexture = null;
-        public Texture2D GridTexture { get { return _gridTexture ?? (_gridTexture = NodeResources.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR)); } }
-        public Texture2D CrossTexture { get { return _crossTexture ?? (_crossTexture = NodeResources.GenerateCrossTexture(CROSS_LINE_COLOR)); } }
+        public Texture2D GridTexture
+        {
+            get
+            {
+                if (_gridTexture == null)
+                    _gridTexture = NodeResources.GenerateGridTexture(GRID_LINE_COLOR, GRID_BACKGROUND_COLOR);
+                return _gridTexture;
+            }
+        }
+        public Texture2D CrossTexture
+        {
+            get
+            {
+                if (_crossTexture == null) _crossTexture = NodeResources.GenerateCrossTexture(CROSS_LINE_COLOR);
+                return _crossTexture;
+            }
+        }
 
 
         public enum ConnectionType { Bezier, Line, Angled }
@@ -75,12 +90,11 @@ namespace RPG.Editor.Nodes
         }
 
         private bool _shouldAutoSave = true;
-
         public bool ShouldAutoSave
         {
             get { return _shouldAutoSave; }
             set { _shouldAutoSave = value; }
         }
     }
-    
+
 }

@@ -1,9 +1,25 @@
 ﻿using System;
+using RPG.Nodes.Base;
 using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Utility
 {
+    public interface ICondition
+    {
+        int ValueCount { get; }
+        Value GetValue(int index);
+        void AddValue(Value value);
+        bool RemoveValue(Value value);
+        void RemoveValue(int index);
+
+        int ConditionCount { get; }
+        Condition GetCondition(int index);
+        void AddCondition(Condition condition);
+        bool RemoveCondition(Condition condition);
+        void RemoveCondition(int index);
+    }
+
     public static class Utilities
     {
         public static void BeginZoom(Rect rect, float zoom, float topPadding)

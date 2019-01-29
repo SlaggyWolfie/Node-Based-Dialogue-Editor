@@ -13,25 +13,33 @@ namespace RPG.Nodes
         private List<Condition> _conditions = new List<Condition>();
         [SerializeField]
         private bool _allConditionsMustBeTrue = true;
-
+        
         public bool Evaluate()
         {
-            //AND &&
+            bool result;
+
             if (_allConditionsMustBeTrue)
             {
+                result = true;
                 foreach (Condition condition in _conditions)
                 {
-                    if (!condition.Evaluate()) return false;
+                    if (condition.Evaluate()) continue;
+                    result = false;
+                    break;
                 }
-                return true;
+            }
+            else
+            {
+                result = false;
+                foreach (Condition condition in _conditions)
+                {
+                    if (!condition.Evaluate()) continue;
+                    result = true;
+                    break;
+                }
             }
 
-            //OR ||
-            foreach (Condition condition in _conditions)
-            {
-                if (condition.Evaluate()) return true;
-            }
-            return false;
+            return result;
         }
 
         public bool AllConditionsMustBeTrue

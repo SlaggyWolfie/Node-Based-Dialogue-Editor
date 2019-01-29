@@ -9,7 +9,6 @@ namespace RPG.Dialogue
     {
         [SerializeField]
         private OutputPort _outputPort = null;
-
         public OutputPort OutputPort
         {
             get { return this.DefaultGetOutputPort(ref _outputPort); }
