@@ -28,41 +28,13 @@ MonoBehaviour:
   - {fileID: 114953197060287702}
   _connections:
   - {fileID: 114063719035866432}
-  - {fileID: 114860776165616384}
-  - {fileID: 114150468452822626}
   - {fileID: 114834392239626190}
   - {fileID: 114440538777554434}
   - {fileID: 114778292591510380}
-  - {fileID: 114054728618274778}
-  - {fileID: 114406356736829412}
-  - {fileID: 114995492401082990}
-  - {fileID: 114304729367684198}
---- !u!114 &114054728618274778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
-  m_Name: Connection 6
-  m_EditorClassIdentifier: 
-  _id: 6
-  _graph: {fileID: 11400000}
-  _modifiers: []
-  _start:
-    _id: 10
-    _node: {fileID: 114068186060627792}
-    _connection: {fileID: 114054728618274778}
-  _end:
-    _id: 15
-    _node: {fileID: 114413897851472658}
-    _connections:
-    - {fileID: 114054728618274778}
-  _endNode: {fileID: 114413897851472658}
-  _startNode: {fileID: 114068186060627792}
-  _contingencyPlan: 0
+  - {fileID: 114374046902232664}
+  - {fileID: 114993432872595288}
+  - {fileID: 114695983858819120}
+  - {fileID: 114465127114614228}
 --- !u!114 &114063719035866432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,16 +81,16 @@ MonoBehaviour:
     _connections:
     - {fileID: 114834392239626190}
   _branches:
-  - _id: -1
+  - _id: 1
     _outputPort:
-      _id: 10
+      _id: 1
       _node: {fileID: 114068186060627792}
-      _connection: {fileID: 114054728618274778}
-  - _id: -1
+      _connection: {fileID: 114695983858819120}
+  - _id: 2
     _outputPort:
-      _id: 11
+      _id: 2
       _node: {fileID: 114068186060627792}
-      _connection: {fileID: 114406356736829412}
+      _connection: {fileID: 114465127114614228}
 --- !u!114 &114091436093203328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,11 +113,11 @@ MonoBehaviour:
   _ifOutputPort:
     _id: 6
     _node: {fileID: 114091436093203328}
-    _connection: {fileID: 114860776165616384}
+    _connection: {fileID: 114374046902232664}
   _elseOutputPort:
     _id: 7
     _node: {fileID: 114091436093203328}
-    _connection: {fileID: 114150468452822626}
+    _connection: {fileID: 114993432872595288}
   _values:
   - {fileID: 114824316803371860}
   _conditions:
@@ -157,32 +129,6 @@ MonoBehaviour:
     _localValue: {fileID: 114824316803371860}
     _otherVariable: {fileID: 0}
   _isAnd: 1
---- !u!114 &114150468452822626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
-  m_Name: Connection 2
-  m_EditorClassIdentifier: 
-  _id: 2
-  _graph: {fileID: 11400000}
-  _modifiers: []
-  _start:
-    _id: 7
-    _node: {fileID: 114091436093203328}
-    _connection: {fileID: 114150468452822626}
-  _end:
-    _id: 8
-    _node: {fileID: 114729368545492704}
-    _connections:
-    - {fileID: 114150468452822626}
-  _endNode: {fileID: 114729368545492704}
-  _startNode: {fileID: 114091436093203328}
-  _contingencyPlan: 1
 --- !u!114 &114242620259791076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,10 +146,8 @@ MonoBehaviour:
   _inputPort:
     _id: 1
     _node: {fileID: 114242620259791076}
-    _connections:
-    - {fileID: 114995492401082990}
-    - {fileID: 114304729367684198}
---- !u!114 &114304729367684198
+    _connections: []
+--- !u!114 &114374046902232664
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,50 +156,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
-  m_Name: Connection 9
+  m_Name: Connection 0
   m_EditorClassIdentifier: 
-  _id: 9
+  _id: 0
   _graph: {fileID: 11400000}
   _modifiers: []
   _start:
-    _id: 18
-    _node: {fileID: 114953197060287702}
-    _connection: {fileID: 114304729367684198}
+    _id: 6
+    _node: {fileID: 114091436093203328}
+    _connection: {fileID: 114374046902232664}
   _end:
-    _id: 1
-    _node: {fileID: 114242620259791076}
+    _id: 2
+    _node: {fileID: 114885106311543938}
     _connections:
-    - {fileID: 114995492401082990}
-    - {fileID: 114304729367684198}
-  _endNode: {fileID: 114242620259791076}
-  _startNode: {fileID: 114953197060287702}
-  _contingencyPlan: -1
---- !u!114 &114406356736829412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
-  m_Name: Connection 7
-  m_EditorClassIdentifier: 
-  _id: 7
-  _graph: {fileID: 11400000}
-  _modifiers: []
-  _start:
-    _id: 11
-    _node: {fileID: 114068186060627792}
-    _connection: {fileID: 114406356736829412}
-  _end:
-    _id: 17
-    _node: {fileID: 114953197060287702}
-    _connections:
-    - {fileID: 114406356736829412}
-  _endNode: {fileID: 114953197060287702}
-  _startNode: {fileID: 114068186060627792}
-  _contingencyPlan: 1
+    - {fileID: 114374046902232664}
+  _endNode: {fileID: 114885106311543938}
+  _startNode: {fileID: 114091436093203328}
+  _contingencyPlan: 0
 --- !u!114 &114413897851472658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,11 +191,11 @@ MonoBehaviour:
     _id: 15
     _node: {fileID: 114413897851472658}
     _connections:
-    - {fileID: 114054728618274778}
+    - {fileID: 114695983858819120}
   _outputPort:
     _id: 16
     _node: {fileID: 114413897851472658}
-    _connection: {fileID: 114995492401082990}
+    _connection: {fileID: 0}
   _speaker: 
   _text: 
   _audio: {fileID: 0}
@@ -324,6 +241,58 @@ MonoBehaviour:
   _endNode: {fileID: 114754991748743924}
   _startNode: {fileID: 114729368545492704}
   _contingencyPlan: -1
+--- !u!114 &114465127114614228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 3
+  m_EditorClassIdentifier: 
+  _id: 3
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 2
+    _node: {fileID: 114068186060627792}
+    _connection: {fileID: 114465127114614228}
+  _end:
+    _id: 17
+    _node: {fileID: 114953197060287702}
+    _connections:
+    - {fileID: 114465127114614228}
+  _endNode: {fileID: 114953197060287702}
+  _startNode: {fileID: 114068186060627792}
+  _contingencyPlan: 1
+--- !u!114 &114695983858819120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 2
+  m_EditorClassIdentifier: 
+  _id: 2
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 1
+    _node: {fileID: 114068186060627792}
+    _connection: {fileID: 114695983858819120}
+  _end:
+    _id: 15
+    _node: {fileID: 114413897851472658}
+    _connections:
+    - {fileID: 114695983858819120}
+  _endNode: {fileID: 114413897851472658}
+  _startNode: {fileID: 114068186060627792}
+  _contingencyPlan: 0
 --- !u!114 &114705049016616436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,15 +329,15 @@ MonoBehaviour:
     _id: 8
     _node: {fileID: 114729368545492704}
     _connections:
-    - {fileID: 114150468452822626}
+    - {fileID: 114993432872595288}
   _outputPort:
     _id: 9
     _node: {fileID: 114729368545492704}
     _connection: {fileID: 114440538777554434}
-  _speaker: 
-  _text: 
-  _audio: {fileID: 0}
-  _duration: 0
+  _speaker: Node
+  _text: I am a node!
+  _audio: {fileID: 8300000, guid: 70898beed8bd53342a055a9bb4277b3e, type: 3}
+  _duration: 123
 --- !u!114 &114754991748743924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,32 +433,6 @@ MonoBehaviour:
   _endNode: {fileID: 114068186060627792}
   _startNode: {fileID: 114885106311543938}
   _contingencyPlan: -1
---- !u!114 &114860776165616384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
-  m_Name: Connection 1
-  m_EditorClassIdentifier: 
-  _id: 1
-  _graph: {fileID: 11400000}
-  _modifiers: []
-  _start:
-    _id: 6
-    _node: {fileID: 114091436093203328}
-    _connection: {fileID: 114860776165616384}
-  _end:
-    _id: 2
-    _node: {fileID: 114885106311543938}
-    _connections:
-    - {fileID: 114860776165616384}
-  _endNode: {fileID: 114885106311543938}
-  _startNode: {fileID: 114091436093203328}
-  _contingencyPlan: 0
 --- !u!114 &114885106311543938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,7 +451,7 @@ MonoBehaviour:
     _id: 2
     _node: {fileID: 114885106311543938}
     _connections:
-    - {fileID: 114860776165616384}
+    - {fileID: 114374046902232664}
   _outputPort:
     _id: 3
     _node: {fileID: 114885106311543938}
@@ -554,11 +497,11 @@ MonoBehaviour:
     _id: 17
     _node: {fileID: 114953197060287702}
     _connections:
-    - {fileID: 114406356736829412}
+    - {fileID: 114465127114614228}
   _outputPort:
     _id: 18
     _node: {fileID: 114953197060287702}
-    _connection: {fileID: 114304729367684198}
+    _connection: {fileID: 0}
   _speaker: 
   _text: 
   _audio: {fileID: 0}
@@ -581,7 +524,7 @@ MonoBehaviour:
   _stringValue: 
   _variableLocation: 0
   _variableInventory: {fileID: 114439454955695606}
---- !u!114 &114995492401082990
+--- !u!114 &114993432872595288
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -590,21 +533,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
-  m_Name: Connection 8
+  m_Name: Connection 1
   m_EditorClassIdentifier: 
-  _id: 8
+  _id: 1
   _graph: {fileID: 11400000}
   _modifiers: []
   _start:
-    _id: 16
-    _node: {fileID: 114413897851472658}
-    _connection: {fileID: 114995492401082990}
+    _id: 7
+    _node: {fileID: 114091436093203328}
+    _connection: {fileID: 114993432872595288}
   _end:
-    _id: 1
-    _node: {fileID: 114242620259791076}
+    _id: 8
+    _node: {fileID: 114729368545492704}
     _connections:
-    - {fileID: 114995492401082990}
-    - {fileID: 114304729367684198}
-  _endNode: {fileID: 114242620259791076}
-  _startNode: {fileID: 114413897851472658}
-  _contingencyPlan: -1
+    - {fileID: 114993432872595288}
+  _endNode: {fileID: 114729368545492704}
+  _startNode: {fileID: 114091436093203328}
+  _contingencyPlan: 1

@@ -17,14 +17,19 @@ namespace RPG.Nodes
             //Debug.Log("Connection success: " + success.ToString());
             return success;
         }
+
         public static bool CanBeConnected(InputPort input, OutputPort output)
         {
             return !output.IsConnected && input.Node != output.Node;
         }
+
         private static void Connect(Connection connection, InputPort input, OutputPort output)
         {
             output.Connection = connection;
             input.AddConnection(connection);
+
+            connection._startNode = output.Node;
+            connection._endNode = input.Node;
         }
 
         [SerializeField]
@@ -105,38 +110,62 @@ namespace RPG.Nodes
         public ConnectionModifier GetModifier(int index) { return _modifiers[index]; }
         public ConnectionModifier[] GetModifiers() { return _modifiers.ToArray(); }
 
-        [SerializeField, HideInInspector] private Node _endNode = null;
-        [SerializeField, HideInInspector] private Node _startNode = null;
-        [SerializeField, HideInInspector] private int _contingencyPlan = -1;
+        [SerializeField, NaughtyAttributes.ReadOnly/*, HideInInspector*/] private Node _endNode = null;
+        [SerializeField, NaughtyAttributes.ReadOnly/*, HideInInspector*/] private Node _startNode = null;
+        [SerializeField, NaughtyAttributes.ReadOnly/*, HideInInspector*/] private int _contingencyPlan = -1;
 
         public void OnBeforeSerialize()
         {
-            if (End != null) _endNode = End.Node;
-            if (Start != null) _startNode = Start.Node;
+            if (_endNode == null && End != null && End.Node != null) _endNode = End.Node;
+            if (_startNode == null && Start != null && Start.Node != null) _startNode = Start.Node;
 
             if (_startNode == null)
             {
                 Debug.Log("Null shit node");
                 return;
+
+            }
+
+            if (Start == null)
+            {
+                Debug.Log("Null output port?");
             }
 
             IMultipleOutput mOutput = _startNode.PortHandler.multipleOutputNode;
             if (mOutput != null)
             {
-                OutputPort[] outputs = mOutput.GetOutputs().ToArray();
-                _contingencyPlan = Array.IndexOf(outputs, Start);
+                
+                //OutputPort[] outputs = mOutput.GetOutputs().ToArray();
+                //_contingencyPlan = Array.IndexOf(outputs, Start);
                 //List<OutputPort> outputs = mOutput.GetOutputs().ToList();
                 //_contingencyPlan = outputs.IndexOf(Start);
-                if (_contingencyPlan != -1)
-                    Debug.Log(mOutput + " " + _contingencyPlan);
-                else Debug.LogError("WHY!?");
+
+                List<int> outputs = ElementsOf(mOutput.GetOutputs(), outputPort => outputPort.ID).ToList();
+                _contingencyPlan = outputs.IndexOf(Start.ID);
+
+
+                //if (_contingencyPlan != -1)
+                //Debug.Log(mOutput + " " + _contingencyPlan);
+                //else Debug.LogError("WHY!?");
             }
         }
+
+        private static IEnumerable<TOutput> ElementsOf<TInput, TOutput>(IEnumerable<TInput> source,
+            Func<TInput, TOutput> getter)
+        {
+            TInput[] sourceArray = source as TInput[] ?? source.ToArray();
+            TOutput[] collection = new TOutput[sourceArray.Length];
+
+            for (int i = 0; i < sourceArray.Length; i++)
+                collection[i] = getter(sourceArray[i]);
+
+            return collection;
+        }
+
         public void OnAfterDeserialize()
         {
             //End = _inputNode.PortHandler.inputNode.InputPort;
             //Start = _outputNode.PortHandler.outputNode.OutputPort;
-            //Debug.Log("Test");
 
             FixInput();
             FixOutput();
@@ -175,6 +204,7 @@ namespace RPG.Nodes
             {
                 var outputs = node.PortHandler.multipleOutputNode.GetOutputs();
                 OutputPort[] outputsArray = outputs.ToArray();
+                if (outputsArray.Length == 0) Debug.Log("Very weird");
                 if (_contingencyPlan < 0 || _contingencyPlan >= outputsArray.Length) return;
                 Start = outputsArray[_contingencyPlan];
                 //Start.Node = node;

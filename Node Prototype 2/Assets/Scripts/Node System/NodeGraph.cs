@@ -17,6 +17,7 @@ namespace RPG.Nodes
         [SerializeField] protected Counter connectionCounter = new Counter();
         [SerializeField] public Counter connectionModifierCounter = new Counter();
         [SerializeField] public Counter portCounter = new Counter();
+        [SerializeField] public Counter branchCounter = new Counter();
 
         [SerializeField]
         private Flow _flow = null;

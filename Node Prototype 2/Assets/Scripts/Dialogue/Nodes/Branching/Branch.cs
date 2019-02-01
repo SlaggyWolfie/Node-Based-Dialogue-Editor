@@ -14,7 +14,8 @@ namespace RPG.Nodes
         private OutputPort _outputPort = null;
         public OutputPort OutputPort
         {
-            get { return this.DefaultGetOutputPort(ref _outputPort); }
+            //get { return this.DefaultGetOutputPort(ref _outputPort); }
+            get { return _outputPort; }
             set { this.ReplaceOutputPort(ref _outputPort, value); }
         }
 
@@ -48,6 +49,8 @@ namespace RPG.Nodes
         {
             _outputPort = new OutputPort { Node = node };
             node.InitPort(_outputPort);
+            ID = node.Graph.branchCounter.Get();
+            //Debug.Log("You! " + _outputPort.ID);
         }
     }
 }
