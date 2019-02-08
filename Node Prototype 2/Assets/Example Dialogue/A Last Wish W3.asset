@@ -1,0 +1,5338 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f176fa5a3b22c4389cd63774725a19, type: 3}
+  m_Name: A Last Wish W3
+  m_EditorClassIdentifier: 
+  _id: -1
+  _flow:
+    _currentNode: {fileID: 114448591838044774}
+    _traversedNode:
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114826966685441326}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114998816937660886}
+    - {fileID: 114412001582248494}
+    - {fileID: 114580350162682610}
+    - {fileID: 114528962421228028}
+    - {fileID: 114616255934638360}
+    - {fileID: 114580350162682610}
+    - {fileID: 114447441008425330}
+    - {fileID: 114636251207978050}
+    - {fileID: 114753947698717090}
+    - {fileID: 114113055221531816}
+    - {fileID: 114464976476497518}
+    - {fileID: 114260265543792500}
+    - {fileID: 114599062415952668}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114826966685441326}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114826966685441326}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114826966685441326}
+    - {fileID: 114784431263101232}
+    - {fileID: 114273234554839724}
+    - {fileID: 114448591838044774}
+    - {fileID: 114468512714100900}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114826966685441326}
+    - {fileID: 114784431263101232}
+    - {fileID: 114273234554839724}
+    - {fileID: 114448591838044774}
+    - {fileID: 114468512714100900}
+    - {fileID: 114394206684430036}
+    - {fileID: 114453864580289544}
+    - {fileID: 114204990684359372}
+    - {fileID: 114448591838044774}
+    - {fileID: 114466996531292654}
+    - {fileID: 114419522815431402}
+    - {fileID: 114448591838044774}
+    - {fileID: 114512421354122202}
+    - {fileID: 114400316700537410}
+    - {fileID: 114464976476497518}
+    - {fileID: 114260265543792500}
+    - {fileID: 114241851440645636}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114998816937660886}
+    - {fileID: 114412001582248494}
+    - {fileID: 114580350162682610}
+    - {fileID: 114447441008425330}
+    - {fileID: 114636251207978050}
+    - {fileID: 114753947698717090}
+    - {fileID: 114113055221531816}
+    - {fileID: 114464976476497518}
+    - {fileID: 114260265543792500}
+    - {fileID: 114599062415952668}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114998816937660886}
+    - {fileID: 114412001582248494}
+    - {fileID: 114580350162682610}
+    - {fileID: 114447441008425330}
+    - {fileID: 114636251207978050}
+    - {fileID: 114753947698717090}
+    - {fileID: 114113055221531816}
+    - {fileID: 114464976476497518}
+    - {fileID: 114260265543792500}
+    - {fileID: 114599062415952668}
+    - {fileID: 114828498578374050}
+    - {fileID: 114312513251060462}
+    - {fileID: 114019056643127908}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114826966685441326}
+    - {fileID: 114784431263101232}
+    - {fileID: 114273234554839724}
+    - {fileID: 114448591838044774}
+    - {fileID: 114512421354122202}
+    - {fileID: 114400316700537410}
+    - {fileID: 114464976476497518}
+    - {fileID: 114260265543792500}
+    - {fileID: 114241851440645636}
+    - {fileID: 114396064349274746}
+    - {fileID: 114526649553777070}
+    - {fileID: 114662947249986430}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114998816937660886}
+    - {fileID: 114412001582248494}
+    - {fileID: 114580350162682610}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114998816937660886}
+    - {fileID: 114412001582248494}
+    - {fileID: 114580350162682610}
+    - {fileID: 114447441008425330}
+    - {fileID: 114636251207978050}
+    - {fileID: 114753947698717090}
+    - {fileID: 114113055221531816}
+    - {fileID: 114464976476497518}
+    - {fileID: 114260265543792500}
+    - {fileID: 114241851440645636}
+    - {fileID: 114396064349274746}
+    - {fileID: 114526649553777070}
+    - {fileID: 114662947249986430}
+    - {fileID: 114020289275673180}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114998816937660886}
+    - {fileID: 114412001582248494}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114998816937660886}
+    - {fileID: 114412001582248494}
+    - {fileID: 114580350162682610}
+    - {fileID: 114528962421228028}
+    - {fileID: 114616255934638360}
+    - {fileID: 114580350162682610}
+    - {fileID: 114447441008425330}
+    - {fileID: 114636251207978050}
+    - {fileID: 114753947698717090}
+    - {fileID: 114113055221531816}
+    - {fileID: 114464976476497518}
+    - {fileID: 114260265543792500}
+    - {fileID: 114599062415952668}
+    - {fileID: 114828498578374050}
+    - {fileID: 114312513251060462}
+    - {fileID: 114019056643127908}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114826966685441326}
+    - {fileID: 114784431263101232}
+    - {fileID: 114273234554839724}
+    - {fileID: 114448591838044774}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114826966685441326}
+    - {fileID: 114784431263101232}
+    - {fileID: 114273234554839724}
+    - {fileID: 114448591838044774}
+    - {fileID: 114468512714100900}
+    - {fileID: 114394206684430036}
+    - {fileID: 114453864580289544}
+    - {fileID: 114204990684359372}
+    - {fileID: 114448591838044774}
+    - {fileID: 114466996531292654}
+    - {fileID: 114419522815431402}
+    - {fileID: 114448591838044774}
+    - {fileID: 114512421354122202}
+    - {fileID: 114400316700537410}
+    - {fileID: 114464976476497518}
+    - {fileID: 114260265543792500}
+    - {fileID: 114241851440645636}
+    - {fileID: 114396064349274746}
+    - {fileID: 114526649553777070}
+    - {fileID: 114662947249986430}
+    - {fileID: 114778319122064204}
+    - {fileID: 114606761736238854}
+    - {fileID: 114904778610195154}
+    - {fileID: 114411664303549716}
+    - {fileID: 114687514479580244}
+    - {fileID: 114052302971543674}
+    - {fileID: 114600732006012942}
+    - {fileID: 114826502661902776}
+    - {fileID: 114062876716731056}
+    - {fileID: 114917189361426188}
+    - {fileID: 114118618363221076}
+    - {fileID: 114531886745096836}
+    - {fileID: 114243993856966490}
+    - {fileID: 114261592678222964}
+    - {fileID: 114826966685441326}
+    - {fileID: 114784431263101232}
+    - {fileID: 114273234554839724}
+    - {fileID: 114448591838044774}
+    - {fileID: 114466996531292654}
+    - {fileID: 114419522815431402}
+    - {fileID: 114448591838044774}
+    - {fileID: 114468512714100900}
+    - {fileID: 114394206684430036}
+    - {fileID: 114453864580289544}
+    - {fileID: 114204990684359372}
+  _nodes:
+  - {fileID: 114778319122064204}
+  - {fileID: 114606761736238854}
+  - {fileID: 114904778610195154}
+  - {fileID: 114411664303549716}
+  - {fileID: 114600732006012942}
+  - {fileID: 114687514479580244}
+  - {fileID: 114052302971543674}
+  - {fileID: 114826502661902776}
+  - {fileID: 114062876716731056}
+  - {fileID: 114531886745096836}
+  - {fileID: 114998816937660886}
+  - {fileID: 114118618363221076}
+  - {fileID: 114243993856966490}
+  - {fileID: 114261592678222964}
+  - {fileID: 114826966685441326}
+  - {fileID: 114784431263101232}
+  - {fileID: 114273234554839724}
+  - {fileID: 114448591838044774}
+  - {fileID: 114512421354122202}
+  - {fileID: 114400316700537410}
+  - {fileID: 114419522815431402}
+  - {fileID: 114466996531292654}
+  - {fileID: 114394206684430036}
+  - {fileID: 114468512714100900}
+  - {fileID: 114204990684359372}
+  - {fileID: 114453864580289544}
+  - {fileID: 114464976476497518}
+  - {fileID: 114828498578374050}
+  - {fileID: 114599062415952668}
+  - {fileID: 114260265543792500}
+  - {fileID: 114396064349274746}
+  - {fileID: 114241851440645636}
+  - {fileID: 114662947249986430}
+  - {fileID: 114526649553777070}
+  - {fileID: 114020289275673180}
+  - {fileID: 114312513251060462}
+  - {fileID: 114725461829261720}
+  - {fileID: 114019056643127908}
+  - {fileID: 114748265717564652}
+  - {fileID: 114858193569130960}
+  - {fileID: 114319330320558264}
+  - {fileID: 114334910625305074}
+  - {fileID: 114170181675898802}
+  - {fileID: 114559246868711922}
+  - {fileID: 114906706276571164}
+  - {fileID: 114996910126054278}
+  - {fileID: 114011337350069366}
+  - {fileID: 114058732781240080}
+  - {fileID: 114813093395378432}
+  - {fileID: 114107170949983430}
+  - {fileID: 114401441864610250}
+  - {fileID: 114463967496776296}
+  - {fileID: 114930408884184672}
+  - {fileID: 114070051769326824}
+  - {fileID: 114993038981250008}
+  - {fileID: 114148318939175128}
+  - {fileID: 114952783939575142}
+  - {fileID: 114755424653100088}
+  - {fileID: 114040268838290724}
+  - {fileID: 114206506764222020}
+  - {fileID: 114382360241705764}
+  - {fileID: 114969988321612114}
+  - {fileID: 114690938586547866}
+  - {fileID: 114878872084964980}
+  - {fileID: 114102130522420118}
+  - {fileID: 114252749386873268}
+  - {fileID: 114754179830923728}
+  - {fileID: 114412001582248494}
+  - {fileID: 114580350162682610}
+  - {fileID: 114528962421228028}
+  - {fileID: 114616255934638360}
+  - {fileID: 114447441008425330}
+  - {fileID: 114636251207978050}
+  - {fileID: 114753947698717090}
+  - {fileID: 114113055221531816}
+  - {fileID: 114347377786262482}
+  - {fileID: 114917189361426188}
+  _connections:
+  - {fileID: 114339309831437232}
+  - {fileID: 114368149717118104}
+  - {fileID: 114788746330682860}
+  - {fileID: 114581324602280864}
+  - {fileID: 114212137348590066}
+  - {fileID: 114368613922296206}
+  - {fileID: 114179100181564994}
+  - {fileID: 114405676793056498}
+  - {fileID: 114951900281199054}
+  - {fileID: 114101529847457898}
+  - {fileID: 114386355586100894}
+  - {fileID: 114690902484843084}
+  - {fileID: 114979398925053586}
+  - {fileID: 114823827986233874}
+  - {fileID: 114769687784980832}
+  - {fileID: 114728101365262282}
+  - {fileID: 114764572392549142}
+  - {fileID: 114024777722657390}
+  - {fileID: 114527616609568700}
+  - {fileID: 114454669413443674}
+  - {fileID: 114709580686753542}
+  - {fileID: 114089851428734784}
+  - {fileID: 114808100275529658}
+  - {fileID: 114701833848460436}
+  - {fileID: 114045553028632366}
+  - {fileID: 114767047100960054}
+  - {fileID: 114876908137549538}
+  - {fileID: 114503763309296606}
+  - {fileID: 114730500152188480}
+  - {fileID: 114806422737503230}
+  - {fileID: 114824659832699968}
+  - {fileID: 114188801306136264}
+  - {fileID: 114876230530445966}
+  - {fileID: 114218703556392052}
+  - {fileID: 114116251290005738}
+  - {fileID: 114604117286275970}
+  - {fileID: 114966849224273438}
+  - {fileID: 114335492249124484}
+  - {fileID: 114715149826214794}
+  - {fileID: 114065297896242794}
+  - {fileID: 114282997436391326}
+  - {fileID: 114412415970905854}
+  - {fileID: 114894404962738924}
+  - {fileID: 114613213999376524}
+  - {fileID: 114984163894861156}
+  - {fileID: 114509248326083710}
+  - {fileID: 114480851985085086}
+  - {fileID: 114476311074618172}
+  - {fileID: 114781170201351204}
+  - {fileID: 114345707330668830}
+  - {fileID: 114236812269006492}
+  - {fileID: 114074267197656520}
+  - {fileID: 114766610199447038}
+  - {fileID: 114730229437590522}
+  - {fileID: 114655868383327288}
+  - {fileID: 114313707573316658}
+  - {fileID: 114254467819988638}
+  - {fileID: 114864833371433376}
+  - {fileID: 114524389162391250}
+  - {fileID: 114121051512073406}
+  - {fileID: 114949002916381722}
+  - {fileID: 114450709443449378}
+  - {fileID: 114380090957309702}
+  - {fileID: 114488753894467296}
+  - {fileID: 114476161602470844}
+  - {fileID: 114826334616304136}
+  - {fileID: 114365435491355076}
+  - {fileID: 114089775050959806}
+  - {fileID: 114555395326438488}
+  - {fileID: 114333806981335698}
+  - {fileID: 114826458777225802}
+  - {fileID: 114471916928945462}
+  - {fileID: 114174512589997336}
+  - {fileID: 114681328529989656}
+  - {fileID: 114987439413748538}
+  - {fileID: 114227811263624634}
+  - {fileID: 114233719203582390}
+  - {fileID: 114303639251681158}
+  - {fileID: 114127855684249862}
+  - {fileID: 114582937612725792}
+  - {fileID: 114651440343476842}
+  - {fileID: 114790993964085100}
+  - {fileID: 114546815865054384}
+  - {fileID: 114447066729407114}
+  - {fileID: 114840569218311152}
+  - {fileID: 114527183163987524}
+  - {fileID: 114378129396361850}
+  - {fileID: 114868616747094210}
+  - {fileID: 114004395487461940}
+  - {fileID: 114426801337468570}
+  - {fileID: 114302090168602912}
+  - {fileID: 114874811770330282}
+  - {fileID: 114308819876537536}
+--- !u!114 &114004395487461940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 36
+    _node: {fileID: 114599062415952668}
+    _connection: {fileID: 114004395487461940}
+  _end:
+    _id: 33
+    _node: {fileID: 114828498578374050}
+    _connections:
+    - {fileID: 114767047100960054}
+    - {fileID: 114004395487461940}
+  _endNode: {fileID: 114828498578374050}
+  _startNode: {fileID: 114599062415952668}
+  _contingencyPlan: -1
+--- !u!114 &114011337350069366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 1
+  _position: {x: 6286.5317, y: -11.427776}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 2
+    _node: {fileID: 114011337350069366}
+    _connections:
+    - {fileID: 114282997436391326}
+    - {fileID: 114790993964085100}
+  _outputPort:
+    _id: 3
+    _node: {fileID: 114011337350069366}
+    _connection: {fileID: 114840569218311152}
+  _speaker: Geralt
+  _text: Not too precise as leads go...
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114019056643127908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 25
+  _position: {x: 5224, y: -232}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 53
+    _node: {fileID: 114019056643127908}
+    _connections:
+    - {fileID: 114218703556392052}
+  _outputPort:
+    _id: 54
+    _node: {fileID: 114019056643127908}
+    _connection: {fileID: 114949002916381722}
+  _speaker: Geralt
+  _text: So you've managed to prepare everything already.
+  _audio: {fileID: 8300000, guid: b67153f1ebc689440b2d4e97f8a8c8a8, type: 3}
+  _duration: 0
+--- !u!114 &114020289275673180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517b26be2417d924a8b12c4f556cb348, type: 3}
+  m_Name: End Node
+  m_EditorClassIdentifier: 
+  _id: 22
+  _position: {x: 5784, y: 40}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 48
+    _node: {fileID: 114020289275673180}
+    _connections:
+    - {fileID: 114806422737503230}
+--- !u!114 &114024777722657390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 11
+  m_EditorClassIdentifier: 
+  _id: 11
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 30
+    _node: {fileID: 114453864580289544}
+    _connection: {fileID: 114024777722657390}
+  _end:
+    _id: 27
+    _node: {fileID: 114204990684359372}
+    _connections:
+    - {fileID: 114024777722657390}
+  _endNode: {fileID: 114204990684359372}
+  _startNode: {fileID: 114453864580289544}
+  _contingencyPlan: -1
+--- !u!114 &114040268838290724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 14
+  _position: {x: 7827.5703, y: 231.10716}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 28
+    _node: {fileID: 114040268838290724}
+    _connections:
+    - {fileID: 114236812269006492}
+  _outputPort:
+    _id: 29
+    _node: {fileID: 114040268838290724}
+    _connection: {fileID: 114313707573316658}
+  _speaker: Geralt
+  _text: Gonna keep bringing that up for the rest of my life?
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114045553028632366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 19
+  m_EditorClassIdentifier: 
+  _id: 19
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 38
+    _node: {fileID: 114260265543792500}
+    _connection: {fileID: 114045553028632366}
+  _end:
+    _id: 35
+    _node: {fileID: 114599062415952668}
+    _connections:
+    - {fileID: 114045553028632366}
+  _endNode: {fileID: 114599062415952668}
+  _startNode: {fileID: 114260265543792500}
+  _contingencyPlan: 0
+--- !u!114 &114052302971543674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 7
+  _position: {x: -85.657684, y: 179.20041}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 12
+    _node: {fileID: 114052302971543674}
+    _connections:
+    - {fileID: 114212137348590066}
+  _outputPort:
+    _id: 13
+    _node: {fileID: 114052302971543674}
+    _connection: {fileID: 114368613922296206}
+  _speaker: Geralt
+  _text: Always did know how to win friends.
+  _audio: {fileID: 8300000, guid: fde7b5cf31433154d9e4575cf9db1791, type: 3}
+  _duration: 0
+--- !u!114 &114058732781240080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 2
+  _position: {x: 6558.5317, y: -11.427776}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 4
+    _node: {fileID: 114058732781240080}
+    _connections:
+    - {fileID: 114065297896242794}
+    - {fileID: 114840569218311152}
+  _outputPort:
+    _id: 5
+    _node: {fileID: 114058732781240080}
+    _connection: {fileID: 114378129396361850}
+  _speaker: Yennefer
+  _text: "I'll cast a spell on our boat. We'll know if there are any wrecks on\r the
+    seafloor below us."
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114062876716731056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 1
+  _position: {x: 697.87054, y: -42.301506}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 2
+    _node: {fileID: 114062876716731056}
+    _connections:
+    - {fileID: 114405676793056498}
+  _outputPort:
+    _id: 3
+    _node: {fileID: 114062876716731056}
+    _connection: {fileID: 114308819876537536}
+  _speaker: Yennefer
+  _text: "Amos var Ypsis, a specialist on djinns -- heard of him? I found a\r tome
+    he'd penned in the emperor's library. Var Ypsis set off for Skellige one day and
+    was never heard from again. "
+  _audio: {fileID: 8300000, guid: 2b1cc1eacc2539c4da0df4bd8295b329, type: 3}
+  _duration: 0
+--- !u!114 &114065297896242794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 3
+    _node: {fileID: 114011337350069366}
+    _connection: {fileID: 114840569218311152}
+  _end:
+    _id: 4
+    _node: {fileID: 114058732781240080}
+    _connections:
+    - {fileID: 114065297896242794}
+    - {fileID: 114840569218311152}
+  _endNode: {fileID: 114058732781240080}
+  _startNode: {fileID: 114011337350069366}
+  _contingencyPlan: -1
+--- !u!114 &114070051769326824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 9
+  _position: {x: 6558.4697, y: 239.81195}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 18
+    _node: {fileID: 114070051769326824}
+    _connections:
+    - {fileID: 114730229437590522}
+  _outputPort:
+    _id: 19
+    _node: {fileID: 114070051769326824}
+    _connection: {fileID: 114527183163987524}
+  _speaker: Yennefer
+  _text: We managed to seize one before. Do you remember?
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114074267197656520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 13
+  m_EditorClassIdentifier: 
+  _id: 13
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 23
+    _node: {fileID: 114148318939175128}
+    _connection: {fileID: 114074267197656520}
+  _end:
+    _id: 26
+    _node: {fileID: 114755424653100088}
+    _connections:
+    - {fileID: 114074267197656520}
+  _endNode: {fileID: 114755424653100088}
+  _startNode: {fileID: 114148318939175128}
+  _contingencyPlan: -1
+--- !u!114 &114089775050959806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 32
+  m_EditorClassIdentifier: 
+  _id: 32
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 61
+    _node: {fileID: 114447441008425330}
+    _connection: {fileID: 114089775050959806}
+  _end:
+    _id: 62
+    _node: {fileID: 114636251207978050}
+    _connections:
+    - {fileID: 114089775050959806}
+  _endNode: {fileID: 114636251207978050}
+  _startNode: {fileID: 114447441008425330}
+  _contingencyPlan: -1
+--- !u!114 &114089851428734784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 16
+  m_EditorClassIdentifier: 
+  _id: 16
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 10
+    _node: {fileID: 114273234554839724}
+    _connection: {fileID: 114089851428734784}
+  _end:
+    _id: 11
+    _node: {fileID: 114448591838044774}
+    _connections:
+    - {fileID: 114454669413443674}
+    - {fileID: 114709580686753542}
+    - {fileID: 114089851428734784}
+  _endNode: {fileID: 114448591838044774}
+  _startNode: {fileID: 114273234554839724}
+  _contingencyPlan: -1
+--- !u!114 &114101529847457898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 0
+    _node: {fileID: 114118618363221076}
+    _connection: {fileID: 114101529847457898}
+  _end:
+    _id: 6
+    _node: {fileID: 114998816937660886}
+    _connections:
+    - {fileID: 114101529847457898}
+  _endNode: {fileID: 114998816937660886}
+  _startNode: {fileID: 114118618363221076}
+  _contingencyPlan: 1
+--- !u!114 &114102130522420118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 20
+  _position: {x: 6782.95, y: 472.4661}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 40
+    _node: {fileID: 114102130522420118}
+    _connections:
+    - {fileID: 114864833371433376}
+  _outputPort:
+    _id: 41
+    _node: {fileID: 114102130522420118}
+    _connection: {fileID: 114524389162391250}
+  _speaker: Geralt
+  _text: Yeah...
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114107170949983430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 4
+  _position: {x: 6809.5317, y: -6.4277763}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 8
+    _node: {fileID: 114107170949983430}
+    _connections:
+    - {fileID: 114894404962738924}
+    - {fileID: 114378129396361850}
+  _outputPort:
+    _id: 9
+    _node: {fileID: 114107170949983430}
+    _connection: {fileID: 0}
+  _speaker: Geralt
+  _text: All right, let's get to work.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114113055221531816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 33
+  _position: {x: 3254.8188, y: 850.4879}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 66
+    _node: {fileID: 114113055221531816}
+    _connections:
+    - {fileID: 114333806981335698}
+  _outputPort:
+    _id: 67
+    _node: {fileID: 114113055221531816}
+    _connection: {fileID: 114826458777225802}
+  _speaker: Yennefer
+  _text: Not necessarily. But even if it is so, I'll not give up without seeing some
+    evidence. Will you help me?
+  _audio: {fileID: 8300000, guid: 50d18b58d582efb43a650f4d7c039f83, type: 3}
+  _duration: 0
+--- !u!114 &114116251290005738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 31
+  m_EditorClassIdentifier: 
+  _id: 31
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 52
+    _node: {fileID: 114725461829261720}
+    _connection: {fileID: 114116251290005738}
+  _end:
+    _id: 57
+    _node: {fileID: 114858193569130960}
+    _connections:
+    - {fileID: 114116251290005738}
+  _endNode: {fileID: 114858193569130960}
+  _startNode: {fileID: 114725461829261720}
+  _contingencyPlan: -1
+--- !u!114 &114118618363221076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99323ba9a9e867c449d75f57de0e35e4, type: 3}
+  m_Name: Choice Node
+  m_EditorClassIdentifier: 
+  _id: 0
+  _position: {x: 984, y: -40}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 0
+    _node: {fileID: 114118618363221076}
+    _connections:
+    - {fileID: 114874811770330282}
+  _branches:
+  - _id: 0
+    _outputPort:
+      _id: 1
+      _node: {fileID: 114118618363221076}
+      _connection: {fileID: 114951900281199054}
+  - _id: 0
+    _outputPort:
+      _id: 0
+      _node: {fileID: 114118618363221076}
+      _connection: {fileID: 114101529847457898}
+--- !u!114 &114121051512073406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 21
+  m_EditorClassIdentifier: 
+  _id: 21
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 39
+    _node: {fileID: 114878872084964980}
+    _connection: {fileID: 114121051512073406}
+  _end:
+    _id: 42
+    _node: {fileID: 114252749386873268}
+    _connections:
+    - {fileID: 114121051512073406}
+  _endNode: {fileID: 114252749386873268}
+  _startNode: {fileID: 114878872084964980}
+  _contingencyPlan: -1
+--- !u!114 &114127855684249862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 3
+  m_EditorClassIdentifier: 
+  _id: 3
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 16
+    _node: {fileID: 114512421354122202}
+    _connection: {fileID: 114127855684249862}
+  _end:
+    _id: 17
+    _node: {fileID: 114400316700537410}
+    _connections:
+    - {fileID: 114769687784980832}
+    - {fileID: 114127855684249862}
+  _endNode: {fileID: 114400316700537410}
+  _startNode: {fileID: 114512421354122202}
+  _contingencyPlan: -1
+--- !u!114 &114148318939175128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 11
+  _position: {x: 7063.5703, y: 223.10716}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 22
+    _node: {fileID: 114148318939175128}
+    _connections:
+    - {fileID: 114476311074618172}
+  _outputPort:
+    _id: 23
+    _node: {fileID: 114148318939175128}
+    _connection: {fileID: 114074267197656520}
+  _speaker: Yennefer
+  _text: Haha. How lucky your "exorcism" saved it. It was poetic.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114170181675898802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 30
+  _position: {x: 6999.6567, y: -241.33345}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 63
+    _node: {fileID: 114170181675898802}
+    _connections:
+    - {fileID: 114966849224273438}
+  _outputPort:
+    _id: 64
+    _node: {fileID: 114170181675898802}
+    _connection: {fileID: 0}
+  _speaker: Yennefer
+  _text: It would depend on the situation.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114174512589997336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 38
+  m_EditorClassIdentifier: 
+  _id: 38
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 68
+    _node: {fileID: 114448591838044774}
+    _connection: {fileID: 114174512589997336}
+  _end:
+    _id: 25
+    _node: {fileID: 114468512714100900}
+    _connections:
+    - {fileID: 114174512589997336}
+  _endNode: {fileID: 114468512714100900}
+  _startNode: {fileID: 114448591838044774}
+  _contingencyPlan: 0
+--- !u!114 &114179100181564994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 5
+  m_EditorClassIdentifier: 
+  _id: 5
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 9
+    _node: {fileID: 114600732006012942}
+    _connection: {fileID: 114179100181564994}
+  _end:
+    _id: 0
+    _node: {fileID: 114826502661902776}
+    _connections:
+    - {fileID: 114179100181564994}
+  _endNode: {fileID: 114826502661902776}
+  _startNode: {fileID: 114600732006012942}
+  _contingencyPlan: -1
+--- !u!114 &114188801306136264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 28
+  m_EditorClassIdentifier: 
+  _id: 28
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 58
+    _node: {fileID: 114858193569130960}
+    _connection: {fileID: 114546815865054384}
+  _end:
+    _id: 55
+    _node: {fileID: 114748265717564652}
+    _connections:
+    - {fileID: 114188801306136264}
+    - {fileID: 114546815865054384}
+  _endNode: {fileID: 114748265717564652}
+  _startNode: {fileID: 114858193569130960}
+  _contingencyPlan: -1
+--- !u!114 &114204990684359372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 12
+  _position: {x: 3907.1794, y: -512.6577}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 27
+    _node: {fileID: 114204990684359372}
+    _connections:
+    - {fileID: 114024777722657390}
+  _outputPort:
+    _id: 28
+    _node: {fileID: 114204990684359372}
+    _connection: {fileID: 114709580686753542}
+  _speaker: Yennefer
+  _text: Perhaps he had none left. Or something unexpected happened...
+  _audio: {fileID: 8300000, guid: 52491a02910aa1848b8a3aefa3e74c23, type: 3}
+  _duration: 0
+--- !u!114 &114206506764222020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 15
+  _position: {x: 6317.7256, y: 230.96013}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 30
+    _node: {fileID: 114206506764222020}
+    _connections:
+    - {fileID: 114766610199447038}
+  _outputPort:
+    _id: 31
+    _node: {fileID: 114206506764222020}
+    _connection: {fileID: 114730229437590522}
+  _speaker: Geralt
+  _text: Not sure this djinn thing's a good idea.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114212137348590066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 3
+  m_EditorClassIdentifier: 
+  _id: 3
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 11
+    _node: {fileID: 114687514479580244}
+    _connection: {fileID: 114212137348590066}
+  _end:
+    _id: 12
+    _node: {fileID: 114052302971543674}
+    _connections:
+    - {fileID: 114212137348590066}
+  _endNode: {fileID: 114052302971543674}
+  _startNode: {fileID: 114687514479580244}
+  _contingencyPlan: -1
+--- !u!114 &114218703556392052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 30
+  m_EditorClassIdentifier: 
+  _id: 30
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 50
+    _node: {fileID: 114312513251060462}
+    _connection: {fileID: 114218703556392052}
+  _end:
+    _id: 53
+    _node: {fileID: 114019056643127908}
+    _connections:
+    - {fileID: 114218703556392052}
+  _endNode: {fileID: 114019056643127908}
+  _startNode: {fileID: 114312513251060462}
+  _contingencyPlan: -1
+--- !u!114 &114227811263624634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 6
+    _node: {fileID: 114826966685441326}
+    _connection: {fileID: 114227811263624634}
+  _end:
+    _id: 7
+    _node: {fileID: 114784431263101232}
+    _connections:
+    - {fileID: 114979398925053586}
+    - {fileID: 114227811263624634}
+  _endNode: {fileID: 114784431263101232}
+  _startNode: {fileID: 114826966685441326}
+  _contingencyPlan: -1
+--- !u!114 &114233719203582390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 1
+  m_EditorClassIdentifier: 
+  _id: 1
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 8
+    _node: {fileID: 114784431263101232}
+    _connection: {fileID: 114233719203582390}
+  _end:
+    _id: 9
+    _node: {fileID: 114273234554839724}
+    _connections:
+    - {fileID: 114823827986233874}
+    - {fileID: 114233719203582390}
+  _endNode: {fileID: 114273234554839724}
+  _startNode: {fileID: 114784431263101232}
+  _contingencyPlan: -1
+--- !u!114 &114236812269006492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 12
+  m_EditorClassIdentifier: 
+  _id: 12
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 25
+    _node: {fileID: 114952783939575142}
+    _connection: {fileID: 114236812269006492}
+  _end:
+    _id: 28
+    _node: {fileID: 114040268838290724}
+    _connections:
+    - {fileID: 114236812269006492}
+  _endNode: {fileID: 114040268838290724}
+  _startNode: {fileID: 114952783939575142}
+  _contingencyPlan: -1
+--- !u!114 &114241851440645636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 19
+  _position: {x: 4456, y: 41}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 42
+    _node: {fileID: 114241851440645636}
+    _connections:
+    - {fileID: 114503763309296606}
+  _outputPort:
+    _id: 43
+    _node: {fileID: 114241851440645636}
+    _connection: {fileID: 114868616747094210}
+  _speaker: Geralt
+  _text: "[Not about to help you with this.]\nSorry, Yen. You wanna go djinn hunting,
+    I'm afraid you're on your\r own."
+  _audio: {fileID: 8300000, guid: 80fe3c0e7f43b49428d625ec19ef3586, type: 3}
+  _duration: 0
+--- !u!114 &114243993856966490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 0
+  _position: {x: 1564.6154, y: -131.04614}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 1
+    _node: {fileID: 114243993856966490}
+    _connections:
+    - {fileID: 114386355586100894}
+  _outputPort:
+    _id: 2
+    _node: {fileID: 114243993856966490}
+    _connection: {fileID: 114690902484843084}
+  _speaker: Yennefer
+  _text: The locals say they last saw his ship off the coast of Hindarsfjall. Then
+    a once-in-an-eon storm broke.
+  _audio: {fileID: 8300000, guid: f7f17e93fa0714d42a9814031e799371, type: 3}
+  _duration: 0
+--- !u!114 &114252749386873268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 21
+  _position: {x: 7295.95, y: 475.4661}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 42
+    _node: {fileID: 114252749386873268}
+    _connections:
+    - {fileID: 114121051512073406}
+  _outputPort:
+    _id: 43
+    _node: {fileID: 114252749386873268}
+    _connection: {fileID: 0}
+  _speaker: Narrator
+  _text: '[They reach the first point of interest.]'
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114254467819988638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 18
+  m_EditorClassIdentifier: 
+  _id: 18
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 35
+    _node: {fileID: 114969988321612114}
+    _connection: {fileID: 114254467819988638}
+  _end:
+    _id: 36
+    _node: {fileID: 114690938586547866}
+    _connections:
+    - {fileID: 114254467819988638}
+  _endNode: {fileID: 114690938586547866}
+  _startNode: {fileID: 114969988321612114}
+  _contingencyPlan: -1
+--- !u!114 &114260265543792500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99323ba9a9e867c449d75f57de0e35e4, type: 3}
+  m_Name: Choice Node
+  m_EditorClassIdentifier: 
+  _id: 17
+  _position: {x: 4172.5, y: -95}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 37
+    _node: {fileID: 114260265543792500}
+    _connections:
+    - {fileID: 114701833848460436}
+  _branches:
+  - _id: 4
+    _outputPort:
+      _id: 38
+      _node: {fileID: 114260265543792500}
+      _connection: {fileID: 114045553028632366}
+  - _id: 5
+    _outputPort:
+      _id: 39
+      _node: {fileID: 114260265543792500}
+      _connection: {fileID: 114503763309296606}
+--- !u!114 &114261592678222964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 1
+  _position: {x: 1822, y: -111}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 3
+    _node: {fileID: 114261592678222964}
+    _connections:
+    - {fileID: 114690902484843084}
+  _outputPort:
+    _id: 4
+    _node: {fileID: 114261592678222964}
+    _connection: {fileID: 114987439413748538}
+  _speaker: Geralt
+  _text: So he's probably fish food by now.
+  _audio: {fileID: 8300000, guid: 8568beb9e9c794a46b26b6ce02a80b7a, type: 3}
+  _duration: 0
+--- !u!114 &114273234554839724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 4
+  _position: {x: 2584.8706, y: -129.30151}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 9
+    _node: {fileID: 114273234554839724}
+    _connections:
+    - {fileID: 114823827986233874}
+    - {fileID: 114233719203582390}
+  _outputPort:
+    _id: 10
+    _node: {fileID: 114273234554839724}
+    _connection: {fileID: 114089851428734784}
+  _speaker: Yennefer
+  _text: No. It's not the mage who interests me -- it's his djinn.
+  _audio: {fileID: 8300000, guid: b1bbff917d2fa1e45b525ade970ecb53, type: 3}
+  _duration: 0
+--- !u!114 &114282275954530942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bda340d2035894580e535d299bec33, type: 3}
+  m_Name: Edit Variable
+  m_EditorClassIdentifier: 
+  _id: 0
+  _connection: {fileID: 114806422737503230}
+  _variable: {fileID: 0}
+  _operation: 0
+  _usingBuiltInValue: 1
+  _localValue: {fileID: 0}
+  _otherVariable: {fileID: 0}
+--- !u!114 &114282997436391326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 1
+  m_EditorClassIdentifier: 
+  _id: 1
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 1
+    _node: {fileID: 114996910126054278}
+    _connection: {fileID: 114790993964085100}
+  _end:
+    _id: 2
+    _node: {fileID: 114011337350069366}
+    _connections:
+    - {fileID: 114282997436391326}
+    - {fileID: 114790993964085100}
+  _endNode: {fileID: 114011337350069366}
+  _startNode: {fileID: 114996910126054278}
+  _contingencyPlan: -1
+--- !u!114 &114302090168602912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 1
+  m_EditorClassIdentifier: 
+  _id: 1
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 1
+    _node: {fileID: 114347377786262482}
+    _connection: {fileID: 114302090168602912}
+  _end:
+    _id: 46
+    _node: {fileID: 114526649553777070}
+    _connections:
+    - {fileID: 114302090168602912}
+  _endNode: {fileID: 114526649553777070}
+  _startNode: {fileID: 114347377786262482}
+  _contingencyPlan: -1
+--- !u!114 &114303639251681158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 2
+  m_EditorClassIdentifier: 
+  _id: 2
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 22
+    _node: {fileID: 114466996531292654}
+    _connection: {fileID: 114303639251681158}
+  _end:
+    _id: 19
+    _node: {fileID: 114419522815431402}
+    _connections:
+    - {fileID: 114728101365262282}
+    - {fileID: 114303639251681158}
+  _endNode: {fileID: 114419522815431402}
+  _startNode: {fileID: 114466996531292654}
+  _contingencyPlan: -1
+--- !u!114 &114308819876537536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 3
+  m_EditorClassIdentifier: 
+  _id: 3
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 3
+    _node: {fileID: 114062876716731056}
+    _connection: {fileID: 114308819876537536}
+  _end:
+    _id: 2
+    _node: {fileID: 114917189361426188}
+    _connections:
+    - {fileID: 114308819876537536}
+  _endNode: {fileID: 114917189361426188}
+  _startNode: {fileID: 114062876716731056}
+  _contingencyPlan: -1
+--- !u!114 &114312513251060462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 23
+  _position: {x: 4970.0493, y: -233.46803}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 49
+    _node: {fileID: 114312513251060462}
+    _connections:
+    - {fileID: 114824659832699968}
+  _outputPort:
+    _id: 50
+    _node: {fileID: 114312513251060462}
+    _connection: {fileID: 114218703556392052}
+  _speaker: Narrator
+  _text: "[A short walk to the lower\r\n harbor.]"
+  _audio: {fileID: 0}
+  _duration: 2
+--- !u!114 &114313707573316658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 17
+  m_EditorClassIdentifier: 
+  _id: 17
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 29
+    _node: {fileID: 114040268838290724}
+    _connection: {fileID: 114313707573316658}
+  _end:
+    _id: 32
+    _node: {fileID: 114382360241705764}
+    _connections:
+    - {fileID: 114313707573316658}
+  _endNode: {fileID: 114382360241705764}
+  _startNode: {fileID: 114040268838290724}
+  _contingencyPlan: -1
+--- !u!114 &114319330320558264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 28
+  _position: {x: 6204.6567, y: -246.33345}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 59
+    _node: {fileID: 114319330320558264}
+    _connections:
+    - {fileID: 114604117286275970}
+    - {fileID: 114651440343476842}
+  _outputPort:
+    _id: 60
+    _node: {fileID: 114319330320558264}
+    _connection: {fileID: 114447066729407114}
+  _speaker: Geralt
+  _text: Lead the way.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114333806981335698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 34
+  m_EditorClassIdentifier: 
+  _id: 34
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 65
+    _node: {fileID: 114753947698717090}
+    _connection: {fileID: 114333806981335698}
+  _end:
+    _id: 66
+    _node: {fileID: 114113055221531816}
+    _connections:
+    - {fileID: 114333806981335698}
+  _endNode: {fileID: 114113055221531816}
+  _startNode: {fileID: 114753947698717090}
+  _contingencyPlan: -1
+--- !u!114 &114334910625305074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 29
+  _position: {x: 6476.6567, y: -246.33345}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 61
+    _node: {fileID: 114334910625305074}
+    _connections:
+    - {fileID: 114876230530445966}
+    - {fileID: 114447066729407114}
+  _outputPort:
+    _id: 62
+    _node: {fileID: 114334910625305074}
+    _connection: {fileID: 0}
+  _speaker: Yennefer
+  _text: Just once you might try to take the initiative.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114335492249124484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 34
+  m_EditorClassIdentifier: 
+  _id: 34
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 62
+    _node: {fileID: 114334910625305074}
+    _connection: {fileID: 0}
+  _end:
+    _id: 65
+    _node: {fileID: 114559246868711922}
+    _connections:
+    - {fileID: 114335492249124484}
+  _endNode: {fileID: 114559246868711922}
+  _startNode: {fileID: 114334910625305074}
+  _contingencyPlan: -1
+--- !u!114 &114339309831437232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 1
+    _node: {fileID: 114778319122064204}
+    _connection: {fileID: 114339309831437232}
+  _end:
+    _id: 2
+    _node: {fileID: 114606761736238854}
+    _connections:
+    - {fileID: 114339309831437232}
+  _endNode: {fileID: 114606761736238854}
+  _startNode: {fileID: 114778319122064204}
+  _contingencyPlan: -1
+--- !u!114 &114345707330668830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 11
+  m_EditorClassIdentifier: 
+  _id: 11
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 19
+    _node: {fileID: 114070051769326824}
+    _connection: {fileID: 114527183163987524}
+  _end:
+    _id: 20
+    _node: {fileID: 114993038981250008}
+    _connections:
+    - {fileID: 114345707330668830}
+    - {fileID: 114527183163987524}
+  _endNode: {fileID: 114993038981250008}
+  _startNode: {fileID: 114070051769326824}
+  _contingencyPlan: -1
+--- !u!114 &114347377786262482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 0
+  _position: {x: 4802, y: 322}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 0
+    _node: {fileID: 114347377786262482}
+    _connections:
+    - {fileID: 114426801337468570}
+  _outputPort:
+    _id: 1
+    _node: {fileID: 114347377786262482}
+    _connection: {fileID: 114302090168602912}
+  _speaker: Yennefer
+  _text: If that's how you wish to be, I shall travel to  Vizima. Emperor must be
+    wondering what progress we've made...
+  _audio: {fileID: 8300000, guid: af7a586e5f4d40849b283f914ff10593, type: 3}
+  _duration: 0
+--- !u!114 &114365435491355076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 30
+  m_EditorClassIdentifier: 
+  _id: 30
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 50
+    _node: {fileID: 114580350162682610}
+    _connection: {fileID: 114365435491355076}
+  _end:
+    _id: 60
+    _node: {fileID: 114447441008425330}
+    _connections:
+    - {fileID: 114365435491355076}
+  _endNode: {fileID: 114447441008425330}
+  _startNode: {fileID: 114580350162682610}
+  _contingencyPlan: 0
+--- !u!114 &114368149717118104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 3
+    _node: {fileID: 114606761736238854}
+    _connection: {fileID: 114368149717118104}
+  _end:
+    _id: 4
+    _node: {fileID: 114904778610195154}
+    _connections:
+    - {fileID: 114368149717118104}
+  _endNode: {fileID: 114904778610195154}
+  _startNode: {fileID: 114606761736238854}
+  _contingencyPlan: -1
+--- !u!114 &114368613922296206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 4
+  m_EditorClassIdentifier: 
+  _id: 4
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 13
+    _node: {fileID: 114052302971543674}
+    _connection: {fileID: 114368613922296206}
+  _end:
+    _id: 8
+    _node: {fileID: 114600732006012942}
+    _connections:
+    - {fileID: 114368613922296206}
+  _endNode: {fileID: 114600732006012942}
+  _startNode: {fileID: 114052302971543674}
+  _contingencyPlan: -1
+--- !u!114 &114378129396361850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 7
+  m_EditorClassIdentifier: 
+  _id: 7
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 5
+    _node: {fileID: 114058732781240080}
+    _connection: {fileID: 114378129396361850}
+  _end:
+    _id: 8
+    _node: {fileID: 114107170949983430}
+    _connections:
+    - {fileID: 114894404962738924}
+    - {fileID: 114378129396361850}
+  _endNode: {fileID: 114107170949983430}
+  _startNode: {fileID: 114058732781240080}
+  _contingencyPlan: -1
+--- !u!114 &114380090957309702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 24
+  m_EditorClassIdentifier: 
+  _id: 24
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 46
+    _node: {fileID: 114412001582248494}
+    _connection: {fileID: 114380090957309702}
+  _end:
+    _id: 49
+    _node: {fileID: 114580350162682610}
+    _connections:
+    - {fileID: 114380090957309702}
+    - {fileID: 114476161602470844}
+  _endNode: {fileID: 114580350162682610}
+  _startNode: {fileID: 114412001582248494}
+  _contingencyPlan: -1
+--- !u!114 &114382360241705764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 16
+  _position: {x: 6026.8496, y: 484.17087}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 32
+    _node: {fileID: 114382360241705764}
+    _connections:
+    - {fileID: 114313707573316658}
+  _outputPort:
+    _id: 33
+    _node: {fileID: 114382360241705764}
+    _connection: {fileID: 114655868383327288}
+  _speaker: Yennefer
+  _text: Of course. Your last wish effectivey assured it.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114386355586100894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 1
+  m_EditorClassIdentifier: 
+  _id: 1
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 5
+    _node: {fileID: 114531886745096836}
+    _connection: {fileID: 114386355586100894}
+  _end:
+    _id: 1
+    _node: {fileID: 114243993856966490}
+    _connections:
+    - {fileID: 114386355586100894}
+  _endNode: {fileID: 114243993856966490}
+  _startNode: {fileID: 114531886745096836}
+  _contingencyPlan: -1
+--- !u!114 &114394206684430036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 10
+  _position: {x: 3427.1794, y: -512.6577}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 23
+    _node: {fileID: 114394206684430036}
+    _connections:
+    - {fileID: 114764572392549142}
+    - {fileID: 114582937612725792}
+  _outputPort:
+    _id: 24
+    _node: {fileID: 114394206684430036}
+    _connection: {fileID: 114527616609568700}
+  _speaker: Yennefer
+  _text: "His books strongly suggest he did. He describes taming one,\r harnessing
+    energy from its power."
+  _audio: {fileID: 8300000, guid: 75f4a7a7ca7398744b2919079780c5cd, type: 3}
+  _duration: 0
+--- !u!114 &114396064349274746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 18
+  _position: {x: 4478, y: 284}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 40
+    _node: {fileID: 114396064349274746}
+    _connections:
+    - {fileID: 114876908137549538}
+    - {fileID: 114868616747094210}
+  _outputPort:
+    _id: 41
+    _node: {fileID: 114396064349274746}
+    _connection: {fileID: 114426801337468570}
+  _speaker: Yennefer
+  _text: "The most I can hope to accomplish on my own are a few chats with\r angry
+    Skelligers. "
+  _audio: {fileID: 8300000, guid: af7a586e5f4d40849b283f914ff10593, type: 3}
+  _duration: 0
+--- !u!114 &114400316700537410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 7
+  _position: {x: 3596.897, y: 291.22757}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 17
+    _node: {fileID: 114400316700537410}
+    _connections:
+    - {fileID: 114769687784980832}
+    - {fileID: 114127855684249862}
+  _outputPort:
+    _id: 18
+    _node: {fileID: 114400316700537410}
+    _connection: {fileID: 114808100275529658}
+  _speaker: Yennefer
+  _text: You must help me find this djinn.
+  _audio: {fileID: 8300000, guid: 32f449021b6ce5644ab7270a6da13f1a, type: 3}
+  _duration: 0
+--- !u!114 &114401441864610250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 6
+  _position: {x: 7594.5317, y: -3.4277763}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 12
+    _node: {fileID: 114401441864610250}
+    _connections:
+    - {fileID: 114984163894861156}
+  _outputPort:
+    _id: 13
+    _node: {fileID: 114401441864610250}
+    _connection: {fileID: 114480851985085086}
+  _speaker: Yennefer
+  _text: No.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114405676793056498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 1
+    _node: {fileID: 114826502661902776}
+    _connection: {fileID: 114405676793056498}
+  _end:
+    _id: 2
+    _node: {fileID: 114062876716731056}
+    _connections:
+    - {fileID: 114405676793056498}
+  _endNode: {fileID: 114062876716731056}
+  _startNode: {fileID: 114826502661902776}
+  _contingencyPlan: -1
+--- !u!114 &114411664303549716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 4
+  _position: {x: 165.59506, y: -42.76343}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 6
+    _node: {fileID: 114411664303549716}
+    _connections:
+    - {fileID: 114788746330682860}
+  _outputPort:
+    _id: 7
+    _node: {fileID: 114411664303549716}
+    _connection: {fileID: 114581324602280864}
+  _speaker: Man
+  _text: Ye defiled sacred ground! The gods'll never for you for this!
+  _audio: {fileID: 8300000, guid: e507c54567af35d4aac7b0d889e9b56a, type: 3}
+  _duration: 0
+--- !u!114 &114412001582248494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 23
+  _position: {x: 1935.2166, y: 816.50183}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 45
+    _node: {fileID: 114412001582248494}
+    _connections:
+    - {fileID: 114450709443449378}
+  _outputPort:
+    _id: 46
+    _node: {fileID: 114412001582248494}
+    _connection: {fileID: 114380090957309702}
+  _speaker: Yennefer
+  _text: "I remember. But the advantages outweigh the risks. If I can tame a\r djinn,
+    I shall gain incredible power. And that could be useful to\r us one of these days."
+  _audio: {fileID: 8300000, guid: 137b4931270a6064a9a3879c2793bf32, type: 3}
+  _duration: 0
+--- !u!114 &114412415970905854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 2
+  m_EditorClassIdentifier: 
+  _id: 2
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 9
+    _node: {fileID: 114107170949983430}
+    _connection: {fileID: 0}
+  _end:
+    _id: 6
+    _node: {fileID: 114813093395378432}
+    _connections:
+    - {fileID: 114412415970905854}
+  _endNode: {fileID: 114813093395378432}
+  _startNode: {fileID: 114107170949983430}
+  _contingencyPlan: -1
+--- !u!114 &114419522815431402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 8
+  _position: {x: 3756.5903, y: -94.02286}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 19
+    _node: {fileID: 114419522815431402}
+    _connections:
+    - {fileID: 114728101365262282}
+    - {fileID: 114303639251681158}
+  _outputPort:
+    _id: 20
+    _node: {fileID: 114419522815431402}
+    _connection: {fileID: 114454669413443674}
+  _speaker: Yennefer
+  _text: "I remember. But the advantages outweigh the risks. If I can tame a\r djinn,
+    I shall gain incredible power. And that could be useful to\r us one of these days."
+  _audio: {fileID: 8300000, guid: 137b4931270a6064a9a3879c2793bf32, type: 3}
+  _duration: 0
+--- !u!114 &114426801337468570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 41
+    _node: {fileID: 114396064349274746}
+    _connection: {fileID: 114426801337468570}
+  _end:
+    _id: 0
+    _node: {fileID: 114347377786262482}
+    _connections:
+    - {fileID: 114426801337468570}
+  _endNode: {fileID: 114347377786262482}
+  _startNode: {fileID: 114396064349274746}
+  _contingencyPlan: -1
+--- !u!114 &114447066729407114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 4
+  m_EditorClassIdentifier: 
+  _id: 4
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 60
+    _node: {fileID: 114319330320558264}
+    _connection: {fileID: 114447066729407114}
+  _end:
+    _id: 61
+    _node: {fileID: 114334910625305074}
+    _connections:
+    - {fileID: 114876230530445966}
+    - {fileID: 114447066729407114}
+  _endNode: {fileID: 114334910625305074}
+  _startNode: {fileID: 114319330320558264}
+  _contingencyPlan: -1
+--- !u!114 &114447441008425330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 30
+  _position: {x: 2475.6396, y: 850.5459}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 60
+    _node: {fileID: 114447441008425330}
+    _connections:
+    - {fileID: 114365435491355076}
+  _outputPort:
+    _id: 61
+    _node: {fileID: 114447441008425330}
+    _connection: {fileID: 114089775050959806}
+  _speaker: Geralt
+  _text: "[Know where to look?\r]\nKnow where to look -- for the mage and the djinn?"
+  _audio: {fileID: 8300000, guid: 12aee06fee40c1648921fb062cd2025b, type: 3}
+  _duration: 0
+--- !u!114 &114448591838044774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99323ba9a9e867c449d75f57de0e35e4, type: 3}
+  m_Name: Choice Node
+  m_EditorClassIdentifier: 
+  _id: 5
+  _position: {x: 3016, y: 56}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 11
+    _node: {fileID: 114448591838044774}
+    _connections:
+    - {fileID: 114454669413443674}
+    - {fileID: 114709580686753542}
+    - {fileID: 114089851428734784}
+  _branches:
+  - _id: 2
+    _outputPort:
+      _id: 68
+      _node: {fileID: 114448591838044774}
+      _connection: {fileID: 114174512589997336}
+  - _id: 3
+    _outputPort:
+      _id: 69
+      _node: {fileID: 114448591838044774}
+      _connection: {fileID: 114681328529989656}
+  - _id: 4
+    _outputPort:
+      _id: 70
+      _node: {fileID: 114448591838044774}
+      _connection: {fileID: 114471916928945462}
+--- !u!114 &114450709443449378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 23
+  m_EditorClassIdentifier: 
+  _id: 23
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 7
+    _node: {fileID: 114998816937660886}
+    _connection: {fileID: 114450709443449378}
+  _end:
+    _id: 45
+    _node: {fileID: 114412001582248494}
+    _connections:
+    - {fileID: 114450709443449378}
+  _endNode: {fileID: 114412001582248494}
+  _startNode: {fileID: 114998816937660886}
+  _contingencyPlan: -1
+--- !u!114 &114453864580289544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 13
+  _position: {x: 3667.1794, y: -512.6577}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 29
+    _node: {fileID: 114453864580289544}
+    _connections:
+    - {fileID: 114527616609568700}
+  _outputPort:
+    _id: 30
+    _node: {fileID: 114453864580289544}
+    _connection: {fileID: 114024777722657390}
+  _speaker: Geralt
+  _text: Storm wouldn't pose a threat if he'd had a djinn. He could just utter a wish.
+  _audio: {fileID: 8300000, guid: 7de5ebb09832ac148a51d54473a8aac2, type: 3}
+  _duration: 0
+--- !u!114 &114454669413443674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 14
+  m_EditorClassIdentifier: 
+  _id: 14
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 20
+    _node: {fileID: 114419522815431402}
+    _connection: {fileID: 114454669413443674}
+  _end:
+    _id: 11
+    _node: {fileID: 114448591838044774}
+    _connections:
+    - {fileID: 114454669413443674}
+    - {fileID: 114709580686753542}
+    - {fileID: 114089851428734784}
+  _endNode: {fileID: 114448591838044774}
+  _startNode: {fileID: 114419522815431402}
+  _contingencyPlan: -1
+--- !u!114 &114463967496776296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 7
+  _position: {x: 7322.5317, y: -3.4277763}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 14
+    _node: {fileID: 114463967496776296}
+    _connections:
+    - {fileID: 114509248326083710}
+  _outputPort:
+    _id: 15
+    _node: {fileID: 114463967496776296}
+    _connection: {fileID: 114984163894861156}
+  _speaker: Geralt
+  _text: Ugh. I got a choice?
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114464976476497518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 14
+  _position: {x: 3886.897, y: 294.22757}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 31
+    _node: {fileID: 114464976476497518}
+    _connections:
+    - {fileID: 114808100275529658}
+    - {fileID: 114826458777225802}
+  _outputPort:
+    _id: 32
+    _node: {fileID: 114464976476497518}
+    _connection: {fileID: 114701833848460436}
+  _speaker: Yennefer
+  _text: I've no gold to offer in reward...but I shall be ever so grateful.
+  _audio: {fileID: 8300000, guid: 6aafb561f3c43994b85360da49655212, type: 3}
+  _duration: 0
+--- !u!114 &114466996531292654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 9
+  _position: {x: 3484.5903, y: -94.02286}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 21
+    _node: {fileID: 114466996531292654}
+    _connections:
+    - {fileID: 114681328529989656}
+  _outputPort:
+    _id: 22
+    _node: {fileID: 114466996531292654}
+    _connection: {fileID: 114303639251681158}
+  _speaker: Geralt
+  _text: "[Why do you want a djinn?]\nWhy're you even interested? Djinns are dangerous
+    sometimes, and\r malicious all the time."
+  _audio: {fileID: 8300000, guid: d728beb69a4e42d4db91cddd68d37c84, type: 3}
+  _duration: 0
+--- !u!114 &114468512714100900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 11
+  _position: {x: 3183.73, y: -512.6577}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 25
+    _node: {fileID: 114468512714100900}
+    _connections:
+    - {fileID: 114174512589997336}
+  _outputPort:
+    _id: 26
+    _node: {fileID: 114468512714100900}
+    _connection: {fileID: 114582937612725792}
+  _speaker: Geralt
+  _text: '[How do you know he had a djinn?]
+
+    You sure this mage actually had a djinn?'
+  _audio: {fileID: 8300000, guid: f4144dd0082855444a126689b6b6dac5, type: 3}
+  _duration: 0
+--- !u!114 &114471916928945462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 37
+  m_EditorClassIdentifier: 
+  _id: 37
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 70
+    _node: {fileID: 114448591838044774}
+    _connection: {fileID: 114471916928945462}
+  _end:
+    _id: 15
+    _node: {fileID: 114512421354122202}
+    _connections:
+    - {fileID: 114471916928945462}
+  _endNode: {fileID: 114512421354122202}
+  _startNode: {fileID: 114448591838044774}
+  _contingencyPlan: 2
+--- !u!114 &114476161602470844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 28
+  m_EditorClassIdentifier: 
+  _id: 28
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 55
+    _node: {fileID: 114616255934638360}
+    _connection: {fileID: 114476161602470844}
+  _end:
+    _id: 49
+    _node: {fileID: 114580350162682610}
+    _connections:
+    - {fileID: 114380090957309702}
+    - {fileID: 114476161602470844}
+  _endNode: {fileID: 114580350162682610}
+  _startNode: {fileID: 114616255934638360}
+  _contingencyPlan: -1
+--- !u!114 &114476311074618172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 9
+  m_EditorClassIdentifier: 
+  _id: 9
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 21
+    _node: {fileID: 114993038981250008}
+    _connection: {fileID: 114476311074618172}
+  _end:
+    _id: 22
+    _node: {fileID: 114148318939175128}
+    _connections:
+    - {fileID: 114476311074618172}
+  _endNode: {fileID: 114148318939175128}
+  _startNode: {fileID: 114993038981250008}
+  _contingencyPlan: -1
+--- !u!114 &114480851985085086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 8
+  m_EditorClassIdentifier: 
+  _id: 8
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 13
+    _node: {fileID: 114401441864610250}
+    _connection: {fileID: 114480851985085086}
+  _end:
+    _id: 16
+    _node: {fileID: 114930408884184672}
+    _connections:
+    - {fileID: 114480851985085086}
+  _endNode: {fileID: 114930408884184672}
+  _startNode: {fileID: 114401441864610250}
+  _contingencyPlan: -1
+--- !u!114 &114488753894467296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 25
+  m_EditorClassIdentifier: 
+  _id: 25
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 53
+    _node: {fileID: 114528962421228028}
+    _connection: {fileID: 114488753894467296}
+  _end:
+    _id: 54
+    _node: {fileID: 114616255934638360}
+    _connections:
+    - {fileID: 114488753894467296}
+  _endNode: {fileID: 114616255934638360}
+  _startNode: {fileID: 114528962421228028}
+  _contingencyPlan: -1
+--- !u!114 &114503763309296606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 22
+  m_EditorClassIdentifier: 
+  _id: 22
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 39
+    _node: {fileID: 114260265543792500}
+    _connection: {fileID: 114503763309296606}
+  _end:
+    _id: 42
+    _node: {fileID: 114241851440645636}
+    _connections:
+    - {fileID: 114503763309296606}
+  _endNode: {fileID: 114241851440645636}
+  _startNode: {fileID: 114260265543792500}
+  _contingencyPlan: 1
+--- !u!114 &114509248326083710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 7
+  m_EditorClassIdentifier: 
+  _id: 7
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 7
+    _node: {fileID: 114813093395378432}
+    _connection: {fileID: 0}
+  _end:
+    _id: 14
+    _node: {fileID: 114463967496776296}
+    _connections:
+    - {fileID: 114509248326083710}
+  _endNode: {fileID: 114463967496776296}
+  _startNode: {fileID: 114813093395378432}
+  _contingencyPlan: -1
+--- !u!114 &114512421354122202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 6
+  _position: {x: 3324.897, y: 291.22757}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 15
+    _node: {fileID: 114512421354122202}
+    _connections:
+    - {fileID: 114471916928945462}
+  _outputPort:
+    _id: 16
+    _node: {fileID: 114512421354122202}
+    _connection: {fileID: 114127855684249862}
+  _speaker: Geralt
+  _text: '[What do you want from me?]
+
+    All right. So what exactly do you expect me to do?'
+  _audio: {fileID: 8300000, guid: be287d112f500b140a9de18236af8569, type: 3}
+  _duration: 0
+--- !u!114 &114524389162391250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 20
+  m_EditorClassIdentifier: 
+  _id: 20
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 41
+    _node: {fileID: 114102130522420118}
+    _connection: {fileID: 114524389162391250}
+  _end:
+    _id: 38
+    _node: {fileID: 114878872084964980}
+    _connections:
+    - {fileID: 114524389162391250}
+  _endNode: {fileID: 114878872084964980}
+  _startNode: {fileID: 114102130522420118}
+  _contingencyPlan: -1
+--- !u!114 &114526649553777070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 21
+  _position: {x: 4966.669, y: 40}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 46
+    _node: {fileID: 114526649553777070}
+    _connections:
+    - {fileID: 114302090168602912}
+  _outputPort:
+    _id: 47
+    _node: {fileID: 114526649553777070}
+    _connection: {fileID: 114730500152188480}
+  _speaker: Geralt
+  _text: "Do what you gotta do. I'm going to see the baron. Collect Uma from\r him,
+    then ride for Kaer Morhen."
+  _audio: {fileID: 8300000, guid: 0ddf7a63a0f67464994990b5b0049aac, type: 3}
+  _duration: 0
+--- !u!114 &114527183163987524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 6
+  m_EditorClassIdentifier: 
+  _id: 6
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 19
+    _node: {fileID: 114070051769326824}
+    _connection: {fileID: 114527183163987524}
+  _end:
+    _id: 20
+    _node: {fileID: 114993038981250008}
+    _connections:
+    - {fileID: 114345707330668830}
+    - {fileID: 114527183163987524}
+  _endNode: {fileID: 114993038981250008}
+  _startNode: {fileID: 114070051769326824}
+  _contingencyPlan: -1
+--- !u!114 &114527616609568700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 12
+  m_EditorClassIdentifier: 
+  _id: 12
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 24
+    _node: {fileID: 114394206684430036}
+    _connection: {fileID: 114527616609568700}
+  _end:
+    _id: 29
+    _node: {fileID: 114453864580289544}
+    _connections:
+    - {fileID: 114527616609568700}
+  _endNode: {fileID: 114453864580289544}
+  _startNode: {fileID: 114394206684430036}
+  _contingencyPlan: -1
+--- !u!114 &114528962421228028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 26
+  _position: {x: 2484.0522, y: 1060.077}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 52
+    _node: {fileID: 114528962421228028}
+    _connections:
+    - {fileID: 114826334616304136}
+  _outputPort:
+    _id: 53
+    _node: {fileID: 114528962421228028}
+    _connection: {fileID: 114488753894467296}
+  _speaker: Geralt
+  _text: "[Know for a fact this mage had a djinn?\r]\nYou sure this mage actually
+    had a djinn?"
+  _audio: {fileID: 8300000, guid: f4144dd0082855444a126689b6b6dac5, type: 3}
+  _duration: 0
+--- !u!114 &114531886745096836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 1
+  _position: {x: 1288, y: -120}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 4
+    _node: {fileID: 114531886745096836}
+    _connections:
+    - {fileID: 114951900281199054}
+  _outputPort:
+    _id: 5
+    _node: {fileID: 114531886745096836}
+    _connection: {fileID: 114386355586100894}
+  _speaker: Geralt
+  _text: "[What happened to him?] \nThey know what happened to him?"
+  _audio: {fileID: 8300000, guid: b1bbff917d2fa1e45b525ade970ecb53, type: 3}
+  _duration: 0
+--- !u!114 &114541611169821628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: -1
+    _node: {fileID: 0}
+    _connection: {fileID: 0}
+  _end:
+    _id: -1
+    _node: {fileID: 0}
+    _connections: []
+  _endNode: {fileID: 0}
+  _startNode: {fileID: 0}
+  _contingencyPlan: -1
+--- !u!114 &114546815865054384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 3
+  m_EditorClassIdentifier: 
+  _id: 3
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 58
+    _node: {fileID: 114858193569130960}
+    _connection: {fileID: 114546815865054384}
+  _end:
+    _id: 55
+    _node: {fileID: 114748265717564652}
+    _connections:
+    - {fileID: 114188801306136264}
+    - {fileID: 114546815865054384}
+  _endNode: {fileID: 114748265717564652}
+  _startNode: {fileID: 114858193569130960}
+  _contingencyPlan: -1
+--- !u!114 &114555395326438488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 33
+  m_EditorClassIdentifier: 
+  _id: 33
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 63
+    _node: {fileID: 114636251207978050}
+    _connection: {fileID: 114555395326438488}
+  _end:
+    _id: 64
+    _node: {fileID: 114753947698717090}
+    _connections:
+    - {fileID: 114555395326438488}
+  _endNode: {fileID: 114753947698717090}
+  _startNode: {fileID: 114636251207978050}
+  _contingencyPlan: -1
+--- !u!114 &114559246868711922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 31
+  _position: {x: 6727.6567, y: -241.33345}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 65
+    _node: {fileID: 114559246868711922}
+    _connections:
+    - {fileID: 114335492249124484}
+  _outputPort:
+    _id: 66
+    _node: {fileID: 114559246868711922}
+    _connection: {fileID: 0}
+  _speaker: Geralt
+  _text: Would you even let me?
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114580350162682610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99323ba9a9e867c449d75f57de0e35e4, type: 3}
+  m_Name: Choice Node
+  m_EditorClassIdentifier: 
+  _id: 25
+  _position: {x: 2199.81, y: 864.78436}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 49
+    _node: {fileID: 114580350162682610}
+    _connections:
+    - {fileID: 114380090957309702}
+    - {fileID: 114476161602470844}
+  _branches:
+  - _id: 0
+    _outputPort:
+      _id: 50
+      _node: {fileID: 114580350162682610}
+      _connection: {fileID: 114365435491355076}
+  - _id: 1
+    _outputPort:
+      _id: 51
+      _node: {fileID: 114580350162682610}
+      _connection: {fileID: 114826334616304136}
+--- !u!114 &114581324602280864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 2
+  m_EditorClassIdentifier: 
+  _id: 2
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 7
+    _node: {fileID: 114411664303549716}
+    _connection: {fileID: 114581324602280864}
+  _end:
+    _id: 10
+    _node: {fileID: 114687514479580244}
+    _connections:
+    - {fileID: 114581324602280864}
+  _endNode: {fileID: 114687514479580244}
+  _startNode: {fileID: 114411664303549716}
+  _contingencyPlan: -1
+--- !u!114 &114582937612725792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 26
+    _node: {fileID: 114468512714100900}
+    _connection: {fileID: 114582937612725792}
+  _end:
+    _id: 23
+    _node: {fileID: 114394206684430036}
+    _connections:
+    - {fileID: 114764572392549142}
+    - {fileID: 114582937612725792}
+  _endNode: {fileID: 114394206684430036}
+  _startNode: {fileID: 114468512714100900}
+  _contingencyPlan: -1
+--- !u!114 &114599062415952668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 16
+  _position: {x: 4459, y: -232}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 35
+    _node: {fileID: 114599062415952668}
+    _connections:
+    - {fileID: 114045553028632366}
+  _outputPort:
+    _id: 36
+    _node: {fileID: 114599062415952668}
+    _connection: {fileID: 114004395487461940}
+  _speaker: Geralt
+  _text: '[Fine. I''ll help you.]
+
+    Since you put it that way... fine, I''ll help.'
+  _audio: {fileID: 8300000, guid: 0c3ca0778cada8144ac79e2a1fbc3588, type: 3}
+  _duration: 0
+--- !u!114 &114600732006012942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 5
+  _position: {x: 189.55588, y: 178.58264}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 8
+    _node: {fileID: 114600732006012942}
+    _connections:
+    - {fileID: 114368613922296206}
+  _outputPort:
+    _id: 9
+    _node: {fileID: 114600732006012942}
+    _connection: {fileID: 114179100181564994}
+  _speaker: Yenneefer
+  _text: I was provoked.
+  _audio: {fileID: 8300000, guid: 573b669100b9f594da16ddab0a333fb5, type: 3}
+  _duration: 1
+--- !u!114 &114604117286275970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 32
+  m_EditorClassIdentifier: 
+  _id: 32
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 56
+    _node: {fileID: 114748265717564652}
+    _connection: {fileID: 114651440343476842}
+  _end:
+    _id: 59
+    _node: {fileID: 114319330320558264}
+    _connections:
+    - {fileID: 114604117286275970}
+    - {fileID: 114651440343476842}
+  _endNode: {fileID: 114319330320558264}
+  _startNode: {fileID: 114748265717564652}
+  _contingencyPlan: -1
+--- !u!114 &114606761736238854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 2
+  _position: {x: -414.7472, y: -41.76119}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 2
+    _node: {fileID: 114606761736238854}
+    _connections:
+    - {fileID: 114339309831437232}
+  _outputPort:
+    _id: 3
+    _node: {fileID: 114606761736238854}
+    _connection: {fileID: 114368149717118104}
+  _speaker: Man
+  _text: Begone from the village, barren whore!
+  _audio: {fileID: 8300000, guid: dab6371076f1f984d8f9cd9dca2a3320, type: 3}
+  _duration: 0
+--- !u!114 &114613213999376524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 5
+  m_EditorClassIdentifier: 
+  _id: 5
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 68
+    _node: {fileID: 114906706276571164}
+    _connection: {fileID: 114613213999376524}
+  _end:
+    _id: 0
+    _node: {fileID: 114996910126054278}
+    _connections:
+    - {fileID: 114613213999376524}
+  _endNode: {fileID: 114996910126054278}
+  _startNode: {fileID: 114906706276571164}
+  _contingencyPlan: -1
+--- !u!114 &114616255934638360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 27
+  _position: {x: 2746.8188, y: 1063.4879}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 54
+    _node: {fileID: 114616255934638360}
+    _connections:
+    - {fileID: 114488753894467296}
+  _outputPort:
+    _id: 55
+    _node: {fileID: 114616255934638360}
+    _connection: {fileID: 114476161602470844}
+  _speaker: Yennefer
+  _text: "His books strongly suggest he did. He describes taming one,\r harnessing
+    energy from its power."
+  _audio: {fileID: 8300000, guid: 75f4a7a7ca7398744b2919079780c5cd, type: 3}
+  _duration: 0
+--- !u!114 &114636251207978050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 31
+  _position: {x: 2736.8188, y: 847.4879}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 62
+    _node: {fileID: 114636251207978050}
+    _connections:
+    - {fileID: 114089775050959806}
+  _outputPort:
+    _id: 63
+    _node: {fileID: 114636251207978050}
+    _connection: {fileID: 114555395326438488}
+  _speaker: Yennefer
+  _text: "The locals say they last saw Amos' ship off the coast of\r Hindarsfjall.
+    Just before a once-in-an-eon storm broke."
+  _audio: {fileID: 8300000, guid: 0ffd05b2c836b6c41bf3a6ec93324c4a, type: 3}
+  _duration: 0
+--- !u!114 &114651440343476842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 1
+  m_EditorClassIdentifier: 
+  _id: 1
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 56
+    _node: {fileID: 114748265717564652}
+    _connection: {fileID: 114651440343476842}
+  _end:
+    _id: 59
+    _node: {fileID: 114319330320558264}
+    _connections:
+    - {fileID: 114604117286275970}
+    - {fileID: 114651440343476842}
+  _endNode: {fileID: 114319330320558264}
+  _startNode: {fileID: 114748265717564652}
+  _contingencyPlan: -1
+--- !u!114 &114655868383327288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 16
+  m_EditorClassIdentifier: 
+  _id: 16
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 33
+    _node: {fileID: 114382360241705764}
+    _connection: {fileID: 114655868383327288}
+  _end:
+    _id: 34
+    _node: {fileID: 114969988321612114}
+    _connections:
+    - {fileID: 114655868383327288}
+  _endNode: {fileID: 114969988321612114}
+  _startNode: {fileID: 114382360241705764}
+  _contingencyPlan: -1
+--- !u!114 &114662947249986430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 20
+  _position: {x: 5240, y: 40}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 44
+    _node: {fileID: 114662947249986430}
+    _connections:
+    - {fileID: 114730500152188480}
+  _outputPort:
+    _id: 45
+    _node: {fileID: 114662947249986430}
+    _connection: {fileID: 114806422737503230}
+  _speaker: Yennefer
+  _text: I shall join you as soon as I can.
+  _audio: {fileID: 8300000, guid: e972be27c2b7ef542878a4f874ba1212, type: 3}
+  _duration: 0
+--- !u!114 &114681328529989656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 39
+  m_EditorClassIdentifier: 
+  _id: 39
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 69
+    _node: {fileID: 114448591838044774}
+    _connection: {fileID: 114681328529989656}
+  _end:
+    _id: 21
+    _node: {fileID: 114466996531292654}
+    _connections:
+    - {fileID: 114681328529989656}
+  _endNode: {fileID: 114466996531292654}
+  _startNode: {fileID: 114448591838044774}
+  _contingencyPlan: 1
+--- !u!114 &114687514479580244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 6
+  _position: {x: -419.8737, y: 181.81914}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 10
+    _node: {fileID: 114687514479580244}
+    _connections:
+    - {fileID: 114581324602280864}
+  _outputPort:
+    _id: 11
+    _node: {fileID: 114687514479580244}
+    _connection: {fileID: 114212137348590066}
+  _speaker: Man
+  _text: Ye ain't welcome here, witch!
+  _audio: {fileID: 8300000, guid: 75175de52a246234680654d70206fed3, type: 3}
+  _duration: 0
+--- !u!114 &114690902484843084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 2
+  m_EditorClassIdentifier: 
+  _id: 2
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 2
+    _node: {fileID: 114243993856966490}
+    _connection: {fileID: 114690902484843084}
+  _end:
+    _id: 3
+    _node: {fileID: 114261592678222964}
+    _connections:
+    - {fileID: 114690902484843084}
+  _endNode: {fileID: 114261592678222964}
+  _startNode: {fileID: 114243993856966490}
+  _contingencyPlan: -1
+--- !u!114 &114690938586547866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 18
+  _position: {x: 6531.95, y: 467.4661}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 36
+    _node: {fileID: 114690938586547866}
+    _connections:
+    - {fileID: 114254467819988638}
+  _outputPort:
+    _id: 37
+    _node: {fileID: 114690938586547866}
+    _connection: {fileID: 114864833371433376}
+  _speaker: Yennefer
+  _text: "\"Careful what you wish for.\" And when your wish is granted, you must\r
+    accept it with all attendant circumstances."
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114701833848460436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 18
+  m_EditorClassIdentifier: 
+  _id: 18
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 32
+    _node: {fileID: 114464976476497518}
+    _connection: {fileID: 114701833848460436}
+  _end:
+    _id: 37
+    _node: {fileID: 114260265543792500}
+    _connections:
+    - {fileID: 114701833848460436}
+  _endNode: {fileID: 114260265543792500}
+  _startNode: {fileID: 114464976476497518}
+  _contingencyPlan: -1
+--- !u!114 &114709580686753542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 15
+  m_EditorClassIdentifier: 
+  _id: 15
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 28
+    _node: {fileID: 114204990684359372}
+    _connection: {fileID: 114709580686753542}
+  _end:
+    _id: 11
+    _node: {fileID: 114448591838044774}
+    _connections:
+    - {fileID: 114454669413443674}
+    - {fileID: 114709580686753542}
+    - {fileID: 114089851428734784}
+  _endNode: {fileID: 114448591838044774}
+  _startNode: {fileID: 114204990684359372}
+  _contingencyPlan: -1
+--- !u!114 &114715149826214794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 35
+  m_EditorClassIdentifier: 
+  _id: 35
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 64
+    _node: {fileID: 114170181675898802}
+    _connection: {fileID: 0}
+  _end:
+    _id: 67
+    _node: {fileID: 114906706276571164}
+    _connections:
+    - {fileID: 114715149826214794}
+  _endNode: {fileID: 114906706276571164}
+  _startNode: {fileID: 114170181675898802}
+  _contingencyPlan: -1
+--- !u!114 &114725461829261720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 24
+  _position: {x: 5733.0625, y: -540.86597}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 51
+    _node: {fileID: 114725461829261720}
+    _connections: []
+  _outputPort:
+    _id: 52
+    _node: {fileID: 114725461829261720}
+    _connection: {fileID: 114116251290005738}
+  _speaker: Yennefer
+  _text: I have.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114728101365262282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 8
+  m_EditorClassIdentifier: 
+  _id: 8
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 22
+    _node: {fileID: 114466996531292654}
+    _connection: {fileID: 114303639251681158}
+  _end:
+    _id: 19
+    _node: {fileID: 114419522815431402}
+    _connections:
+    - {fileID: 114728101365262282}
+    - {fileID: 114303639251681158}
+  _endNode: {fileID: 114419522815431402}
+  _startNode: {fileID: 114466996531292654}
+  _contingencyPlan: -1
+--- !u!114 &114730229437590522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 15
+  m_EditorClassIdentifier: 
+  _id: 15
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 31
+    _node: {fileID: 114206506764222020}
+    _connection: {fileID: 114730229437590522}
+  _end:
+    _id: 18
+    _node: {fileID: 114070051769326824}
+    _connections:
+    - {fileID: 114730229437590522}
+  _endNode: {fileID: 114070051769326824}
+  _startNode: {fileID: 114206506764222020}
+  _contingencyPlan: -1
+--- !u!114 &114730500152188480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 23
+  m_EditorClassIdentifier: 
+  _id: 23
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 47
+    _node: {fileID: 114526649553777070}
+    _connection: {fileID: 114730500152188480}
+  _end:
+    _id: 44
+    _node: {fileID: 114662947249986430}
+    _connections:
+    - {fileID: 114730500152188480}
+  _endNode: {fileID: 114662947249986430}
+  _startNode: {fileID: 114526649553777070}
+  _contingencyPlan: -1
+--- !u!114 &114748265717564652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 26
+  _position: {x: 5971.556, y: -229.62866}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 55
+    _node: {fileID: 114748265717564652}
+    _connections:
+    - {fileID: 114188801306136264}
+    - {fileID: 114546815865054384}
+  _outputPort:
+    _id: 56
+    _node: {fileID: 114748265717564652}
+    _connection: {fileID: 114651440343476842}
+  _speaker: Yennefer
+  _text: I didn't. Decided to risk it...
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114753947698717090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 32
+  _position: {x: 2992.0522, y: 847.077}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 64
+    _node: {fileID: 114753947698717090}
+    _connections:
+    - {fileID: 114555395326438488}
+  _outputPort:
+    _id: 65
+    _node: {fileID: 114753947698717090}
+    _connection: {fileID: 114333806981335698}
+  _speaker: Geralt
+  _text: "Doubt we'll find them, then. Mage is probably fish food, and the\r djinn
+    escaped."
+  _audio: {fileID: 8300000, guid: 220dfc05d4da96a41898550ec3ef6e1f, type: 3}
+  _duration: 0
+--- !u!114 &114754179830923728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517b26be2417d924a8b12c4f556cb348, type: 3}
+  m_Name: End Node
+  m_EditorClassIdentifier: 
+  _id: 22
+  _position: {x: 5192.375, y: -511.39478}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 44
+    _node: {fileID: 114754179830923728}
+    _connections:
+    - {fileID: 114949002916381722}
+--- !u!114 &114755424653100088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 13
+  _position: {x: 7314.5703, y: 228.10716}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 26
+    _node: {fileID: 114755424653100088}
+    _connections:
+    - {fileID: 114074267197656520}
+  _outputPort:
+    _id: 27
+    _node: {fileID: 114755424653100088}
+    _connection: {fileID: 114781170201351204}
+  _speaker: Geralt
+  _text: "Yeah. How was I supposed to know your incantation meant \"Begone and\r plough
+    yourself?\""
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114764572392549142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 10
+  m_EditorClassIdentifier: 
+  _id: 10
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 26
+    _node: {fileID: 114468512714100900}
+    _connection: {fileID: 114582937612725792}
+  _end:
+    _id: 23
+    _node: {fileID: 114394206684430036}
+    _connections:
+    - {fileID: 114764572392549142}
+    - {fileID: 114582937612725792}
+  _endNode: {fileID: 114394206684430036}
+  _startNode: {fileID: 114468512714100900}
+  _contingencyPlan: -1
+--- !u!114 &114766610199447038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 14
+  m_EditorClassIdentifier: 
+  _id: 14
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 17
+    _node: {fileID: 114930408884184672}
+    _connection: {fileID: 114766610199447038}
+  _end:
+    _id: 30
+    _node: {fileID: 114206506764222020}
+    _connections:
+    - {fileID: 114766610199447038}
+  _endNode: {fileID: 114206506764222020}
+  _startNode: {fileID: 114930408884184672}
+  _contingencyPlan: -1
+--- !u!114 &114767047100960054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 20
+  m_EditorClassIdentifier: 
+  _id: 20
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 36
+    _node: {fileID: 114599062415952668}
+    _connection: {fileID: 114004395487461940}
+  _end:
+    _id: 33
+    _node: {fileID: 114828498578374050}
+    _connections:
+    - {fileID: 114767047100960054}
+    - {fileID: 114004395487461940}
+  _endNode: {fileID: 114828498578374050}
+  _startNode: {fileID: 114599062415952668}
+  _contingencyPlan: -1
+--- !u!114 &114769687784980832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 6
+  m_EditorClassIdentifier: 
+  _id: 6
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 16
+    _node: {fileID: 114512421354122202}
+    _connection: {fileID: 114127855684249862}
+  _end:
+    _id: 17
+    _node: {fileID: 114400316700537410}
+    _connections:
+    - {fileID: 114769687784980832}
+    - {fileID: 114127855684249862}
+  _endNode: {fileID: 114400316700537410}
+  _startNode: {fileID: 114512421354122202}
+  _contingencyPlan: -1
+--- !u!114 &114778319122064204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47cd81fef435c6a4b9d4f8f97b25eff5, type: 3}
+  m_Name: Start Node
+  m_EditorClassIdentifier: 
+  _id: 1
+  _position: {x: -716.73785, y: -2.4894867}
+  _graph: {fileID: 11400000}
+  _outputPort:
+    _id: 1
+    _node: {fileID: 114778319122064204}
+    _connection: {fileID: 114339309831437232}
+--- !u!114 &114781170201351204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 10
+  m_EditorClassIdentifier: 
+  _id: 10
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 27
+    _node: {fileID: 114755424653100088}
+    _connection: {fileID: 114781170201351204}
+  _end:
+    _id: 24
+    _node: {fileID: 114952783939575142}
+    _connections:
+    - {fileID: 114781170201351204}
+  _endNode: {fileID: 114952783939575142}
+  _startNode: {fileID: 114755424653100088}
+  _contingencyPlan: -1
+--- !u!114 &114784431263101232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 3
+  _position: {x: 2326, y: -121}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 7
+    _node: {fileID: 114784431263101232}
+    _connections:
+    - {fileID: 114979398925053586}
+    - {fileID: 114227811263624634}
+  _outputPort:
+    _id: 8
+    _node: {fileID: 114784431263101232}
+    _connection: {fileID: 114233719203582390}
+  _speaker: Geralt
+  _text: Why? D'you know him?
+  _audio: {fileID: 8300000, guid: fadd6a1f668903c4aaf6dfa4806ce9d1, type: 3}
+  _duration: 0
+--- !u!114 &114788746330682860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 1
+  m_EditorClassIdentifier: 
+  _id: 1
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 5
+    _node: {fileID: 114904778610195154}
+    _connection: {fileID: 114788746330682860}
+  _end:
+    _id: 6
+    _node: {fileID: 114411664303549716}
+    _connections:
+    - {fileID: 114788746330682860}
+  _endNode: {fileID: 114411664303549716}
+  _startNode: {fileID: 114904778610195154}
+  _contingencyPlan: -1
+--- !u!114 &114790993964085100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 2
+  m_EditorClassIdentifier: 
+  _id: 2
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 1
+    _node: {fileID: 114996910126054278}
+    _connection: {fileID: 114790993964085100}
+  _end:
+    _id: 2
+    _node: {fileID: 114011337350069366}
+    _connections:
+    - {fileID: 114282997436391326}
+    - {fileID: 114790993964085100}
+  _endNode: {fileID: 114011337350069366}
+  _startNode: {fileID: 114996910126054278}
+  _contingencyPlan: -1
+--- !u!114 &114806422737503230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 25
+  m_EditorClassIdentifier: 
+  _id: 25
+  _graph: {fileID: 11400000}
+  _modifiers:
+  - {fileID: 114282275954530942}
+  _start:
+    _id: 45
+    _node: {fileID: 114662947249986430}
+    _connection: {fileID: 114806422737503230}
+  _end:
+    _id: 48
+    _node: {fileID: 114020289275673180}
+    _connections:
+    - {fileID: 114806422737503230}
+  _endNode: {fileID: 114020289275673180}
+  _startNode: {fileID: 114662947249986430}
+  _contingencyPlan: -1
+--- !u!114 &114808100275529658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 17
+  m_EditorClassIdentifier: 
+  _id: 17
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 18
+    _node: {fileID: 114400316700537410}
+    _connection: {fileID: 114808100275529658}
+  _end:
+    _id: 31
+    _node: {fileID: 114464976476497518}
+    _connections:
+    - {fileID: 114808100275529658}
+    - {fileID: 114826458777225802}
+  _endNode: {fileID: 114464976476497518}
+  _startNode: {fileID: 114400316700537410}
+  _contingencyPlan: -1
+--- !u!114 &114813093395378432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 3
+  _position: {x: 7081.5317, y: -6.4277763}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 6
+    _node: {fileID: 114813093395378432}
+    _connections:
+    - {fileID: 114412415970905854}
+  _outputPort:
+    _id: 7
+    _node: {fileID: 114813093395378432}
+    _connection: {fileID: 0}
+  _speaker: Yennefer
+  _text: Mind if I take the helm?
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114823827986233874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 5
+  m_EditorClassIdentifier: 
+  _id: 5
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 8
+    _node: {fileID: 114784431263101232}
+    _connection: {fileID: 114233719203582390}
+  _end:
+    _id: 9
+    _node: {fileID: 114273234554839724}
+    _connections:
+    - {fileID: 114823827986233874}
+    - {fileID: 114233719203582390}
+  _endNode: {fileID: 114273234554839724}
+  _startNode: {fileID: 114784431263101232}
+  _contingencyPlan: -1
+--- !u!114 &114824659832699968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 26
+  m_EditorClassIdentifier: 
+  _id: 26
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 34
+    _node: {fileID: 114828498578374050}
+    _connection: {fileID: 114824659832699968}
+  _end:
+    _id: 49
+    _node: {fileID: 114312513251060462}
+    _connections:
+    - {fileID: 114824659832699968}
+  _endNode: {fileID: 114312513251060462}
+  _startNode: {fileID: 114828498578374050}
+  _contingencyPlan: -1
+--- !u!114 &114826334616304136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 29
+  m_EditorClassIdentifier: 
+  _id: 29
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 51
+    _node: {fileID: 114580350162682610}
+    _connection: {fileID: 114826334616304136}
+  _end:
+    _id: 52
+    _node: {fileID: 114528962421228028}
+    _connections:
+    - {fileID: 114826334616304136}
+  _endNode: {fileID: 114528962421228028}
+  _startNode: {fileID: 114580350162682610}
+  _contingencyPlan: 1
+--- !u!114 &114826458777225802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 36
+  m_EditorClassIdentifier: 
+  _id: 36
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 67
+    _node: {fileID: 114113055221531816}
+    _connection: {fileID: 114826458777225802}
+  _end:
+    _id: 31
+    _node: {fileID: 114464976476497518}
+    _connections:
+    - {fileID: 114808100275529658}
+    - {fileID: 114826458777225802}
+  _endNode: {fileID: 114464976476497518}
+  _startNode: {fileID: 114113055221531816}
+  _contingencyPlan: -1
+--- !u!114 &114826502661902776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 0
+  _position: {x: 432.5445, y: -44.695503}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 0
+    _node: {fileID: 114826502661902776}
+    _connections:
+    - {fileID: 114179100181564994}
+  _outputPort:
+    _id: 1
+    _node: {fileID: 114826502661902776}
+    _connection: {fileID: 114405676793056498}
+  _speaker: Geralt
+  _text: Mhm, saw it happen. Wanted to talk to me about something?
+  _audio: {fileID: 8300000, guid: 4aa3135f311733849b953499d8bebb69, type: 3}
+  _duration: 0
+--- !u!114 &114826966685441326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 2
+  _position: {x: 2080.8706, y: -119.301506}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 5
+    _node: {fileID: 114826966685441326}
+    _connections:
+    - {fileID: 114987439413748538}
+  _outputPort:
+    _id: 6
+    _node: {fileID: 114826966685441326}
+    _connection: {fileID: 114227811263624634}
+  _speaker: Yennefer
+  _text: Not necessarily. I must learn what became of him.
+  _audio: {fileID: 8300000, guid: 685fb1563d1679f4190bafde77c8626b, type: 3}
+  _duration: 0
+--- !u!114 &114828498578374050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 15
+  _position: {x: 4731, y: -232}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 33
+    _node: {fileID: 114828498578374050}
+    _connections:
+    - {fileID: 114767047100960054}
+    - {fileID: 114004395487461940}
+  _outputPort:
+    _id: 34
+    _node: {fileID: 114828498578374050}
+    _connection: {fileID: 114824659832699968}
+  _speaker: Yennefer
+  _text: Thank you. A boat awaits in the harbor. Come.
+  _audio: {fileID: 8300000, guid: c98d0ee2e1cc9634b9fd8123cee9e8f1, type: 3}
+  _duration: 0
+--- !u!114 &114840569218311152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 5
+  m_EditorClassIdentifier: 
+  _id: 5
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 3
+    _node: {fileID: 114011337350069366}
+    _connection: {fileID: 114840569218311152}
+  _end:
+    _id: 4
+    _node: {fileID: 114058732781240080}
+    _connections:
+    - {fileID: 114065297896242794}
+    - {fileID: 114840569218311152}
+  _endNode: {fileID: 114058732781240080}
+  _startNode: {fileID: 114011337350069366}
+  _contingencyPlan: -1
+--- !u!114 &114858193569130960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 27
+  _position: {x: 5699.556, y: -229.62866}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 57
+    _node: {fileID: 114858193569130960}
+    _connections:
+    - {fileID: 114116251290005738}
+  _outputPort:
+    _id: 58
+    _node: {fileID: 114858193569130960}
+    _connection: {fileID: 114546815865054384}
+  _speaker: Geralt
+  _text: How could you possibly know I'd agree?
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114864833371433376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 19
+  m_EditorClassIdentifier: 
+  _id: 19
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 37
+    _node: {fileID: 114690938586547866}
+    _connection: {fileID: 114864833371433376}
+  _end:
+    _id: 40
+    _node: {fileID: 114102130522420118}
+    _connections:
+    - {fileID: 114864833371433376}
+  _endNode: {fileID: 114102130522420118}
+  _startNode: {fileID: 114690938586547866}
+  _contingencyPlan: -1
+--- !u!114 &114868616747094210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 43
+    _node: {fileID: 114241851440645636}
+    _connection: {fileID: 114868616747094210}
+  _end:
+    _id: 40
+    _node: {fileID: 114396064349274746}
+    _connections:
+    - {fileID: 114876908137549538}
+    - {fileID: 114868616747094210}
+  _endNode: {fileID: 114396064349274746}
+  _startNode: {fileID: 114241851440645636}
+  _contingencyPlan: -1
+--- !u!114 &114874811770330282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 2
+  m_EditorClassIdentifier: 
+  _id: 2
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 3
+    _node: {fileID: 114917189361426188}
+    _connection: {fileID: 114874811770330282}
+  _end:
+    _id: 0
+    _node: {fileID: 114118618363221076}
+    _connections:
+    - {fileID: 114874811770330282}
+  _endNode: {fileID: 114118618363221076}
+  _startNode: {fileID: 114917189361426188}
+  _contingencyPlan: -1
+--- !u!114 &114876230530445966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 29
+  m_EditorClassIdentifier: 
+  _id: 29
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 60
+    _node: {fileID: 114319330320558264}
+    _connection: {fileID: 114447066729407114}
+  _end:
+    _id: 61
+    _node: {fileID: 114334910625305074}
+    _connections:
+    - {fileID: 114876230530445966}
+    - {fileID: 114447066729407114}
+  _endNode: {fileID: 114334910625305074}
+  _startNode: {fileID: 114319330320558264}
+  _contingencyPlan: -1
+--- !u!114 &114876908137549538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 21
+  m_EditorClassIdentifier: 
+  _id: 21
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 43
+    _node: {fileID: 114241851440645636}
+    _connection: {fileID: 114868616747094210}
+  _end:
+    _id: 40
+    _node: {fileID: 114396064349274746}
+    _connections:
+    - {fileID: 114876908137549538}
+    - {fileID: 114868616747094210}
+  _endNode: {fileID: 114396064349274746}
+  _startNode: {fileID: 114241851440645636}
+  _contingencyPlan: -1
+--- !u!114 &114878872084964980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 19
+  _position: {x: 7054.95, y: 472.4661}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 38
+    _node: {fileID: 114878872084964980}
+    _connections:
+    - {fileID: 114524389162391250}
+  _outputPort:
+    _id: 39
+    _node: {fileID: 114878872084964980}
+    _connection: {fileID: 114121051512073406}
+  _speaker: Yennefer
+  _text: "And as for your missteps -- I don't rightly see why I shouldn't laugh\r
+    if they're amusing."
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114894404962738924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 3
+  m_EditorClassIdentifier: 
+  _id: 3
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 5
+    _node: {fileID: 114058732781240080}
+    _connection: {fileID: 114378129396361850}
+  _end:
+    _id: 8
+    _node: {fileID: 114107170949983430}
+    _connections:
+    - {fileID: 114894404962738924}
+    - {fileID: 114378129396361850}
+  _endNode: {fileID: 114107170949983430}
+  _startNode: {fileID: 114058732781240080}
+  _contingencyPlan: -1
+--- !u!114 &114904778610195154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 3
+  _position: {x: -107.646545, y: -37.59613}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 4
+    _node: {fileID: 114904778610195154}
+    _connections:
+    - {fileID: 114368149717118104}
+  _outputPort:
+    _id: 5
+    _node: {fileID: 114904778610195154}
+    _connection: {fileID: 114788746330682860}
+  _speaker: Yennefer
+  _text: You'd best take that back.
+  _audio: {fileID: 8300000, guid: 4583a6543c8e5864ab00a5cd2fdacb06, type: 3}
+  _duration: 0
+--- !u!114 &114906706276571164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 32
+  _position: {x: 7239.6567, y: -239.33345}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 67
+    _node: {fileID: 114906706276571164}
+    _connections:
+    - {fileID: 114715149826214794}
+  _outputPort:
+    _id: 68
+    _node: {fileID: 114906706276571164}
+    _connection: {fileID: 114613213999376524}
+  _speaker: Narrator
+  _text: '[They reach the modest vessel.]'
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114917189361426188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 1
+  _position: {x: 904.87054, y: 195.69849}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 2
+    _node: {fileID: 114917189361426188}
+    _connections:
+    - {fileID: 114308819876537536}
+  _outputPort:
+    _id: 3
+    _node: {fileID: 114917189361426188}
+    _connection: {fileID: 114874811770330282}
+  _speaker: Yennefer
+  _text: "I asked some of the\r local folk. Some here still remember him."
+  _audio: {fileID: 8300000, guid: a869b5294ced58a428dffa65ed8371b2, type: 3}
+  _duration: 0
+--- !u!114 &114930408884184672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 8
+  _position: {x: 6043.5825, y: 245.67592}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 16
+    _node: {fileID: 114930408884184672}
+    _connections:
+    - {fileID: 114480851985085086}
+  _outputPort:
+    _id: 17
+    _node: {fileID: 114930408884184672}
+    _connection: {fileID: 114766610199447038}
+  _speaker: Narrator
+  _text: '[Geralt takes a seat as Yen steers them out to sea.]'
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114933127818003402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd8870d03e8b4f94aa1e4a63daecbece, type: 3}
+  m_Name: Local Variable Inventory
+  m_EditorClassIdentifier: 
+  _id: -1
+  _location: 0
+  _variables: []
+--- !u!114 &114937185058115532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bda340d2035894580e535d299bec33, type: 3}
+  m_Name: Edit Variable
+  m_EditorClassIdentifier: 
+  _id: 0
+  _connection: {fileID: 114949002916381722}
+  _variable: {fileID: 0}
+  _operation: 0
+  _usingBuiltInValue: 1
+  _localValue: {fileID: 0}
+  _otherVariable: {fileID: 0}
+--- !u!114 &114949002916381722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 22
+  m_EditorClassIdentifier: 
+  _id: 22
+  _graph: {fileID: 11400000}
+  _modifiers:
+  - {fileID: 114937185058115532}
+  _start:
+    _id: 54
+    _node: {fileID: 114019056643127908}
+    _connection: {fileID: 114949002916381722}
+  _end:
+    _id: 44
+    _node: {fileID: 114754179830923728}
+    _connections:
+    - {fileID: 114949002916381722}
+  _endNode: {fileID: 114754179830923728}
+  _startNode: {fileID: 114019056643127908}
+  _contingencyPlan: -1
+--- !u!114 &114951900281199054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 1
+    _node: {fileID: 114118618363221076}
+    _connection: {fileID: 114951900281199054}
+  _end:
+    _id: 4
+    _node: {fileID: 114531886745096836}
+    _connections:
+    - {fileID: 114951900281199054}
+  _endNode: {fileID: 114531886745096836}
+  _startNode: {fileID: 114118618363221076}
+  _contingencyPlan: 0
+--- !u!114 &114952783939575142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 12
+  _position: {x: 7586.5703, y: 228.10716}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 24
+    _node: {fileID: 114952783939575142}
+    _connections:
+    - {fileID: 114781170201351204}
+  _outputPort:
+    _id: 25
+    _node: {fileID: 114952783939575142}
+    _connection: {fileID: 114236812269006492}
+  _speaker: Yennefer
+  _text: You should have studied foreign languages.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114966849224273438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 33
+  m_EditorClassIdentifier: 
+  _id: 33
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 66
+    _node: {fileID: 114559246868711922}
+    _connection: {fileID: 0}
+  _end:
+    _id: 63
+    _node: {fileID: 114170181675898802}
+    _connections:
+    - {fileID: 114966849224273438}
+  _endNode: {fileID: 114170181675898802}
+  _startNode: {fileID: 114559246868711922}
+  _contingencyPlan: -1
+--- !u!114 &114969988321612114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 17
+  _position: {x: 6269.95, y: 468.4661}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 34
+    _node: {fileID: 114969988321612114}
+    _connections:
+    - {fileID: 114655868383327288}
+  _outputPort:
+    _id: 35
+    _node: {fileID: 114969988321612114}
+    _connection: {fileID: 114254467819988638}
+  _speaker: Geralt
+  _text: My wish was about us being together always, not about you mocking my every
+    mistake.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114979398925053586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 4
+  m_EditorClassIdentifier: 
+  _id: 4
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 6
+    _node: {fileID: 114826966685441326}
+    _connection: {fileID: 114227811263624634}
+  _end:
+    _id: 7
+    _node: {fileID: 114784431263101232}
+    _connections:
+    - {fileID: 114979398925053586}
+    - {fileID: 114227811263624634}
+  _endNode: {fileID: 114784431263101232}
+  _startNode: {fileID: 114826966685441326}
+  _contingencyPlan: -1
+--- !u!114 &114984163894861156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 6
+  m_EditorClassIdentifier: 
+  _id: 6
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 15
+    _node: {fileID: 114463967496776296}
+    _connection: {fileID: 114984163894861156}
+  _end:
+    _id: 12
+    _node: {fileID: 114401441864610250}
+    _connections:
+    - {fileID: 114984163894861156}
+  _endNode: {fileID: 114401441864610250}
+  _startNode: {fileID: 114463967496776296}
+  _contingencyPlan: -1
+--- !u!114 &114987439413748538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e88f7ad1a209428d9a0ad86e8e4bf, type: 3}
+  m_Name: Connection 0
+  m_EditorClassIdentifier: 
+  _id: 0
+  _graph: {fileID: 11400000}
+  _modifiers: []
+  _start:
+    _id: 4
+    _node: {fileID: 114261592678222964}
+    _connection: {fileID: 114987439413748538}
+  _end:
+    _id: 5
+    _node: {fileID: 114826966685441326}
+    _connections:
+    - {fileID: 114987439413748538}
+  _endNode: {fileID: 114826966685441326}
+  _startNode: {fileID: 114261592678222964}
+  _contingencyPlan: -1
+--- !u!114 &114993038981250008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 10
+  _position: {x: 6791.5703, y: 223.10716}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 20
+    _node: {fileID: 114993038981250008}
+    _connections:
+    - {fileID: 114345707330668830}
+    - {fileID: 114527183163987524}
+  _outputPort:
+    _id: 21
+    _node: {fileID: 114993038981250008}
+    _connection: {fileID: 114476311074618172}
+  _speaker: Geralt
+  _text: Course. Dandelion almost lost his voice that time.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114996910126054278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 0
+  _position: {x: 6053.431, y: 5.277012}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 0
+    _node: {fileID: 114996910126054278}
+    _connections:
+    - {fileID: 114613213999376524}
+  _outputPort:
+    _id: 1
+    _node: {fileID: 114996910126054278}
+    _connection: {fileID: 114790993964085100}
+  _speaker: Yennefer
+  _text: The ship carrying the djinn sank somewhere in this area.
+  _audio: {fileID: 0}
+  _duration: 0
+--- !u!114 &114998816937660886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e333f8118f3c5c4e98f09482b285765, type: 3}
+  m_Name: Dialogue Node
+  m_EditorClassIdentifier: 
+  _id: 2
+  _position: {x: 1412.835, y: 423.65225}
+  _graph: {fileID: 11400000}
+  _inputPort:
+    _id: 6
+    _node: {fileID: 114998816937660886}
+    _connections:
+    - {fileID: 114101529847457898}
+  _outputPort:
+    _id: 7
+    _node: {fileID: 114998816937660886}
+    _connection: {fileID: 114450709443449378}
+  _speaker: Geralt
+  _text: "[Why are you even interested?]\nWhy're you even interested? Djinns are dangerous
+    sometimes, and\r malicious all the time."
+  _audio: {fileID: 8300000, guid: d728beb69a4e42d4db91cddd68d37c84, type: 3}
+  _duration: 0
