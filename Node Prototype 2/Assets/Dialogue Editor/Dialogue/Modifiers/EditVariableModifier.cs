@@ -65,22 +65,29 @@ namespace RPG.Dialogue
 
         public override void Execute()
         {
-            if (Variable.EnumType == VariableType.Float)
+            if (Variable == null) return;
+            switch (Variable.EnumType)
             {
-                switch (Operation)
-                {
-                    case EditOperation.Set: Variable.FloatValue = ActualValue.FloatValue; break;
-                    case EditOperation.Add: Variable.FloatValue += ActualValue.FloatValue; break;
-                    case EditOperation.Subtract: Variable.FloatValue -= ActualValue.FloatValue; break;
-                    case EditOperation.Multiply: Variable.FloatValue *= ActualValue.FloatValue; break;
-                    case EditOperation.Divide:
-                        if (Utilities.NearlyEqual(ActualValue.FloatValue, 0, float.Epsilon)) break;
-                        Variable.FloatValue /= ActualValue.FloatValue;
-                        break;
-                    default: throw new ArgumentOutOfRangeException();
-                }
+                case VariableType.Float:
+                    switch (Operation)
+                    {
+                        case EditOperation.Set: Variable.FloatValue = ActualValue.FloatValue; break;
+                        case EditOperation.Add: Variable.FloatValue += ActualValue.FloatValue; break;
+                        case EditOperation.Subtract: Variable.FloatValue -= ActualValue.FloatValue; break;
+                        case EditOperation.Multiply: Variable.FloatValue *= ActualValue.FloatValue; break;
+                        case EditOperation.Divide:
+                            if (Utilities.NearlyEqual(ActualValue.FloatValue, 0, float.Epsilon)) break;
+                            Variable.FloatValue /= ActualValue.FloatValue;
+                            break;
+                        default: throw new ArgumentOutOfRangeException();
+                    }
+
+                    break;
+
+                case VariableType.Boolean: Variable.BoolValue = ActualValue.BoolValue; break;
+                case VariableType.String: Variable.StringValue = ActualValue.StringValue; break;
+                default: Variable.Value = ActualValue.Value; break;
             }
-            else Variable.Value = ActualValue.Value;
         }
 
         //public override void ApplyDataFromCopy(ConnectionModifier original)

@@ -91,15 +91,11 @@ namespace RPG.Nodes.Base
             {
                 switch (EnumType)
                 {
-                    case VariableType.Boolean:
-                        BoolValue = (bool)value;
-                        break;
-                    case VariableType.Float:
-                        FloatValue = (float)value;
-                        break;
-                    case VariableType.String:
-                        StringValue = value.ToString();
-                        break;
+                    case VariableType.Boolean: BoolValue = bool.Parse(value.ToString()); break;
+                    //case VariableType.Boolean: BoolValue = (bool)value; break;
+                    case VariableType.Float: FloatValue = float.Parse(value.ToString()); break;
+                    //case VariableType.Float: FloatValue = (float)value; break;
+                    case VariableType.String: StringValue = value.ToString(); break;
                 }
             }
         }

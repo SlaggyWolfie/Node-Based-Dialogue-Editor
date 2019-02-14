@@ -33,10 +33,11 @@ namespace RPG.Dialogue
             return branch;
         }
 
-        public List<Branch> GetAllBranches() { return new List<Branch>(_branches); }
+        public List<Branch> GetBranches() { return new List<Branch>(_branches); }
         public List<Branch> GetAvailableBranches() { return _branches.FindAll(branch => branch.IsAvailable); }
+        public int AvailableBranchCount { get { return GetAvailableBranches().Count; } }
 
-        public void PickBranch(Branch branch) { _choice = branch; }
+        public void PickBranch(Branch branch) { if (branch.IsAvailable) _choice = branch; }
         public void PickBranch(int index) { PickBranch(GetBranch(index)); }
 
         public IEnumerable<OutputPort> GetOutputs()
@@ -62,6 +63,8 @@ namespace RPG.Dialogue
         }
 
         public new Node NextNode() { return _choice != null ? _choice.DialogueNode : null; }
+        public OutputPort GetExitPort() { return _choice.OutputPort; }
+
         public void ResetOutputPorts() { _branches.ForEach(branch => branch.OutputPort = new OutputPort()); }
     }
 

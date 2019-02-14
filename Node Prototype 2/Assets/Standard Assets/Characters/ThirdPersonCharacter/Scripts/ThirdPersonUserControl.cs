@@ -35,20 +35,31 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
+            if (DisabledInput) return;
             if (!m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
         }
 
+        public bool DisabledInput { get; set; }
 
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
+            //if (DisabledInput) return;
+
             // read inputs
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
             float v = CrossPlatformInputManager.GetAxis("Vertical");
             bool crouch = Input.GetKey(KeyCode.C);
+
+            if (DisabledInput)
+            {
+                h = 0;
+                v = 0;
+                crouch = false;
+            }
 
             // calculate move direction to pass to character
             if (m_Cam != null)

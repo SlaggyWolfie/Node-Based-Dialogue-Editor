@@ -34,7 +34,18 @@ namespace RPG.Nodes
         public void Init()
         {
             PortSetup();
+        }
+
+        public void OnEnable()
+        {
             CallbackSetup();
+            GetAllPorts().ForEach(p => p.OnEnable());
+        }
+
+        public void OnDisable()
+        {
+            CallbackKill();
+            GetAllPorts().ForEach(p => p.OnDisable());
         }
 
         private void PortSetup()
@@ -110,13 +121,20 @@ namespace RPG.Nodes
         //Callbacks
         private void CallbackSetup()
         {
-            onEnter = null;
-            onExit = null;
-            onUpdate = null;
+            CallbackKill();
 
             onEnter += OnEnter;
             onExit += OnExit;
             onUpdate += Update;
+
+            onExit += PortConnectionTraversal;
+        }
+
+        private void CallbackKill()
+        {
+            onEnter = null;
+            onExit = null;
+            onUpdate = null;
         }
 
         public Action onUpdate;
@@ -126,6 +144,12 @@ namespace RPG.Nodes
         public virtual void Update() { }
         public virtual void OnEnter() { }
         public virtual void OnExit() { }
+
+        private void PortConnectionTraversal()
+        {
+            PortHandler.AttemptOutputAction(output => output.OutputPort.OnExit());
+            PortHandler.AttemptMultipleOutputAction(output => output.GetExitPort().OnExit());
+        }
 
         //public void OffsetPorts(Vector2 offset)
         //{
@@ -194,6 +218,7 @@ namespace RPG.Nodes
         void ReplacePort(OutputPort oldPort, OutputPort newPort);
         void ResetOutputPorts();
         Node NextNode();
+        OutputPort GetExitPort();
     }
 
     public static class IPortExtensions

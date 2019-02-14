@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RPG.Utility
 {
-    public static class Extensions
+    public static partial class Extensions
     {
         public class CoroutineHandler : MonoBehaviour { }
         private static CoroutineHandler _coroutineHandler;

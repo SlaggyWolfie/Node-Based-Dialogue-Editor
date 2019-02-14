@@ -1,4 +1,5 @@
 ﻿using System;
+using RPG.Utility;
 using UnityEngine;
 
 namespace RPG.Nodes.Base
@@ -19,7 +20,7 @@ namespace RPG.Nodes.Base
         public VariableLocation Location
         {
             get { return _variableLocation; }
-            internal set { _variableLocation = value; }
+            set { _variableLocation = value; }
         }
 
         [SerializeField]
@@ -33,6 +34,28 @@ namespace RPG.Nodes.Base
                 _variableInventory = value;
                 Location = value.Location;
             }
+        }
+        
+        private bool _initialBoolValue = false;
+        private float _initialFloatValue = 0;
+        private string _initialStringValue = string.Empty;
+
+        private void OnEnable()
+        {
+            _initialBoolValue = BoolValue;
+            _initialFloatValue = FloatValue;
+            _initialStringValue = StringValue;
+            //Debug.Log("Init");
+            //Extensions.BehaviourCallbackSender.Instance.onApplicationQuit += OnDisable;
+            Extensions.BehaviourCallbackSender.Instance.onApplicationQuit += OnDisable;
+        }
+
+        private void OnDisable()
+        {
+            BoolValue = _initialBoolValue;
+            FloatValue = _initialFloatValue;
+            StringValue = _initialStringValue;
+            //Debug.Log("Deinit");
         }
     }
 }

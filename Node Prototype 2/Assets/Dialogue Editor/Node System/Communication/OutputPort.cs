@@ -13,32 +13,42 @@ namespace RPG.Nodes
             get
             {
                 if (_connection == null) return null;
-                if (!_traversalSetup) SetupTraversal();
+                //SetupTraversal();
                 return _connection;
             }
             set
             {
                 if (_connection == value) return;
+                //KillTraversal();
+
                 _connection = value;
 
                 if (value == null) return;
                 _connection.Start = this;
-                SetupTraversal();
+                //SetupTraversal();
             }
         }
 
         private bool _traversalSetup = false;
 
-        private void SetupTraversal()
-        {
-            if (_traversalSetup) return;
-            if (Node == null) return;
+        public void OnExit() { if (_connection != null) _connection.Traverse(); }
 
-            if (Node.onExit != null) Node.onExit -= _connection.Traverse;
-            Node.onExit += _connection.Traverse;
+        //private void SetupTraversal()
+        //{
+        //    if (_traversalSetup) return;
+        //    if (node == null || _connection == null) return;
+        //    node.onExit += _connection.Traverse;
+        //    //Debug.Log("RIP");
+        //    _traversalSetup = true;
+        //}
 
-            _traversalSetup = true;
-        }
+        //private void KillTraversal()
+        //{
+        //    if (!_traversalSetup) return;
+        //    if (node == null || _connection == null) return;
+        //    if (node.onExit != null) Node.onExit -= _connection.Traverse;
+        //    _traversalSetup = false;
+        //}
 
         //public bool CanConnect(InputPort input)
         //{
@@ -85,9 +95,8 @@ namespace RPG.Nodes
             Connection.DisconnectStart();
         }
 
-        public override void ClearConnections()
-        {
-            Connection = null;
-        }
+        public override void ClearConnections() { Connection = null; }
+        //public override void OnEnable() { SetupTraversal(); }
+        //public override void OnDisable() { KillTraversal(); }
     }
 }

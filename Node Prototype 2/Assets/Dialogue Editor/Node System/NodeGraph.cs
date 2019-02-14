@@ -183,14 +183,19 @@ namespace RPG.Nodes
             return graph;
         }
 
+        private void OnEnable()
+        {
+            Flow.Clear();
+        }
+
         private void OnDestroy()
         {
             foreach (var connection in _connections)
                 DestroyHelper.Destroy(connection);
-                //DestroyImmediate(connection, true);
+            //DestroyImmediate(connection, true);
             foreach (var node in _nodes)
                 DestroyHelper.Destroy(node);
-                //DestroyImmediate(node, true);
+            //DestroyImmediate(node, true);
 
             _connections.Clear();
             _nodes.Clear();

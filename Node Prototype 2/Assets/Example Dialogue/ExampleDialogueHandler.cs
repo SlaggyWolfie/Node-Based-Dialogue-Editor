@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Text.RegularExpressions;
 using RPG.Dialogue;
 using RPG.Nodes;
@@ -18,12 +19,14 @@ namespace RPG.Example
         }
 
         private DialogueNode _previousDialogueNode = null;
-        [Header("Introspection. Do not touch!")]
+
+        [Header("Introspection. Do not edit!")]
         [SerializeField] private DialogueGraph _dialogueGraph = null;
         [SerializeField] private bool _waiting = true;
         [SerializeField] private bool _paused = false;
         [SerializeField] private bool _started = false;
         [SerializeField] private Node _current = null;
+        [SerializeField] private ChoiceNode _currentChoiceNode = null;
 
         [Header("Display")]
         [SerializeField] private GameObject _normalSubtitlesObject = null;
@@ -35,6 +38,9 @@ namespace RPG.Example
         [Header("Resources")]
         [SerializeField] private AudioSource _audioSource = null;
         [SerializeField] private GameObject _choiceButtonPrefab = null;
+
+        public static Action OnDialogueStart;
+        public static Action OnDialogueEnd;
 
         private void Start()
         {
@@ -51,11 +57,13 @@ namespace RPG.Example
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.P)) _paused = !_paused;
-            if (Input.GetKeyDown(KeyCode.N) && _current is DialogueNode)
+            if (_paused) return;
+
+            //if (Input.GetKeyDown(KeyCode.N) && _current is DialogueNode)
+            if (Input.GetKeyDown(KeyCode.Space) && _current is DialogueNode)
             {
                 if (_audioSource != null) _audioSource.Stop();
                 StopAllCoroutines();
-
                 HandleNextNode();
             }
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -65,7 +73,8 @@ namespace RPG.Example
                 HandleEndNode();
             }
 
-            if (_paused) return;
+            if (_currentChoiceNode != null) CheckChoiceKeyInput();
+
             if (!_waiting) HandleNextNode();
         }
 
@@ -75,6 +84,8 @@ namespace RPG.Example
             _dialogueGraph.Flow.SetStartNode(_dialogueGraph.FindStartNode());
             _waiting = false;
             _started = true;
+
+            if (OnDialogueStart != null) OnDialogueStart();
         }
 
         private void HandleNextNode()
@@ -88,6 +99,13 @@ namespace RPG.Example
             if (dialogueNode != null)
             {
                 HandleDialogueNode(dialogueNode);
+                return;
+            }
+
+            ConditionNode conditionNode = _current as ConditionNode;
+            if (conditionNode != null)
+            {
+                _waiting = false;
                 return;
             }
 
@@ -114,10 +132,15 @@ namespace RPG.Example
 
         private void HandleEndNode(EndNode endNode = null)
         {
+            DestroyBranchObjects();
             _choicesObject.SetActive(false);
+            _choiceSubtitleText.gameObject.SetActive(false);
             _normalSubtitlesObject.SetActive(false);
             _waiting = true;
             _started = false;
+            _paused = false;
+
+            if (OnDialogueEnd != null) OnDialogueEnd();
         }
 
         private IEnumerator Wait(float waitTime)
@@ -138,13 +161,23 @@ namespace RPG.Example
             if (dialogue.StartsWith("["))
             {
                 string[] groups = dialogue.Split('[', ']', '\n', '\t');
-                if (groups.Length >= 4) dialogue = groups[3];
+                if (groups.Length >= 4)
+                {
+                    for (int i = 2; i < groups.Length; i++)
+                    {
+                        if (groups[i].Length <= 2) continue;
+                        dialogue = groups[i];
+                        break;
+                    }
+                    //dialogue = groups[3];
+                }
             }
 
             _normalSubtitleText.text = string.Format("{0}: {1}", dialogueNode.Speaker, dialogue);
 
             _normalSubtitlesObject.SetActive(true);
             _choicesObject.SetActive(false);
+            _choiceSubtitleText.gameObject.SetActive(false);
 
             HandleAudio(dialogueNode.Audio);
             StopAllCoroutines();
@@ -160,14 +193,19 @@ namespace RPG.Example
         {
             if (choiceNode == null) return;
 
+            _currentChoiceNode = choiceNode;
+
             _waiting = true;
 
             _normalSubtitlesObject.SetActive(false);
             _choicesObject.SetActive(true);
+            _choiceSubtitleText.gameObject.SetActive(true);
 
-            for (int i = 0; i < choiceNode.BranchCount; i++)
+            var branches = choiceNode.GetAvailableBranches();
+
+            for (int i = 0; i < branches.Count; i++)
             {
-                Branch branch = choiceNode.GetBranch(i);
+                Branch branch = branches[i];
                 GameObject choiceButton = Instantiate(_choiceButtonPrefab, _choiceContent);
 
                 //Assign text to the button that can be clicked in the format of
@@ -184,7 +222,7 @@ namespace RPG.Example
                         string[] groups = choiceText.Split('[', ']', '\n', '\t');
                         if (groups.Length >= 4) choiceText = groups[1];
                     }
-                    text.text = string.Format("{0}. {1}", i, choiceText);
+                    text.text = string.Format("{0}. {1}", i + 1, choiceText);
                 }
 
                 //Assign click command
@@ -198,16 +236,61 @@ namespace RPG.Example
             if (_previousDialogueNode != null) _choiceSubtitleText.text = _previousDialogueNode.Text;
         }
 
+        //private static readonly KeyCode[] _numberedKeys =
+        //{
+        //    KeyCode.Alpha1,
+        //    KeyCode.Alpha2,
+        //    KeyCode.Alpha3,
+        //    KeyCode.Alpha4,
+        //    KeyCode.Alpha5,
+        //    KeyCode.Alpha6,
+        //    KeyCode.Alpha7,
+        //    KeyCode.Alpha8,
+        //    KeyCode.Alpha9
+        //};
+
+        //private static readonly string[] _numberedStringKeys =
+        //{
+        //    "1","2","3","4","5","6","7","8","9"
+        //};
+
+        private void CheckChoiceKeyInput()
+        {
+            //Debug.Log(Input.inputString);
+
+            int keyParse;
+            if (int.TryParse(Input.inputString, out keyParse)) PickBranch(keyParse - 1);
+
+            //Probably too slow. RIP
+            //int keyInput = Array.IndexOf(_numberedStringKeys, Input.inputString);
+
+            //Event.current is always null!? RIP
+            //int keyInput = Array.IndexOf(_numberedKeys, current.keyCode);
+
+            //if (keyInput != -1) PickBranch(keyInput);
+        }
+
+        private void PickBranch(int index)
+        {
+            if (index < 0 || index >= _currentChoiceNode.AvailableBranchCount) return;
+            PickBranch(_currentChoiceNode, index);
+            _currentChoiceNode = null;
+        }
+
         private void PickBranch(ChoiceNode choiceNode, int index)
         {
-            choiceNode.PickBranch(index);
+            choiceNode.PickBranch(choiceNode.GetAvailableBranches()[index]);
+            DestroyBranchObjects();
+            _waiting = false;
+        }
+
+        private void DestroyBranchObjects()
+        {
             foreach (Transform child in _choiceContent.GetComponentsInChildren<Transform>())
             {
                 if (child == _choiceContent) continue;
                 Destroy(child.gameObject);
             }
-
-            _waiting = false;
         }
 
         private void HandleAudio(AudioClip clip)

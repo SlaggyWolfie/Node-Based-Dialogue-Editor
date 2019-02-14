@@ -10,11 +10,11 @@ namespace RPG.Nodes
     public abstract class Port : BaseObject//, IEqualityComparer, IEqualityComparer<Port>
     {
         [SerializeField]
-        private Node _node = null;
+        protected Node node = null;
         public Node Node
         {
-            get { return _node; }
-            set { _node = value; }
+            get { return node; }
+            set { node = value; }
         }
 
         public abstract void ClearConnections();
@@ -26,6 +26,9 @@ namespace RPG.Nodes
         public abstract bool IsConnectedTo(Port port);
 
         public virtual void OnDestroy() { Disconnect(); }
+
+        public virtual void OnEnable() { }
+        public virtual void OnDisable() { }
 
         //public int GetHashCode(object obj) { return GetHashCode((Port)obj); }
         //public new bool Equals(object x, object y) { return Equals((Port)x, (Port)y); }

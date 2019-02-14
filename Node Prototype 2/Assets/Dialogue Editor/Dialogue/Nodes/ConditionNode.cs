@@ -97,6 +97,8 @@ namespace RPG.Dialogue
             return EvaluatedOutputPort != null ? EvaluatedOutputPort.Connection.End.Node : null;
         }
 
+        public OutputPort GetExitPort() { return EvaluatedOutputPort; }
+
         public void ResetOutputPorts()
         {
             _evaluatedOutputPort = null;

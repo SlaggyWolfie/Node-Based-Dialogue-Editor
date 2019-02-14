@@ -10,7 +10,7 @@ namespace RPG.Nodes
         [SerializeField]
         private Node _currentNode = null;
         [SerializeField]
-        private List<Node> _traversedNode = new List<Node>();
+        private List<Node> _traversedNodes = new List<Node>();
 
         public Node CurrentNode { get { return _currentNode; } }
 
@@ -24,7 +24,7 @@ namespace RPG.Nodes
         {
             if (_currentNode == null) return null;
             ExitNode(_currentNode);
-            _traversedNode.Add(_currentNode);
+            _traversedNodes.Add(_currentNode);
 
             _currentNode = _currentNode.NextNode();
             EnterNode(_currentNode);
@@ -39,6 +39,11 @@ namespace RPG.Nodes
         private static void ExitNode(Node node)
         {
             if (node != null && node.onExit != null) node.onExit();
+        }
+
+        public void Clear()
+        {
+            _traversedNodes.Clear();
         }
     }
 }

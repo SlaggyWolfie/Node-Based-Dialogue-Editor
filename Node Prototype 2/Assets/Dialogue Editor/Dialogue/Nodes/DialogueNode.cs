@@ -62,5 +62,4 @@ namespace RPG.Dialogue
             set { _duration = value; }
         }
     }
-
 }
