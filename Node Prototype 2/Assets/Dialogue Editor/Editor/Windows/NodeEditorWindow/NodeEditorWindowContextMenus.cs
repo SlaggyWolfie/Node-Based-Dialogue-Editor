@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using RPG.Nodes;
-using RPG.Nodes.Base;
-using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Nodes;
+using WolfEditor.Nodes.Base;
+using WolfEditor.Utility.Editor;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     public partial class NodeEditorWindow
     {
@@ -107,7 +107,7 @@ namespace RPG.Editor.Nodes
                 contextMenu.AddItem(new GUIContent(SEND_BACKWARD_TEXT), false, () => Graph.SendConnectionBackward(connection));
                 contextMenu.AddSeparator(string.Empty);
 
-                var modTypes = ReflectionUtilities.GetDerivedTypes<ConnectionModifier>();
+                var modTypes = ReflectionUtilities.GetDerivedTypes<Instruction>();
                 if (modTypes.Length != 0)
                 {
                     foreach (Type modType in modTypes)
@@ -128,8 +128,8 @@ namespace RPG.Editor.Nodes
         private void ShowConnectionModifierContextMenu()
         {
             GenericMenu contextMenu = new GenericMenu();
-            bool oneConnectionSelected = Selection.objects.Length == 1 && Selection.activeObject is ConnectionModifier;
-            ConnectionModifier modifier = oneConnectionSelected ? (ConnectionModifier)Selection.activeObject : null;
+            bool oneConnectionSelected = Selection.objects.Length == 1 && Selection.activeObject is Instruction;
+            Instruction modifier = oneConnectionSelected ? (Instruction)Selection.activeObject : null;
 
             contextMenu.AddItem(new GUIContent(DUPLICATE_TEXT), false, DuplicateSelected);
             contextMenu.AddItem(new GUIContent(REMOVE_TEXT), false, RemoveSelectedConnectionModifiers);

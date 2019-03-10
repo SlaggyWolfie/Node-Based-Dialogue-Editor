@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using RPG.Base;
-using RPG.Editor.Nodes;
-using RPG.Nodes;
+using WolfEditor.Base;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Editor.Nodes;
+using WolfEditor.Nodes;
 
-namespace RPG.Editor
+namespace WolfEditor.Editor
 {
     //#if RPG_DEBUG_MODE
     [CustomEditor(typeof(Connection))]

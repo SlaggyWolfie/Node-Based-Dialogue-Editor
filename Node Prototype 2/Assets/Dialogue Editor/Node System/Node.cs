@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Permissions;
-using RPG.Base;
-using RPG.Nodes.Base;
-using RPG.Other;
 using UnityEngine;
+using WolfEditor.Base;
 
-namespace RPG.Nodes
+namespace WolfEditor.Nodes
 {
     [Serializable]
     public abstract class Node : BaseScriptableObject, ISerializationCallbackReceiver
@@ -151,49 +148,12 @@ namespace RPG.Nodes
             PortHandler.AttemptMultipleOutputAction(output => output.GetExitPort().OnExit());
         }
 
-        //public void OffsetPorts(Vector2 offset)
-        //{
-        //    //GetAllPorts().ForEach(port => port.Position += offset);
-
-        //    //IInput inputNode = this as IInput;
-        //    //if (inputNode != null) inputNode.InputPort.Position += offset;
-
-        //    //ISingleOutput sOutputNode = this as ISingleOutput;
-        //    //if (sOutputNode != null) sOutputNode.OutputPort.Position += offset;
-
-        //    //IMultipleOutput mOutputNode = this as IMultipleOutput;
-        //    //if (mOutputNode != null) mOutputNode.OffsetMultiplePorts(offset);
-        //}
-
         public virtual bool InputPortIsInHeader() { return true; }
         public virtual bool OutputPortIsInHeader() { return true; }
 
         public virtual void OnDestroy()
         {
-            //Debug.Log("You only live once.");
             GetAllPorts().ForEach(port => port.OnDestroy());
-            //Do not trust Unity.
-
-            //PortHandler.InputPortAction(input =>
-            //{
-            //    var inputConnections = input.InputPort.GetConnections();
-            //    foreach (var connection in inputConnections)
-            //    {
-            //        DestroyImmediate(connection, true);
-            //    }
-            //});
-
-            //PortHandler.OutputPortAction(output =>
-            //{
-            //    DestroyImmediate(output.OutputPort.Connection, true);
-            //});
-
-            //PortHandler.MultipleOutputPortAction(output =>
-            //{
-            //    var outputs = output.GetOutputs();
-            //    foreach (OutputPort outputPort in outputs)
-            //        DestroyImmediate(outputPort.Connection, true);
-            //});
         }
 
         public void OnBeforeSerialize() { }

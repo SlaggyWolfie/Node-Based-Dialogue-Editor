@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RPG.Base;
-using RPG.Nodes.Base;
+using WolfEditor.Nodes.Base;
 using UnityEditor;
+using WolfEditor.Base;
 
-namespace RPG.Editor
+namespace WolfEditor.Editor
 {
     public abstract class BaseEditor<TEditor, TTarget>
         where TEditor : BaseEditor<TEditor, TTarget>

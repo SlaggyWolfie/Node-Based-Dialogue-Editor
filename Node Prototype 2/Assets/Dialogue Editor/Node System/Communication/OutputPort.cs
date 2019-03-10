@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RPG.Nodes
+namespace WolfEditor.Nodes
 {
     [Serializable]
     public sealed class OutputPort : Port

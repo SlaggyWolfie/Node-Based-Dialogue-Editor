@@ -1,19 +1,17 @@
 ﻿using System;
-using RPG.Other;
-using RPG.Nodes;
-using RPG.Nodes.Base;
+using WolfEditor.Nodes.Base;
 using UnityEngine;
+using WolfEditor.Nodes;
+using WolfEditor.Other;
 
-namespace RPG.Dialogue
+namespace WolfEditor.Dialogue
 {
     [Serializable]
     //[CreateNodeMenu(preferredName = "Dialogue Node", menuName = "RPG Framework/Dialogue Graph")]
     public sealed class DialogueNode : Node, IInput, IOutput
     {
-        [SerializeField]
-        private InputPort _inputPort = null;
-        [SerializeField]
-        private OutputPort _outputPort = null;
+        [SerializeField] private InputPort _inputPort = null;
+        [SerializeField] private OutputPort _outputPort = null;
 
         #region Node Stuff
         public InputPort InputPort
@@ -28,15 +26,12 @@ namespace RPG.Dialogue
         }
         #endregion
 
-        [SerializeField]
-        private string _speaker = string.Empty;
+        [SerializeField] private string _speaker = string.Empty;
         [SerializeField]
         [ResizableTextArea]
         private string _text = string.Empty;
-        [SerializeField]
-        private AudioClip _audio = null;
-        [SerializeField]
-        private float _duration = 0;
+        [SerializeField] private AudioClip _audio = null;
+        [SerializeField] private float _duration = 0;
 
         public string Text
         {

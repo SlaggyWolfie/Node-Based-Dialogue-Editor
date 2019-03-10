@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RPG.Utility
+namespace WolfEditor.Utility
 {
     public enum LineIntersectionResult { False, True, Collinear }
 

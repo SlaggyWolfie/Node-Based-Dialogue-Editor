@@ -1,15 +1,15 @@
 ﻿#define RPG_DEBUG_NODE
 
 using System;
-using RPG.Nodes;
-using RPG.Nodes.Base;
-using RPG.Utility;
-using RPG.Utility.Editor;
+using WolfEditor.Nodes.Base;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using WolfEditor.Nodes;
+using WolfEditor.Utility;
+using WolfEditor.Utility.Editor;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     [Serializable]
     public sealed partial class NodeEditorWindow : Window

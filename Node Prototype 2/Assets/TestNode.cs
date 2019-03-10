@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using RPG.Nodes;
-using RPG.Nodes.Base;
+using WolfEditor.Nodes;
+using WolfEditor.Nodes.Base;
 using UnityEngine;
+using WolfEditor.Variables;
 
 public class TestNode : Node, IInput, IOutput
 {

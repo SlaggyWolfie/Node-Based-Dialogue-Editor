@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RPG.Editor.Nodes;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Editor.Nodes;
 
-namespace RPG.Editor
+namespace WolfEditor.Editor
 {
     public sealed class ChildWindow : IWindowEditorContainer
     {

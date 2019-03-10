@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     public sealed class NodePreferences
     {
@@ -17,7 +17,7 @@ namespace RPG.Editor.Nodes
 
         public const float PROPERTY_HEIGHT = 30;
         public const float PROPERTY_MIN_WIDTH = 30;
-        public static readonly Vector2 STANDARD_NODE_SIZE = new Vector2(210, 210);
+        public static readonly Vector2 STANDARD_NODE_SIZE = new Vector2(250, 250);
         public static readonly Vector2 STANDARD_PORT_SIZE = new Vector2(16, 16);
         public static readonly Vector2 DUPLICATION_OFFSET = new Vector2(30, 30);
 

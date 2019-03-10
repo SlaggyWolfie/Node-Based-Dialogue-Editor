@@ -2,13 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using RPG.Base;
-using RPG.Nodes.Base;
-using RPG.Utility;
+using WolfEditor.Utility;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Base;
+using WolfEditor.Nodes.Base;
 
-namespace RPG.Nodes
+namespace WolfEditor.Nodes
 {
     [Serializable]
     public class Connection : BaseScriptableObject, ISerializationCallbackReceiver
@@ -44,7 +44,7 @@ namespace RPG.Nodes
         }
 
         [SerializeField]
-        private List<ConnectionModifier> _modifiers = new List<ConnectionModifier>();
+        private List<Instruction> _modifiers = new List<Instruction>();
 
         [SerializeField]
         private OutputPort _start = null;
@@ -89,29 +89,29 @@ namespace RPG.Nodes
         public void DisconnectInput() { DisconnectEnd(); }
         public void DisconnectOutput() { DisconnectStart(); }
 
-        public T CreateAndAddModifier<T>() where T : ConnectionModifier
+        public T CreateAndAddModifier<T>() where T : Instruction
         {
             return (T)CreateAndAddModifier(typeof(T));
         }
-        public virtual ConnectionModifier CreateAndAddModifier(Type type)
+        public virtual Instruction CreateAndAddModifier(Type type)
         {
-            ConnectionModifier mod = (ConnectionModifier)CreateInstance(type);
+            Instruction mod = (Instruction)CreateInstance(type);
             InitConnectionModifier(mod);
             return mod;
         }
-        public virtual void AddModifier(ConnectionModifier connectionModifier)
+        public virtual void AddModifier(Instruction instruction)
         {
-            if (connectionModifier == null) return;
-            _modifiers.Add(connectionModifier);
-            connectionModifier.Connection = this;
+            if (instruction == null) return;
+            _modifiers.Add(instruction);
+            instruction.Connection = this;
         }
-        public void RemoveModifier(ConnectionModifier mod) { _modifiers.Remove(mod); }
+        public void RemoveModifier(Instruction mod) { _modifiers.Remove(mod); }
         public void RemoveModifier(int index) { _modifiers.RemoveAt(index); }
         public void ClearModifiers() { _modifiers.Clear(); }
         public int ModifierCount { get { return _modifiers.Count; } }
-        public int GetIndex(ConnectionModifier mod) { return _modifiers.IndexOf(mod); }
-        public ConnectionModifier GetModifier(int index) { return _modifiers[index]; }
-        public ConnectionModifier[] GetModifiers() { return _modifiers.ToArray(); }
+        public int GetIndex(Instruction mod) { return _modifiers.IndexOf(mod); }
+        public Instruction GetModifier(int index) { return _modifiers[index]; }
+        public Instruction[] GetModifiers() { return _modifiers.ToArray(); }
 
         [SerializeField, /*NaughtyAttributes.ReadOnly*//*, HideInInspector*/] private Node _endNode = null;
         [SerializeField, /*NaughtyAttributes.ReadOnly*//*, HideInInspector*/] private Node _startNode = null;
@@ -272,10 +272,10 @@ namespace RPG.Nodes
             }
         }
 
-        public void InitConnectionModifier(ConnectionModifier connectionModifier)
+        public void InitConnectionModifier(Instruction instruction)
         {
-            connectionModifier.ID = Graph.connectionModifierCounter.Get();
-            AddModifier(connectionModifier);
+            instruction.ID = Graph.connectionModifierCounter.Get();
+            AddModifier(instruction);
         }
 
         private void OnDestroy()
@@ -283,7 +283,7 @@ namespace RPG.Nodes
             //Debug.Log("YOLO!");
             //Do not trust Unity.
             Disconnect();
-            foreach (ConnectionModifier connectionModifier in _modifiers)
+            foreach (Instruction connectionModifier in _modifiers)
                 DestroyHelper.Destroy(connectionModifier);
             //DestroyImmediate(connectionModifier, true);
             _modifiers.Clear();

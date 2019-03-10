@@ -1,107 +1,55 @@
 ﻿using System;
-using RPG.Nodes.Base;
-using RPG.Utility;
+using WolfEditor.Utility;
 using UnityEngine;
+using WolfEditor.Base;
+using WolfEditor.Nodes.Base;
 
-namespace RPG.Dialogue
+namespace WolfEditor.Variables
 {
     [Serializable]
-    public sealed class EditVariableModifier : ConnectionModifier//, ICopyable<EventModifier>
+    public sealed class EditVariableModifier : Instruction//, ICopyable<EventModifier>
     {
-        public enum EditOperation { Set, Add, Subtract, Multiply, Divide }
+        public enum Type { Bool, Float, Int, String }
 
-        [SerializeField]
-        private Variable _variable = null;
-        public Variable Variable
-        {
-            get { return _variable; }
-            set { _variable = value; }
-        }
+        [SerializeField] private Type _type = Type.Bool;
+        [SerializeField] private Variable.Operation _operation = Variable.Operation.Set;
+        [SerializeField/*, HideInInspector*/] private FloatPair _floatPair = null;
+        [SerializeField/*, HideInInspector*/] private IntPair _intPair = null;
+        [SerializeField/*, HideInInspector*/] private StringPair _stringPair = null;
+        [SerializeField/*, HideInInspector*/] private BoolPair _boolPair = null;
 
-        [SerializeField]
-        private EditOperation _operation = EditOperation.Set;
-        public EditOperation Operation
-        {
-            get { return _operation; }
-            set { _operation = value; }
-        }
-
-        [SerializeField]
-        private bool _usingBuiltInValue = true;
-        public bool UsingBuiltInValue
-        {
-            get { return _usingBuiltInValue; }
-            set { _usingBuiltInValue = value; }
-        }
-
-        private BaseValue _actualValue = null;
-        public BaseValue ActualValue
+        private Pair ActivePair
         {
             get
             {
-                if (_actualValue != null) return _actualValue;
-
-                if (_usingBuiltInValue) _actualValue = LocalValue;
-                else _actualValue = OtherVariable;
-                return _actualValue;
+                switch (_type)
+                {
+                    case Type.Bool: return _boolPair;
+                    case Type.Float: return _floatPair;
+                    case Type.Int: return _intPair;
+                    case Type.String: return _stringPair;
+                    default: throw new ArgumentOutOfRangeException();
+                }
             }
         }
 
-        [SerializeField]
-        private Value _localValue = null;
-        public Value LocalValue
-        {
-            get { return _localValue; }
-            set { _localValue = value; }
-        }
-
-        [SerializeField]
-        private Variable _otherVariable = null;
-        public Variable OtherVariable
-        {
-            get { return _otherVariable; }
-            set { _otherVariable = value; }
-        }
+        public Type VariableType { get { return _type; } }
 
         public override void Execute()
         {
-            if (Variable == null) return;
-            switch (Variable.EnumType)
+            Pair activePair = ActivePair;
+            if (activePair == null || !activePair.VariableExists() || !activePair.ReferenceExists()) return;
+
+            switch (_type)
             {
-                case VariableType.Float:
-                    switch (Operation)
-                    {
-                        case EditOperation.Set: Variable.FloatValue = ActualValue.FloatValue; break;
-                        case EditOperation.Add: Variable.FloatValue += ActualValue.FloatValue; break;
-                        case EditOperation.Subtract: Variable.FloatValue -= ActualValue.FloatValue; break;
-                        case EditOperation.Multiply: Variable.FloatValue *= ActualValue.FloatValue; break;
-                        case EditOperation.Divide:
-                            if (Utilities.NearlyEqual(ActualValue.FloatValue, 0, float.Epsilon)) break;
-                            Variable.FloatValue /= ActualValue.FloatValue;
-                            break;
-                        default: throw new ArgumentOutOfRangeException();
-                    }
-
-                    break;
-
-                case VariableType.Boolean: Variable.BoolValue = ActualValue.BoolValue; break;
-                case VariableType.String: Variable.StringValue = ActualValue.StringValue; break;
-                default: Variable.Value = ActualValue.Value; break;
+                case Type.Bool: _boolPair.variable.Execute(_operation, _boolPair.reference); break;
+                case Type.Float: _floatPair.variable.Execute(_operation, _floatPair.reference); break;
+                case Type.Int: _intPair.variable.Execute(_operation, _intPair.reference); break;
+                case Type.String: _stringPair.variable.Execute(_operation, _stringPair.reference); break;
+                default: throw new ArgumentOutOfRangeException();
             }
         }
 
-        //public override void ApplyDataFromCopy(ConnectionModifier original)
-        //{
-        //    EditVariableModifier evm = original as EditVariableModifier;
-        //    if (evm == null) return;
-
-        //    _variable = evm._variable;
-        //    _localValue = evm._localValue;
-        //    _otherVariable = evm._otherVariable;
-        //    _operation = evm._operation;
-        //    _usingBuiltInValue = evm._usingBuiltInValue;
-        //}
-
-        //public override ConnectionModifier Copy() { return (EditVariableModifier)MemberwiseClone(); }
     }
+
 }

@@ -1,50 +1,19 @@
 ﻿using System;
 using System.Linq;
-using RPG.Base;
-using RPG.Nodes;
-using RPG.Nodes.Base;
+using WolfEditor.Base;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Nodes;
+using WolfEditor.Nodes.Base;
 using Object = UnityEngine.Object;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     [CustomNodeGraphEditor(typeof(NodeGraph))]
     public class NodeGraphEditor : BaseForCustomEditors<NodeGraphEditor, NodeGraph, CustomNodeGraphEditorAttribute>
     {
-        public static VariableInventory GetVariableInventory(ScriptableObject target, string name, string labelIdentifier)
-        {
-            string graphPath = AssetDatabase.GetAssetPath(target);
-            //Debug.Log("Graph's Path: " + graphPath);
-
-            string[] GUIDs = AssetDatabase.FindAssets(string.Format("l:{0}", labelIdentifier));
-            foreach (string GUID in GUIDs)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(GUID);
-                //Debug.Log("Checking path for Holder: " + path);
-                if (path != graphPath) continue;
-                VariableInventory subAsset = AssetDatabase.LoadAssetAtPath<VariableInventory>(path);
-                if (subAsset == null || !AssetDatabase.IsSubAsset(subAsset)) continue;
-                return subAsset;
-            }
-
-            VariableInventory newSubAsset = ScriptableObject.CreateInstance<VariableInventory>();
-            newSubAsset.name = name;
-            AssetDatabase.AddObjectToAsset(newSubAsset, target);
-            var labels = AssetDatabase.GetLabels(newSubAsset).ToList();
-            labels.Add(labelIdentifier);
-            AssetDatabase.SetLabels(newSubAsset, labels.ToArray());
-            return newSubAsset;
-
-        }
-
         public Rect Rect { get; set; }
 
-        protected override void Awake()
-        {
-            SetupVariableInventory();
-            Target._missingVariableInventory = SetupVariableInventory;
-        }
         public virtual void OnGUI() { }
 
         protected void OnNodeRemoval(Node node)
@@ -86,7 +55,7 @@ namespace RPG.Editor.Nodes
         protected void OnConnectionRemoval(Connection connection)
         {
             if (connection == null) return;
-            foreach (ConnectionModifier connectionModifier in connection.GetModifiers())
+            foreach (Instruction connectionModifier in connection.GetModifiers())
                 if (connectionModifier != null) RemoveConnectionModifier(connectionModifier);
         }
 
@@ -108,17 +77,11 @@ namespace RPG.Editor.Nodes
             DestroyHelper.Destroy(connection);
             //Object.DestroyImmediate(connection, true);
         }
-        public void RemoveConnectionModifier(ConnectionModifier connectionModifier)
+        public void RemoveConnectionModifier(Instruction instruction)
         {
-            connectionModifier.Connection.RemoveModifier(connectionModifier);
-            DestroyHelper.Destroy(connectionModifier);
+            instruction.Connection.RemoveModifier(instruction);
+            DestroyHelper.Destroy(instruction);
             //Object.DestroyImmediate(connectionModifier, true);
-        }
-
-        private void SetupVariableInventory()
-        {
-            string name = "Local Variable Inventory";
-            Target._SetLocalVariableInventory(GetVariableInventory(Target, name, name));
         }
 
         public virtual string GetNodeMenuName(Type type)

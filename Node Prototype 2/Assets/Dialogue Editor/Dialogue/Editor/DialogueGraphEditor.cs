@@ -1,7 +1,7 @@
-﻿using RPG.Dialogue;
-using RPG.Editor.Nodes;
+﻿using WolfEditor.Dialogue;
+using WolfEditor.Editor.Nodes;
 
-namespace RPG.Dialogue.Editor
+namespace WolfEditor.Dialogue.Editor
 {
     //[CustomNodeGraphEditor(typeof(DialogueGraph))]
     //public class DialogueGraphEditor : NodeGraphEditor

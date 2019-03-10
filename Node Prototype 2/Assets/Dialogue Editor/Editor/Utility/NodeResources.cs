@@ -1,8 +1,8 @@
-﻿using RPG.Editor.Nodes;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
+using WolfEditor.Editor.Nodes;
 
-namespace RPG.Editor
+namespace WolfEditor.Editor
 {
     public static class NodeResources
     {

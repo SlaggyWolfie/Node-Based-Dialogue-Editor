@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using RPG.Base;
-using RPG.Dialogue;
-using RPG.Nodes.Base;
+using WolfEditor.Nodes.Base;
 using UnityEngine;
+using WolfEditor.Base;
+using WolfEditor.Dialogue;
 
-namespace RPG.Nodes
+namespace WolfEditor.Nodes
 {
     [Serializable]
     public sealed class Branch : BaseObject, IOutput

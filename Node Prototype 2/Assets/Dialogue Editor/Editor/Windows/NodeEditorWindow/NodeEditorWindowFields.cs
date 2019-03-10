@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Reflection;
 //using NaughtyAttributes;
-using RPG.Base;
-using RPG.Nodes;
 using UnityEditor;
 using UnityEngine;
-using RPG.Nodes.Base;
-using RPG.Other;
+using WolfEditor.Other;
+using WolfEditor.Base;
+using WolfEditor.Nodes;
+using WolfEditor.Nodes.Base;
 using Object = UnityEngine.Object;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     public sealed partial class NodeEditorWindow
     {
@@ -237,7 +237,7 @@ namespace RPG.Editor.Nodes
             int counter = 0;
             if (GetSelected<Node>().Length > 0) counter++;
             if (GetSelected<Connection>().Length > 0) counter++;
-            if (GetSelected<ConnectionModifier>().Length > 0) counter++;
+            if (GetSelected<Instruction>().Length > 0) counter++;
             return counter >= 2;
         }
 
@@ -251,13 +251,13 @@ namespace RPG.Editor.Nodes
         private Connection _hoveredConnection = null;
         //[ShowNativeProperty]
         private bool IsHoveringConnection { get { return _hoveredConnection != null; } }
-        private ConnectionModifier _hoveredConnectionModifier = null;
+        private Instruction _hoveredInstruction = null;
         //[ShowNativeProperty]
-        private bool IsHoveringConnectionModifier { get { return _hoveredConnectionModifier != null; } }
+        private bool IsHoveringConnectionModifier { get { return _hoveredInstruction != null; } }
 
         private Dictionary<Node, Vector2> _nodeSizes = null;
 
-        private List<ConnectionModifier> _culledMods = null;
+        private List<Instruction> _culledMods = null;
         //private Dictionary<ConnectionModifier, Vector2> _modifierSizes = null;
         //private Dictionary<ConnectionModifier, Vector2> _modifierSizes = new Dictionary<ConnectionModifier, Vector2>();
     }

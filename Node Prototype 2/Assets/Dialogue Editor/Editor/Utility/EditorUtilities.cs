@@ -1,7 +1,7 @@
-﻿using RPG.Editor.Nodes;
-using UnityEditor;
+﻿using UnityEditor;
+using WolfEditor.Editor.Nodes;
 
-namespace RPG.Utility.Editor
+namespace WolfEditor.Utility.Editor
 {
     public static class EditorUtilities
     {

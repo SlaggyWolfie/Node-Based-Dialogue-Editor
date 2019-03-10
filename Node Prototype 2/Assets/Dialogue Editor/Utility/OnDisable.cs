@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 
-namespace RPG.Utility
+namespace WolfEditor.Utility
 {
     public interface IOnDisable
     {

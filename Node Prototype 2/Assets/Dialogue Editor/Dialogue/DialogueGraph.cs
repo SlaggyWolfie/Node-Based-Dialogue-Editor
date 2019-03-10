@@ -1,8 +1,8 @@
 ﻿using System;
-using RPG.Nodes;
 using UnityEngine;
+using WolfEditor.Nodes;
 
-namespace RPG.Dialogue
+namespace WolfEditor.Dialogue
 {
     [Serializable, CreateAssetMenu(fileName = "New Dialogue Graph", menuName = "RPG Framework/Dialogue Graph")]
     public class DialogueGraph : NodeGraph { }

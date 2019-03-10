@@ -1,12 +1,12 @@
 ﻿using System;
-using RPG.Dialogue;
-using RPG.Nodes.Base;
-using RPG.Utility;
-using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Dialogue;
+using WolfEditor.Nodes.Base;
+using WolfEditor.Utility;
+using WolfEditor.Utility.Editor;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     public class CreateConditionEditor : WindowEditor
     {

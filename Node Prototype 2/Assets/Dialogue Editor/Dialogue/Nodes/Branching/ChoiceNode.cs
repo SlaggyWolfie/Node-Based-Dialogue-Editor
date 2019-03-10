@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RPG.Nodes;
 using UnityEngine;
+using WolfEditor.Nodes;
 
-namespace RPG.Dialogue
+namespace WolfEditor.Dialogue
 {
     [Serializable]
     public sealed class ChoiceNode : Node, IInput, IMultipleOutput

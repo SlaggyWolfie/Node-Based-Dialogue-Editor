@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace RPG
+namespace WolfEditor
 {
     public sealed class DestroyHelper
     {

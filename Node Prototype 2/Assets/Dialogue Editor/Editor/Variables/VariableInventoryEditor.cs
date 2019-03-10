@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RPG.Base;
-using RPG.Editor.Nodes;
-using RPG.Nodes.Base;
-using RPG.Utility.Editor;
+using WolfEditor.Base;
+using WolfEditor.Nodes.Base;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Editor.Nodes;
+using WolfEditor.Utility.Editor;
 
-namespace RPG.Editor.Variables
+namespace WolfEditor.Editor.Variables
 {
     public class VariableInventoryEditor : BaseEditor<VariableInventoryEditor, VariableInventory>
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using RPG.Base;
 using UnityEditor;
+using WolfEditor.Base;
 
-namespace RPG.Editor
+namespace WolfEditor.Editor
 {
     public abstract class BaseForCustomEditors<TEditor, TTarget, TAttribute>
         where TEditor : BaseForCustomEditors<TEditor, TTarget, TAttribute>

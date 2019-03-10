@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RPG.Base;
-using RPG.Dialogue;
-using RPG.Nodes.Base;
-using RPG.Other;
+using WolfEditor.Nodes.Base;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Base;
+using WolfEditor.Dialogue;
+using WolfEditor.Other;
 
-namespace RPG.Nodes
+namespace WolfEditor.Nodes
 {
     [Serializable]
     public abstract class NodeGraph : BaseScriptableObject
@@ -25,19 +25,6 @@ namespace RPG.Nodes
         {
             get { return _flow; }
             set { _flow = value; }
-        }
-
-        private VariableInventory _variableInventory = null;
-        public Action _missingVariableInventory;
-        public void _SetLocalVariableInventory(VariableInventory variableInventory)
-        {
-            _variableInventory = variableInventory;
-        }
-        public VariableInventory GetVariableInventory()
-        {
-            if (!_variableInventory && _missingVariableInventory != null) _missingVariableInventory.Invoke();
-            //if (_variableInventory == null && _missingVariableInventory != null) _missingVariableInventory.Invoke();
-            return _variableInventory;
         }
 
         [SerializeField] private List<Node> _nodes = new List<Node>();

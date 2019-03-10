@@ -1,10 +1,10 @@
 ﻿using System;
-using RPG.Nodes.Base;
-using RPG.Utility.Editor;
+using WolfEditor.Nodes.Base;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Utility.Editor;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     public class EditVariableEditor : WindowEditor
     {

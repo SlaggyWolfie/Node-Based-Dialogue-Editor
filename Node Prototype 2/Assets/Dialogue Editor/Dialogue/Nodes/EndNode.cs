@@ -1,8 +1,8 @@
 ﻿using System;
-using RPG.Nodes;
 using UnityEngine;
+using WolfEditor.Nodes;
 
-namespace RPG.Dialogue
+namespace WolfEditor.Dialogue
 {
     [Serializable]
     public sealed class EndNode : Node, IInput

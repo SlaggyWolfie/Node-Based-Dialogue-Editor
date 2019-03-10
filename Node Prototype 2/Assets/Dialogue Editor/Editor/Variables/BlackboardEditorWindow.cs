@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RPG.Editor.Nodes;
-using RPG.Nodes;
-using RPG.Nodes.Base;
-using RPG.Utility.Editor;
+using WolfEditor.Editor.Nodes;
+using WolfEditor.Nodes;
+using WolfEditor.Nodes.Base;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using WolfEditor.Utility.Editor;
 
-namespace RPG.Editor.Variables
+namespace WolfEditor.Editor.Variables
 {
     public sealed class BlackboardEditorWindow : Window
     {

@@ -1,12 +1,12 @@
 ﻿using System;
-using RPG.Editor;
-using RPG.Nodes;
-using RPG.Nodes.Base;
-using RPG.Editor.Nodes;
+using WolfEditor.Editor;
+using WolfEditor.Nodes.Base;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Editor.Nodes;
+using WolfEditor.Nodes;
 
-namespace RPG.Dialogue.Editor
+namespace WolfEditor.Dialogue.Editor
 {
     [CustomNodeEditor(typeof(ChoiceNode))]
     public sealed class ChoiceNodeEditor : NodeEditor, ISerializationCallbackReceiver

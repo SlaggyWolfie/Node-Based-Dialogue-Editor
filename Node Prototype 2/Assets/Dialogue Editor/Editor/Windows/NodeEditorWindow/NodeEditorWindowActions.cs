@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RPG.Nodes;
-using RPG.Nodes.Base;
-using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Nodes;
+using WolfEditor.Nodes.Base;
+using WolfEditor.Utility.Editor;
 using Object = UnityEngine.Object;
 //using ScrObj = RPG.Nodes.Base.BaseScriptableObject;
 using ScrObj = UnityEngine.ScriptableObject;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     public sealed partial class NodeEditorWindow
     {
@@ -109,7 +109,7 @@ namespace RPG.Editor.Nodes
         private void DrawConnectionModifiers(Vector2 position, Connection connection)
         {
             Handles.CircleHandleCap(0, position, Quaternion.identity, 5, EventType.Layout);
-            if (_isLayoutEvent) _culledMods = new List<ConnectionModifier>();
+            if (_isLayoutEvent) _culledMods = new List<Instruction>();
             Color oldColor = GUI.color;
 
 
@@ -151,7 +151,7 @@ namespace RPG.Editor.Nodes
 
             for (int i = 0; i < connection.ModifierCount; i++)
             {
-                ConnectionModifier mod = connection.GetModifier(i);
+                Instruction mod = connection.GetModifier(i);
                 if (mod == null)
                 {
                     Debug.LogWarning("Null Mod!?");
@@ -159,7 +159,7 @@ namespace RPG.Editor.Nodes
                 }
 
                 bool selected = Selection.Contains(mod);
-                ConnectionModifierEditor modEditor = ConnectionModifierEditor.GetEditor(mod);
+                InstructionEditor modEditor = InstructionEditor.GetEditor(mod);
 
                 float y = 0;
                 if (i > 0)
@@ -396,7 +396,7 @@ namespace RPG.Editor.Nodes
             //Get selected objects
             Node[] nodes = GetSelected<Node>();
             Connection[] connections = GetSelected<Connection>();
-            ConnectionModifier[] modifiers = GetSelected<ConnectionModifier>();
+            Instruction[] modifiers = GetSelected<Instruction>();
             ClearSelection();
 
             bool selectedNodes = nodes.Length != 0;
@@ -412,8 +412,8 @@ namespace RPG.Editor.Nodes
                 //TODO Might remove and/or structure later
                 if (selectedMods)
                 {
-                    List<ConnectionModifier> allConnectionModifiers = new List<ConnectionModifier>();
-                    List<ConnectionModifier> leftoverConnectionModifiers = new List<ConnectionModifier>(modifiers);
+                    List<Instruction> allConnectionModifiers = new List<Instruction>();
+                    List<Instruction> leftoverConnectionModifiers = new List<Instruction>(modifiers);
                     foreach (Connection connection in connections)
                         allConnectionModifiers.AddRange(connection.GetModifiers());
                     allConnectionModifiers = allConnectionModifiers.Distinct().ToList();
@@ -519,7 +519,7 @@ namespace RPG.Editor.Nodes
             return connection;
         }
 
-        private static T DuplicateConnectionModifier<T>(T original, Connection target) where T : ConnectionModifier
+        private static T DuplicateConnectionModifier<T>(T original, Connection target) where T : Instruction
         {
             T connectionModifier = ScriptableObject.Instantiate(original);
             connectionModifier.name = original.name;
@@ -527,22 +527,22 @@ namespace RPG.Editor.Nodes
             AssetDatabase.AddObjectToAsset(connectionModifier, target);
             return connectionModifier;
         }
-        private static ConnectionModifier DuplicateConnectionModifier(ConnectionModifier original, Connection target)
+        private static Instruction DuplicateConnectionModifier(Instruction original, Connection target)
         {
-            ConnectionModifier connectionModifier = ScriptableObject.Instantiate(original);
-            connectionModifier.name = original.name;
-            target.InitConnectionModifier(connectionModifier);
-            AssetDatabase.AddObjectToAsset(connectionModifier, target);
-            return connectionModifier;
+            Instruction instruction = ScriptableObject.Instantiate(original);
+            instruction.name = original.name;
+            target.InitConnectionModifier(instruction);
+            AssetDatabase.AddObjectToAsset(instruction, target);
+            return instruction;
         }
-        private static IEnumerable<ConnectionModifier> DuplicateConnectionModifiers(
-            IEnumerable<ConnectionModifier> originalConnectionModifiers, Connection target = null)
+        private static IEnumerable<Instruction> DuplicateConnectionModifiers(
+            IEnumerable<Instruction> originalConnectionModifiers, Connection target = null)
         {
-            List<ConnectionModifier> duplicates = new List<ConnectionModifier>();
-            foreach (ConnectionModifier original in originalConnectionModifiers)
+            List<Instruction> duplicates = new List<Instruction>();
+            foreach (Instruction original in originalConnectionModifiers)
             {
                 Connection localTarget = target ?? original.Connection;
-                ConnectionModifier mod = DuplicateConnectionModifier(original, localTarget);
+                Instruction mod = DuplicateConnectionModifier(original, localTarget);
                 duplicates.Add(mod);
             }
 
@@ -555,11 +555,11 @@ namespace RPG.Editor.Nodes
         {
             Node[] nodes = GetSelected<Node>();
             Connection[] connections = GetSelected<Connection>();
-            ConnectionModifier[] modifiers = GetSelected<ConnectionModifier>();
+            Instruction[] modifiers = GetSelected<Instruction>();
 
             ClearSelection();
 
-            foreach (ConnectionModifier connectionModifier in modifiers)
+            foreach (Instruction connectionModifier in modifiers)
                 GraphEditor.RemoveConnectionModifier(connectionModifier);
             foreach (Connection connection in connections)
                 GraphEditor.RemoveConnection(connection);
@@ -621,15 +621,15 @@ namespace RPG.Editor.Nodes
 
         #region Modifiers
         private void AddConnectionModifierToConnection<T>(Connection connection)
-            where T : ConnectionModifier
+            where T : Instruction
         {
             AddConnectionModifierToConnection(connection, typeof(T));
         }
         private void AddConnectionModifierToConnection(Connection connection, Type type)
         {
-            if (!ReflectionUtilities.IsOfType(type, typeof(ConnectionModifier))) return;
+            if (!ReflectionUtilities.IsOfType(type, typeof(Instruction))) return;
 
-            ConnectionModifier mod = connection.CreateAndAddModifier(type);
+            Instruction mod = connection.CreateAndAddModifier(type);
             mod.name = ObjectNames.NicifyVariableName(type.Name).Replace(" Modifier", "");
 
             AssetDatabase.AddObjectToAsset(mod, connection);
@@ -639,7 +639,7 @@ namespace RPG.Editor.Nodes
 
         private void RemoveSelectedConnectionModifiers()
         {
-            foreach (ConnectionModifier connectionModifier in GetSelected<ConnectionModifier>())
+            foreach (Instruction connectionModifier in GetSelected<Instruction>())
                 connectionModifier.Connection.RemoveModifier(connectionModifier);
         }
         #endregion

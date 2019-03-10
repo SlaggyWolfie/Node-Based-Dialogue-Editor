@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RPG.Editor
+namespace WolfEditor.Editor
 {
     public abstract class WindowEditor
     {

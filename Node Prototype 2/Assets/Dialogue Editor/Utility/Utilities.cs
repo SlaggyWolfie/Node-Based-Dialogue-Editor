@@ -1,17 +1,17 @@
 ﻿using System;
-using RPG.Nodes.Base;
+using WolfEditor.Nodes.Base;
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Utility
+namespace WolfEditor.Utility
 {
     public interface ICondition
     {
-        int ValueCount { get; }
-        Value GetValue(int index);
-        void AddValue(Value value);
-        bool RemoveValue(Value value);
-        void RemoveValue(int index);
+        //int ValueCount { get; }
+        //Value GetValue(int index);
+        //void AddValue(Value value);
+        //bool RemoveValue(Value value);
+        //void RemoveValue(int index);
 
         int ConditionCount { get; }
         Condition GetCondition(int index);

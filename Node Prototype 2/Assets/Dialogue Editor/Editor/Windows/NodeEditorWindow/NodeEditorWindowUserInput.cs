@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using RPG.Nodes;
-using RPG.Nodes.Base;
-using RPG.Utility;
-using RPG.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Nodes;
+using WolfEditor.Nodes.Base;
+using WolfEditor.Utility;
+using WolfEditor.Utility.Editor;
 using Object = UnityEngine.Object;
-using ScrObject = RPG.Base.BaseScriptableObject;
+using ScrObject = WolfEditor.Base.BaseScriptableObject;
 //using ScrObj = UnityEngine.Ba;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     public sealed partial class NodeEditorWindow
     {
@@ -185,11 +185,11 @@ namespace RPG.Editor.Nodes
             {
                 bool controlOrShift = _cachedEvent.control || _cachedEvent.shift;
 
-                if (IsHoveringConnectionModifier && IsHoveringTitle(_hoveredConnectionModifier))
+                if (IsHoveringConnectionModifier && IsHoveringTitle(_hoveredInstruction))
                 {
-                    if (!Selection.Contains(_hoveredConnectionModifier))
-                        Select(_hoveredConnectionModifier, controlOrShift);
-                    else if (controlOrShift) Deselect(_hoveredConnectionModifier);
+                    if (!Selection.Contains(_hoveredInstruction))
+                        Select(_hoveredInstruction, controlOrShift);
+                    else if (controlOrShift) Deselect(_hoveredInstruction);
 
                     _cachedEvent.Use();
                     _currentActivity = Activity.Holding;
@@ -270,7 +270,7 @@ namespace RPG.Editor.Nodes
                 if (IsHoveringNode)
                     Select(_hoveredNode, false);
                 else if (IsHoveringConnectionModifier)
-                    Select(_hoveredConnectionModifier, false);
+                    Select(_hoveredInstruction, false);
             }
 
             Repaint();
@@ -293,9 +293,9 @@ namespace RPG.Editor.Nodes
             {
                 ShowDifferentObjectsContextMenu();
             }
-            else if (IsHoveringConnectionModifier && IsHoveringTitle(_hoveredConnectionModifier))
+            else if (IsHoveringConnectionModifier && IsHoveringTitle(_hoveredInstruction))
             {
-                if (!Selection.Contains(_hoveredConnectionModifier)) Select(_hoveredConnectionModifier, false);
+                if (!Selection.Contains(_hoveredInstruction)) Select(_hoveredInstruction, false);
                 ShowConnectionModifierContextMenu();
             }
             else if (IsHoveringConnection)
@@ -400,7 +400,7 @@ namespace RPG.Editor.Nodes
             return titleRect.Contains(mousePosition);
         }
 
-        private bool IsHoveringTitle(ConnectionModifier mod)
+        private bool IsHoveringTitle(Instruction mod)
         {
             Vector2 mousePosition = _mousePosition;
             Connection connection = mod.Connection;
@@ -510,9 +510,9 @@ namespace RPG.Editor.Nodes
 
                 for (int j = 0; j < connection.ModifierCount; j++)
                 {
-                    ConnectionModifier mod = connection.GetModifier(j);
+                    Instruction mod = connection.GetModifier(j);
                     Rect rect = GridToWindowRect(modifierRects[j]);
-                    if (rect.Contains(mousePosition)) _hoveredConnectionModifier = mod;
+                    if (rect.Contains(mousePosition)) _hoveredInstruction = mod;
                     if (isDraggingGrid && rect.Overlaps(selectionRect)) boxSelected.Add(mod);
                 }
             }
@@ -531,7 +531,7 @@ namespace RPG.Editor.Nodes
             if (_isLayoutEvent) return;
             _hoveredNode = null;
             _hoveredConnection = null;
-            _hoveredConnectionModifier = null;
+            _hoveredInstruction = null;
             HoveredPort = null;
         }
 

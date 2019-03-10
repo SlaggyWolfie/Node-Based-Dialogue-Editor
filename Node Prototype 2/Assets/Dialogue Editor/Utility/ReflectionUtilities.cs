@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace RPG.Editor
+namespace WolfEditor.Editor
 {
     public static class ReflectionUtilities
     {

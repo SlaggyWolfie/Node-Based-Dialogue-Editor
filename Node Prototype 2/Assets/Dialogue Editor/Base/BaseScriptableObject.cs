@@ -1,7 +1,7 @@
 ﻿//using NaughtyAttributes;
 using UnityEngine;
 
-namespace RPG.Base
+namespace WolfEditor.Base
 {
     [System.Serializable]
     public class BaseScriptableObject : ScriptableObject

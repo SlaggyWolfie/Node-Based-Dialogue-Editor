@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace RPG.Utility
+namespace WolfEditor.Utility
 {
     public static partial class Extensions
     {

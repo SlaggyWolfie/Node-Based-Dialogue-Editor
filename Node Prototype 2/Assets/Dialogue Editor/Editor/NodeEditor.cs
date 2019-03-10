@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using RPG.Nodes;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Nodes;
 
-namespace RPG.Editor.Nodes
+namespace WolfEditor.Editor.Nodes
 {
     [CustomNodeEditor(typeof(Node))]
     public class NodeEditor : BaseForCustomEditors<NodeEditor, Node, CustomNodeEditorAttribute>

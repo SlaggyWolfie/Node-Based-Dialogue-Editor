@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using RPG.Dialogue;
-using RPG.Nodes;
+using WolfEditor.Dialogue;
+using WolfEditor.Nodes;
 using UnityEngine;
 
 public class DialogueLogger : MonoBehaviour
