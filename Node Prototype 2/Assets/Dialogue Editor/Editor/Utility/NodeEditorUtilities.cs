@@ -3,7 +3,7 @@ using WolfEditor.Editor.Nodes;
 
 namespace WolfEditor.Utility.Editor
 {
-    public static class EditorUtilities
+    public static class NodeEditorUtilities
     {
         public static void AutoSaveAssets()
         {

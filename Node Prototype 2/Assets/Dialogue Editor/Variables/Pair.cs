@@ -9,6 +9,9 @@ namespace WolfEditor.Variables
     [Serializable]
     public abstract class Pair
     {
+        public abstract Variable GetGenericVariable();
+        public abstract Reference GetGenericReference();
+
         public abstract bool VariableExists();
         public abstract bool ReferenceExists();
     }
@@ -21,8 +24,11 @@ namespace WolfEditor.Variables
         public TVariable variable;
         public TReference reference;
 
-        public override bool ReferenceExists() { return variable != null; }
-        public override bool VariableExists() { return reference != null; }
+        public sealed override Variable GetGenericVariable() { return variable; }
+        public sealed override Reference GetGenericReference() { return reference; }
+
+        public sealed override bool ReferenceExists() { return variable != null; }
+        public sealed override bool VariableExists() { return reference != null; }
     }
 
     [Serializable] public sealed class FloatPair : Pair<FloatVariable, FloatReference> { }

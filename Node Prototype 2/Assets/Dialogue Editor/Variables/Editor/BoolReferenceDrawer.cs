@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace WolfEditor.Variables.Editor
 {
-    [CustomPropertyDrawer(typeof(BoolReference), true)]
-    //[CustomPropertyDrawer(typeof(FloatVariableReference))]
-    public class BoolReferenceDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(BoolReference))]
+    public sealed class BoolReferenceDrawer : PropertyDrawer
     {
         /// <summary>
         /// Options to display in the popup to select constant or variable.

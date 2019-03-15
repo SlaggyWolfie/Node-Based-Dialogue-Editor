@@ -2,6 +2,7 @@
 using WolfEditor.Nodes.Base;
 using UnityEditor;
 using UnityEngine;
+using WolfEditor.Variables;
 
 namespace WolfEditor.Utility
 {

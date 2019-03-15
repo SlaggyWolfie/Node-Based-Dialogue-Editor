@@ -50,23 +50,23 @@ namespace WolfEditor.Editor.Variables
             CurrentBlackboardEditorWindow = null;
         }
 
-        private VariableInventoryEditor LVIEditor
-        {
-            get
-            {
-                if (_localVariableInventoryEditor != null) return _localVariableInventoryEditor;
+        //private VariableInventoryEditor LVIEditor
+        //{
+        //    get
+        //    {
+        //        if (_localVariableInventoryEditor != null) return _localVariableInventoryEditor;
 
-                if (Blackboard.CurrentLocalVariableInventory == null) return null;
-                _localVariableInventoryEditor = VariableInventoryEditor.GetEditor(Blackboard.CurrentLocalVariableInventory);
-                return _localVariableInventoryEditor;
-            }
-        }
+        //        if (Blackboard.CurrentLocalVariableInventory == null) return null;
+        //        _localVariableInventoryEditor = VariableInventoryEditor.GetEditor(Blackboard.CurrentLocalVariableInventory);
+        //        return _localVariableInventoryEditor;
+        //    }
+        //}
 
         protected override void OnFocus()
         {
             base.OnFocus();
             CurrentBlackboardEditorWindow = this;
-            if (Blackboard != null) EditorUtilities.AutoSaveAssets();
+            if (Blackboard != null) NodeEditorUtilities.AutoSaveAssets();
         }
 
         public override void OnGUI()

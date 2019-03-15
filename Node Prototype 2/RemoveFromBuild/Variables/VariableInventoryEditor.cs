@@ -103,7 +103,7 @@ namespace WolfEditor.Editor.Variables
                     Undo.RecordObject(Target, string.Format("Remove Variable {2} from {0} {1}", Target.name, Target.GetHashCode(), var.name));
                     Target.RemoveVariable(var);
                     UnityEngine.Object.DestroyImmediate(var, true);
-                    EditorUtilities.AutoSaveAssets();
+                    NodeEditorUtilities.AutoSaveAssets();
                 }
                 //EditorUtility.SetDirty(ConditionNode);
             }

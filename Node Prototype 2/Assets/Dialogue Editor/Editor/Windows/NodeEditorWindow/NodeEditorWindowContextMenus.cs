@@ -90,7 +90,7 @@ namespace WolfEditor.Editor.Nodes
 
             AddCustomContextMenuItems(contextMenu, port);
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
         }
 
         private void ShowConnectionContextMenu()
@@ -159,7 +159,7 @@ namespace WolfEditor.Editor.Nodes
             if (oneNodeSelected)AddCustomContextMenuItems(contextMenu, node);
 
             contextMenu.DropDown(new Rect(_mousePosition, Vector2.zero));
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
         }
 
         private void ShowGraphContextMenu()

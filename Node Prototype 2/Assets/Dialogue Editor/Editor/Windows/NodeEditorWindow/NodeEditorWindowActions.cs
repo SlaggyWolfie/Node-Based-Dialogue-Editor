@@ -426,7 +426,7 @@ namespace WolfEditor.Editor.Nodes
 
             if (selectedMods) Select(DuplicateConnectionModifiers(modifiers).Cast<Object>(), true);
 
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
             Repaint();
         }
 
@@ -459,7 +459,7 @@ namespace WolfEditor.Editor.Nodes
                 duplicates.Add(duplicate);
             }
 
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
             return duplicates;
             //Repaint();
         }
@@ -503,7 +503,7 @@ namespace WolfEditor.Editor.Nodes
                 duplicatedConnections.Add(connection);
             }
 
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
             return duplicatedNodes.Cast<ScrObj>().Concat(duplicatedConnections.Cast<ScrObj>());
         }
 
@@ -546,7 +546,7 @@ namespace WolfEditor.Editor.Nodes
                 duplicates.Add(mod);
             }
 
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
             return duplicates;
             //Repaint();
         }
@@ -583,7 +583,7 @@ namespace WolfEditor.Editor.Nodes
             node.name = ObjectNames.NicifyVariableName(type.Name);
 
             AssetDatabase.AddObjectToAsset(node, Graph);
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
             Repaint();
         }
 
@@ -608,7 +608,7 @@ namespace WolfEditor.Editor.Nodes
             Connection connection = Graph.CreateAndAddConnection();
             //connection.name = "Connection";
             AssetDatabase.AddObjectToAsset(connection, Graph);
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
             Repaint();
 
             return connection;
@@ -633,7 +633,7 @@ namespace WolfEditor.Editor.Nodes
             mod.name = ObjectNames.NicifyVariableName(type.Name).Replace(" Modifier", "");
 
             AssetDatabase.AddObjectToAsset(mod, connection);
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
             Repaint();
         }
 

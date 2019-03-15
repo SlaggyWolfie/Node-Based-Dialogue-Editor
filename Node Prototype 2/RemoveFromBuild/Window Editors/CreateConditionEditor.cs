@@ -285,7 +285,7 @@ namespace WolfEditor.Editor.Nodes
             ConditionTarget.AddValue(value);
 
             AssetDatabase.AddObjectToAsset(value, SerializationTarget);
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
 
             return value;
             //Repaint();

@@ -5,7 +5,7 @@ namespace WolfEditor.Variables.Editor
 {
     [CustomPropertyDrawer(typeof(Reference), true)]
     //[CustomPropertyDrawer(typeof(FloatVariableReference))]
-    public class ReferenceDrawer : PropertyDrawer
+    public sealed class ReferenceDrawer : PropertyDrawer
     {
         /// <summary>
         /// Options to display in the popup to select constant or variable.

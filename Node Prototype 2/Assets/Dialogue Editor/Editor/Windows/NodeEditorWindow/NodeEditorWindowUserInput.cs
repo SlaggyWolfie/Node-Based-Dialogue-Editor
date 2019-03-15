@@ -244,25 +244,25 @@ namespace WolfEditor.Editor.Nodes
                 DraggedOutput = null;
                 DraggedOutputTarget = null;
                 EditorUtility.SetDirty(Graph);
-                EditorUtilities.AutoSaveAssets();
+                NodeEditorUtilities.AutoSaveAssets();
             }
             else if (_currentActivity == Activity.Dragging)
             {
                 Node[] nodes = GetSelected<Node>();
                 foreach (Node node in nodes) EditorUtility.SetDirty(node);
-                EditorUtilities.AutoSaveAssets();
+                NodeEditorUtilities.AutoSaveAssets();
             }
             else if (!IsHoveringConnectionModifier)
             {
                 //If clicking outside the Con. Mod, release the field focus
                 if (!IsPanning) EditorGUI.FocusTextInControl(null);
-                EditorUtilities.AutoSaveAssets();
+                NodeEditorUtilities.AutoSaveAssets();
             }
             else if (!IsHoveringNode)
             {
                 //If clicking outside the node, release the field focus
                 if (!IsPanning) EditorGUI.FocusTextInControl(null);
-                EditorUtilities.AutoSaveAssets();
+                NodeEditorUtilities.AutoSaveAssets();
             }
 
             if (_currentActivity == Activity.Holding && !(_cachedEvent.control || _cachedEvent.shift))

@@ -7,7 +7,7 @@ using WolfEditor.Nodes.Base;
 namespace WolfEditor.Variables
 {
     [Serializable]
-    public sealed class EditVariableModifier : Instruction//, ICopyable<EventModifier>
+    public sealed class EditVariableInstruction : Instruction//, ICopyable<EventModifier>
     {
         public enum Type { Bool, Float, Int, String }
 

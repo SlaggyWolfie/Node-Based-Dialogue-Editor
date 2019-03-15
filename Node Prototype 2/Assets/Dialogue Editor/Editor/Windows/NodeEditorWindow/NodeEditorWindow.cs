@@ -52,8 +52,8 @@ namespace WolfEditor.Editor.Nodes
 
             if (_graph == null) return;
             _graphEditor = NodeGraphEditor.GetEditor(_graph);
-            Blackboard.Instance.CurrentLocalVariableInventory = _graph.GetVariableInventory();
-            if (_graphEditor != null) EditorUtilities.AutoSaveAssets();
+            //Blackboard.Instance.CurrentLocalVariableInventory = _graph.GetVariableInventory();
+            if (_graphEditor != null) NodeEditorUtilities.AutoSaveAssets();
         }
 
         private void OnDisable()
@@ -74,8 +74,7 @@ namespace WolfEditor.Editor.Nodes
                 && Event.current.control) Select(this, false);
 
             PreCache();
-            Blackboard.Instance.CurrentLocalVariableInventory = 
-                _graph.GetVariableInventory();
+            //Blackboard.Instance.CurrentLocalVariableInventory = _graph.GetVariableInventory();
             GraphEditor = NodeGraphEditor.GetEditor(_graph);
             GraphEditor.Rect = position;
 
@@ -147,7 +146,7 @@ namespace WolfEditor.Editor.Nodes
             if (AssetDatabase.Contains(_graph))
             {
                 EditorUtility.SetDirty(_graph);
-                EditorUtilities.AutoSaveAssets();
+                NodeEditorUtilities.AutoSaveAssets();
             }
             else SaveAs();
         }
@@ -161,7 +160,7 @@ namespace WolfEditor.Editor.Nodes
             if (existingGraph != null) AssetDatabase.DeleteAsset(path);
             AssetDatabase.CreateAsset(_graph, path);
             EditorUtility.SetDirty(_graph);
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
         }
     }
 }

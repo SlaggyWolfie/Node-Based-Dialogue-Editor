@@ -211,7 +211,7 @@ namespace WolfEditor.Editor.Nodes
             AssignValue(_variable);
 
             //AssetDatabase.AddObjectToAsset(variable, _variableInventory);
-            EditorUtilities.AutoSaveAssets();
+            NodeEditorUtilities.AutoSaveAssets();
             //Repaint();
         }
 
