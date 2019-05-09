@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using WolfEditor.Nodes.Base;
 using UnityEngine;
 using WolfEditor.Base;
 using WolfEditor.Dialogue;
+using WolfEditor.Variables;
 
 namespace WolfEditor.Nodes
 {
@@ -40,8 +40,8 @@ namespace WolfEditor.Nodes
             get
             {
                 return _outputPort.IsConnected &&
-                       _outputPort.Connection.GetModifiers().OfType<ConditionModifier>()
-                           .All(conditionModifier => conditionModifier.Evaluate());
+                       _outputPort.Connection.GetInstructions().OfType<ConditionInstruction>()
+                           .All(instruction => instruction.Evaluate());
             }
         }
 

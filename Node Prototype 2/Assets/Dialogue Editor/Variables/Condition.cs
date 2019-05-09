@@ -12,7 +12,7 @@ namespace WolfEditor.Variables
         public enum Type { Bool, Float, Int, String }
 
         [SerializeField] private Type _type = Type.Bool;
-        [SerializeField] private Comparison _comparison = Comparison.IsEqual;
+        [SerializeField] private Comparison _comparison = Comparison.Equal;
 
         [SerializeField/*, HideInInspector*/] private FloatPair _floatPair = null;
         [SerializeField/*, HideInInspector*/] private IntPair _intPair = null;

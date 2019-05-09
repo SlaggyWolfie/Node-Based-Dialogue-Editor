@@ -28,10 +28,7 @@ namespace WolfEditor.Nodes
             set { _graph = value; }
         }
 
-        public void Init()
-        {
-            PortSetup();
-        }
+        public void Init() { PortSetup(); }
 
         public void OnEnable()
         {

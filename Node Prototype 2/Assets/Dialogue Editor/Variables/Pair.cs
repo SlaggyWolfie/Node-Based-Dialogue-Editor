@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using WolfEditor.Base;
 
 namespace WolfEditor.Variables
 {

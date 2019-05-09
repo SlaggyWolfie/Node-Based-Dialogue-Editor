@@ -508,9 +508,9 @@ namespace WolfEditor.Editor.Nodes
                 Rect[] modifierRects;
                 if (!_connectionModifierRects.TryGetValue(connection, out modifierRects)) continue;
 
-                for (int j = 0; j < connection.ModifierCount; j++)
+                for (int j = 0; j < connection.InstructionCount; j++)
                 {
-                    Instruction mod = connection.GetModifier(j);
+                    Instruction mod = connection.GetInstruction(j);
                     Rect rect = GridToWindowRect(modifierRects[j]);
                     if (rect.Contains(mousePosition)) _hoveredInstruction = mod;
                     if (isDraggingGrid && rect.Overlaps(selectionRect)) boxSelected.Add(mod);

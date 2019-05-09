@@ -55,7 +55,7 @@ namespace WolfEditor.Editor.Nodes
         protected void OnConnectionRemoval(Connection connection)
         {
             if (connection == null) return;
-            foreach (Instruction connectionModifier in connection.GetModifiers())
+            foreach (Instruction connectionModifier in connection.GetInstructions())
                 if (connectionModifier != null) RemoveConnectionModifier(connectionModifier);
         }
 
@@ -79,7 +79,7 @@ namespace WolfEditor.Editor.Nodes
         }
         public void RemoveConnectionModifier(Instruction instruction)
         {
-            instruction.Connection.RemoveModifier(instruction);
+            instruction.Connection.RemoveInstruction(instruction);
             DestroyHelper.Destroy(instruction);
             //Object.DestroyImmediate(connectionModifier, true);
         }

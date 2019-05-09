@@ -17,7 +17,7 @@ namespace WolfEditor.Variables
         public enum Operation { Set, Add, Subtract, Multiply, Divide }
         public abstract IEnumerable<Operation> GetPermittedOperations();
 
-        public enum Comparison { IsEqual, IsNotEqual, GreaterThan, LesserThan, GreaterThanOrEqual, LesserThanOrEqual };
+        public enum Comparison { Equal, NotEqual, GreaterThan, LesserThan, GreaterThanOrEqual, LesserThanOrEqual };
         public abstract IEnumerable<Comparison> GetPermittedComparisons();
     }
 

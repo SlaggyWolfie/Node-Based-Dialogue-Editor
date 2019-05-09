@@ -100,8 +100,8 @@ namespace WolfEditor.Editor
                 default: throw new ArgumentOutOfRangeException();
             }
 
-            _varProperty = selectedPairProperty.FindPropertyRelative("Var");
-            _varRefProperty = selectedPairProperty.FindPropertyRelative("Ref");
+            _varProperty = selectedPairProperty.FindPropertyRelative("variable");
+            _varRefProperty = selectedPairProperty.FindPropertyRelative("reference");
 
             _internalType = EditVariableInstruction.VariableType;
             _selectedIndex = 0;

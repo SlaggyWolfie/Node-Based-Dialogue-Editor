@@ -1,7 +1,4 @@
-﻿using System;
-using WolfEditor.Editor;
-using WolfEditor.Nodes.Base;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using WolfEditor.Editor.Nodes;
 using WolfEditor.Nodes;
@@ -9,7 +6,7 @@ using WolfEditor.Nodes;
 namespace WolfEditor.Dialogue.Editor
 {
     [CustomNodeEditor(typeof(ChoiceNode))]
-    public sealed class ChoiceNodeEditor : NodeEditor, ISerializationCallbackReceiver
+    public sealed class ChoiceNodeEditor : NodeEditor
     {
         private Vector2 _scroll;
         //private Rect _cachedRect = Rect.zero;
@@ -71,16 +68,6 @@ namespace WolfEditor.Dialogue.Editor
                 DrawAndCachePort(branch.OutputPort, portRect);
                 //EditorGUILayout.EndHorizontal();
             }
-        }
-
-        public void OnBeforeSerialize()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public void OnAfterDeserialize()
-        {
-            //throw new NotImplementedException();
         }
     }
 }

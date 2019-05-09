@@ -17,7 +17,7 @@ namespace WolfEditor.Variables
 
         public static readonly Comparison[] permittedComparisons =
         {
-            Comparison.IsEqual, Comparison.IsNotEqual,
+            Comparison.Equal, Comparison.NotEqual,
             Comparison.GreaterThan, Comparison.LesserThan,
             Comparison.GreaterThanOrEqual, Comparison.LesserThanOrEqual
         };
@@ -40,8 +40,8 @@ namespace WolfEditor.Variables
         {
             switch (comparison)
             {
-                case Comparison.IsEqual: return IsEqualWithError(CurrentValue, other, float.Epsilon);
-                case Comparison.IsNotEqual: return IsNotEqualWithError(CurrentValue, other, float.Epsilon);
+                case Comparison.Equal: return IsEqualWithError(CurrentValue, other, float.Epsilon);
+                case Comparison.NotEqual: return IsNotEqualWithError(CurrentValue, other, float.Epsilon);
                 case Comparison.GreaterThan:return IsNotEqualWithError(CurrentValue, other, float.Epsilon) && this > other;
                 case Comparison.LesserThan: return IsNotEqualWithError(CurrentValue, other, float.Epsilon) && this < other;
                 case Comparison.GreaterThanOrEqual: return IsEqualWithError(CurrentValue, other, float.Epsilon) && this > other;

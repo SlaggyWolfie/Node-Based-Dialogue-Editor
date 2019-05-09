@@ -10,7 +10,7 @@ namespace WolfEditor.Variables
         public static readonly Operation[] permittedOperations = { Operation.Set };
         public override IEnumerable<Operation> GetPermittedOperations() { return permittedOperations; }
 
-        public static readonly Comparison[] permittedComparisons = { Comparison.IsEqual, Comparison.IsNotEqual };
+        public static readonly Comparison[] permittedComparisons = { Comparison.Equal, Comparison.NotEqual };
         public override IEnumerable<Comparison> GetPermittedComparisons() { return permittedComparisons; }
 
         public override void Execute(Operation operation, bool other)
@@ -26,8 +26,8 @@ namespace WolfEditor.Variables
         {
             switch (comparison)
             {
-                case Comparison.IsEqual: return CurrentValue == other;
-                case Comparison.IsNotEqual: return CurrentValue != other;
+                case Comparison.Equal: return CurrentValue == other;
+                case Comparison.NotEqual: return CurrentValue != other;
                 default: throw new ArgumentOutOfRangeException("comparison", comparison, "Invalid Variable Comparison.");
             }
         }

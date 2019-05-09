@@ -117,20 +117,20 @@ namespace WolfEditor.Editor.Nodes
             bool found = _connectionModifierRects.TryGetValue(connection, out modRects);
             if (!found)
             {
-                modRects = new Rect[connection.ModifierCount];
+                modRects = new Rect[connection.InstructionCount];
                 _connectionModifierRects[connection] = modRects;
             }
-            else if (modRects.Length < connection.ModifierCount)
+            else if (modRects.Length < connection.InstructionCount)
             {
-                Rect[] newRects = new Rect[connection.ModifierCount];
+                Rect[] newRects = new Rect[connection.InstructionCount];
                 modRects.CopyTo(newRects, 0);
                 modRects = newRects;
                 _connectionModifierRects[connection] = modRects;
             }
-            else if (modRects.Length > connection.ModifierCount)
+            else if (modRects.Length > connection.InstructionCount)
             {
-                Rect[] newRects = new Rect[connection.ModifierCount];
-                Array.Copy(modRects, newRects, connection.ModifierCount);
+                Rect[] newRects = new Rect[connection.InstructionCount];
+                Array.Copy(modRects, newRects, connection.InstructionCount);
                 modRects = newRects;
                 _connectionModifierRects[connection] = modRects;
             }
@@ -149,9 +149,9 @@ namespace WolfEditor.Editor.Nodes
 
             Vector2 startPosition = position - rectBoxMaxSize / 2;
 
-            for (int i = 0; i < connection.ModifierCount; i++)
+            for (int i = 0; i < connection.InstructionCount; i++)
             {
-                Instruction mod = connection.GetModifier(i);
+                Instruction mod = connection.GetInstruction(i);
                 if (mod == null)
                 {
                     Debug.LogWarning("Null Mod!?");
@@ -415,7 +415,7 @@ namespace WolfEditor.Editor.Nodes
                     List<Instruction> allConnectionModifiers = new List<Instruction>();
                     List<Instruction> leftoverConnectionModifiers = new List<Instruction>(modifiers);
                     foreach (Connection connection in connections)
-                        allConnectionModifiers.AddRange(connection.GetModifiers());
+                        allConnectionModifiers.AddRange(connection.GetInstructions());
                     allConnectionModifiers = allConnectionModifiers.Distinct().ToList();
                     leftoverConnectionModifiers.RemoveAll(allConnectionModifiers.Contains);
                     modifiers = leftoverConnectionModifiers.ToArray();
@@ -512,10 +512,10 @@ namespace WolfEditor.Editor.Nodes
             Connection connection = ScriptableObject.Instantiate(original);
             original.OnAfterDeserialize();
             connection.Disconnect();
-            connection.ClearModifiers();
+            connection.ClearInstructions();
             target.InitConnection(connection);
             AssetDatabase.AddObjectToAsset(connection, target);
-            DuplicateConnectionModifiers(original.GetModifiers(), connection);
+            DuplicateConnectionModifiers(original.GetInstructions(), connection);
             return connection;
         }
 
@@ -523,7 +523,7 @@ namespace WolfEditor.Editor.Nodes
         {
             T connectionModifier = ScriptableObject.Instantiate(original);
             connectionModifier.name = original.name;
-            target.InitConnectionModifier(connectionModifier);
+            target.InitInstruction(connectionModifier);
             AssetDatabase.AddObjectToAsset(connectionModifier, target);
             return connectionModifier;
         }
@@ -531,7 +531,7 @@ namespace WolfEditor.Editor.Nodes
         {
             Instruction instruction = ScriptableObject.Instantiate(original);
             instruction.name = original.name;
-            target.InitConnectionModifier(instruction);
+            target.InitInstruction(instruction);
             AssetDatabase.AddObjectToAsset(instruction, target);
             return instruction;
         }
@@ -640,7 +640,7 @@ namespace WolfEditor.Editor.Nodes
         private void RemoveSelectedConnectionModifiers()
         {
             foreach (Instruction connectionModifier in GetSelected<Instruction>())
-                connectionModifier.Connection.RemoveModifier(connectionModifier);
+                connectionModifier.Connection.RemoveInstruction(connectionModifier);
         }
         #endregion
         #endregion

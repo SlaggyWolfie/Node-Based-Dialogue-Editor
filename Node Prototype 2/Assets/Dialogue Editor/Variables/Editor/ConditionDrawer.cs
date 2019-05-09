@@ -1,91 +1,143 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using WolfEditor.Nodes.Base;
 using WolfEditor.Utility.Editor;
-using WolfEditor.Variables;
 
-[CustomPropertyDrawer(typeof(Condition))]
-public sealed class ConditionDrawer : PropertyDrawer
+namespace WolfEditor.Variables.Editor
 {
-    //private Object _cachedObject = null;
-
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    [CustomPropertyDrawer(typeof(Condition))]
+    public sealed class ConditionDrawer : PropertyDrawer
     {
-        label = EditorGUI.BeginProperty(position, label, property);
-        position = EditorGUI.PrefixLabel(position, label);
+        private bool _initialized = false;
+        private SerializedProperty _typeProperty;
+        private SerializedProperty _comparisonProperty;
+        private SerializedProperty _intPair;
+        private SerializedProperty _floatPair;
+        private SerializedProperty _stringPair;
+        private SerializedProperty _boolPair;
 
-        //Get properties
-        SerializedProperty typeProperty = property.FindPropertyRelative("_type");
-        SerializedProperty comparisonProperty = property.FindPropertyRelative("_comparison");
+        private GUIContent[] _options = null;
+        private PairPropertyHolder _pairPropertyHolder = null;
 
-        Debug.Assert(typeProperty != null);
-        Debug.Assert(comparisonProperty != null);
+        private Dictionary<Variable.Comparison, string> _dictionary = new Dictionary<Variable.Comparison, string>()
+    {
+        {Variable.Comparison.Equal, "Equal" },
+        {Variable.Comparison.NotEqual, "Not Equal" },
+        {Variable.Comparison.GreaterThan, "Greater Than" },
+        {Variable.Comparison.LesserThan, "Lesser Than" },
+        {Variable.Comparison.GreaterThanOrEqual, "Greater Than or Equal" },
+        {Variable.Comparison.LesserThanOrEqual, "Lesser Than or Equal" }
+    };
 
-        SerializedProperty intPair = property.FindPropertyRelative("_intPair");
-        SerializedProperty floatPair = property.FindPropertyRelative("_floatPair");
-        SerializedProperty stringPair = property.FindPropertyRelative("_stringPair");
-        SerializedProperty boolPair = property.FindPropertyRelative("_boolPair");
-
-        Debug.Assert(intPair != null);
-        Debug.Assert(floatPair != null);
-        Debug.Assert(stringPair != null);
-        Debug.Assert(boolPair != null);
-
-        //Calculate positions
-        float distance = EditorGUIUtility.standardVerticalSpacing;
-        Rect typeRect, varRect, operationRect, otherRect;
-        typeRect = varRect = operationRect = otherRect = position;
-
-        // |type| <-distance-> |var| <-distance-> |op| <-distance-> |otherVar|
-        typeRect.width = position.width * 2 / 9;
-        varRect.xMin = typeRect.xMax + distance;
-        varRect.width = typeRect.width;
-        operationRect.xMin = varRect.xMax + distance;
-        operationRect.width = varRect.width;
-        otherRect.xMin = operationRect.xMax + distance;
-        otherRect.width = position.width * 1 / 3;
-
-        EditorGUI.BeginChangeCheck();
-
-        //Store old indent level and set it to 0, the PrefixLabel takes care of it
-        int indent = EditorGUI.indentLevel;
-        EditorGUI.indentLevel = 0;
-
-        //_cachedObject = EditorGUI.ObjectField(varRect, _cachedObject, typeof(Variable), false);
-
-        Condition.Type type = (Condition.Type)EditorGUI.EnumPopup(typeRect, (Condition.Type)typeProperty.enumValueIndex); ;
-        typeProperty.enumValueIndex = (int)type;
-
-        if (EditorGUI.EndChangeCheck()) property.serializedObject.ApplyModifiedProperties();
-
-        EditorGUI.BeginChangeCheck();
-
-        Pair pair = null;
-        switch (type)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            case Condition.Type.Bool:
-                pair = (BoolPair)EditorUtilities.GetTargetObjectOfProperty(boolPair);
-                break;
-            case Condition.Type.Float:
-                pair = (FloatPair)EditorUtilities.GetTargetObjectOfProperty(floatPair);
-                break;
-            case Condition.Type.Int:
-                pair = (IntPair)EditorUtilities.GetTargetObjectOfProperty(intPair);
-                break;
-            case Condition.Type.String:
-                pair = (StringPair)EditorUtilities.GetTargetObjectOfProperty(stringPair);
-                break;
-            default: throw new ArgumentOutOfRangeException();
+            label = EditorGUI.BeginProperty(position, label, property);
+            position = EditorGUI.PrefixLabel(position, label);
+
+            Initialize(property);
+
+            Debug.Assert(_typeProperty != null);
+            Debug.Assert(_comparisonProperty != null);
+            Debug.Assert(_intPair != null);
+            Debug.Assert(_floatPair != null);
+            Debug.Assert(_stringPair != null);
+            Debug.Assert(_boolPair != null);
+
+            Rect typeRect, varRect, operationRect, otherRect;
+            CalculateRects(position, out typeRect, out varRect, out operationRect, out otherRect);
+
+            EditorGUI.BeginChangeCheck();
+
+            //Store old indent level and set it to 0, the PrefixLabel takes care of it
+            //int indent = EditorGUI.indentLevel;
+            //EditorGUI.indentLevel = 0;
+
+            Condition.Type type = (Condition.Type)EditorGUI.EnumPopup(typeRect, (Condition.Type)_typeProperty.enumValueIndex); ;
+            _typeProperty.enumValueIndex = (int)type;
+
+            if (EditorGUI.EndChangeCheck() || _pairPropertyHolder == null)
+            {
+                property.serializedObject.ApplyModifiedProperties();
+
+                switch (type)
+                {
+                    case Condition.Type.Bool: _pairPropertyHolder = new PairPropertyHolder(_boolPair); break;
+                    case Condition.Type.Float: _pairPropertyHolder = new PairPropertyHolder(_floatPair); break;
+                    case Condition.Type.Int: _pairPropertyHolder = new PairPropertyHolder(_intPair); break;
+                    case Condition.Type.String: _pairPropertyHolder = new PairPropertyHolder(_stringPair); break;
+                    default: throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            EditorGUI.BeginChangeCheck();
+            EditorGUI.PropertyField(varRect, _pairPropertyHolder.variableProperty, GUIContent.none);
+            if (EditorGUI.EndChangeCheck() || _options == null)
+            {
+                property.serializedObject.ApplyModifiedProperties();
+
+                Variable.Comparison[] comparisons = _pairPropertyHolder.pair.GetGenericVariable().GetPermittedComparisons().ToArray();
+                _options = new GUIContent[comparisons.Length];
+                for (int i = 0; i < comparisons.Length; i++) _options[i] = new GUIContent(_dictionary[comparisons[i]]);
+            }
+
+            _comparisonProperty.enumValueIndex = EditorGUI.Popup(operationRect, _comparisonProperty.enumValueIndex, _options);
+
+            EditorGUI.PropertyField(otherRect, _pairPropertyHolder.referenceProperty, GUIContent.none);
+            if (EditorGUI.EndChangeCheck()) property.serializedObject.ApplyModifiedProperties();
+
+            //EditorGUI.indentLevel = indent;
+            EditorGUI.EndProperty();
         }
-        //int result = EditorGUI.Popup(buttonRect, useConstant.boolValue ? 0 : 1, _popupOptions, _popupStyle);
-       
-        //TODO
-        EditorGUI.PropertyField(position, , GUIContent.none);
 
-        if (EditorGUI.EndChangeCheck()) property.serializedObject.ApplyModifiedProperties();
+        private void Initialize(SerializedProperty property)
+        {
+            //Get properties
+            if (_initialized) return;
+            _typeProperty = property.FindPropertyRelative("_type");
+            _comparisonProperty = property.FindPropertyRelative("_comparison");
 
-        EditorGUI.indentLevel = indent;
-        EditorGUI.EndProperty();
+            _intPair = property.FindPropertyRelative("_intPair");
+            _floatPair = property.FindPropertyRelative("_floatPair");
+            _stringPair = property.FindPropertyRelative("_stringPair");
+            _boolPair = property.FindPropertyRelative("_boolPair");
+
+            _initialized = true;
+        }
+
+        private static void CalculateRects(Rect position,
+            out Rect typeRect, out Rect varRect,
+            out Rect operationRect, out Rect otherRect)
+        {
+            //Calculate positions
+            float distance = EditorGUIUtility.standardVerticalSpacing;
+            typeRect = varRect = operationRect = otherRect = position;
+
+            // |type| <-distance-> |var| <-distance-> |op| <-distance-> |otherVar|
+            typeRect.width = position.width * 2 / 9;
+            varRect.xMin = typeRect.xMax + distance;
+            varRect.width = typeRect.width;
+            operationRect.xMin = varRect.xMax + distance;
+            operationRect.width = varRect.width;
+            otherRect.xMin = operationRect.xMax + distance;
+            otherRect.width = position.width * 1 / 3;
+        }
+
+        private class PairPropertyHolder
+        {
+            public Pair pair = null;
+            //public SerializedProperty pairProperty = null;
+            public SerializedProperty variableProperty = null;
+            public SerializedProperty referenceProperty = null;
+
+            public PairPropertyHolder(SerializedProperty pairProperty)
+            {
+                //this.pairProperty = pairProperty;
+                pair = (Pair)EditorUtilities.GetTargetObjectOfProperty(pairProperty);
+                variableProperty = pairProperty.FindPropertyRelative("variable");
+                referenceProperty = pairProperty.FindPropertyRelative("reference");
+            }
+        }
     }
 }

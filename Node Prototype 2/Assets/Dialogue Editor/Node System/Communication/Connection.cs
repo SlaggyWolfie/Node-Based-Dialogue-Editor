@@ -44,7 +44,7 @@ namespace WolfEditor.Nodes
         }
 
         [SerializeField]
-        private List<Instruction> _modifiers = new List<Instruction>();
+        private List<Instruction> _instructions = new List<Instruction>();
 
         [SerializeField]
         private OutputPort _start = null;
@@ -62,7 +62,7 @@ namespace WolfEditor.Nodes
             set { _end = value; }
         }
 
-        public void Traverse() { if (_modifiers.Count > 0) _modifiers.ForEach(m => m.Execute()); }
+        public void Traverse() { if (_instructions.Count > 0) _instructions.ForEach(m => m.Execute()); }
 
         public void Disconnect()
         {
@@ -96,22 +96,22 @@ namespace WolfEditor.Nodes
         public virtual Instruction CreateAndAddModifier(Type type)
         {
             Instruction mod = (Instruction)CreateInstance(type);
-            InitConnectionModifier(mod);
+            InitInstruction(mod);
             return mod;
         }
         public virtual void AddModifier(Instruction instruction)
         {
             if (instruction == null) return;
-            _modifiers.Add(instruction);
+            _instructions.Add(instruction);
             instruction.Connection = this;
         }
-        public void RemoveModifier(Instruction mod) { _modifiers.Remove(mod); }
-        public void RemoveModifier(int index) { _modifiers.RemoveAt(index); }
-        public void ClearModifiers() { _modifiers.Clear(); }
-        public int ModifierCount { get { return _modifiers.Count; } }
-        public int GetIndex(Instruction mod) { return _modifiers.IndexOf(mod); }
-        public Instruction GetModifier(int index) { return _modifiers[index]; }
-        public Instruction[] GetModifiers() { return _modifiers.ToArray(); }
+        public void RemoveInstruction(Instruction mod) { _instructions.Remove(mod); }
+        public void RemoveInstruction(int index) { _instructions.RemoveAt(index); }
+        public void ClearInstructions() { _instructions.Clear(); }
+        public int InstructionCount { get { return _instructions.Count; } }
+        public int GetIndex(Instruction mod) { return _instructions.IndexOf(mod); }
+        public Instruction GetInstruction(int index) { return _instructions[index]; }
+        public Instruction[] GetInstructions() { return _instructions.ToArray(); }
 
         [SerializeField, /*NaughtyAttributes.ReadOnly*//*, HideInInspector*/] private Node _endNode = null;
         [SerializeField, /*NaughtyAttributes.ReadOnly*//*, HideInInspector*/] private Node _startNode = null;
@@ -272,7 +272,7 @@ namespace WolfEditor.Nodes
             }
         }
 
-        public void InitConnectionModifier(Instruction instruction)
+        public void InitInstruction(Instruction instruction)
         {
             instruction.ID = Graph.connectionModifierCounter.Get();
             AddModifier(instruction);
@@ -283,10 +283,10 @@ namespace WolfEditor.Nodes
             //Debug.Log("YOLO!");
             //Do not trust Unity.
             Disconnect();
-            foreach (Instruction connectionModifier in _modifiers)
+            foreach (Instruction connectionModifier in _instructions)
                 DestroyHelper.Destroy(connectionModifier);
             //DestroyImmediate(connectionModifier, true);
-            _modifiers.Clear();
+            _instructions.Clear();
             Graph.RemoveConnection(this);
         }
 

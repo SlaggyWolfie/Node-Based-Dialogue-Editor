@@ -8,7 +8,7 @@ using WolfEditor.Utility;
 namespace WolfEditor.Variables
 {
     [Serializable]
-    public sealed class ConditionNode : Node, IInput, IMultipleOutput, ICondition, ISerializationCallbackReceiver
+    public sealed class ConditionNode : Node, IInput, IMultipleOutput, ICondition
     {
         private OutputPort _evaluatedOutputPort = null;
 
@@ -18,7 +18,7 @@ namespace WolfEditor.Variables
 
         //[SerializeField] private List<Value> _values = new List<Value>();
         [SerializeField] private List<Condition> _conditions = new List<Condition>();
-        [SerializeField] private bool _isAnd = true;
+        [SerializeField] private bool _logicalAND = true;
 
         private OutputPort EvaluatedOutputPort
         {
@@ -39,10 +39,10 @@ namespace WolfEditor.Variables
             get { return this.DefaultGetOutputPort(ref _elseOutputPort); }
             set { this.ReplaceOutputPort(ref _elseOutputPort, value); }
         }
-        public bool IsAnd
+        public bool LogicalAND
         {
-            get { return _isAnd; }
-            set { _isAnd = value; }
+            get { return _logicalAND; }
+            set { _logicalAND = value; }
         }
 
         public int ConditionCount { get { return _conditions.Count; } }
@@ -56,7 +56,7 @@ namespace WolfEditor.Variables
             //I realize that both values would align were I to assign
             //result a value in the 'if-else' scopes, so I just assign
             //it a value here.
-            bool result = _isAnd;
+            bool result = _logicalAND;
 
             //Already have the value on the stack and not on the heap
             //so why not?
@@ -86,10 +86,10 @@ namespace WolfEditor.Variables
 
         public override Node NextNode()
         {
+            //TODO
             //Unsaves the evaluation, I guess
             //Don't remember why it's here.
             //Don't know, don't care, should probably fix, but it works.
-            //TODO
             _evaluatedOutputPort = null;
             return EvaluatedOutputPort != null ? EvaluatedOutputPort.Connection.End.Node : null;
         }
